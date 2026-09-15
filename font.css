@@ -1,0 +1,26 @@
+/* 像素字体接入 —— 单独一个文件，**故意不放进 assets/theme.css**。
+ *
+ * 原因是一个很容易踩的细节：**CSS 里的 url() 永远相对「CSS 文件本身」解析**，
+ * 不相对引用它的页面。
+ *   · 主页面 stardew-maximal-v3.html 在站点根目录
+ *   · 文章页 posts/<slug>.html 在子目录
+ * 两者共用同一份 assets/theme.css，那一份里的 url('./xxx.woff2')
+ * 只会解析到 assets/xxx.woff2 —— 主页面要的是根目录的，必有一边 404。
+ * 放在站点根目录的 font.css 则两边都对：不管页面在哪，url 都相对这个文件解析。
+ *   主页面 <link href="font.css">      → 根目录/fusion-...woff2
+ *   文章页 <link href="../font.css">   → 仍是 根目录/fusion-...woff2
+ *
+ * 字体：Fusion Pixel Font 12px proportional zh_hans，OFL-1.1
+ *   github.com/TakWolf/fusion-pixel-font
+ * ⚠️ 这个字体是**为 12px 设计的**：正文字号尽量用 12 的倍数观感最好，
+ *    9px / 10px 这类小字会糊（见 素材说明.md 里的字号下限一节）。
+ *
+ * font-display:swap —— 先用回退字体渲染，字体到位后替换。
+ * 用 block 会有最长 3 秒的空白期，对一个以"字"为门面的站不值得。
+ * ⚠️ 未子集化，整包 896 KB。OFL-1.1 允许子集化，真要上线建议裁到实际用到的字
+ *    （预计能降到 50 KB 量级），但那会引入一个 Python 依赖，破坏了本项目的零依赖，另说。 */
+@font-face {
+  font-family: 'FusionPixel';
+  src: url('./fusion-pixel-12px-proportional-zh_hans.woff2') format('woff2');
+  font-display: swap;
+}

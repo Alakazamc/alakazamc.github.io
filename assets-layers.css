@@ -1,0 +1,234 @@
+/* ===================================================================
+   assets-layers.css — 星露谷素材背景层
+   -------------------------------------------------------------------
+   与 gen.js 里的纯代码地形并存。切换方式：
+     <html data-bg="image">  → 用素材
+     <html data-bg="code">   → 用纯代码地形（默认）
+   -------------------------------------------------------------------
+   素材来源：D:\stardewOS-main（用户提供）
+   ⚠️ 注意：bg.png / bg-2.jpg / cloud*.png / stars.png / bird.gif /
+      user.png 等为《星露谷》游戏原版素材，版权属 ConcernedApe。
+      正式上线前请自行确认使用范围。
+   =================================================================== */
+
+/* ---------- 层容器 ---------- */
+/* 素材层沉到 z-index:-1（它本来就是背景）。
+   这样控制条（z-index:60）、内容（z-index:2）都盖在它上面，
+   两套背景可以同时开着，互不遮挡。 */
+.asset-bg{position:fixed;inset:0;z-index:-1;pointer-events:none;overflow:hidden;display:none}
+/* 但 body 的天空渐变会把 z-index:-1 整个盖住（负层被父级背景遮挡）。
+   所以素材模式开着的时候，把 body 底色让出来。 */
+html[data-bg="image"] body{background:transparent}
+/* 同理，正层级的 .bg 容器是纯代码地形的宿主，素材模式下藏掉它的天空与地面 */
+html[data-bg="image"] .bg > #stars,
+html[data-bg="image"] .bg > #sun,
+html[data-bg="image"] .bg > #clouds,
+html[data-bg="image"] .bg > .hill,
+html[data-bg="image"] .bg > .ground{display:none}
+html[data-bg="image"] .asset-bg{display:block}
+/* 素材模式关掉代码地形，避免两层打架 */
+html[data-bg="image"] .ground,
+html[data-bg="image"] #flora,
+html[data-bg="image"] .hill{display:none}
+
+/* 所有层共用：像素不糊、禁选中 */
+.asset-bg > *{
+  position:absolute; left:0; width:100%;
+  image-rendering:pixelated; image-rendering:crisp-edges;
+  background-repeat:repeat-x; background-position:center bottom;
+  will-change:transform;
+}
+
+/* ===================================================================
+   1. 天空底图
+   两张原画按昼夜切换：白天用 bg.png（星空+云+山），夜里用 bg-2.jpg（月亮）
+   =================================================================== */
+.sky-img{
+  top:0; height:100%; background-repeat:no-repeat; background-size:cover;
+  background-position:center center;
+  transition:opacity 1.2s ease;
+}
+.sky-day{ background-image:url('bg.png'); opacity:1 }
+.sky-night{ background-image:url('bg-2.jpg'); opacity:0 }
+html[data-time="night"] .sky-day{ opacity:0 }
+html[data-time="night"] .sky-night{ opacity:1 }
+
+/* ===================================================================
+   2. 山峦层
+   bg-test.png (1917×1000) 上半部透明、下半部是山 —— 天生适合做视差层
+   三份不同尺寸、不同速度，造出纵深
+   =================================================================== */
+.ridge{opacity:.9}
+.ridge.far{
+  height:46vh; background-image:url('bg-test.png');
+  background-size:1400px auto; opacity:.55;
+  filter:brightness(1.15) saturate(.85);
+  animation:ridge-far 90s linear infinite;
+}
+.ridge.mid{
+  height:38vh; background-image:url('bg-test.png');
+  background-size:1900px auto; opacity:.8;
+  animation:ridge-mid 52s linear infinite;
+}
+.ridge.near{
+  height:30vh; background-image:url('bg-test.png');
+  background-size:2600px auto;
+  filter:brightness(.8);
+  animation:ridge-near 30s linear infinite;
+}
+/* 用 background-position 横移做无缝循环：位移量必须等于一个 background-size 周期 */
+@keyframes ridge-far{  from{background-position-x:0}      to{background-position-x:-1400px} }
+@keyframes ridge-mid{  from{background-position-x:-400px} to{background-position-x:-2300px} }
+@keyframes ridge-near{ from{background-position-x:-900px} to{background-position-x:-3500px} }
+
+/* ===================================================================
+   3. 星星层（夜间才显）
+   stars.png 1065×1000 带透明，两层反向漂移，速度差极大 = 深空感
+   =================================================================== */
+.starfield{height:70vh; background-image:url('stars.png'); opacity:0;
+  transition:opacity 1.4s ease}
+html[data-time="night"] .starfield{opacity:.85}
+.starfield.s1{background-size:1100px auto; animation:star-a 420s linear infinite}
+.starfield.s2{background-size:1700px auto; animation:star-b 680s linear infinite; opacity:0}
+html[data-time="night"] .starfield.s2{opacity:.5}
+@keyframes star-a{ from{background-position-x:0}     to{background-position-x:-1100px} }
+@keyframes star-b{ from{background-position-x:-900px} to{background-position-x:-2600px} }
+
+/* ===================================================================
+   4. 云层
+   cloud1/2 是 969×237 的散云长条；cloud3/4 是 142×83 的单朵云
+   散云用长条平铺，单朵云用 JS 撒在随机位置
+   =================================================================== */
+.cloudband{height:32vh; opacity:.75; mix-blend-mode:screen}
+.cloudband.c1{background-image:url('cloud1.png'); background-size:1300px auto;
+  animation:cloud-a 150s linear infinite}
+.cloudband.c2{background-image:url('cloud2.png'); background-size:1500px auto;
+  top:8vh; opacity:.55; animation:cloud-b 210s linear infinite}
+@keyframes cloud-a{ from{background-position-x:0}      to{background-position-x:-1300px} }
+@keyframes cloud-b{ from{background-position-x:-1500px} to{background-position-x:0} }
+
+/* 散云：JS 塞进来的单朵 */
+.cloud-bit{
+  position:absolute; width:auto; background-repeat:no-repeat; background-size:contain;
+  image-rendering:pixelated; opacity:.85;
+  animation:drift-right linear infinite;
+}
+@keyframes drift-right{
+  from{transform:translateX(-18vw)}
+  to{transform:translateX(116vw)}
+}
+
+/* ===================================================================
+   5. 飞鸟
+   bird.gif 是原版飞鸟动画帧，JS 生成若干只，速度/高度/延迟随机
+   =================================================================== */
+.bird{
+  position:absolute; width:auto; background-repeat:no-repeat;
+  image-rendering:pixelated; opacity:.9;
+  animation:bird-fly linear infinite;
+}
+@keyframes bird-fly{
+  from{transform:translateX(108vw) scaleX(-1)}
+  to{transform:translateX(-16vw) scaleX(-1)}
+}
+/* 迁徙鸟群：上下轻微起伏，别让它们走直线 */
+.bird{animation-name:bird-fly, bird-bob}
+@keyframes bird-bob{0%,100%{margin-top:0}50%{margin-top:-14px}}
+
+/* ===================================================================
+   6. 祝尼魔（星露谷招牌角色，从林子边探头）
+   j1.gif 单只，loading-junimo.gif 是五种颜色一排
+   =================================================================== */
+.junimo{
+  position:absolute; width:auto; background-repeat:no-repeat;
+  image-rendering:pixelated; pointer-events:none;
+  animation:junimo-peek 6s ease-in-out infinite;
+  filter:drop-shadow(0 3px 0 rgba(43,29,14,.35));
+}
+@keyframes junimo-peek{
+  0%,100%{transform:translateY(0) rotate(-3deg)}
+  50%{transform:translateY(-16px) rotate(3deg)}
+}
+/* 一排祝尼魔沿底部走过 */
+.junimo-parade{
+  position:absolute; width:auto; background-repeat:no-repeat;
+  image-rendering:pixelated; opacity:.95;
+  animation:parade linear infinite;
+}
+@keyframes parade{
+  from{transform:translateX(-260px)}
+  to{transform:translateX(112vw)}
+}
+
+/* ===================================================================
+   7. 前景植被遮罩
+   底部压一层暗色 + 像素草边，把内容区和背景推开，避免文字糊在山上
+   =================================================================== */
+.asset-veil{
+  position:absolute; left:0; right:0; bottom:0; height:58vh;
+  background:linear-gradient(180deg,
+    rgba(20,32,18,0) 0%,
+    rgba(20,32,18,.30) 42%,
+    rgba(20,32,18,.62) 78%,
+    rgba(20,32,18,.80) 100%);
+  transition:background .8s ease;
+}
+html[data-time="night"] .asset-veil{
+  background:linear-gradient(180deg,
+    rgba(8,12,26,0) 0%,
+    rgba(8,12,26,.38) 42%,
+    rgba(8,12,26,.70) 78%,
+    rgba(8,12,26,.88) 100%);
+}
+/* 草边：用 repeating-linear-gradient 切锯齿，纯代码 */
+.asset-edge{
+  position:absolute; left:0; right:0; bottom:0; height:14px;
+  background:var(--grass-a,#63C74D);
+  clip-path:polygon(0 100%,0 60%,2% 60%,2% 30%,4% 30%,4% 60%,6% 60%,6% 20%,
+    8% 20%,8% 60%,10% 60%,10% 40%,12% 40%,12% 60%,14% 60%,14% 25%,16% 25%,
+    16% 60%,18% 60%,18% 45%,20% 45%,20% 60%,22% 60%,22% 15%,24% 15%,24% 60%,
+    26% 60%,26% 38%,28% 38%,28% 60%,30% 60%,30% 28%,32% 28%,32% 60%,34% 60%,
+    34% 50%,36% 50%,36% 60%,38% 60%,38% 22%,40% 22%,40% 60%,42% 60%,42% 42%,
+    44% 42%,44% 60%,46% 60%,46% 18%,48% 18%,48% 60%,50% 60%,50% 35%,52% 35%,
+    52% 60%,54% 60%,54% 26%,56% 26%,56% 60%,58% 60%,58% 48%,60% 48%,60% 60%,
+    62% 60%,62% 20%,64% 20%,64% 60%,66% 60%,66% 40%,68% 40%,68% 60%,70% 60%,
+    70% 30%,72% 30%,72% 60%,74% 60%,74% 45%,76% 45%,76% 60%,78% 60%,78% 24%,
+    80% 24%,80% 60%,82% 60%,82% 38%,84% 38%,84% 60%,86% 60%,86% 16%,88% 16%,
+    88% 60%,90% 60%,90% 44%,92% 44%,92% 60%,94% 60%,94% 28%,96% 28%,96% 60%,
+    98% 60%,98% 40%,100% 40%,100% 100%);
+}
+
+/* ===================================================================
+   8. 季节调色
+   星露谷的 bg.png 是固定色，用 filter 把四季压上去。
+   hue-rotate 转色相，saturate/brightness 调浓淡。
+   sepia 打底是为了让 hue-rotate 有均匀的色相可转。
+   =================================================================== */
+html[data-season="spring"] .sky-img{ filter:none }
+html[data-season="summer"] .sky-img{ filter:saturate(1.15) brightness(1.06) hue-rotate(-6deg) }
+html[data-season="autumn"] .sky-img{ filter:sepia(.45) saturate(1.5) hue-rotate(-22deg) brightness(1.02) }
+html[data-season="winter"] .sky-img{ filter:saturate(.35) brightness(1.18) hue-rotate(12deg) }
+
+html[data-season="autumn"] .ridge{ filter:sepia(.4) saturate(1.4) hue-rotate(-18deg) }
+html[data-season="winter"] .ridge{ filter:saturate(.2) brightness(1.25) }
+html[data-season="summer"] .ridge{ filter:saturate(1.2) }
+
+/* 夜间再压一层蓝，让素材整体入夜 */
+html[data-time="night"] .ridge{ filter:brightness(.42) saturate(.6) hue-rotate(200deg) }
+html[data-time="night"] .cloudband{ opacity:.28; mix-blend-mode:normal }
+html[data-time="night"] .bird{ opacity:.4 }
+html[data-time="night"] .junimo{ filter:brightness(.75) drop-shadow(0 0 8px rgba(160,200,255,.6)) }
+
+/* ===================================================================
+   9. 响应式
+   =================================================================== */
+@media (max-width:900px){
+  .ridge.far{height:34vh} .ridge.mid{height:28vh} .ridge.near{height:22vh}
+  .cloudband{height:24vh}
+  .asset-veil{height:64vh}
+  /* 手机上关掉最贵的一层动画 */
+  .ridge.far{animation:none}
+}
+@media (prefers-reduced-motion:reduce){
+  .asset-bg *{animation:none!important}
+}
