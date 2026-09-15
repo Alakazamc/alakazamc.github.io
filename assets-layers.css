@@ -48,8 +48,8 @@ html[data-bg="image"] .hill{display:none}
   background-position:center center;
   transition:opacity 1.2s ease;
 }
-.sky-day{ background-image:url('bg.png'); opacity:1 }
-.sky-night{ background-image:url('bg-2.jpg'); opacity:0 }
+.sky-day{ background-image:url('assets/bg.png'); opacity:1 }
+.sky-night{ background-image:url('assets/bg-2.jpg'); opacity:0 }
 html[data-time="night"] .sky-day{ opacity:0 }
 html[data-time="night"] .sky-night{ opacity:1 }
 
@@ -60,18 +60,18 @@ html[data-time="night"] .sky-night{ opacity:1 }
    =================================================================== */
 .ridge{opacity:.9}
 .ridge.far{
-  height:46vh; background-image:url('bg-test.png');
+  height:46vh; background-image:url('assets/bg-test.png');
   background-size:1400px auto; opacity:.55;
   filter:brightness(1.15) saturate(.85);
   animation:ridge-far 90s linear infinite;
 }
 .ridge.mid{
-  height:38vh; background-image:url('bg-test.png');
+  height:38vh; background-image:url('assets/bg-test.png');
   background-size:1900px auto; opacity:.8;
   animation:ridge-mid 52s linear infinite;
 }
 .ridge.near{
-  height:30vh; background-image:url('bg-test.png');
+  height:30vh; background-image:url('assets/bg-test.png');
   background-size:2600px auto;
   filter:brightness(.8);
   animation:ridge-near 30s linear infinite;
@@ -85,7 +85,7 @@ html[data-time="night"] .sky-night{ opacity:1 }
    3. 星星层（夜间才显）
    stars.png 1065×1000 带透明，两层反向漂移，速度差极大 = 深空感
    =================================================================== */
-.starfield{height:70vh; background-image:url('stars.png'); opacity:0;
+.starfield{height:70vh; background-image:url('assets/stars.png'); opacity:0;
   transition:opacity 1.4s ease}
 html[data-time="night"] .starfield{opacity:.85}
 .starfield.s1{background-size:1100px auto; animation:star-a 420s linear infinite}
@@ -100,9 +100,9 @@ html[data-time="night"] .starfield.s2{opacity:.5}
    散云用长条平铺，单朵云用 JS 撒在随机位置
    =================================================================== */
 .cloudband{height:32vh; opacity:.75; mix-blend-mode:screen}
-.cloudband.c1{background-image:url('cloud1.png'); background-size:1300px auto;
+.cloudband.c1{background-image:url('assets/cloud1.png'); background-size:1300px auto;
   animation:cloud-a 150s linear infinite}
-.cloudband.c2{background-image:url('cloud2.png'); background-size:1500px auto;
+.cloudband.c2{background-image:url('assets/cloud2.png'); background-size:1500px auto;
   top:8vh; opacity:.55; animation:cloud-b 210s linear infinite}
 @keyframes cloud-a{ from{background-position-x:0}      to{background-position-x:-1300px} }
 @keyframes cloud-b{ from{background-position-x:-1500px} to{background-position-x:0} }

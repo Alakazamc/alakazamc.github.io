@@ -28,7 +28,7 @@
     for (var i = 0; i < 9; i++) {
       var el = document.createElement('i');
       el.className = 'cloud-bit';
-      var src = (i % 2 ? 'cloud3.png' : 'cloud4.png');
+      var src = (i % 2 ? 'assets/cloud3.png' : 'assets/cloud4.png');
       var w = 90 + Math.floor(r() * 5) * 34;       // 90–226px
       var top = 4 + r() * 30;                       // 4%–34%
       var dur = (70 + r() * 110).toFixed(0);        // 70–180s
@@ -64,7 +64,7 @@
         var top = g.top[0] + r() * (g.top[1] - g.top[0]);
         var dur = g.dur[0] + r() * (g.dur[1] - g.dur[0]);
         el.style.cssText =
-          'background-image:url("bird.gif");' +
+          'background-image:url("assets/bird.gif");' +
           'width:' + sz + 'px;height:' + Math.round(sz * 0.62) + 'px;' +
           'top:' + top.toFixed(1) + '%;' +
           'animation-duration:' + dur.toFixed(0) + 's,' + (3 + r() * 3).toFixed(1) + 's;' +
@@ -90,7 +90,7 @@
     parade.className = 'junimo-parade';
     var pw = 190 + Math.floor(r() * 3) * 40;
     parade.style.cssText =
-      'background-image:url("loading-junimo.gif");' +
+      'background-image:url("assets/loading-junimo.gif");' +
       'width:' + pw + 'px;height:' + Math.round(pw * 0.25) + 'px;' +
       'bottom:' + (3 + r() * 6).toFixed(1) + '%;' +
       'animation-duration:' + (58 + r() * 30).toFixed(0) + 's;' +
@@ -107,7 +107,7 @@
         var sz = 30 + Math.floor(r() * 4) * 7;   // 30–51px
         var left = sides[s][0] + r() * (sides[s][1] - sides[s][0]);
         el.style.cssText =
-          'background-image:url("j1.gif");' +
+          'background-image:url("assets/j1.gif");' +
           'width:' + sz + 'px;height:' + sz + 'px;' +
           'left:' + left.toFixed(1) + '%;' +
           'bottom:' + (6 + r() * 22).toFixed(1) + '%;' +
@@ -125,7 +125,7 @@
     for (var i = 0; i < old.length; i++) old[i].remove();
     var r = rng(31337);
     var frag = document.createDocumentFragment();
-    var kinds = ['star.png', 'star1.png', 't1.png', 'diamond.png', 'calendar.png'];
+    var kinds = ['assets/star.png', 'assets/star1.png', 'assets/t1.png', 'assets/diamond.png', 'assets/calendar.png'];
     for (var i = 0; i < 8; i++) {
       var el = document.createElement('i');
       el.className = 'trinket junimo';   // 复用 junimo 的漂浮动画
