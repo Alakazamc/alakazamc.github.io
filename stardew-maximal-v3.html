@@ -362,6 +362,57 @@ html{scroll-behavior:smooth}
 .more a:hover{background:var(--gold)}
 
 /* ===== 项目卡 ===== */
+/* 工坊(GitHub 仓库):两列小卡。仓库名用等宽观感,因为它是标识符不是文案 */
+/* auto-fill:工坊是全宽面板(在 .layout 之外),所以列数该由容器宽度自己算,
+   窄屏自动降列。写死 2 列的话全宽下每个卡片会宽到 500px+,很难看。 */
+.rgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(252px,1fr));gap:9px}
+.rcard{display:flex;flex-direction:column;gap:5px;padding:9px 10px;text-decoration:none;color:inherit;
+  background:var(--cream-2);border:2px solid var(--wood-c);box-shadow:0 3px 0 rgba(59,36,18,.22);
+  transition:transform .12s,box-shadow .12s}
+.rcard:hover{transform:translateY(-3px);box-shadow:0 6px 0 rgba(59,36,18,.26)}
+.rcard.blank{background:var(--cream-3)}
+.rc-h{display:flex;align-items:center;gap:5px}
+.rc-h b{font-size:12px;letter-spacing:.2px;word-break:break-all}
+.rc-d{font-size:12px;line-height:1.45;opacity:.74;margin:0}
+.rc-f{display:flex;align-items:center;gap:5px;font-size:12px;opacity:.66;margin-top:auto}
+.rc-l{width:9px;height:9px;border-radius:50%;flex:none;border:1px solid rgba(43,29,14,.35)}
+.rc-f em{font-style:normal}
+.rc-none{opacity:.55}
+.rc-t{margin-left:auto;font-variant-numeric:tabular-nums}
+.rfoot{display:flex;align-items:center;justify-content:center;gap:7px;margin-top:9px;font-size:12px;opacity:.72}
+
+/* 游戏架:封面宽度 ∝ 游玩时长,底部对齐 = 一排高低不一的盒子 */
+.gbar{display:flex;height:16px;border:2px solid var(--wood-c);overflow:hidden;margin-bottom:7px}
+.gbar i{display:block}
+.glegend{display:flex;flex-wrap:wrap;gap:5px 12px;margin-bottom:10px;font-size:12px;opacity:.78}
+.glegend span{display:flex;align-items:center;gap:4px}
+.glegend i{width:9px;height:9px;border-radius:2px}
+.glegend b{font-weight:500}
+.gshelf{list-style:none;margin:0;padding:3px 2px 11px;display:flex;gap:10px;align-items:flex-end;overflow-x:auto}
+.gshelf::-webkit-scrollbar{height:8px}
+.gshelf::-webkit-scrollbar-track{background:var(--cream-3)}
+.gshelf::-webkit-scrollbar-thumb{background:var(--wood-b)}
+.gt{flex:none;width:var(--w,120px);display:flex;flex-direction:column;gap:3px}
+.gt-i{position:relative;display:block;aspect-ratio:16/9;overflow:hidden;border:2px solid var(--ink);
+  box-shadow:0 3px 0 rgba(59,36,18,.28);background:var(--cream-3)}
+.gt-i img{width:100%;height:100%;object-fit:cover;display:block}
+.gt-blank{display:flex;align-items:center;justify-content:center;width:100%;height:100%;opacity:.45}
+.gt-p{position:absolute;left:0;bottom:0;font-style:normal;font-size:12px;line-height:1.15;
+  padding:1px 4px;color:#fff;letter-spacing:.2px}
+.gt-c{position:absolute;right:0;top:0;display:flex;padding:1px 3px;background:var(--gold-3);color:var(--ink)}
+.gt-n{font-size:12px;line-height:1.3;height:15.6px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.gt-h{font-style:normal;font-size:12px;opacity:.6}
+.gfoot{display:flex;align-items:center;justify-content:center;gap:7px;margin-top:2px;font-size:12px;opacity:.72}
+.rfoot .sfx,.gfoot .sfx{letter-spacing:.4px}
+
+/* 专精:语言构成条 */
+.stack{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:7px}
+.stack li{display:flex;align-items:center;gap:7px;background:var(--cream-2);border:2px solid var(--wood-c);padding:5px 8px}
+.stack em{font-style:normal;font-size:12px;min-width:66px}
+.tbar{flex:1;height:12px;background:var(--cream-3);border:2px solid var(--wood-c);overflow:hidden}
+.tbar b{display:block;height:100%}
+.stack u{text-decoration:none;font-size:12px;min-width:40px;text-align:right;font-variant-numeric:tabular-nums}
+
 .pgrid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}
 .pcard{display:flex;flex-direction:column;align-items:flex-start;gap:6px;padding:10px 9px;
   background:var(--cream-2);border:3px solid var(--ink);box-shadow:0 0 0 2px var(--wood-c);
@@ -660,7 +711,88 @@ body.is-article{background:var(--sky-b);min-height:100vh;padding-top:22px}
   </div>
 
   <div class="hang"><span style="animation-delay:0.00s"><svg class="ic" viewBox="0 0 16 16"><use href="#px-strawberry"></use></svg></span><span style="animation-delay:0.30s"><svg class="ic" viewBox="0 0 16 16"><use href="#px-cherry"></use></svg></span><span style="animation-delay:0.60s"><svg class="ic" viewBox="0 0 16 16"><use href="#px-grape"></use></svg></span><span style="animation-delay:0.90s"><svg class="ic" viewBox="0 0 16 16"><use href="#px-blueberry"></use></svg></span><span style="animation-delay:1.20s"><svg class="ic" viewBox="0 0 16 16"><use href="#px-starfruit"></use></svg></span><span style="animation-delay:1.50s"><svg class="ic" viewBox="0 0 16 16"><use href="#px-mushroom"></use></svg></span><span style="animation-delay:1.80s"><svg class="ic" viewBox="0 0 16 16"><use href="#px-pepper"></use></svg></span><span style="animation-delay:2.10s"><svg class="ic" viewBox="0 0 16 16"><use href="#px-tomato"></use></svg></span><span style="animation-delay:2.40s"><svg class="ic" viewBox="0 0 16 16"><use href="#px-acorn"></use></svg></span></div>
-  <nav class="toolbar" aria-label="页面分区导航"><a class="tool" href="#timeline"><svg class="ic" viewBox="0 0 16 16"><use href="#px-wateringcan"></use></svg><em>时间线</em></a><a class="tool" href="#museum"><svg class="ic" viewBox="0 0 16 16"><use href="#px-book"></use></svg><em>博物馆</em></a><a class="tool" href="#projects"><svg class="ic" viewBox="0 0 16 16"><use href="#px-axe"></use></svg><em>项目</em></a><a class="tool" href="#notice"><svg class="ic" viewBox="0 0 16 16"><use href="#px-scythe"></use></svg><em>公告</em></a><a class="tool" href="#basket"><svg class="ic" viewBox="0 0 16 16"><use href="#px-basket"></use></svg><em>篮子</em></a><a class="tool" href="#calendar"><svg class="ic" viewBox="0 0 16 16"><use href="#px-sun"></use></svg><em>日历</em></a><a class="tool" href="#ledger"><svg class="ic" viewBox="0 0 16 16"><use href="#px-coin"></use></svg><em>账本</em></a><a class="tool" href="mailto:alakazama@qq.com"><svg class="ic" viewBox="0 0 16 16"><use href="#px-mailbox"></use></svg><em>联系</em></a></nav>
+  <nav class="toolbar" aria-label="页面分区导航"><a class="tool" href="#timeline"><svg class="ic" viewBox="0 0 16 16"><use href="#px-wateringcan"></use></svg><em>时间线</em></a><a class="tool" href="#museum"><svg class="ic" viewBox="0 0 16 16"><use href="#px-book"></use></svg><em>博物馆</em></a><a class="tool" href="#projects"><svg class="ic" viewBox="0 0 16 16"><use href="#px-chest"></use></svg><em>工坊</em></a><a class="tool" href="#notice"><svg class="ic" viewBox="0 0 16 16"><use href="#px-scythe"></use></svg><em>公告</em></a><a class="tool" href="#basket"><svg class="ic" viewBox="0 0 16 16"><use href="#px-crystal"></use></svg><em>游戏</em></a><a class="tool" href="#calendar"><svg class="ic" viewBox="0 0 16 16"><use href="#px-sun"></use></svg><em>日历</em></a><a class="tool" href="#ledger"><svg class="ic" viewBox="0 0 16 16"><use href="#px-coin"></use></svg><em>账本</em></a><a class="tool" href="mailto:alakazama@qq.com"><svg class="ic" viewBox="0 0 16 16"><use href="#px-mailbox"></use></svg><em>联系</em></a></nav>
+
+  <!-- 工坊单独放在两栏之外，占满整行 —— 柯西要求「把代码仓库放在最上面」，
+       放在 main 里的话它会跟右栏的侧栏面板并排，视觉上就不是「最上面」了。 -->
+  
+<section class="panel" id="projects">
+  <span class="pt"><svg class="ic xs" viewBox="0 0 16 16"><use href="#px-chest"></use></svg>工坊<svg class="ic xs" viewBox="0 0 16 16"><use href="#px-chest"></use></svg></span>
+  <span class="cor tl"><svg class="ic sm" viewBox="0 0 16 16"><use href="#px-chest"></use></svg></span><span class="cor tr"><svg class="ic sm" viewBox="0 0 16 16"><use href="#px-gem"></use></svg></span><span class="cor bl"><svg class="ic sm" viewBox="0 0 16 16"><use href="#px-crystal"></use></svg></span><span class="cor br"><svg class="ic sm" viewBox="0 0 16 16"><use href="#px-coin"></use></svg></span>
+  <div class="rgrid">
+      <a class="rcard" href="https://github.com/Alakazamc/szudesktop" target="_blank" rel="noopener">
+        <span class="rc-h"><svg class="ic sm" viewBox="0 0 16 16"><use href="#px-chest"></use></svg><b>szudesktop</b></span>
+        <span class="rc-d">深圳大学校园网客户端：像素风桌面应用 + 命令行 + 校内 VPN（Go 单文件，Windows/macOS/Linux）</span>
+        <span class="rc-f">
+          <i class="rc-l" style="background:#e34c26"></i><em>HTML</em>
+          <span class="rc-t">09.16</span>
+        </span>
+      </a>
+      <a class="rcard" href="https://github.com/Alakazamc/shaqing" target="_blank" rel="noopener">
+        <span class="rc-h"><svg class="ic sm" viewBox="0 0 16 16"><use href="#px-chest"></use></svg><b>shaqing</b></span>
+        <span class="rc-d">🎬 杀青 · 人生短剧模拟器 — 每条命都是一部戏 | A life-as-a-movie text roguelike. 1300+ events, 10 hidden storylines, zero deps, zero ads.</span>
+        <span class="rc-f">
+          <i class="rc-l" style="background:#f1e05a"></i><em>JavaScript</em>
+          <span class="rc-t">08.30</span>
+        </span>
+      </a>
+      <a class="rcard" href="https://github.com/Alakazamc/pskit-2.0" target="_blank" rel="noopener">
+        <span class="rc-h"><svg class="ic sm" viewBox="0 0 16 16"><use href="#px-chest"></use></svg><b>pskit-2.0</b></span>
+        <span class="rc-d">🧪 BioAI Agent 工作台：LangGraph 编排 + 20+ 生信工具 + Qdrant RAG + Vue 3 SPA</span>
+        <span class="rc-f">
+          <i class="rc-l" style="background:#3572A5"></i><em>Python</em>
+          <span class="rc-t">08.30</span>
+        </span>
+      </a>
+      <a class="rcard" href="https://github.com/Alakazamc/countryMarkeyforMiniApp" target="_blank" rel="noopener">
+        <span class="rc-h"><svg class="ic sm" viewBox="0 0 16 16"><use href="#px-chest"></use></svg><b>countryMarkeyforMiniApp</b></span>
+        <span class="rc-d">汉寿助农商城 — Java 微服务 + Vue3 管理后台 + uni-app 移动商城（交易闭环已通，AI/乡镇功能规划中）</span>
+        <span class="rc-f">
+          <i class="rc-l" style="background:#41b883"></i><em>Vue</em>
+          <span class="rc-t">08.29</span>
+        </span>
+      </a>
+      <a class="rcard" href="https://github.com/Alakazamc/weather_MCP_server" target="_blank" rel="noopener">
+        <span class="rc-h"><svg class="ic sm" viewBox="0 0 16 16"><use href="#px-chest"></use></svg><b>weather_MCP_server</b></span>
+        <span class="rc-d">Minimal MCP weather server (wttr.in) — HelloAgents course exercise</span>
+        <span class="rc-f">
+          <i class="rc-l" style="background:#3572A5"></i><em>Python</em>
+          <span class="rc-t">08.29</span>
+        </span>
+      </a>
+      <a class="rcard" href="https://github.com/Alakazamc/ProteinAgent" target="_blank" rel="noopener">
+        <span class="rc-h"><svg class="ic sm" viewBox="0 0 16 16"><use href="#px-chest"></use></svg><b>ProteinAgent</b></span>
+        <span class="rc-d">🧬 垂直领域异步 AI Agent 编排系统：FastAPI + Celery + Redis + Router LLM + 蛋白领域 RAG（多肽生成 / 适配体生成 / 蛋白预测）</span>
+        <span class="rc-f">
+          <i class="rc-l" style="background:#3572A5"></i><em>Python</em>
+          <span class="rc-t">08.29</span>
+        </span>
+      </a>
+      <a class="rcard" href="https://github.com/Alakazamc/mojuane" target="_blank" rel="noopener">
+        <span class="rc-h"><svg class="ic sm" viewBox="0 0 16 16"><use href="#px-chest"></use></svg><b>mojuane</b></span>
+        <span class="rc-d">📖 墨卷 — 沉浸式电子书阅读器：React 19 + Vite，TXT/EPUB 双引擎、Gutenberg 在线书库、AI 阅读洞察</span>
+        <span class="rc-f">
+          <i class="rc-l" style="background:#f1e05a"></i><em>JavaScript</em>
+          <span class="rc-t">08.29</span>
+        </span>
+      </a>
+      <a class="rcard" href="https://github.com/Alakazamc/restaurant-ai-manager" target="_blank" rel="noopener">
+        <span class="rc-h"><svg class="ic sm" viewBox="0 0 16 16"><use href="#px-chest"></use></svg><b>restaurant-ai-manager</b></span>
+        <span class="rc-d">🍜 餐饮 AI 店长：LangGraph 多智能体 + Agentic RAG 的门店经营决策支持系统（日报 / 对话 / 排班）</span>
+        <span class="rc-f">
+          <i class="rc-l" style="background:#3572A5"></i><em>Python</em>
+          <span class="rc-t">08.29</span>
+        </span>
+      </a>
+      <a class="rcard" href="https://github.com/Alakazamc/-skillFoTabbit" target="_blank" rel="noopener">
+        <span class="rc-h"><svg class="ic sm" viewBox="0 0 16 16"><use href="#px-chest"></use></svg><b>-skillFoTabbit</b></span>
+        <span class="rc-d">（还没写简介）</span>
+        <span class="rc-f">
+          <em class="rc-none">未标注</em>
+          <span class="rc-t">06.14</span>
+        </span>
+      </a></div><div class="rfoot"><svg class="ic sm" viewBox="0 0 16 16"><use href="#px-chest"></use></svg><span class="sfx">9 个仓库</span><svg class="ic sm" viewBox="0 0 16 16"><use href="#px-gem"></use></svg><span class="sfx">15 种语言</span><svg class="ic sm" viewBox="0 0 16 16"><use href="#px-key"></use></svg><span class="sfx">@Alakazamc</span></div>
+</section>
 
   <div class="layout">
     <main>
@@ -1235,41 +1367,191 @@ body.is-article{background:var(--sky-b);min-height:100vh;padding-top:22px}
        <div class="shelf-foot"> <svg class="ic sm" viewBox="0 0 16 16"><use href="#px-book"></use></svg><span class="sfx">已收录 370 件</span><svg class="ic sm" viewBox="0 0 16 16"><use href="#px-star"></use></svg><span class="sfx">更新 2026.09.15</span><svg class="ic sm" viewBox="0 0 16 16"><use href="#px-key"></use></svg><span class="sfx">豆瓣 @211628276</span></div>
 </section>
       
-<section class="panel" id="projects">
-  <span class="pt"><svg class="ic xs" viewBox="0 0 16 16"><use href="#px-coin"></use></svg>项目 / 手艺<svg class="ic xs" viewBox="0 0 16 16"><use href="#px-coin"></use></svg></span>
-  <span class="cor tl"><svg class="ic sm" viewBox="0 0 16 16"><use href="#px-wheat"></use></svg></span><span class="cor tr"><svg class="ic sm" viewBox="0 0 16 16"><use href="#px-wheat"></use></svg></span><span class="cor bl"><svg class="ic sm" viewBox="0 0 16 16"><use href="#px-flower"></use></svg></span><span class="cor br"><svg class="ic sm" viewBox="0 0 16 16"><use href="#px-flower"></use></svg></span>
-  
-  <div class="pgrid">
-    
-      <div class="pcard gold">
-        <span class="pcard-ic"><svg class="ic lg" viewBox="0 0 16 16"><use href="#px-chest"></use></svg></span>
-        <span class="slot title" style="width:86%;height:13px"></span>
-        <span class="slot body" style="width:100%;height:9px"></span>
-        <span class="slot body" style="width:68%;height:9px"></span>
-        <span class="pcard-foot"><svg class="ic xs" viewBox="0 0 16 16"><use href="#px-star"></use></svg><svg class="ic xs" viewBox="0 0 16 16"><use href="#px-star"></use></svg><svg class="ic xs" viewBox="0 0 16 16"><use href="#px-star"></use></svg></span>
-      </div>
-      <div class="pcard green">
-        <span class="pcard-ic"><svg class="ic lg" viewBox="0 0 16 16"><use href="#px-junimo"></use></svg></span>
-        <span class="slot title" style="width:86%;height:13px"></span>
-        <span class="slot body" style="width:100%;height:9px"></span>
-        <span class="slot body" style="width:68%;height:9px"></span>
-        <span class="pcard-foot"><svg class="ic xs" viewBox="0 0 16 16"><use href="#px-star"></use></svg><svg class="ic xs" viewBox="0 0 16 16"><use href="#px-star"></use></svg><svg class="ic xs" viewBox="0 0 16 16"><use href="#px-star"></use></svg></span>
-      </div>
-      <div class="pcard blue">
-        <span class="pcard-ic"><svg class="ic lg" viewBox="0 0 16 16"><use href="#px-pot"></use></svg></span>
-        <span class="slot title" style="width:86%;height:13px"></span>
-        <span class="slot body" style="width:100%;height:9px"></span>
-        <span class="slot body" style="width:68%;height:9px"></span>
-        <span class="pcard-foot"><svg class="ic xs" viewBox="0 0 16 16"><use href="#px-star"></use></svg><svg class="ic xs" viewBox="0 0 16 16"><use href="#px-star"></use></svg><svg class="ic xs" viewBox="0 0 16 16"><use href="#px-star"></use></svg></span>
-      </div>
-      <div class="pcard purple">
-        <span class="pcard-ic"><svg class="ic lg" viewBox="0 0 16 16"><use href="#px-gem"></use></svg></span>
-        <span class="slot title" style="width:86%;height:13px"></span>
-        <span class="slot body" style="width:100%;height:9px"></span>
-        <span class="slot body" style="width:68%;height:9px"></span>
-        <span class="pcard-foot"><svg class="ic xs" viewBox="0 0 16 16"><use href="#px-star"></use></svg><svg class="ic xs" viewBox="0 0 16 16"><use href="#px-star"></use></svg><svg class="ic xs" viewBox="0 0 16 16"><use href="#px-star"></use></svg></span>
-      </div>
-  </div>
+<section class="panel" id="basket">
+  <span class="pt"><svg class="ic xs" viewBox="0 0 16 16"><use href="#px-crystal"></use></svg>游戏架<svg class="ic xs" viewBox="0 0 16 16"><use href="#px-crystal"></use></svg></span>
+  <span class="cor tl"><svg class="ic sm" viewBox="0 0 16 16"><use href="#px-crystal"></use></svg></span><span class="cor tr"><svg class="ic sm" viewBox="0 0 16 16"><use href="#px-gem"></use></svg></span><span class="cor bl"><svg class="ic sm" viewBox="0 0 16 16"><use href="#px-star"></use></svg></span><span class="cor br"><svg class="ic sm" viewBox="0 0 16 16"><use href="#px-coin"></use></svg></span>
+  <div class="gbar"><i style="flex:0.7506;background:#064E96" title="Steam 2520.7 小时"></i><i style="flex:0.1279;background:#0071CE" title="PSN 429.5 小时"></i><i style="flex:0.0848;background:#0F7C10" title="Xbox 284.9 小时"></i><i style="flex:0.0354;background:#E70012" title="Switch 118.8 小时"></i><i style="flex:0.0013;background:#2F2D2E" title="Epic 4.5 小时"></i></div>
+       <div class="glegend"><span><i style="background:#064E96"></i>Steam <b>2521h</b></span><span><i style="background:#0071CE"></i>PSN <b>430h</b></span><span><i style="background:#0F7C10"></i>Xbox <b>285h</b></span><span><i style="background:#E70012"></i>Switch <b>119h</b></span><span><i style="background:#2F2D2E"></i>Epic <b>5h</b></span></div><ul class="gshelf">
+      <li class="gt" style="--w:188px" title="绝地求生 · 292.6 小时">
+        <span class="gt-i">
+          <img src="assets/games/578080.jpg" alt="" loading="lazy">
+          <i class="gt-p" style="background:#064E96">Steam</i>
+          
+        </span>
+        <b class="gt-n">绝地求生</b>
+        <em class="gt-h">292.6 h</em>
+      </li>
+      <li class="gt" style="--w:172px" title="虚拟桌宠模拟器 · 197.7 小时 · 全成就">
+        <span class="gt-i">
+          <img src="assets/games/1920960.jpg" alt="" loading="lazy">
+          <i class="gt-p" style="background:#064E96">Steam</i>
+          <b class="gt-c"><svg class="ic xs" viewBox="0 0 16 16"><use href="#px-star"></use></svg></b>
+        </span>
+        <b class="gt-n">虚拟桌宠模拟器</b>
+        <em class="gt-h">197.7 h</em>
+      </li>
+      <li class="gt" style="--w:166px" title="杀戮尖塔 · 170.9 小时 · 全成就">
+        <span class="gt-i">
+          <img src="assets/games/646570.jpg" alt="" loading="lazy">
+          <i class="gt-p" style="background:#064E96">Steam</i>
+          <b class="gt-c"><svg class="ic xs" viewBox="0 0 16 16"><use href="#px-star"></use></svg></b>
+        </span>
+        <b class="gt-n">杀戮尖塔</b>
+        <em class="gt-h">170.9 h</em>
+      </li>
+      <li class="gt" style="--w:162px" title="赛博朋克2077 · 149.9 小时 · 全成就">
+        <span class="gt-i">
+          <img src="assets/games/1091500.jpg" alt="" loading="lazy">
+          <i class="gt-p" style="background:#064E96">Steam</i>
+          <b class="gt-c"><svg class="ic xs" viewBox="0 0 16 16"><use href="#px-star"></use></svg></b>
+        </span>
+        <b class="gt-n">赛博朋克2077</b>
+        <em class="gt-h">149.9 h</em>
+      </li>
+      <li class="gt" style="--w:155px" title="守望先锋 · 117.8 小时">
+        <span class="gt-i">
+          <img src="assets/games/2357570.jpg" alt="" loading="lazy">
+          <i class="gt-p" style="background:#064E96">Steam</i>
+          
+        </span>
+        <b class="gt-n">守望先锋</b>
+        <em class="gt-h">117.8 h</em>
+      </li>
+      <li class="gt" style="--w:155px" title="荒野大镖客：救赎2 · 116.7 小时">
+        <span class="gt-i">
+          <img src="assets/games/1174180.jpg" alt="" loading="lazy">
+          <i class="gt-p" style="background:#064E96">Steam</i>
+          
+        </span>
+        <b class="gt-n">荒野大镖客：救赎2</b>
+        <em class="gt-h">116.7 h</em>
+      </li>
+      <li class="gt" style="--w:154px" title="杀戮尖塔2 · 110.8 小时">
+        <span class="gt-i">
+          <img src="assets/games/2868840.jpg" alt="" loading="lazy">
+          <i class="gt-p" style="background:#064E96">Steam</i>
+          
+        </span>
+        <b class="gt-n">杀戮尖塔2</b>
+        <em class="gt-h">110.8 h</em>
+      </li>
+      <li class="gt" style="--w:153px" title="以撒的结合：重生 · 108.1 小时">
+        <span class="gt-i">
+          <img src="assets/games/250900.jpg" alt="" loading="lazy">
+          <i class="gt-p" style="background:#064E96">Steam</i>
+          
+        </span>
+        <b class="gt-n">以撒的结合：重生</b>
+        <em class="gt-h">108.1 h</em>
+      </li>
+      <li class="gt" style="--w:153px" title="艾尔登法环 · 106.3 小时 · 全成就">
+        <span class="gt-i">
+          <img src="assets/games/1245620.jpg" alt="" loading="lazy">
+          <i class="gt-p" style="background:#064E96">Steam</i>
+          <b class="gt-c"><svg class="ic xs" viewBox="0 0 16 16"><use href="#px-star"></use></svg></b>
+        </span>
+        <b class="gt-n">艾尔登法环</b>
+        <em class="gt-h">106.3 h</em>
+      </li>
+      <li class="gt" style="--w:152px" title="只狼：影逝二度 · 103.7 小时">
+        <span class="gt-i">
+          <img src="assets/games/814380.jpg" alt="" loading="lazy">
+          <i class="gt-p" style="background:#064E96">Steam</i>
+          
+        </span>
+        <b class="gt-n">只狼：影逝二度</b>
+        <em class="gt-h">103.7 h</em>
+      </li>
+      <li class="gt" style="--w:148px" title="黑神话：悟空 · 86.6 小时 · 全成就">
+        <span class="gt-i">
+          <img src="assets/games/2358720.jpg" alt="" loading="lazy">
+          <i class="gt-p" style="background:#064E96">Steam</i>
+          <b class="gt-c"><svg class="ic xs" viewBox="0 0 16 16"><use href="#px-star"></use></svg></b>
+        </span>
+        <b class="gt-n">黑神话：悟空</b>
+        <em class="gt-h">86.6 h</em>
+      </li>
+      <li class="gt" style="--w:141px" title="文明6 · 61.6 小时">
+        <span class="gt-i">
+          <img src="assets/games/289070.jpg" alt="" loading="lazy">
+          <i class="gt-p" style="background:#064E96">Steam</i>
+          
+        </span>
+        <b class="gt-n">文明6</b>
+        <em class="gt-h">61.6 h</em>
+      </li>
+      <li class="gt" style="--w:140px" title="暗喻幻想：ReFantazio · 59.7 小时">
+        <span class="gt-i">
+          <img src="assets/games/2679460.jpg" alt="" loading="lazy">
+          <i class="gt-p" style="background:#064E96">Steam</i>
+          
+        </span>
+        <b class="gt-n">暗喻幻想：ReFantazio</b>
+        <em class="gt-h">59.7 h</em>
+      </li>
+      <li class="gt" style="--w:140px" title="哈迪斯 · 58.7 小时 · 全成就">
+        <span class="gt-i">
+          <img src="assets/games/1145360.jpg" alt="" loading="lazy">
+          <i class="gt-p" style="background:#064E96">Steam</i>
+          <b class="gt-c"><svg class="ic xs" viewBox="0 0 16 16"><use href="#px-star"></use></svg></b>
+        </span>
+        <b class="gt-n">哈迪斯</b>
+        <em class="gt-h">58.7 h</em>
+      </li>
+      <li class="gt" style="--w:138px" title="女神异闻录5皇家版 · 52.9 小时">
+        <span class="gt-i">
+          <img src="assets/games/900035768.jpg" alt="" loading="lazy">
+          <i class="gt-p" style="background:#0F7C10">Xbox</i>
+          
+        </span>
+        <b class="gt-n">女神异闻录5皇家版</b>
+        <em class="gt-h">52.9 h</em>
+      </li>
+      <li class="gt" style="--w:138px" title="人中之龙８ · 51.4 小时">
+        <span class="gt-i">
+          <img src="assets/games/2072450.jpg" alt="" loading="lazy">
+          <i class="gt-p" style="background:#064E96">Steam</i>
+          
+        </span>
+        <b class="gt-n">人中之龙８</b>
+        <em class="gt-h">51.4 h</em>
+      </li>
+      <li class="gt" style="--w:138px" title="战神：诸神黄昏 · 51.3 小时">
+        <span class="gt-i">
+          <img src="assets/games/900032622.jpg" alt="" loading="lazy">
+          <i class="gt-p" style="background:#0071CE">PSN</i>
+          
+        </span>
+        <b class="gt-n">战神：诸神黄昏</b>
+        <em class="gt-h">51.3 h</em>
+      </li>
+      <li class="gt" style="--w:138px" title="P3R · 50.8 小时">
+        <span class="gt-i">
+          <img src="assets/games/900135010.jpg" alt="" loading="lazy">
+          <i class="gt-p" style="background:#0F7C10">Xbox</i>
+          
+        </span>
+        <b class="gt-n">P3R</b>
+        <em class="gt-h">50.8 h</em>
+      </li>
+      <li class="gt" style="--w:137px" title="塞尔达传说：王国之泪 · 49.9 小时">
+        <span class="gt-i">
+          <img src="assets/games/900011199.jpg" alt="" loading="lazy">
+          <i class="gt-p" style="background:#E70012">Switch</i>
+          
+        </span>
+        <b class="gt-n">塞尔达传说：王国之泪</b>
+        <em class="gt-h">49.9 h</em>
+      </li>
+      <li class="gt" style="--w:136px" title="Wallpaper Engine · 46.6 小时">
+        <span class="gt-i">
+          <img src="assets/games/431960.jpg" alt="" loading="lazy">
+          <i class="gt-p" style="background:#064E96">Steam</i>
+          
+        </span>
+        <b class="gt-n">Wallpaper Engine</b>
+        <em class="gt-h">46.6 h</em>
+      </li></ul><div class="gfoot"><svg class="ic sm" viewBox="0 0 16 16"><use href="#px-crystal"></use></svg><span class="sfx">生涯 3358.4 h</span><svg class="ic sm" viewBox="0 0 16 16"><use href="#px-basket"></use></svg><span class="sfx">324 款</span><svg class="ic sm" viewBox="0 0 16 16"><use href="#px-coin"></use></svg><span class="sfx">价值 ¥36810</span></div>
 </section>
       
 <section class="panel" id="notice">
@@ -1285,18 +1567,6 @@ body.is-article{background:var(--sky-b);min-height:100vh;padding-top:22px}
     </main>
     <aside>
       
-<section class="panel" id="basket">
-  <span class="pt"><svg class="ic xs" viewBox="0 0 16 16"><use href="#px-basket"></use></svg>农场的篮子<svg class="ic xs" viewBox="0 0 16 16"><use href="#px-basket"></use></svg></span>
-  <span class="cor tl"><svg class="ic sm" viewBox="0 0 16 16"><use href="#px-wheat"></use></svg></span><span class="cor tr"><svg class="ic sm" viewBox="0 0 16 16"><use href="#px-wheat"></use></svg></span><span class="cor bl"><svg class="ic sm" viewBox="0 0 16 16"><use href="#px-flower"></use></svg></span><span class="cor br"><svg class="ic sm" viewBox="0 0 16 16"><use href="#px-flower"></use></svg></span>
-  
-  <div class="fruitgrid">
-    <span class="fr"><svg class="ic" viewBox="0 0 16 16"><use href="#px-strawberry"></use></svg><b><span class="slot meta" style="width:78%;height:6px"></span></b></span><span class="fr"><svg class="ic" viewBox="0 0 16 16"><use href="#px-blueberry"></use></svg><b><span class="slot meta" style="width:78%;height:6px"></span></b></span><span class="fr"><svg class="ic" viewBox="0 0 16 16"><use href="#px-pumpkin"></use></svg><b><span class="slot meta" style="width:78%;height:6px"></span></b></span><span class="fr"><svg class="ic" viewBox="0 0 16 16"><use href="#px-corn"></use></svg><b><span class="slot meta" style="width:78%;height:6px"></span></b></span><span class="fr"><svg class="ic" viewBox="0 0 16 16"><use href="#px-tomato"></use></svg><b><span class="slot meta" style="width:78%;height:6px"></span></b></span><span class="fr"><svg class="ic" viewBox="0 0 16 16"><use href="#px-eggplant"></use></svg><b><span class="slot meta" style="width:78%;height:6px"></span></b></span><span class="fr"><svg class="ic" viewBox="0 0 16 16"><use href="#px-melon"></use></svg><b><span class="slot meta" style="width:78%;height:6px"></span></b></span><span class="fr"><svg class="ic" viewBox="0 0 16 16"><use href="#px-cauliflower"></use></svg><b><span class="slot meta" style="width:78%;height:6px"></span></b></span><span class="fr"><svg class="ic" viewBox="0 0 16 16"><use href="#px-starfruit"></use></svg><b><span class="slot meta" style="width:78%;height:6px"></span></b></span><span class="fr"><svg class="ic" viewBox="0 0 16 16"><use href="#px-grape"></use></svg><b><span class="slot meta" style="width:78%;height:6px"></span></b></span><span class="fr"><svg class="ic" viewBox="0 0 16 16"><use href="#px-cherry"></use></svg><b><span class="slot meta" style="width:78%;height:6px"></span></b></span><span class="fr"><svg class="ic" viewBox="0 0 16 16"><use href="#px-ancientfruit"></use></svg><b><span class="slot meta" style="width:78%;height:6px"></span></b></span>
-  </div>
-  <div class="vine"><svg class="ic" viewBox="0 0 16 16"><use href="#px-grape"></use></svg></div>
-  <div class="basketline"><svg class="ic" viewBox="0 0 16 16"><use href="#px-basket"></use></svg><svg class="ic" viewBox="0 0 16 16"><use href="#px-jam"></use></svg><svg class="ic" viewBox="0 0 16 16"><use href="#px-honey"></use></svg><svg class="ic" viewBox="0 0 16 16"><use href="#px-milk"></use></svg><svg class="ic" viewBox="0 0 16 16"><use href="#px-egg"></use></svg>
-    <span class="slot body" style="flex:1;height:10px"></span></div>
-</section>
-      
 <section class="panel" id="calendar">
   <span class="pt"><svg class="ic xs" viewBox="0 0 16 16"><use href="#px-sun"></use></svg>季节日历<svg class="ic xs" viewBox="0 0 16 16"><use href="#px-sun"></use></svg></span>
   <span class="cor tl"><svg class="ic sm" viewBox="0 0 16 16"><use href="#px-sunflower"></use></svg></span><span class="cor tr"><svg class="ic sm" viewBox="0 0 16 16"><use href="#px-tulip"></use></svg></span><span class="cor bl"><svg class="ic sm" viewBox="0 0 16 16"><use href="#px-flower"></use></svg></span><span class="cor br"><svg class="ic sm" viewBox="0 0 16 16"><use href="#px-mushroom"></use></svg></span>
@@ -1311,36 +1581,40 @@ body.is-article{background:var(--sky-b);min-height:100vh;padding-top:22px}
 </section>
       
 <section class="panel" id="skills">
-  <span class="pt"><svg class="ic xs" viewBox="0 0 16 16"><use href="#px-book"></use></svg>技能等级<svg class="ic xs" viewBox="0 0 16 16"><use href="#px-book"></use></svg></span>
-  <span class="cor tl"><svg class="ic sm" viewBox="0 0 16 16"><use href="#px-fish"></use></svg></span><span class="cor tr"><svg class="ic sm" viewBox="0 0 16 16"><use href="#px-star"></use></svg></span><span class="cor bl"><svg class="ic sm" viewBox="0 0 16 16"><use href="#px-star"></use></svg></span><span class="cor br"><svg class="ic sm" viewBox="0 0 16 16"><use href="#px-fish"></use></svg></span>
-  
-  <ul class="skills">
-    
+  <span class="pt"><svg class="ic xs" viewBox="0 0 16 16"><use href="#px-gem"></use></svg>专精<svg class="ic xs" viewBox="0 0 16 16"><use href="#px-gem"></use></svg></span>
+  <span class="cor tl"><svg class="ic sm" viewBox="0 0 16 16"><use href="#px-gem"></use></svg></span><span class="cor tr"><svg class="ic sm" viewBox="0 0 16 16"><use href="#px-ore"></use></svg></span><span class="cor bl"><svg class="ic sm" viewBox="0 0 16 16"><use href="#px-crystal"></use></svg></span><span class="cor br"><svg class="ic sm" viewBox="0 0 16 16"><use href="#px-star"></use></svg></span>
+  <ul class="stack">
       <li>
-        <svg class="ic sm" viewBox="0 0 16 16"><use href="#px-hoe"></use></svg><em>耕种</em>
-        <span class="pips"><i class="on"></i><i class="on"></i><i class="on"></i><i class=""></i><i class=""></i><i class=""></i><i class=""></i><i class=""></i><i class=""></i><i class=""></i></span>
+        <svg class="ic sm" viewBox="0 0 16 16"><use href="#px-gem"></use></svg><em>Python</em>
+        <span class="tbar"><b style="width:29.8%;background:#3572A5"></b></span>
+        <u>29.8%</u>
       </li>
       <li>
-        <svg class="ic sm" viewBox="0 0 16 16"><use href="#px-ore"></use></svg><em>采矿</em>
-        <span class="pips"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class=""></i><i class=""></i><i class=""></i><i class=""></i><i class=""></i><i class=""></i></span>
+        <svg class="ic sm" viewBox="0 0 16 16"><use href="#px-gem"></use></svg><em>JavaScript</em>
+        <span class="tbar"><b style="width:21%;background:#f1e05a"></b></span>
+        <u>21%</u>
       </li>
       <li>
-        <svg class="ic sm" viewBox="0 0 16 16"><use href="#px-fish"></use></svg><em>钓鱼</em>
-        <span class="pips"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class=""></i><i class=""></i><i class=""></i><i class=""></i><i class=""></i></span>
+        <svg class="ic sm" viewBox="0 0 16 16"><use href="#px-gem"></use></svg><em>Vue</em>
+        <span class="tbar"><b style="width:18.4%;background:#41b883"></b></span>
+        <u>18.4%</u>
       </li>
       <li>
-        <svg class="ic sm" viewBox="0 0 16 16"><use href="#px-axe"></use></svg><em>采集</em>
-        <span class="pips"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class=""></i><i class=""></i><i class=""></i><i class=""></i></span>
+        <svg class="ic sm" viewBox="0 0 16 16"><use href="#px-gem"></use></svg><em>Java</em>
+        <span class="tbar"><b style="width:14%;background:#b07219"></b></span>
+        <u>14%</u>
       </li>
       <li>
-        <svg class="ic sm" viewBox="0 0 16 16"><use href="#px-pot"></use></svg><em>烹饪</em>
-        <span class="pips"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class=""></i><i class=""></i><i class=""></i></span>
+        <svg class="ic sm" viewBox="0 0 16 16"><use href="#px-gem"></use></svg><em>HTML</em>
+        <span class="tbar"><b style="width:7.7%;background:#e34c26"></b></span>
+        <u>7.7%</u>
       </li>
       <li>
-        <svg class="ic sm" viewBox="0 0 16 16"><use href="#px-gem"></use></svg><em>战斗</em>
-        <span class="pips"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class=""></i><i class=""></i></span>
-      </li>
-  </ul>
+        <svg class="ic sm" viewBox="0 0 16 16"><use href="#px-gem"></use></svg><em>CSS</em>
+        <span class="tbar"><b style="width:4.2%;background:#663399"></b></span>
+        <u>4.2%</u>
+      </li></ul>
+       <div class="gfoot"><svg class="ic sm" viewBox="0 0 16 16"><use href="#px-gem"></use></svg><span class="sfx">代码构成 · 按字节数统计</span></div>
 </section>
       
 <section class="panel" id="ledger">
