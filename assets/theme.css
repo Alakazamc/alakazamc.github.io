@@ -372,15 +372,15 @@ html{scroll-behavior:smooth}
 .rc-t{margin-left:auto;font-variant-numeric:tabular-nums}
 .rfoot{display:flex;align-items:center;justify-content:center;gap:7px;margin-top:9px;font-size:12px;opacity:.72}
 
-/* 游戏架:封面宽度 ∝ 游玩时长,底部对齐 = 一排高低不一的盒子 */
+/* 博物馆游戏展品：所有封面固定为同一尺寸，时长只作为文字信息，不再改变卡片大小。 */
 .gbar{display:flex;height:16px;border:2px solid var(--wood-c);overflow:hidden;margin-bottom:7px}
 .gbar i{display:block}
 .glegend{display:flex;flex-wrap:wrap;gap:5px 12px;margin-bottom:10px;font-size:12px;opacity:.78}
 .glegend span{display:flex;align-items:center;gap:4px}
 .glegend i{width:9px;height:9px;border-radius:2px}
 .glegend b{font-weight:500}
-.gshelf{list-style:none;margin:0;padding:3px 2px 11px;display:flex;flex-wrap:wrap;gap:10px;align-items:flex-end}
-.gt{flex:none;width:var(--w,120px);display:flex;flex-direction:column;gap:3px}
+.gshelf{list-style:none;margin:0;padding:3px 2px 11px;display:flex;flex-wrap:wrap;gap:10px;align-items:flex-start}
+.gt{flex:none;width:140px;display:flex;flex-direction:column;gap:3px}
 .gt-i{position:relative;display:block;aspect-ratio:16/9;overflow:hidden;border:2px solid var(--ink);
   box-shadow:0 3px 0 rgba(59,36,18,.28);background:var(--cream-3)}
 .gt-i img{width:100%;height:100%;object-fit:cover;display:block}
@@ -499,6 +499,48 @@ html{scroll-behavior:smooth}
 .shelf-foot{display:flex;align-items:center;justify-content:center;gap:7px;margin-top:2px;
   font-size:12px;opacity:.66}
 .shelf-foot .sfx{letter-spacing:.4px}
+.museum-zone + .museum-zone{margin-top:20px;padding-top:18px;border-top:3px dashed var(--wood-b)}
+.museum-zone-title{display:flex;align-items:center;gap:6px;margin:0 0 9px;font-size:12px;letter-spacing:1px}
+.museum-more{display:flex;align-items:center;justify-content:center;gap:7px;margin-top:9px;font-size:12px}
+.museum-more a{color:inherit;text-decoration:none;border-bottom:2px solid var(--wood-c);padding-bottom:1px}
+.museum-more a:hover{background:var(--gold)}
+
+/* 博物馆详情页：390 件馆藏按 24 件一页渲染，避免一次加载几百张封面。 */
+.museum-wrap{max-width:1180px}
+.museum-page{max-width:none;margin:0 auto 32px}
+.museum-filters{display:flex;flex-wrap:wrap;gap:6px;margin:12px 0}
+.museum-filter{display:flex;align-items:center;gap:5px;font:inherit;font-size:12px;color:var(--ink);
+  background:var(--cream-2);border:2px solid var(--wood-c);padding:5px 9px}
+.museum-filter i{font-style:normal;background:var(--wood-c);color:var(--cream);padding:0 4px}
+.museum-filter.on{background:var(--ink);color:var(--cream);border-color:var(--ink)}
+.museum-filter.on i{background:var(--cream);color:var(--ink)}
+.museum-status,.museum-note{font-size:12px;line-height:1.8;opacity:.7}
+.museum-grid{list-style:none;margin:12px 0 18px;padding:0;display:grid;
+  grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:14px}
+.museum-item{min-width:0}
+.museum-item-link{height:100%;display:flex;flex-direction:column;gap:7px;text-decoration:none;color:inherit}
+.museum-item-poster{height:210px;display:flex;align-items:center;justify-content:center;overflow:hidden;
+  background:var(--cream-3);border:3px solid var(--ink);box-shadow:0 4px 0 rgba(59,36,18,.28)}
+a.museum-item-link:hover .museum-item-poster{transform:translateY(-3px);box-shadow:0 7px 0 rgba(59,36,18,.34)}
+.museum-item-poster img{width:100%;height:100%;object-fit:contain;display:block}
+.museum-item-empty{font-size:12px;opacity:.55}
+.museum-item-text{display:flex;flex-direction:column;gap:3px;min-width:0}
+.museum-item-title{font-size:12px;line-height:1.4;min-height:33.6px;display:-webkit-box;
+  -webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;word-break:break-all}
+.museum-item-meta,.museum-item-source{font-style:normal;font-size:12px;opacity:.65}
+.museum-item-detail{font-size:12px;line-height:1.45;height:34.8px;display:-webkit-box;
+  -webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.museum-item-source{margin-top:auto}
+.museum-pager{display:flex;align-items:center;justify-content:center;gap:12px;margin:8px 0 14px}
+.museum-page-btn{font:inherit;font-size:12px;color:var(--ink);background:var(--cream-2);
+  border:2px solid var(--wood-c);padding:6px 12px}
+.museum-page-btn:hover:not(:disabled){background:var(--gold)}
+.museum-page-btn:disabled{opacity:.35}
+.museum-page-info{font-size:12px;min-width:72px;text-align:center}
+@media (max-width:680px){
+  .museum-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:11px}
+  .museum-item-poster{height:198px}
+}
 
 /* ===== 页脚农场 ===== */
 .farm{position:relative;margin-top:30px}
