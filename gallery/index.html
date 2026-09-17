@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-season="spring" data-time="day">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>相馆 · 柯西 Alakazam</title>
+<link rel="stylesheet" href="../assets-layers.css">
+<link rel="stylesheet" href="../font.css">
+<link rel="stylesheet" href="../assets/theme.css">
+<style>
+/* ===== 相馆专属布局（仅本页生效，不污染全局样式表） =====
+   字号 / 行高一律用 12 的倍数（12 / 24 / 36 / 48），不出现 14 / 16 / 18。 */
+.gal-card{background:var(--cream);border:4px solid var(--ink);
+  box-shadow:0 0 0 4px var(--wood-c),9px 9px 0 0 rgba(59,36,18,.28);
+  padding:24px 12px 18px;margin-bottom:32px}
+.gal-title{font-size:36px;line-height:48px;margin:6px 0 12px;word-break:break-word}
+.gal-note{font-size:12px;line-height:24px;opacity:.66;margin:0 0 12px}
+
+/* 错列容器：列间 6px 间距。行宽是构建期算好的（正好铺满容器），
+   正常情况永不溢出；万一极端情况差一两像素，用折行兜底 ——
+   ⚠️ 不用 overflow-x:auto：这站的规矩是内容不许藏进横向滚动条。 */
+.gal-rows{margin:4px 0 8px}
+.gal-row{display:flex;gap:6px;margin-bottom:6px;flex-wrap:wrap;justify-content:center}
+/* 每张图：木色描边 + 落影，无圆角（像素风）。尺寸构建期算好，绝不裁切。 */
+.gal-item{display:block;position:relative;background:var(--cream-3);
+  border:3px solid var(--ink);box-shadow:0 4px 0 rgba(59,36,18,.28);
+  overflow:hidden;transition:transform .12s steps(2),box-shadow .12s}
+.gal-item img{display:block;width:100%;height:100%;object-fit:contain;image-rendering:auto}
+.gal-item:hover{transform:translateY(-3px);box-shadow:0 7px 0 rgba(59,36,18,.34)}
+.gal-item:focus-visible{outline:3px solid var(--gold);outline-offset:2px}
+.gal-empty{font-size:24px;line-height:36px;opacity:.7;padding:24px 0;text-align:center}
+
+/* 窄屏：一行一张，宽度撑满，高度按原图比例自适应。 */
+@media (max-width:680px){
+  .gal-row{display:block;margin-bottom:6px}
+  .gal-item{width:100%!important;height:auto!important;flex:none!important;margin-bottom:0}
+  .gal-item img{height:auto}
+}
+
+/* ===== 像素灯箱（原生 JS/CSS，无依赖）=====
+   刻意不用圆角、不用半透明毛玻璃 —— 维持像素木牌质感。 */
+.lb{position:fixed;inset:0;z-index:500;display:flex;align-items:center;justify-content:center}
+.lb[hidden]{display:none}
+.lb-backdrop{position:absolute;inset:0;background:#1A1208;opacity:.92}
+.lb-stage{position:relative;z-index:1;max-width:94vw;max-height:90vh;display:flex;flex-direction:column;align-items:center;
+  background:var(--cream);border:4px solid var(--ink);box-shadow:0 0 0 4px var(--wood-c),9px 9px 0 0 rgba(0,0,0,.4);padding:18px}
+.lb-fig{margin:0;display:flex;flex-direction:column;align-items:center;max-width:100%}
+.lb-img{max-width:100%;max-height:72vh;width:auto;height:auto;display:block;
+  border:3px solid var(--ink);background:#000;image-rendering:auto}
+.lb-cap{font-size:12px;line-height:24px;margin:12px 0 0;text-align:center;max-width:80vw}
+.lb-cap b{font-weight:700}
+.lb-cap i{font-style:normal;opacity:.6;margin-left:8px}
+.lb-close,.lb-nav{font-family:inherit;color:var(--ink);background:var(--cream-2);
+  border:3px solid var(--ink);box-shadow:0 0 0 2px var(--wood-c);
+  cursor:pointer;display:flex;align-items:center;justify-content:center}
+.lb-close{position:absolute;top:-18px;right:-18px;width:36px;height:36px;font-size:24px;line-height:1}
+.lb-nav{position:absolute;top:50%;transform:translateY(-50%);width:36px;height:48px;font-size:36px;line-height:1}
+.lb-prev{left:-18px}.lb-next{right:-18px}
+.lb-close:hover,.lb-nav:hover{background:var(--gold)}
+.lb-close:focus-visible,.lb-nav:focus-visible{outline:3px solid var(--gold);outline-offset:2px}
+</style>
+</head>
+<body class="is-article is-gallery-page">
+<svg xmlns="http://www.w3.org/2000/svg" style="display:none" aria-hidden="true"><symbol id="px-mailbox" viewBox="0 0 16 16"><rect x="5" y="1" width="5" height="1" fill="#C08A45"/><rect x="4" y="2" width="1" height="1" fill="#C08A45"/><rect x="5" y="2" width="5" height="1" fill="#9C6431"/><rect x="10" y="2" width="1" height="1" fill="#C08A45"/><rect x="4" y="3" width="1" height="1" fill="#C08A45"/><rect x="5" y="3" width="1" height="1" fill="#9C6431"/><rect x="6" y="3" width="3" height="1" fill="#E43B44"/><rect x="9" y="3" width="1" height="1" fill="#9C6431"/><rect x="10" y="3" width="1" height="1" fill="#C08A45"/><rect x="4" y="4" width="1" height="1" fill="#C08A45"/><rect x="5" y="4" width="5" height="1" fill="#9C6431"/><rect x="10" y="4" width="1" height="1" fill="#C08A45"/><rect x="5" y="5" width="5" height="1" fill="#C08A45"/><rect x="7" y="6" width="1" height="1" fill="#6B4423"/><rect x="7" y="7" width="1" height="1" fill="#6B4423"/><rect x="7" y="8" width="1" height="1" fill="#6B4423"/><rect x="7" y="9" width="1" height="1" fill="#6B4423"/><rect x="6" y="10" width="3" height="1" fill="#6B4423"/></symbol><symbol id="px-star" viewBox="0 0 16 16"><rect x="7" y="1" width="1" height="1" fill="#F5D259"/><rect x="7" y="2" width="1" height="1" fill="#F5D259"/><rect x="6" y="3" width="3" height="1" fill="#F5D259"/><rect x="2" y="4" width="1" height="1" fill="#F5D259"/><rect x="6" y="4" width="3" height="1" fill="#F5D259"/><rect x="12" y="4" width="1" height="1" fill="#F5D259"/><rect x="3" y="5" width="1" height="1" fill="#F5D259"/><rect x="6" y="5" width="3" height="1" fill="#F5D259"/><rect x="11" y="5" width="1" height="1" fill="#F5D259"/><rect x="4" y="6" width="7" height="1" fill="#F5D259"/><rect x="5" y="7" width="5" height="1" fill="#F5D259"/><rect x="4" y="8" width="7" height="1" fill="#F5D259"/><rect x="3" y="9" width="2" height="1" fill="#F5D259"/><rect x="6" y="9" width="3" height="1" fill="#F5D259"/><rect x="10" y="9" width="2" height="1" fill="#F5D259"/><rect x="2" y="10" width="2" height="1" fill="#F5D259"/><rect x="6" y="10" width="3" height="1" fill="#F5D259"/><rect x="11" y="10" width="2" height="1" fill="#F5D259"/><rect x="1" y="11" width="1" height="1" fill="#F5D259"/><rect x="5" y="11" width="5" height="1" fill="#F5D259"/><rect x="13" y="11" width="1" height="1" fill="#F5D259"/><rect x="7" y="12" width="1" height="1" fill="#F5D259"/></symbol></svg>
+<div class="artpage">
+  <nav class="abarnav"><a class="abtn" href="../stardew-maximal-v3.html#gallery"><svg class="ic sm" viewBox="0 0 16 16"><use href="#px-mailbox"></use></svg>回到农场</a></nav>
+  <div class="gal-card">
+    <h1 class="gal-title">相馆</h1>
+    <p class="gal-note">共 6 张相片 · 更新于 2026-09-02</p>
+    <div class="gal-rows"><div class="gal-row"><a class="gal-item" href="../assets/gallery/dusk-mine.webp" data-w="1440" data-h="960" data-caption="黄昏时的矿区入口" data-date="2026-09-02" style="width:272px;height:181px;flex:0 0 272px"><img src="../assets/gallery/dusk-mine-t.webp" width="640" height="427" loading="lazy" alt="黄昏时的矿区入口"></a><a class="gal-item" href="../assets/gallery/night-lake.webp" data-w="1440" data-h="1440" data-caption="星夜的湖畔" data-date="2026-08-18" style="width:181px;height:181px;flex:0 0 181px"><img src="../assets/gallery/night-lake-t.webp" width="640" height="640" loading="lazy" alt="星夜的湖畔"></a><a class="gal-item" href="../assets/gallery/summer-coast.webp" data-w="1344" data-h="756" data-caption="夏天的海岸，光很足" data-date="2026-07-30" style="width:322px;height:181px;flex:0 0 322px"><img src="../assets/gallery/summer-coast-t.webp" width="640" height="360" loading="lazy" alt="夏天的海岸，光很足"></a></div><div class="gal-row"><a class="gal-item" href="../assets/gallery/spring-farm.webp" data-w="1440" data-h="960" data-caption="春天的农场，作物刚下地" data-date="2026-04-12" style="width:270px;height:180px;flex:0 0 270px"><img src="../assets/gallery/spring-farm-t.webp" width="640" height="427" loading="lazy" alt="春天的农场，作物刚下地"></a><a class="gal-item" href="../assets/gallery/winter-town.webp" data-w="960" data-h="1440" data-caption="冬夜的小镇，路灯还亮着" data-date="2026-01-05" style="width:120px;height:180px;flex:0 0 120px"><img src="../assets/gallery/winter-town-t.webp" width="427" height="640" loading="lazy" alt="冬夜的小镇，路灯还亮着"></a><a class="gal-item" href="../assets/gallery/autumn-patch.webp" data-w="1440" data-h="960" data-caption="秋日的南瓜地" data-date="2025-10-20" style="width:270px;height:180px;flex:0 0 270px"><img src="../assets/gallery/autumn-patch-t.webp" width="640" height="427" loading="lazy" alt="秋日的南瓜地"></a></div></div>
+  </div>
+  <div class="sitebottom">
+  <div class="visitbar">
+    <span class="vlabel">本站浏览</span>
+    <b class="vnum" id="busuanzi_value_site_pv"><span class="vslot">···</span></b>
+    <span class="vlabel">次 · 访客</span>
+    <b class="vnum" id="busuanzi_value_site_uv"><span class="vslot">···</span></b>
+    <span class="vlabel">人</span>
+  </div>
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+  
+</div>
+</div>
+
+<!-- 灯箱：默认隐藏，由页面底部脚本接管点击 -->
+<div class="lb" id="lightbox" hidden>
+  <div class="lb-backdrop" data-close="1"></div>
+  <div class="lb-stage" role="dialog" aria-modal="true" aria-label="相片查看">
+    <button class="lb-close" id="lbClose" aria-label="关闭">×</button>
+    <button class="lb-nav lb-prev" id="lbPrev" aria-label="上一张">‹</button>
+    <button class="lb-nav lb-next" id="lbNext" aria-label="下一张">›</button>
+    <figure class="lb-fig">
+      <img class="lb-img" id="lbImg" src="" alt="">
+      <figcaption class="lb-cap" id="lbCap"></figcaption>
+    </figure>
+  </div>
+</div>
+
+<script>
+(function(){
+  // 从 DOM 收集所有相片（大图地址 / 说明 / 日期），灯箱直接在这份列表里前后翻。
+  var links = Array.prototype.slice.call(document.querySelectorAll('.gal-item'));
+  if (!links.length) return;
+  var list = links.map(function(a){
+    return { href:a.getAttribute('href'),
+             caption:a.getAttribute('data-caption')||'',
+             date:a.getAttribute('data-date')||'' };
+  });
+  var lb = document.getElementById('lightbox');
+  var img = document.getElementById('lbImg');
+  var cap = document.getElementById('lbCap');
+  var btnClose = document.getElementById('lbClose');
+  var btnPrev = document.getElementById('lbPrev');
+  var btnNext = document.getElementById('lbNext');
+  var idx = 0, lastFocus = null;
+  var focusables = [btnClose, btnPrev, btnNext];
+
+  function render(){
+    var it = list[idx];
+    img.src = it.href;
+    img.alt = it.caption;
+    cap.innerHTML = '<b>'+it.caption+'</b>' + (it.date ? '<i>'+it.date+'</i>' : '');
+  }
+  function open(i){
+    idx = i; lastFocus = document.activeElement;
+    render();
+    lb.hidden = false;
+    document.body.style.overflow = 'hidden';   // 锁定背景滚动
+    btnClose.focus();
+    document.addEventListener('keydown', onKey, true);
+  }
+  function close(){
+    lb.hidden = true;
+    img.src = '';
+    document.body.style.overflow = '';          // 恢复背景滚动
+    document.removeEventListener('keydown', onKey, true);
+    if (lastFocus && lastFocus.focus) lastFocus.focus(); // 焦点归位
+  }
+  function step(d){ idx = (idx + d + list.length) % list.length; render(); }
+  function onKey(e){
+    if (e.key === 'Escape') { e.preventDefault(); close(); }
+    else if (e.key === 'ArrowLeft') { e.preventDefault(); step(-1); }
+    else if (e.key === 'ArrowRight') { e.preventDefault(); step(1); }
+    else if (e.key === 'Tab') {
+      // 焦点陷阱：只在三个控件间循环，Tab / Shift+Tab 都不跑出灯箱。
+      var i = focusables.indexOf(document.activeElement);
+      if (i === -1) { e.preventDefault(); btnClose.focus(); return; }
+      var nxt = e.shiftKey ? (i - 1 + focusables.length) % focusables.length
+                           : (i + 1) % focusables.length;
+      e.preventDefault(); focusables[nxt].focus();
+    }
+  }
+  links.forEach(function(a, i){
+    a.addEventListener('click', function(e){
+      e.preventDefault();   // JS 正常时不开跳转，改开灯箱；JS 挂了则 <a> 直接开大图
+      open(i);
+    });
+  });
+  btnClose.addEventListener('click', close);
+  btnPrev.addEventListener('click', function(){ step(-1); });
+  btnNext.addEventListener('click', function(){ step(1); });
+  // 点背景（遮罩 / 舞台空白处）关闭。
+  lb.addEventListener('click', function(e){
+    if (e.target.hasAttribute('data-close')) close();
+  });
+})();
+</script>
+<script>
+(function(){
+  var root = document.documentElement;
+  function seasonOf(m){
+    if (m >= 3 && m <= 5) return 'spring';
+    if (m >= 6 && m <= 8) return 'summer';
+    if (m >= 9 && m <= 11) return 'autumn';
+    return 'winter';
+  }
+  var now = new Date();
+  root.dataset.season = seasonOf(now.getMonth() + 1);
+  var h = now.getHours();
+  root.dataset.time = (h < 6 || h >= 18) ? 'night' : 'day';
+})();
+</script>
+</body>
+</html>

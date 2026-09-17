@@ -191,6 +191,12 @@ svg.ic.sm{width:12px;height:12px} svg.ic.xs{width:9px;height:9px} svg.ic.lg{widt
 .bunting i{width:0;height:0;border-left:12px solid transparent;border-right:12px solid transparent;
   border-top:22px solid var(--c);filter:drop-shadow(0 2px 0 rgba(59,36,18,.4));
   transform-origin:top center;animation:sway 3.2s ease-in-out infinite}
+/* 窄屏把旗子收到 16 面：26 面全摆是 624px，390px 的手机上会向右撑出
+   ~66px 的隐形横向溢出（页面看着正常，body 又把它藏了 —— 2026-09-18 实测）。
+   16 面 = 384px，最窄的手机也放得下；680px 以上 26 面本来就没问题。 */
+@media (max-width:680px){
+  .bunting i:nth-child(n+17){display:none}
+}
 @media (prefers-reduced-motion:reduce){.bunting i,.hang span{animation:none}}
 @keyframes sway{0%,100%{transform:rotate(-6deg)}50%{transform:rotate(6deg)}}
 .hang{display:flex;justify-content:center;gap:24px;margin:-2px 0 4px}
@@ -269,7 +275,7 @@ button.tool{cursor:pointer;font:inherit;background:var(--cream);appearance:none}
 button.tool::-moz-focus-inner{border:0}
 
 /* 导航落点：面板本身有 4px 边框 + 外发光，直接滚到顶会被顶部切掉一截 */
-#timeline,#projects,#notice,#basket,#calendar,#skills,#ledger,#farm{scroll-margin-top:24px}
+#timeline,#projects,#gallery,#basket,#calendar,#skills,#ledger,#farm{scroll-margin-top:24px}
 html{scroll-behavior:smooth}
 @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
 
@@ -444,10 +450,16 @@ html{scroll-behavior:smooth}
 .pcard-ic{filter:drop-shadow(0 3px 0 rgba(59,36,18,.3))}
 .pcard-foot{display:flex;gap:3px;margin-top:2px}
 
-/* ===== 公告 ===== */
-.notice{display:flex;gap:12px;align-items:flex-start}
-.nb{flex:1;display:flex;flex-direction:column;gap:5px}
-.nrow{display:flex;align-items:center;gap:7px;margin-top:10px;justify-content:center}
+/* ===== 相馆 ===== */
+/* 等高一条排：主页只做缩略陈列（高 96px = 12 的倍数，宽按原始比例），
+   **不裁图** —— 裁剪是子页灯箱之外唯一会破坏构图的事。
+   flex-wrap 兜底：窄屏摆不下就折行，绝不用 overflow-x 把照片藏进滚动条。 */
+.gstrip{display:flex;gap:12px;flex-wrap:wrap;justify-content:center;align-items:flex-start}
+.gstrip .gp{display:block;line-height:0;border:3px solid var(--ink);
+  box-shadow:0 0 0 2px var(--cream-2),0 3px 0 rgba(59,36,18,.3);
+  transition:transform .12s steps(2)}
+.gstrip .gp:hover{transform:translateY(-3px)}
+.gstrip img{height:96px;width:auto;display:block;image-rendering:auto}
 
 /* ===== 侧栏 ===== */
 .fruitgrid{display:grid;grid-template-columns:repeat(4,1fr);gap:7px}

@@ -123,6 +123,25 @@
   .err{display:none;background:#FCEBEB;border:3px solid #E24B4A;padding:6px 9px;margin-top:10px}
   .err.on{display:block}
   #mode{cursor:pointer}
+
+  /* 模式切换（写文章 / 传照片）—— 跟全站一致的分段按钮 */
+  .seg{display:flex;gap:6px}
+  .seg button{box-shadow:none}
+  .seg button.on{background:var(--grass);color:#fff}
+  .seg button.on:active{transform:translateY(3px);box-shadow:none}
+
+  /* 相馆上传区 */
+  .gdrop{
+    border:3px dashed var(--ink);background:#FFFDF5;padding:18px;
+    text-align:center;cursor:pointer;font-size:12px;line-height:1.7;
+  }
+  .gdrop.hot{background:#EAF6E6;border-color:var(--grass)}
+  .gdrop:hover{border-color:var(--accent)}
+  .gfield{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+  .gfield label{white-space:nowrap;font-size:12px}
+  .gfield input[type=text]{flex:1;min-width:200px}
+  .gfield input[type=date]{width:150px}
+  #gPrev{max-width:100%;border:3px solid var(--ink);image-rendering:auto;background:#fff}
 </style>
 </head>
 <body>
@@ -130,6 +149,10 @@
 <header>
   <h1>写博客</h1>
   <span class="badge" id="mode">本机专用</span>
+  <span class="seg" id="modeSeg">
+    <button id="tabWrite" class="on" type="button">写文章</button>
+    <button id="tabGallery" type="button">传照片</button>
+  </span>
   <span class="sp"></span>
   <button id="btnOpen">打开已有文章</button>
   <div class="posts" id="postsList"></div>
@@ -137,7 +160,7 @@
   <button class="primary" id="btnPub">发布上线</button>
 </header>
 
-<main>
+<main id="main">
   <div class="pane">
     <div class="pane-h"><b>正文（Markdown）</b><span class="sp" style="flex:1"></span><span id="counter"></span></div>
     <div class="pane-b" style="display:flex;flex-direction:column">
@@ -164,7 +187,26 @@
   </div>
 </main>
 
-<div class="bar">
+<section id="galleryPane" style="display:none;flex:1;flex-direction:column;min-height:0">
+  <div class="pane-h"><b>传照片到相馆</b><span class="sp" style="flex:1"></span><span class="hint">只传一张，发布后自动重建相馆</span></div>
+  <div class="pane-b" style="display:flex;flex-direction:column;padding:12px;gap:10px">
+    <div id="gDrop" class="gdrop">点击选择 / 拖入 / 粘贴一张照片（SVG 不收）</div>
+    <div class="gfield">
+      <label for="gCap">说明</label><input id="gCap" type="text" placeholder="默认取原文件名（去扩展名）">
+      <label for="gDate">日期</label><input id="gDate" type="date">
+    </div>
+    <div id="gPrevWrap" style="display:none">
+      <img id="gPrev" alt="预览">
+      <div id="gDims" class="hint"></div>
+    </div>
+    <div style="display:flex;gap:8px;align-items:center">
+      <button class="primary" id="gPub" type="button">发布到相馆</button>
+      <span class="hint" id="gStatus">就绪</span>
+    </div>
+  </div>
+</section>
+
+<div class="bar" id="bar">
   <button id="btnImg" type="button">插入图片</button>
   <span class="hint">也可以直接 <b>Ctrl+V</b> 粘贴，或把图拖进来</span>
   <span style="flex:1"></span>
@@ -174,6 +216,7 @@
 <!-- 真正干活的两个文件选择框（藏起来，由上面的按钮触发） -->
 <input type="file" id="fileImg" accept="image/png,image/jpeg,image/gif,image/webp,image/avif" multiple style="display:none">
 <input type="file" id="fileCover" accept="image/png,image/jpeg,image/gif,image/webp,image/avif" style="display:none">
+<input type="file" id="fileGallery" accept="image/png,image/jpeg,image/gif,image/webp,image/avif" style="display:none">
 
 <div id="log"></div>
 
@@ -515,6 +558,74 @@ async function uploadImage(file){
 }
 
 
+/* ============================================================
+   相馆上传（2026-09-18 复用写作页）
+   ------------------------------------------------------------
+   两种模式都在这一个页面、复用同一个 GitHub token：
+     本机模式：POST /api/gallery → 服务写盘 + 跑 gen.js+push.js
+     云端模式：直接 PUT 到仓库（assets/gallery 两张图 → content/gallery JSON）
+               PUT content/gallery 才会触发一次 workflow 重建
+
+   ⚠️ 大图最长边 ≤ 1800、缩图 ≤ 640，二者统一转 image/webp
+     （质量 0.9 / 0.84），读取真实 w/h/tw/th。SVG 不收（能执行脚本）。
+   资源名 <slug>.webp / <slug>-t.webp，slug 由 safeSlug 清洗生成。
+   ============================================================ */
+var GALLERY_DIR = 'content/gallery';
+var GALLERY_ASSET_DIR = 'assets/gallery';
+var GALLERY_MAX_DIM = 1800;
+var GALLERY_THUMB_DIM = 640;
+var GALLERY_Q_FULL = 0.9;
+var GALLERY_Q_THUMB = 0.84;
+
+/* ---------- 相馆元数据 ----------
+   ⚠️ 必须与 blog-server.js 的 buildGalleryMeta **逐字一致**：
+   同一张照片从哪种模式发出去，仓库里 content/gallery/<slug>.json 都得一样，
+   否则"本机传过、云端又传一次"会多一条记录。check-parity.js 会比对两边。 */
+function buildGalleryMeta(rec){
+  return {
+    file: String(rec.file || ''),
+    thumb: String(rec.thumb || ''),
+    w: rec.w, h: rec.h, tw: rec.tw, th: rec.th,
+    caption: String(rec.caption || ''),
+    date: String(rec.date || ''),
+    season: '',
+    generated: false
+  };
+}
+
+function blobToDataUrl(blob){
+  return new Promise(function(res, rej){
+    var r = new FileReader();
+    r.onload = function(){ res(String(r.result)); };
+    r.onerror = function(){ rej(new Error('读不出这个文件')); };
+    r.readAsDataURL(blob);
+  });
+}
+
+/* 把一张图缩到 maxDim 以内并转成 webp。SVG 直接拒（createImageBitmap 对 svg
+   要么抛错要么出 0×0，这里先挡在门外，不收能执行脚本的东西）。
+   ⚠️ 透明底统一填成白：webp 虽支持透明，但有些查看器/场景下透明会变黑块，
+   照片类内容填白最稳。 */
+async function fileToWebp(file, maxDim, quality){
+  if (file.type === 'image/svg+xml') throw new Error('SVG 不收（能执行脚本）');
+  var bmp;
+  try{ bmp = await createImageBitmap(file); }
+  catch(e){ throw new Error('这张图读不出来（' + (e.message || '格式不支持') + '）'); }
+  var scale = Math.min(1, maxDim / Math.max(bmp.width, bmp.height));
+  var w = Math.max(1, Math.round(bmp.width * scale));
+  var h = Math.max(1, Math.round(bmp.height * scale));
+  var cv = document.createElement('canvas');
+  cv.width = w; cv.height = h;
+  var cx = cv.getContext('2d');
+  cx.fillStyle = '#FFFFFF';
+  cx.fillRect(0, 0, w, h);
+  cx.drawImage(bmp, 0, 0, w, h);
+  var blob = await new Promise(function(res){ cv.toBlob(res, 'image/webp', quality); });
+  if (!blob) throw new Error('转 webp 失败');
+  var dataUrl = await blobToDataUrl(blob);
+  return { dataUrl: dataUrl, w: w, h: h };
+}
+
 /* ============================ 界面逻辑 ============================ */
 var $ = id => document.getElementById(id);
 var elTitle=$('title'), elDate=$('date'), elTags=$('tags'),
@@ -654,7 +765,193 @@ elBody.addEventListener('drop', function(e){
 document.addEventListener('dragover', function(e){ e.preventDefault(); });
 document.addEventListener('drop', function(e){ e.preventDefault(); });
 
-function setStatus(t){ elStatus.textContent=t; }
+/* ================= 相馆模式（2026-09-18） ================= */
+var GALLERY_ON = false;            // 当前是不是相馆模式
+var galleryState = { photo: null };// 待发布的照片（已处理成 webp：大图 + 缩图）
+
+var elGDrop = $('gDrop'), elGPrev = $('gPrev'), elGPrevWrap = $('gPrevWrap'),
+    elGDims = $('gDims'), elGStatus = $('gStatus'),
+    elGPub = $('gPub'), elGFile = $('fileGallery'),
+    elGDate = $('gDate'), elGCap = $('gCap');
+
+// 相馆日期默认今天
+elGDate.value = todayStr();
+
+function setGalleryMode(on){
+  GALLERY_ON = on;
+  $('main').style.display = on ? 'none' : '';
+  $('bar').style.display = on ? 'none' : '';
+  $('galleryPane').style.display = on ? 'flex' : 'none';
+  // 文章专属的头部按钮在相馆模式下藏起来，避免误点成发布空文章
+  $('btnOpen').style.display = on ? 'none' : '';
+  $('btnSave').style.display = on ? 'none' : '';
+  $('btnPub').style.display = on ? 'none' : '';
+  $('tabWrite').classList.toggle('on', !on);
+  $('tabGallery').classList.toggle('on', on);
+  if (on && !galleryState.photo) elGStatus.textContent = '选一张照片（SVG 不收）';
+}
+
+$('tabWrite').onclick = function(){ setGalleryMode(false); };
+$('tabGallery').onclick = function(){ setGalleryMode(true); };
+
+elGDrop.onclick = function(){ elGFile.click(); };
+elGFile.onchange = function(){ if (this.files && this.files[0]) addGalleryFile(this.files[0]); this.value = ''; };
+elGDrop.addEventListener('dragover', function(e){ e.preventDefault(); elGDrop.classList.add('hot'); });
+elGDrop.addEventListener('dragleave', function(){ elGDrop.classList.remove('hot'); });
+elGDrop.addEventListener('drop', function(e){
+  e.preventDefault(); elGDrop.classList.remove('hot');
+  var f = e.dataTransfer && e.dataTransfer.files && e.dataTransfer.files[0];
+  if (f) addGalleryFile(f);
+});
+elGCap.addEventListener('input', function(){ elGCap.dataset.touched = '1'; });
+elGPub.onclick = function(){ if (CLOUD) galleryCloudPublish(); else publishGalleryLocal(); };
+
+/* 选好/拖入/粘贴一张照片 → 浏览器里处理成 webp（大图 + 缩图） */
+async function addGalleryFile(file){
+  if (!file) return;
+  if (file.type === 'image/svg+xml'){ alert('SVG 不收（能执行脚本）'); return; }
+  elGStatus.textContent = '处理中…';
+  try{
+    var disp = await fileToWebp(file, GALLERY_MAX_DIM, GALLERY_Q_FULL);
+    var thumb = await fileToWebp(file, GALLERY_THUMB_DIM, GALLERY_Q_THUMB);
+    galleryState.photo = {
+      name: file.name,
+      displayDataUrl: disp.dataUrl, thumbDataUrl: thumb.dataUrl,
+      w: disp.w, h: disp.h, tw: thumb.w, th: thumb.h
+    };
+    elGPrev.src = disp.dataUrl;
+    elGPrevWrap.style.display = '';
+    elGDims.textContent = '大图 ' + disp.w + '×' + disp.h + ' · 缩图 ' + thumb.w + '×' + thumb.h;
+    // 说明默认 = 原文件名去扩展名（用户没手改过才自动填）
+    if (!elGCap.dataset.touched) elGCap.value = String(file.name || '').replace(/\.[^.]*$/, '');
+    elGStatus.textContent = '已就绪，点「发布到相馆」';
+  }catch(e){
+    elGStatus.textContent = '处理失败：' + e.message;
+    alert('处理失败：' + e.message);
+  }
+}
+
+/* 云端：直接 PUT 到仓库。顺序必须：大图 → 缩图 → 元数据（最后才触发一次重建） */
+async function galleryCloudPublish(){
+  if (!getToken()){ showLogin(true); return; }
+  if (!galleryState.photo){ alert('先选一张照片'); return; }
+  var photo = galleryState.photo;
+  var caption = elGCap.value.trim();
+  var date = elGDate.value.trim();
+  var base = safeSlug(caption) || safeSlug(String(photo.name || '').replace(/\.[^.]*$/, ''));
+  if (!base) base = safeSlug('photo');
+
+  showLog('连仓库，找不重名的 slug…\n');
+  setStatus('发布到相馆中…');
+  var slug = null;
+  for (var i = 1; i <= 50; i++){
+    var s = i === 1 ? base : base + '-' + i;
+    try{
+      await gh('/repos/' + REPO + '/contents/' + encPath(GALLERY_DIR + '/' + s + '.json') + '?ref=' + BRANCH);
+    }catch(e){
+      if (e.status === 404){ slug = s; break; }
+      throw e;
+    }
+  }
+  if (!slug) slug = base + '-' + Date.now();
+
+  async function putAsset(rel, b64, msg){
+    return gh('/repos/' + REPO + '/contents/' + encPath(rel), {
+      method: 'PUT',
+      body: JSON.stringify({ message: msg, content: b64, branch: BRANCH })
+    });
+  }
+  try{
+    var fullB64 = photo.displayDataUrl.slice(photo.displayDataUrl.indexOf(',') + 1);
+    var thumbB64 = photo.thumbDataUrl.slice(photo.thumbDataUrl.indexOf(',') + 1);
+    log('PUT 大图 assets/gallery/' + slug + '.webp\n');
+    await putAsset(GALLERY_ASSET_DIR + '/' + slug + '.webp', fullB64, '相馆大图：' + slug);
+    log('PUT 缩图 assets/gallery/' + slug + '-t.webp\n');
+    await putAsset(GALLERY_ASSET_DIR + '/' + slug + '-t.webp', thumbB64, '相馆缩图：' + slug);
+    var meta = buildGalleryMeta({
+      file: slug + '.webp', thumb: slug + '-t.webp',
+      w: photo.w, h: photo.h, tw: photo.tw, th: photo.th,
+      caption: caption, date: date
+    });
+    log('PUT 元数据 content/gallery/' + slug + '.json（触发重建）\n');
+    await putAsset(GALLERY_DIR + '/' + slug + '.json', b64enc(JSON.stringify(meta, null, 2)), '相馆元数据：' + slug);
+    log('\n已发布到相馆，正在自动重建 ✓\n  约一分钟后可见：https://alakazamc.github.io/gallery/\n');
+    setStatus('已发布到相馆，正在自动重建');
+    galleryState.photo = null;
+    elGPrevWrap.style.display = 'none';
+  }catch(e){
+    log('\n发布失败：' + e.message + '\n');
+    setStatus('发布失败：' + e.message);
+    if (e.status === 401 || e.status === 403){ setToken(''); showLogin(true); }
+  }
+}
+
+/* 本机：交给 /api/gallery（写盘 + 构建 + 推送，日志流式回吐） */
+function publishGalleryLocal(){
+  if (!galleryState.photo){ alert('先选一张照片'); return; }
+  var photo = galleryState.photo;
+  var caption = elGCap.value.trim();
+  var date = elGDate.value.trim();
+  var preferred = safeSlug(caption) || safeSlug(String(photo.name || '').replace(/\.[^.]*$/, ''));
+  showLog('开始发布到相馆…\n');
+  setStatus('发布到相馆中…');
+  elGPub.disabled = true;
+  fetch('/api/gallery', {
+    method: 'POST', headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      displayDataUrl: photo.displayDataUrl, thumbDataUrl: photo.thumbDataUrl,
+      caption: caption, date: date, preferredSlug: preferred,
+      w: photo.w, h: photo.h, tw: photo.tw, th: photo.th
+    })
+  }).then(function(res){
+    var reader = res.body.getReader();
+    var dec = new TextDecoder();
+    var buf = '';
+    (function pump(){
+      reader.read().then(function(r){
+        if (r.done){ elGPub.disabled = false; return; }
+        buf += dec.decode(r.value, { stream: true });
+        var i;
+        while ((i = buf.indexOf('\n\n')) >= 0){
+          var chunk = buf.slice(0, i); buf = buf.slice(i + 2);
+          if (!chunk.startsWith('data: ')) continue;
+          var m; try{ m = JSON.parse(chunk.slice(6)); }catch(e){ continue; }
+          if (m.stage === 'saved') log('已写入 content/gallery/' + m.file + '\n');
+          else if (m.stage === 'pushing') log('正在重建并推送…\n');
+          else if (m.stage === 'log') log(m.text);
+          else if (m.stage === 'done'){
+            elGPub.disabled = false;
+            if (m.ok){
+              log('\n发布成功 ✓ 几分钟后可见：https://alakazamc.github.io/gallery/\n');
+              setStatus('已发布到相馆，正在自动重建');
+              galleryState.photo = null; elGPrevWrap.style.display = 'none';
+            }else{
+              log('\n发布失败 ✗ ' + (m.error || ('退出码 ' + m.code)) + '\n');
+              setStatus('发布失败，看下方日志');
+            }
+          }
+        }
+        pump();
+      }).catch(function(e){ elGPub.disabled = false; log('\n读取日志出错：' + e.message + '\n'); });
+    })();
+  }).catch(function(e){ elGPub.disabled = false; log('\n请求失败：' + e.message + '\n'); setStatus('请求失败'); });
+}
+
+/* 相馆模式下：剪贴板里的图片改成待发布照片，而不是插进正文
+   （文章模式下这条不拦截，正文粘贴插图逻辑原样保留）。 */
+document.addEventListener('paste', function(e){
+  if (!GALLERY_ON) return;
+  var items = (e.clipboardData && e.clipboardData.items) || [];
+  var files = [];
+  for (var i = 0; i < items.length; i++){
+    if (items[i].kind === 'file'){ var f = items[i].getAsFile(); if (f) files.push(f); }
+  }
+  if (!files.length) return;
+  e.preventDefault();
+  addGalleryFile(files[0]);
+});
+
+function setStatus(t){ elStatus.textContent=t; if (GALLERY_ON && elGStatus) elGStatus.textContent=t; }
 function log(t, on){ elLog.textContent += t; elLog.classList.toggle('on', !!on); elLog.scrollTop=elLog.scrollHeight; }
 function showLog(t){ elLog.textContent=t; elLog.classList.add('on'); elLog.scrollTop=elLog.scrollHeight; }
 
@@ -990,6 +1287,8 @@ if(CLOUD){
     }
   }catch(e){}
 }
+// 初始为「写文章」模式（相馆区默认隐藏）
+setGalleryMode(false);
 </script>
 </body>
 </html>

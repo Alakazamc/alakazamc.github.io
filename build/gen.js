@@ -9,6 +9,16 @@ const { brandIcon } = require('./brands.js');
 const md = require('./md.js');
 const { articles } = require('./content.js');
 const SITE = require('./site.config.js');
+const galleryData = require('./gallery-data.js');
+
+// 相馆元数据是用户在写作页上传后新增的，构建前必须先刷新数据快照。
+// 失败只让相馆退化为空，不拖垮文章、仓库、博物馆等其他数据源。
+let GALLERY = { updatedAt: '', count: 0, items: [] };
+try {
+  GALLERY = galleryData.build();
+} catch (e) {
+  console.warn('⚠️  读取相馆失败，相馆退回为空：' + e.message);
+}
 
 // 全部文章（本站手写的 + 豆瓣影评），已按时间倒序。
 // 抓取或内容出错时退化成空数组 —— **一条外部内容不该让整站构建失败**，
@@ -206,7 +216,7 @@ const toolbar = () => {
     ['wateringcan', '时间线', '#timeline'],
     ['book', '博物馆', '#museum'],
     ['chest', '工坊', '#projects'],
-    ['scythe', '公告', '#notice'],
+    ['scythe', '相馆', '#gallery'],
     ['crystal', '游戏', '#basket'],
     ['sun', '日历', '#calendar'],
     ['coin', '账本', '#ledger']
@@ -345,12 +355,23 @@ const repos = () => {
     `<div class="rgrid">${list.length ? list.map(card).join('') : blank(6)}</div>${foot}${more}`, 'projects');
 };
 
-const notice = () => panel('公告板', ['star', 'star', 'heart', 'heart', 'mailbox'], `
-  <div class="notice">
-    ${ic('mailbox', 'lg')}
-    <div class="nb">${slot('body', '100%', '11px')}${slot('body', '76%', '11px')}${slot('body', '40%', '11px')}</div>
-  </div>
-  <div class="nrow">${ic('coin', 'sm')}${slot('meta', '88px', '9px')}${ic('gift', 'sm')}${slot('meta', '64px', '9px')}</div>`, 'notice');
+// ---------- 相馆 ----------
+// 2026-09-18 取代原来的「公告板」：那块面板一直是三条灰色斜纹占位，
+// 从上线起就没有真内容 —— 按柯西「没有内容就不留占位」的规矩，
+// 假面板比少一个面板更糟。位置让给相馆（摄影作品），这也是全站
+// 第一处出现「大图」的地方，正好补上视觉重心缺失的问题。
+// 主页只摆最近 4 张（等高一条排），全部作品进 gallery/index.html 子页。
+const galleryPanel = () => {
+  const items = (GALLERY.items || []).slice(0, 4);
+  if (!items.length) return '';   // 一张照片都没有：整个面板不渲染，不留灰块
+  const cell = (it) => `
+    <a class="gp" href="gallery/index.html" title="${md.esc(it.caption)}">
+      <img src="assets/gallery/${it.thumb}" alt="${md.esc(it.caption)}" width="${it.tw}" height="${it.th}" loading="lazy">
+    </a>`;
+  return panel('相馆', ['star', 'heart', 'heart', 'star', 'star'], `
+  <div class="gstrip">${items.map(cell).join('')}</div>
+  <div class="museum-more">${ic('star', 'sm')}<a href="gallery/index.html">相馆 · 全部 ${GALLERY.count} 张</a>${ic('heart', 'sm')}</div>`, 'gallery');
+};
 
 // ---------- 博物馆里的游戏藏品 ----------
 // 数据来自 build/sources/heybox.js。小黑盒把 Steam / PSN / Xbox / Switch / Epic
@@ -784,6 +805,12 @@ svg.ic.sm{width:12px;height:12px} svg.ic.xs{width:9px;height:9px} svg.ic.lg{widt
 .bunting i{width:0;height:0;border-left:12px solid transparent;border-right:12px solid transparent;
   border-top:22px solid var(--c);filter:drop-shadow(0 2px 0 rgba(59,36,18,.4));
   transform-origin:top center;animation:sway 3.2s ease-in-out infinite}
+/* 窄屏把旗子收到 16 面：26 面全摆是 624px，390px 的手机上会向右撑出
+   ~66px 的隐形横向溢出（页面看着正常，body 又把它藏了 —— 2026-09-18 实测）。
+   16 面 = 384px，最窄的手机也放得下；680px 以上 26 面本来就没问题。 */
+@media (max-width:680px){
+  .bunting i:nth-child(n+17){display:none}
+}
 @media (prefers-reduced-motion:reduce){.bunting i,.hang span{animation:none}}
 @keyframes sway{0%,100%{transform:rotate(-6deg)}50%{transform:rotate(6deg)}}
 .hang{display:flex;justify-content:center;gap:24px;margin:-2px 0 4px}
@@ -862,7 +889,7 @@ button.tool{cursor:pointer;font:inherit;background:var(--cream);appearance:none}
 button.tool::-moz-focus-inner{border:0}
 
 /* 导航落点：面板本身有 4px 边框 + 外发光，直接滚到顶会被顶部切掉一截 */
-#timeline,#projects,#notice,#basket,#calendar,#skills,#ledger,#farm{scroll-margin-top:24px}
+#timeline,#projects,#gallery,#basket,#calendar,#skills,#ledger,#farm{scroll-margin-top:24px}
 html{scroll-behavior:smooth}
 @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
 
@@ -1037,10 +1064,16 @@ html{scroll-behavior:smooth}
 .pcard-ic{filter:drop-shadow(0 3px 0 rgba(59,36,18,.3))}
 .pcard-foot{display:flex;gap:3px;margin-top:2px}
 
-/* ===== 公告 ===== */
-.notice{display:flex;gap:12px;align-items:flex-start}
-.nb{flex:1;display:flex;flex-direction:column;gap:5px}
-.nrow{display:flex;align-items:center;gap:7px;margin-top:10px;justify-content:center}
+/* ===== 相馆 ===== */
+/* 等高一条排：主页只做缩略陈列（高 96px = 12 的倍数，宽按原始比例），
+   **不裁图** —— 裁剪是子页灯箱之外唯一会破坏构图的事。
+   flex-wrap 兜底：窄屏摆不下就折行，绝不用 overflow-x 把照片藏进滚动条。 */
+.gstrip{display:flex;gap:12px;flex-wrap:wrap;justify-content:center;align-items:flex-start}
+.gstrip .gp{display:block;line-height:0;border:3px solid var(--ink);
+  box-shadow:0 0 0 2px var(--cream-2),0 3px 0 rgba(59,36,18,.3);
+  transition:transform .12s steps(2)}
+.gstrip .gp:hover{transform:translateY(-3px)}
+.gstrip img{height:96px;width:auto;display:block;image-rendering:auto}
 
 /* ===== 侧栏 ===== */
 .fruitgrid{display:grid;grid-template-columns:repeat(4,1fr);gap:7px}
@@ -1413,7 +1446,7 @@ ${controls()}
     <main>
       ${timeline()}
       ${museum()}
-      ${notice()}
+      ${galleryPanel()}
     </main>
     <aside>
       ${seasonPanel()}
@@ -1826,6 +1859,9 @@ try {
   require('./posts.js').build();
   require('./museum.js').build();
   require('./workshop.js').build();
+  // 相馆子页：数据已在上方由 gallery-data.js 刷新（本机/云端同一条链），
+  // 这里只负责把 build/data/gallery.json 排版成 gallery/index.html。
+  require('./gallery.js').build();
 } catch (e) {
   console.error('⚠️  子页面生成失败（主页面已正常输出）：' + e.message);
   process.exitCode = 1;

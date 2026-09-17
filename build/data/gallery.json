@@ -1,0 +1,78 @@
+{
+ "updatedAt": "2026-09-02",
+ "count": 6,
+ "items": [
+  {
+   "file": "dusk-mine.webp",
+   "thumb": "dusk-mine-t.webp",
+   "w": 1440,
+   "h": 960,
+   "tw": 640,
+   "th": 427,
+   "caption": "黄昏时的矿区入口",
+   "date": "2026-09-02",
+   "season": "autumn",
+   "generated": true
+  },
+  {
+   "file": "night-lake.webp",
+   "thumb": "night-lake-t.webp",
+   "w": 1440,
+   "h": 1440,
+   "tw": 640,
+   "th": 640,
+   "caption": "星夜的湖畔",
+   "date": "2026-08-18",
+   "season": "summer",
+   "generated": true
+  },
+  {
+   "file": "summer-coast.webp",
+   "thumb": "summer-coast-t.webp",
+   "w": 1344,
+   "h": 756,
+   "tw": 640,
+   "th": 360,
+   "caption": "夏天的海岸，光很足",
+   "date": "2026-07-30",
+   "season": "summer",
+   "generated": true
+  },
+  {
+   "file": "spring-farm.webp",
+   "thumb": "spring-farm-t.webp",
+   "w": 1440,
+   "h": 960,
+   "tw": 640,
+   "th": 427,
+   "caption": "春天的农场，作物刚下地",
+   "date": "2026-04-12",
+   "season": "spring",
+   "generated": true
+  },
+  {
+   "file": "winter-town.webp",
+   "thumb": "winter-town-t.webp",
+   "w": 960,
+   "h": 1440,
+   "tw": 427,
+   "th": 640,
+   "caption": "冬夜的小镇，路灯还亮着",
+   "date": "2026-01-05",
+   "season": "winter",
+   "generated": true
+  },
+  {
+   "file": "autumn-patch.webp",
+   "thumb": "autumn-patch-t.webp",
+   "w": 1440,
+   "h": 960,
+   "tw": 640,
+   "th": 427,
+   "caption": "秋日的南瓜地",
+   "date": "2025-10-20",
+   "season": "autumn",
+   "generated": true
+  }
+ ]
+}

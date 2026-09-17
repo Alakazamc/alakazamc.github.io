@@ -200,6 +200,12 @@ svg.ic.sm{width:12px;height:12px} svg.ic.xs{width:9px;height:9px} svg.ic.lg{widt
 .bunting i{width:0;height:0;border-left:12px solid transparent;border-right:12px solid transparent;
   border-top:22px solid var(--c);filter:drop-shadow(0 2px 0 rgba(59,36,18,.4));
   transform-origin:top center;animation:sway 3.2s ease-in-out infinite}
+/* 窄屏把旗子收到 16 面：26 面全摆是 624px，390px 的手机上会向右撑出
+   ~66px 的隐形横向溢出（页面看着正常，body 又把它藏了 —— 2026-09-18 实测）。
+   16 面 = 384px，最窄的手机也放得下；680px 以上 26 面本来就没问题。 */
+@media (max-width:680px){
+  .bunting i:nth-child(n+17){display:none}
+}
 @media (prefers-reduced-motion:reduce){.bunting i,.hang span{animation:none}}
 @keyframes sway{0%,100%{transform:rotate(-6deg)}50%{transform:rotate(6deg)}}
 .hang{display:flex;justify-content:center;gap:24px;margin:-2px 0 4px}
@@ -278,7 +284,7 @@ button.tool{cursor:pointer;font:inherit;background:var(--cream);appearance:none}
 button.tool::-moz-focus-inner{border:0}
 
 /* 导航落点：面板本身有 4px 边框 + 外发光，直接滚到顶会被顶部切掉一截 */
-#timeline,#projects,#notice,#basket,#calendar,#skills,#ledger,#farm{scroll-margin-top:24px}
+#timeline,#projects,#gallery,#basket,#calendar,#skills,#ledger,#farm{scroll-margin-top:24px}
 html{scroll-behavior:smooth}
 @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
 
@@ -453,10 +459,16 @@ html{scroll-behavior:smooth}
 .pcard-ic{filter:drop-shadow(0 3px 0 rgba(59,36,18,.3))}
 .pcard-foot{display:flex;gap:3px;margin-top:2px}
 
-/* ===== 公告 ===== */
-.notice{display:flex;gap:12px;align-items:flex-start}
-.nb{flex:1;display:flex;flex-direction:column;gap:5px}
-.nrow{display:flex;align-items:center;gap:7px;margin-top:10px;justify-content:center}
+/* ===== 相馆 ===== */
+/* 等高一条排：主页只做缩略陈列（高 96px = 12 的倍数，宽按原始比例），
+   **不裁图** —— 裁剪是子页灯箱之外唯一会破坏构图的事。
+   flex-wrap 兜底：窄屏摆不下就折行，绝不用 overflow-x 把照片藏进滚动条。 */
+.gstrip{display:flex;gap:12px;flex-wrap:wrap;justify-content:center;align-items:flex-start}
+.gstrip .gp{display:block;line-height:0;border:3px solid var(--ink);
+  box-shadow:0 0 0 2px var(--cream-2),0 3px 0 rgba(59,36,18,.3);
+  transition:transform .12s steps(2)}
+.gstrip .gp:hover{transform:translateY(-3px)}
+.gstrip img{height:96px;width:auto;display:block;image-rendering:auto}
 
 /* ===== 侧栏 ===== */
 .fruitgrid{display:grid;grid-template-columns:repeat(4,1fr);gap:7px}
@@ -829,7 +841,7 @@ body.is-article{background:var(--sky-b);min-height:100vh;padding-top:22px}
   </div>
 
   <div class="hang"><span style="animation-delay:0.00s"><svg class="ic" viewBox="0 0 16 16"><use href="#px-strawberry"></use></svg></span><span style="animation-delay:0.30s"><svg class="ic" viewBox="0 0 16 16"><use href="#px-cherry"></use></svg></span><span style="animation-delay:0.60s"><svg class="ic" viewBox="0 0 16 16"><use href="#px-grape"></use></svg></span><span style="animation-delay:0.90s"><svg class="ic" viewBox="0 0 16 16"><use href="#px-blueberry"></use></svg></span><span style="animation-delay:1.20s"><svg class="ic" viewBox="0 0 16 16"><use href="#px-starfruit"></use></svg></span><span style="animation-delay:1.50s"><svg class="ic" viewBox="0 0 16 16"><use href="#px-mushroom"></use></svg></span><span style="animation-delay:1.80s"><svg class="ic" viewBox="0 0 16 16"><use href="#px-pepper"></use></svg></span><span style="animation-delay:2.10s"><svg class="ic" viewBox="0 0 16 16"><use href="#px-tomato"></use></svg></span><span style="animation-delay:2.40s"><svg class="ic" viewBox="0 0 16 16"><use href="#px-acorn"></use></svg></span></div>
-  <nav class="toolbar" aria-label="页面分区导航"><a class="tool" href="#timeline"><svg class="ic" viewBox="0 0 16 16"><use href="#px-wateringcan"></use></svg><em>时间线</em></a><a class="tool" href="#museum"><svg class="ic" viewBox="0 0 16 16"><use href="#px-book"></use></svg><em>博物馆</em></a><a class="tool" href="#projects"><svg class="ic" viewBox="0 0 16 16"><use href="#px-chest"></use></svg><em>工坊</em></a><a class="tool" href="#notice"><svg class="ic" viewBox="0 0 16 16"><use href="#px-scythe"></use></svg><em>公告</em></a><a class="tool" href="#basket"><svg class="ic" viewBox="0 0 16 16"><use href="#px-crystal"></use></svg><em>游戏</em></a><a class="tool" href="#calendar"><svg class="ic" viewBox="0 0 16 16"><use href="#px-sun"></use></svg><em>日历</em></a><a class="tool" href="#ledger"><svg class="ic" viewBox="0 0 16 16"><use href="#px-coin"></use></svg><em>账本</em></a><button type="button" class="tool copyable" data-copy="alakazama@qq.com" title="点击显示邮箱"><svg class="ic" viewBox="0 0 16 16"><use href="#px-mailbox"></use></svg><em>邮箱</em></button></nav>
+  <nav class="toolbar" aria-label="页面分区导航"><a class="tool" href="#timeline"><svg class="ic" viewBox="0 0 16 16"><use href="#px-wateringcan"></use></svg><em>时间线</em></a><a class="tool" href="#museum"><svg class="ic" viewBox="0 0 16 16"><use href="#px-book"></use></svg><em>博物馆</em></a><a class="tool" href="#projects"><svg class="ic" viewBox="0 0 16 16"><use href="#px-chest"></use></svg><em>工坊</em></a><a class="tool" href="#gallery"><svg class="ic" viewBox="0 0 16 16"><use href="#px-scythe"></use></svg><em>相馆</em></a><a class="tool" href="#basket"><svg class="ic" viewBox="0 0 16 16"><use href="#px-crystal"></use></svg><em>游戏</em></a><a class="tool" href="#calendar"><svg class="ic" viewBox="0 0 16 16"><use href="#px-sun"></use></svg><em>日历</em></a><a class="tool" href="#ledger"><svg class="ic" viewBox="0 0 16 16"><use href="#px-coin"></use></svg><em>账本</em></a><button type="button" class="tool copyable" data-copy="alakazama@qq.com" title="点击显示邮箱"><svg class="ic" viewBox="0 0 16 16"><use href="#px-mailbox"></use></svg><em>邮箱</em></button></nav>
 
   <!-- 工坊单独放在两栏之外，占满整行 —— 柯西要求「把代码仓库放在最上面」，
        放在 main 里的话它会跟右栏的侧栏面板并排，视觉上就不是「最上面」了。 -->
@@ -1667,15 +1679,24 @@ body.is-article{background:var(--sky-b);min-height:100vh;padding-top:22px}
   </section>
 </section>
       
-<section class="panel" id="notice">
-  <span class="pt"><svg class="ic xs" viewBox="0 0 16 16"><use href="#px-mailbox"></use></svg>公告板<svg class="ic xs" viewBox="0 0 16 16"><use href="#px-mailbox"></use></svg></span>
-  <span class="cor tl"><svg class="ic sm" viewBox="0 0 16 16"><use href="#px-star"></use></svg></span><span class="cor tr"><svg class="ic sm" viewBox="0 0 16 16"><use href="#px-star"></use></svg></span><span class="cor bl"><svg class="ic sm" viewBox="0 0 16 16"><use href="#px-heart"></use></svg></span><span class="cor br"><svg class="ic sm" viewBox="0 0 16 16"><use href="#px-heart"></use></svg></span>
+<section class="panel" id="gallery">
+  <span class="pt"><svg class="ic xs" viewBox="0 0 16 16"><use href="#px-star"></use></svg>相馆<svg class="ic xs" viewBox="0 0 16 16"><use href="#px-star"></use></svg></span>
+  <span class="cor tl"><svg class="ic sm" viewBox="0 0 16 16"><use href="#px-star"></use></svg></span><span class="cor tr"><svg class="ic sm" viewBox="0 0 16 16"><use href="#px-heart"></use></svg></span><span class="cor bl"><svg class="ic sm" viewBox="0 0 16 16"><use href="#px-heart"></use></svg></span><span class="cor br"><svg class="ic sm" viewBox="0 0 16 16"><use href="#px-star"></use></svg></span>
   
-  <div class="notice">
-    <svg class="ic lg" viewBox="0 0 16 16"><use href="#px-mailbox"></use></svg>
-    <div class="nb"><span class="slot body" style="width:100%;height:11px"></span><span class="slot body" style="width:76%;height:11px"></span><span class="slot body" style="width:40%;height:11px"></span></div>
-  </div>
-  <div class="nrow"><svg class="ic sm" viewBox="0 0 16 16"><use href="#px-coin"></use></svg><span class="slot meta" style="width:88px;height:9px"></span><svg class="ic sm" viewBox="0 0 16 16"><use href="#px-gift"></use></svg><span class="slot meta" style="width:64px;height:9px"></span></div>
+  <div class="gstrip">
+    <a class="gp" href="gallery/index.html" title="黄昏时的矿区入口">
+      <img src="assets/gallery/dusk-mine-t.webp" alt="黄昏时的矿区入口" width="640" height="427" loading="lazy">
+    </a>
+    <a class="gp" href="gallery/index.html" title="星夜的湖畔">
+      <img src="assets/gallery/night-lake-t.webp" alt="星夜的湖畔" width="640" height="640" loading="lazy">
+    </a>
+    <a class="gp" href="gallery/index.html" title="夏天的海岸，光很足">
+      <img src="assets/gallery/summer-coast-t.webp" alt="夏天的海岸，光很足" width="640" height="360" loading="lazy">
+    </a>
+    <a class="gp" href="gallery/index.html" title="春天的农场，作物刚下地">
+      <img src="assets/gallery/spring-farm-t.webp" alt="春天的农场，作物刚下地" width="640" height="427" loading="lazy">
+    </a></div>
+  <div class="museum-more"><svg class="ic sm" viewBox="0 0 16 16"><use href="#px-star"></use></svg><a href="gallery/index.html">相馆 · 全部 6 张</a><svg class="ic sm" viewBox="0 0 16 16"><use href="#px-heart"></use></svg></div>
 </section>
     </main>
     <aside>
