@@ -341,9 +341,14 @@ html{scroll-behavior:smooth}
   background:var(--cream-2);border:2px solid var(--wood-c);padding:8px 10px;
   text-decoration:none;color:inherit;
   transition:transform .12s steps(2),background .12s}
+/* 没有封面的文章：**不要留一个空槽**（柯西 2026-09-17 明确要求）。
+   ⚠️ 这里必须显式改列定义，不能只把封面元素删掉 —— 上面是显式两列，
+   少了第一个元素的话 .tl-body 会落到 56px 那一列里，标题被挤成竖条。
+   （占位槽仍是骨架屏的降级态，见下面 skeleton，那条路不变。） */
+.tl-card.nocover{grid-template-columns:minmax(0,1fr)}
 .tl-item:hover .tl-card{background:var(--gold);transform:translateX(4px)}
 .tl-body{display:flex;flex-direction:column;gap:5px;min-width:0}
-/* 真实文章卡的三件套：小封面、标题、摘要。
+/* 真实文章卡的三件套：小封面（可选）、标题、摘要。
    标题和摘要都限两行 —— 时间线上条目高度必须一致，不然轴会被参差的卡片顶歪。 */
 .tl-cover{display:block;width:56px;height:78px;background:var(--cream-3);
   border:2px solid var(--ink);overflow:hidden;flex:none}
@@ -729,7 +734,6 @@ body.is-article{background:var(--sky-b);min-height:100vh;padding-top:22px}
 .blog-lead-cover{width:88px;height:122px;flex:none;display:flex;align-items:center;justify-content:center;
   overflow:hidden;background:var(--cream-3);border:2px solid var(--wood-c)}
 .blog-lead-cover img{width:100%;height:100%;object-fit:contain;display:block}
-.blog-lead-cover.blank{color:var(--wood-b)}
 .blog-lead-body{display:flex;flex-direction:column;gap:5px;min-width:0;justify-content:center}
 .blog-lead-tag{font-style:normal;font-size:12px;opacity:.7}
 .blog-lead-title{font-size:12px;line-height:1.5}
@@ -741,7 +745,6 @@ body.is-article{background:var(--sky-b);min-height:100vh;padding-top:22px}
 .blog-row-cover{width:52px;height:72px;flex:none;display:flex;align-items:center;justify-content:center;
   overflow:hidden;background:var(--cream-3);border:2px solid var(--wood-c)}
 .blog-row-cover img{width:100%;height:100%;object-fit:contain;display:block}
-.blog-row-cover.blank{color:var(--wood-b)}
 .blog-row-body{display:flex;flex-direction:column;gap:4px;min-width:0;flex:1}
 .blog-row-title{font-size:12px;line-height:1.5;text-decoration:none;color:inherit}
 .blog-row-title:hover{background:var(--gold)}
