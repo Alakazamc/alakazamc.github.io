@@ -51,6 +51,12 @@
   textarea{resize:none;line-height:1.75;tab-size:2}
 
   #body{height:100%;border:0;border-radius:0;padding:12px}
+  /* 拖图片进来时给个明确反馈 —— 不然松手之前不知道会不会生效 */
+  #body.drop{background:#EAF6E6;outline:3px dashed var(--grass);outline-offset:-6px}
+  /* 封面那一行：输入框 + 两个按钮。输入框要能缩，不然按钮会被挤出格子 */
+  .coverbox{display:flex;gap:6px}
+  .coverbox input{flex:1;min-width:0}
+  .coverbox button{padding:6px 10px;white-space:nowrap}
   #preview{padding:16px 20px;background:#FFFDF5}
   #preview h2,#preview h3,#preview h4{font-weight:400;line-height:1.5}
   #preview h2{font-size:24px;margin:18px 0 10px;border-bottom:3px solid var(--ink);padding-bottom:4px}
@@ -141,6 +147,12 @@
         <label for="tags">标签</label><input id="tags" placeholder="用逗号分隔，例如：逆向工程, Node.js">
         <label for="summary">摘要</label><input id="summary" placeholder="列表页显示的一行简介（可留空）">
         <label for="slug">文件名</label><input id="slug" placeholder="留空则用标题，中文也可以">
+        <label for="cover">封面</label>
+        <div class="coverbox">
+          <input id="cover" placeholder="留空则文章列表用文字卡片，填了显示图片" readonly>
+          <button id="btnCover" type="button">选图</button>
+          <button id="btnCoverClear" type="button">清除</button>
+        </div>
       </div>
       <textarea id="body" placeholder="在这里写正文…&#10;&#10;支持：# 标题、**粗体**、*斜体*、`代码`、- 列表、> 引用、```代码块```、[链接](url)、![图片](url)"></textarea>
     </div>
@@ -153,8 +165,15 @@
 </main>
 
 <div class="bar">
+  <button id="btnImg" type="button">插入图片</button>
+  <span class="hint">也可以直接 <b>Ctrl+V</b> 粘贴，或把图拖进来</span>
+  <span style="flex:1"></span>
   <span class="hint" id="status">就绪</span>
 </div>
+
+<!-- 真正干活的两个文件选择框（藏起来，由上面的按钮触发） -->
+<input type="file" id="fileImg" accept="image/png,image/jpeg,image/gif,image/webp,image/avif" multiple style="display:none">
+<input type="file" id="fileCover" accept="image/png,image/jpeg,image/gif,image/webp,image/avif" style="display:none">
 
 <div id="log"></div>
 
@@ -351,15 +370,156 @@ function buildMarkdown(p){
   lines.push('date: ' + p.date);
   if (p.tags && p.tags.length) lines.push('tags: [' + p.tags.join(', ') + ']');
   if (p.summary) lines.push('summary: ' + String(p.summary).replace(/[\r\n]+/g, ' ').trim());
+  if (p.cover) lines.push('cover: ' + String(p.cover).replace(/[\r\n]+/g, ' ').trim());
   lines.push('---', '');
   lines.push(String(p.body || '').trim(), '');
   return lines.join('\n');
 }
 
+/* ============================================================
+   插图（2026-09-17 柯西：别人的博客都能直接贴图片）
+   ------------------------------------------------------------
+   两种模式都把图**存进仓库**（assets/uploads/），只是通道不同：
+     本机模式：POST /api/upload → 写进本地 assets/uploads/，随 push 上线
+     云端模式：直接 PUT 到仓库的 assets/uploads/（一次提交就是一张图）
+
+   ⚠️ 为什么不学 Decap CMS 用 Git Data API（blobs → tree → commit）：
+   那套是**批量**提交用的（一篇文章 + 多张图合成一个 commit），代价是
+   建树、更新 ref、还要自己处理并发（期间有别人的提交就冲突）。
+   我们一次只传一张图，Contents API 一次请求就够，实测 3MB 的图约 10 秒。
+   简单的东西不要为了"跟别人一样"去套复杂的实现。
+   ============================================================ */
+var MEDIA_DIR = 'assets/uploads';
+var IMAGE_MAX = 4 * 1024 * 1024;      // 与 blog-server.js 的 MAX_IMG 一致
+var SHRINK_OVER = 1.2 * 1024 * 1024;  // 超过就先缩一圈再传
+var MAX_DIM = 1800;                   // 缩放后的最长边
+
+/* ---------- 图片文件名 ----------
+   ⚠️ 与 blog-server.js 的 mediaExt / mediaName **逐字一致**：
+   同一张图不管从哪台机器传上去，仓库里的文件名都得一样。
+   不收 svg —— 它能执行脚本，跟页面同源等于给自己开个后门。 */
+function mediaExt(name, mime){
+  var ok = ['png', 'jpg', 'jpeg', 'gif', 'webp', 'avif'];
+  var m = /\.([A-Za-z0-9]+)$/.exec(String(name || ''));
+  var e = (m ? m[1] : '').toLowerCase();
+  if (e === 'jpeg') e = 'jpg';
+  if (ok.indexOf(e) >= 0) return e;
+  var t = String(mime || '').toLowerCase();
+  if (t === 'image/jpeg') return 'jpg';
+  if (t === 'image/png') return 'png';
+  if (t === 'image/gif') return 'gif';
+  if (t === 'image/webp') return 'webp';
+  if (t === 'image/avif') return 'avif';
+  return '';
+}
+function mediaName(name, mime){
+  var ext = mediaExt(name, mime);
+  if (!ext) return '';
+  return safeSlug(name) + '.' + ext;
+}
+
+function humanSize(n){
+  return n >= 1048576 ? (n / 1048576).toFixed(1) + 'MB' : Math.max(1, Math.round(n / 1024)) + 'KB';
+}
+
+/* ⚠️ 别再写"字节 → base64"的函数了。早先有一个走 TextEncoder 的版本，
+   它是把**字符串**按 UTF-8 编码的，拿来处理图片字节会把所有 >127 的字节
+   改写掉 —— 图就烂了，而且不报错。这里一律用 FileReader.readAsDataURL：
+   浏览器自己按字节转，不可能转错（见 readAsDataUrl）。 */
+
+/* ---------- 太大了先缩一圈 ----------
+   手机拍的照片动辄 4-8MB，直接传会超上限，访客打开也慢。
+   超过 SHRINK_OVER 就等比缩到 MAX_DIM 以内再编码一次；缩完反而更大
+   （小图重编码会这样）就退回原图 —— 宁可用大的，也不要越优化越差。
+
+   ⚠️ 透明通道：png 里真有透明像素时不能转 jpeg，透明会变成黑块。
+   所以**抽样**判断（每 16 个像素看一个 alpha）：全量扫几百万像素太卡，
+   而"这张图有没有透明"抽样足够准。读不到像素时保守当成有透明。 */
+function hasAlpha(cx, w, h){
+  try{
+    var d = cx.getImageData(0, 0, w, h).data;
+    for (var i = 3; i < d.length; i += 64) if (d[i] < 250) return true;
+  }catch(e){ return true; }
+  return false;
+}
+
+async function shrinkImage(file){
+  if (file.size <= SHRINK_OVER) return file;
+  // gif / avif 不动：gif 会被展成静态首帧，avif 转出来未必更小
+  if (!/^image\/(png|jpeg|webp)$/.test(file.type)) return file;
+  var bmp;
+  try{ bmp = await createImageBitmap(file); }catch(e){ return file; }
+  var scale = Math.min(1, MAX_DIM / Math.max(bmp.width, bmp.height));
+  var w = Math.max(1, Math.round(bmp.width * scale));
+  var h = Math.max(1, Math.round(bmp.height * scale));
+  var cv = document.createElement('canvas');
+  cv.width = w; cv.height = h;
+  var cx = cv.getContext('2d');
+  cx.drawImage(bmp, 0, 0, w, h);
+  var type = file.type;
+  if (type === 'image/png' && !hasAlpha(cx, w, h)) type = 'image/jpeg';
+  var out = await new Promise(function(res){ cv.toBlob(res, type, 0.86); });
+  if (!out || out.size >= file.size) return file;
+  // ⚠️ 换了格式就得换扩展名，不然 jpeg 的字节挂着 .png 的名字（能显示，
+  //    但 HTTP 的 Content-Type 会跟着扩展名走，别人保存下来是坏的）
+  var base = String(file.name || 'image').replace(/\.[^.]*$/, '');
+  var ext = type === 'image/jpeg' ? 'jpg' : (type === 'image/webp' ? 'webp' : 'png');
+  out.name = base + '.' + ext;
+  return out;
+}
+
+function readAsDataUrl(file){
+  return new Promise(function(res, rej){
+    var r = new FileReader();
+    r.onload = function(){ res(String(r.result)); };
+    r.onerror = function(){ rej(new Error('读不出这个文件')); };
+    r.readAsDataURL(file);
+  });
+}
+
+/* 云端重名就往后加 -2、-3（跟本机服务 uniqueName 一个思路）。
+   ⚠️ 为什么不覆盖：图片一旦被引用就"躺在文章里"了，换掉同一张文件名
+   会让旧文章悄悄换了配图。 */
+async function uniqueCloudName(name){
+  for (var i = 1; i <= 50; i++){
+    var cand = i === 1 ? name : name.replace(/(\.[^.]+)$/, '-' + i + '$1');
+    try{ await gh('/repos/'+REPO+'/contents/'+encPath(MEDIA_DIR + '/' + cand) + '?ref=' + BRANCH); }
+    catch(e){ if (e.status === 404) return cand; throw e; }
+  }
+  return name.replace(/(\.[^.]+)$/, '-' + Date.now() + '$1');
+}
+
+/* 上传一张图，返回**相对站点根**的路径（assets/uploads/xxx.png） */
+async function uploadImage(file){
+  var f = await shrinkImage(file);
+  if (f.size > IMAGE_MAX){
+    throw new Error('这张图 ' + humanSize(f.size) + '，缩过还是超过 ' + humanSize(IMAGE_MAX) + '，先压缩一下再传');
+  }
+  var dataUrl = await readAsDataUrl(f);
+  if (CLOUD){
+    var b64 = dataUrl.slice(dataUrl.indexOf(',') + 1);   // dataURL 的载荷本来就是 base64
+    var name = await uniqueCloudName(mediaName(f.name, f.type));
+    await gh('/repos/'+REPO+'/contents/'+encPath(MEDIA_DIR + '/' + name), {
+      method: 'PUT',
+      body: JSON.stringify({ message: '图片：' + name, content: b64, branch: BRANCH })
+    });
+    return MEDIA_DIR + '/' + name;
+  }
+  var r = await fetch('/api/upload', {
+    method: 'POST', headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ name: f.name, mime: f.type, dataUrl: dataUrl })
+  });
+  var j = await r.json();
+  if (!j.ok) throw new Error(j.error || '上传失败');
+  return j.path;
+}
+
+
 /* ============================ 界面逻辑 ============================ */
 var $ = id => document.getElementById(id);
 var elTitle=$('title'), elDate=$('date'), elTags=$('tags'),
     elSummary=$('summary'), elSlug=$('slug'), elBody=$('body'),
+    elCover=$('cover'),
     elPrev=$('preview'), elStatus=$('status'), elLog=$('log'),
     elCounter=$('counter');
 
@@ -409,10 +569,90 @@ function payload(){
     date: elDate.value,
     tags: elTags.value.split(/[,，]/).map(s=>s.trim()).filter(Boolean),
     summary: elSummary.value.trim(),
+    cover: elCover.value.trim(),
     slug: elSlug.value.trim() || elTitle.value.trim(),
     body: elBody.value
   };
 }
+
+/* ==================== 插图：三个入口，一条通道 ====================
+   按钮选文件 / Ctrl+V 粘贴 / 拖进来 —— 三条路最后都汇到 addImages()。
+   分开写三套上传逻辑是这类功能最常见的长歪方式（改了一处忘了另两处）。 */
+function insertAtCursor(text){
+  var s = elBody.selectionStart, e = elBody.selectionEnd;
+  var before = elBody.value.slice(0, s), after = elBody.value.slice(e);
+  // 让图片独占一行更好读：前后补换行（已经在新行开头就不补）
+  var pre = (before === '' || before.endsWith('\n')) ? '' : '\n';
+  var post = (after === '' || after.startsWith('\n')) ? '' : '\n';
+  elBody.value = before + pre + text + post + after;
+  var pos = (before + pre + text + post).length;
+  elBody.selectionStart = elBody.selectionEnd = pos;
+  elBody.focus();
+  refresh();
+}
+
+async function addImages(files, asCover){
+  var imgs = [].slice.call(files || []).filter(function(f){ return /^image\//.test(f.type); });
+  if (!imgs.length) return;
+  if (CLOUD && !getToken()){ showLogin(true); return; }
+  for (var i = 0; i < imgs.length; i++){
+    var f = imgs[i];
+    setStatus('上传图片 ' + (i + 1) + '/' + imgs.length + '（' + humanSize(f.size) + '）…');
+    try{
+      var p = await uploadImage(f);
+      if (asCover){
+        elCover.value = p;
+        setStatus('封面已设为 ' + p);
+      }else{
+        insertAtCursor('![' + String(f.name || '图片').replace(/\.[^.]*$/, '') + '](../' + p + ')');
+        setStatus('已插入 ' + p + '（' + humanSize(f.size) + '）');
+      }
+    }catch(e){
+      setStatus('图片没传上去：' + e.message);
+      alert('图片没传上去：' + e.message);
+    }
+  }
+}
+
+$('btnImg').onclick = function(){ $('fileImg').click(); };
+$('fileImg').onchange = function(){ addImages(this.files); this.value = ''; };
+$('btnCover').onclick = function(){ $('fileCover').click(); };
+$('fileCover').onchange = function(){ addImages(this.files, true); this.value = ''; };
+$('btnCoverClear').onclick = function(){ elCover.value = ''; setStatus('封面已清除'); };
+
+/* 粘贴：只认剪贴板里的**图片**。普通文字粘贴必须原样放行 ——
+   拦下来会让人连自己写的东西都粘不进去。 */
+elBody.addEventListener('paste', function(e){
+  var items = (e.clipboardData && e.clipboardData.items) || [];
+  var files = [];
+  for (var i = 0; i < items.length; i++){
+    if (items[i].kind === 'file'){
+      var f = items[i].getAsFile();
+      if (f) files.push(f);
+    }
+  }
+  if (!files.length) return;
+  e.preventDefault();
+  addImages(files);
+});
+
+/* 拖进来：dragover 必须 preventDefault，否则浏览器会当成"打开这个文件"，
+   页面直接被替换掉、正在写的东西全没了。 */
+elBody.addEventListener('dragover', function(e){
+  e.preventDefault();
+  elBody.classList.add('drop');
+});
+elBody.addEventListener('dragleave', function(){ elBody.classList.remove('drop'); });
+elBody.addEventListener('drop', function(e){
+  e.preventDefault();
+  elBody.classList.remove('drop');
+  addImages(e.dataTransfer && e.dataTransfer.files);
+});
+
+/* 兜底：图要是被丢在**正文框以外**的地方，浏览器默认会当"打开这个文件"，
+   整页被替换掉 —— 正在写的东西全没了。所以在 document 上也拦一道。 */
+document.addEventListener('dragover', function(e){ e.preventDefault(); });
+document.addEventListener('drop', function(e){ e.preventDefault(); });
 
 function setStatus(t){ elStatus.textContent=t; }
 function log(t, on){ elLog.textContent += t; elLog.classList.toggle('on', !!on); elLog.scrollTop=elLog.scrollHeight; }
@@ -742,6 +982,7 @@ if(CLOUD){
       elDate.value=d.date||todayStr();
       elTags.value=(d.tags||[]).join(', ');
       elSummary.value=d.summary||'';
+      elCover.value=d.cover||'';
       elSlug.value=d.slug||'';
       elBody.value=d.body||'';
       refresh();
