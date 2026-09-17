@@ -247,6 +247,22 @@ ${seasonScript()}
 `;
 }
 
+/* 清掉"上一次构建留下的、这一次已经不该存在的"页。
+   ⚠️ 为什么非要有这一步：文章被删掉之后（云端写作就是在网页上删 .md），
+   gen.js 只负责**重新生成该有的页**，不会顺手删掉**多出来的页**。
+   结果就是源文没了、文章页还挂在线上，而且没有任何地方会报错。
+   （2026-09-17 端到端自检抓到的：删掉测试文章、重建也 success，
+     但 posts/E2E链路自检.html 依然在仓库里。）
+   ⚠️ 边界：只删这一层的 .html。posts/ 下现在只有页面，但万一以后
+   放了图片/附件，这条边界保证不会被误删。 */
+function prune(expected) {
+  const stale = fs
+    .readdirSync(OUT_DIR)
+    .filter((f) => f.endsWith('.html') && !expected.has(f));
+  stale.forEach((f) => fs.unlinkSync(path.join(OUT_DIR, f)));
+  return stale;
+}
+
 function build() {
   const list = articles();
   fs.mkdirSync(OUT_DIR, { recursive: true });
@@ -259,7 +275,13 @@ function build() {
   });
   fs.writeFileSync(path.join(OUT_DIR, 'index.html'), blogPage(list), 'utf8');
 
-  console.log('已生成 posts/ ：' + list.length + ' 篇文章 + index.html（博客列表）');
+  const expected = new Set(list.map((a) => a.slug + '.html').concat('index.html'));
+  const stale = prune(expected);
+
+  console.log(
+    '已生成 posts/ ：' + list.length + ' 篇文章 + index.html（博客列表）' +
+      (stale.length ? '；清掉 ' + stale.length + ' 个失效页：' + stale.join('、') : '')
+  );
   return list;
 }
 
