@@ -1,0 +1,59 @@
+name: 重建站点
+
+# 云端重建：在网页上提交一篇文章之后，由 GitHub 自己把整站重新生成并提交回来。
+#
+# 为什么必须有它：站点是纯静态的，写作页能做的只有"提交一个 .md 文件"。
+# 但首页时间线、博客列表页、文章页都要跟着重排 —— 这一步就是那次重排。
+# 本地写作时这一步由 build/push.js 在你自己电脑上跑；云端写作时由它跑。
+#
+# ⚠️⚠️ 触发条件是**路径过滤**（只认 content/ 和 build/），这是防死循环的关键：
+#      本 workflow 提交的是产物（posts/、assets/、index.html、museum/…），
+#      它不碰 content/ 也不碰 build/，所以不会触发自己。
+#      **不要为了"省事"把 paths 删掉** —— 删了就是无限循环，而且烧的是你的 Actions 额度。
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'content/**'
+      - 'build/**'
+  workflow_dispatch:        # 也能在 Actions 页面手动点一下强制重建
+
+permissions:
+  contents: write           # 提交产物需要写权限
+
+concurrency:
+  group: build-site
+  cancel-in-progress: false # 排队而不是取消：取消会留下"文章在、页面没更新"的半截状态
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+
+      # gen.js 是零依赖、不联网的（只读 build/data/*.json 快照），
+      # 所以这里**故意不做 npm install** —— 没有 package.json，也没有依赖可装。
+      - name: 重建站点
+        run: node build/gen.js
+
+      - name: 提交产物
+        env:
+          # 用 env 传而不是直接拼进 shell —— commit message 里可能有引号、
+          # 美元符号或换行，直接拼进命令行会被 shell 解析（也可能被注入）。
+          COMMIT_MSG: ${{ github.event.head_commit.message }}
+        run: |
+          git config user.name  "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A
+          if git diff --staged --quiet; then
+            echo "产物没有变化，不需要提交"
+            exit 0
+          fi
+          # 只取第一行：多行 message 会破坏 commit 标题
+          TITLE=$(printf '%s' "${COMMIT_MSG:-手动触发}" | head -1)
+          git commit -m "自动重建：$TITLE"
+          git push
