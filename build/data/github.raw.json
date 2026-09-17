@@ -1,0 +1,652 @@
+{
+ "user": {
+  "repositories": {
+   "nodes": [
+    {
+     "name": "alakazamc.github.io",
+     "description": "柯西的主页 · 星露谷像素农场风",
+     "stargazerCount": 0,
+     "pushedAt": "2026-09-16T04:17:03Z",
+     "url": "https://github.com/Alakazamc/alakazamc.github.io",
+     "primaryLanguage": {
+      "name": "HTML",
+      "color": "#e34c26"
+     },
+     "repositoryTopics": {
+      "nodes": []
+     },
+     "languages": {
+      "edges": [
+       {
+        "size": 619696,
+        "node": {
+         "name": "HTML",
+         "color": "#e34c26"
+        }
+       },
+       {
+        "size": 60458,
+        "node": {
+         "name": "CSS",
+         "color": "#663399"
+        }
+       },
+       {
+        "size": 8186,
+        "node": {
+         "name": "JavaScript",
+         "color": "#f1e05a"
+        }
+       }
+      ]
+     }
+    },
+    {
+     "name": "szudesktop",
+     "description": "深圳大学校园网客户端：像素风桌面应用 + 命令行 + 校内 VPN（Go 单文件，Windows/macOS/Linux）",
+     "stargazerCount": 0,
+     "pushedAt": "2026-09-16T04:05:39Z",
+     "url": "https://github.com/Alakazamc/szudesktop",
+     "primaryLanguage": {
+      "name": "HTML",
+      "color": "#e34c26"
+     },
+     "repositoryTopics": {
+      "nodes": []
+     },
+     "languages": {
+      "edges": [
+       {
+        "size": 308457,
+        "node": {
+         "name": "HTML",
+         "color": "#e34c26"
+        }
+       },
+       {
+        "size": 124378,
+        "node": {
+         "name": "Python",
+         "color": "#3572A5"
+        }
+       },
+       {
+        "size": 122689,
+        "node": {
+         "name": "Go",
+         "color": "#00ADD8"
+        }
+       },
+       {
+        "size": 1115,
+        "node": {
+         "name": "Makefile",
+         "color": "#427819"
+        }
+       }
+      ]
+     }
+    },
+    {
+     "name": "Alakazamc",
+     "description": "✨ My GitHub profile — fake it til you make it",
+     "stargazerCount": 0,
+     "pushedAt": "2026-09-16T03:45:26Z",
+     "url": "https://github.com/Alakazamc/Alakazamc",
+     "primaryLanguage": null,
+     "repositoryTopics": {
+      "nodes": []
+     },
+     "languages": {
+      "edges": []
+     }
+    },
+    {
+     "name": "shaqing",
+     "description": "🎬 杀青 · 人生短剧模拟器 — 每条命都是一部戏 | A life-as-a-movie text roguelike. 1300+ events, 10 hidden storylines, zero deps, zero ads.",
+     "stargazerCount": 0,
+     "pushedAt": "2026-08-30T13:14:13Z",
+     "url": "https://github.com/Alakazamc/shaqing",
+     "primaryLanguage": {
+      "name": "JavaScript",
+      "color": "#f1e05a"
+     },
+     "repositoryTopics": {
+      "nodes": []
+     },
+     "languages": {
+      "edges": [
+       {
+        "size": 655428,
+        "node": {
+         "name": "JavaScript",
+         "color": "#f1e05a"
+        }
+       },
+       {
+        "size": 79692,
+        "node": {
+         "name": "CSS",
+         "color": "#663399"
+        }
+       },
+       {
+        "size": 37086,
+        "node": {
+         "name": "HTML",
+         "color": "#e34c26"
+        }
+       }
+      ]
+     }
+    },
+    {
+     "name": "pskit-2.0",
+     "description": "🧪 BioAI Agent 工作台：LangGraph 编排 + 20+ 生信工具 + Qdrant RAG + Vue 3 SPA",
+     "stargazerCount": 0,
+     "pushedAt": "2026-08-30T10:38:55Z",
+     "url": "https://github.com/Alakazamc/pskit-2.0",
+     "primaryLanguage": {
+      "name": "Python",
+      "color": "#3572A5"
+     },
+     "repositoryTopics": {
+      "nodes": [
+       {
+        "topic": {
+         "name": "bioinformatics"
+        }
+       },
+       {
+        "topic": {
+         "name": "fastapi"
+        }
+       },
+       {
+        "topic": {
+         "name": "langgraph"
+        }
+       },
+       {
+        "topic": {
+         "name": "qdrant"
+        }
+       },
+       {
+        "topic": {
+         "name": "rag"
+        }
+       },
+       {
+        "topic": {
+         "name": "vue3"
+        }
+       }
+      ]
+     },
+     "languages": {
+      "edges": [
+       {
+        "size": 137428,
+        "node": {
+         "name": "Python",
+         "color": "#3572A5"
+        }
+       },
+       {
+        "size": 27773,
+        "node": {
+         "name": "Vue",
+         "color": "#41b883"
+        }
+       },
+       {
+        "size": 13398,
+        "node": {
+         "name": "CSS",
+         "color": "#663399"
+        }
+       },
+       {
+        "size": 8169,
+        "node": {
+         "name": "TypeScript",
+         "color": "#3178c6"
+        }
+       },
+       {
+        "size": 5414,
+        "node": {
+         "name": "Shell",
+         "color": "#89e051"
+        }
+       },
+       {
+        "size": 732,
+        "node": {
+         "name": "Dockerfile",
+         "color": "#384d54"
+        }
+       },
+       {
+        "size": 294,
+        "node": {
+         "name": "HTML",
+         "color": "#e34c26"
+        }
+       }
+      ]
+     }
+    },
+    {
+     "name": "countryMarkeyforMiniApp",
+     "description": "汉寿助农商城 — Java 微服务 + Vue3 管理后台 + uni-app 移动商城（交易闭环已通，AI/乡镇功能规划中）",
+     "stargazerCount": 0,
+     "pushedAt": "2026-08-29T18:12:32Z",
+     "url": "https://github.com/Alakazamc/countryMarkeyforMiniApp",
+     "primaryLanguage": {
+      "name": "Vue",
+      "color": "#41b883"
+     },
+     "repositoryTopics": {
+      "nodes": [
+       {
+        "topic": {
+         "name": "spring-cloud"
+        }
+       },
+       {
+        "topic": {
+         "name": "uni-app"
+        }
+       },
+       {
+        "topic": {
+         "name": "vue3"
+        }
+       },
+       {
+        "topic": {
+         "name": "wechat-mini-program"
+        }
+       }
+      ]
+     },
+     "languages": {
+      "edges": [
+       {
+        "size": 943283,
+        "node": {
+         "name": "Vue",
+         "color": "#41b883"
+        }
+       },
+       {
+        "size": 737013,
+        "node": {
+         "name": "Java",
+         "color": "#b07219"
+        }
+       },
+       {
+        "size": 192771,
+        "node": {
+         "name": "JavaScript",
+         "color": "#f1e05a"
+        }
+       },
+       {
+        "size": 84074,
+        "node": {
+         "name": "TypeScript",
+         "color": "#3178c6"
+        }
+       },
+       {
+        "size": 20888,
+        "node": {
+         "name": "SCSS",
+         "color": "#c6538c"
+        }
+       },
+       {
+        "size": 10290,
+        "node": {
+         "name": "CSS",
+         "color": "#663399"
+        }
+       },
+       {
+        "size": 6597,
+        "node": {
+         "name": "Dockerfile",
+         "color": "#384d54"
+        }
+       },
+       {
+        "size": 1932,
+        "node": {
+         "name": "HTML",
+         "color": "#e34c26"
+        }
+       },
+       {
+        "size": 1678,
+        "node": {
+         "name": "Lua",
+         "color": "#000080"
+        }
+       },
+       {
+        "size": 977,
+        "node": {
+         "name": "Shell",
+         "color": "#89e051"
+        }
+       }
+      ]
+     }
+    },
+    {
+     "name": "weather_MCP_server",
+     "description": "Minimal MCP weather server (wttr.in) — HelloAgents course exercise",
+     "stargazerCount": 0,
+     "pushedAt": "2026-08-29T18:11:17Z",
+     "url": "https://github.com/Alakazamc/weather_MCP_server",
+     "primaryLanguage": {
+      "name": "Python",
+      "color": "#3572A5"
+     },
+     "repositoryTopics": {
+      "nodes": [
+       {
+        "topic": {
+         "name": "mcp"
+        }
+       },
+       {
+        "topic": {
+         "name": "model-context-protocol"
+        }
+       }
+      ]
+     },
+     "languages": {
+      "edges": [
+       {
+        "size": 3309,
+        "node": {
+         "name": "Python",
+         "color": "#3572A5"
+        }
+       },
+       {
+        "size": 768,
+        "node": {
+         "name": "Dockerfile",
+         "color": "#384d54"
+        }
+       }
+      ]
+     }
+    },
+    {
+     "name": "ProteinAgent",
+     "description": "🧬 垂直领域异步 AI Agent 编排系统：FastAPI + Celery + Redis + Router LLM + 蛋白领域 RAG（多肽生成 / 适配体生成 / 蛋白预测）",
+     "stargazerCount": 0,
+     "pushedAt": "2026-08-29T18:10:23Z",
+     "url": "https://github.com/Alakazamc/ProteinAgent",
+     "primaryLanguage": {
+      "name": "Python",
+      "color": "#3572A5"
+     },
+     "repositoryTopics": {
+      "nodes": [
+       {
+        "topic": {
+         "name": "bioinformatics"
+        }
+       },
+       {
+        "topic": {
+         "name": "celery"
+        }
+       },
+       {
+        "topic": {
+         "name": "fastapi"
+        }
+       },
+       {
+        "topic": {
+         "name": "llm-agent"
+        }
+       },
+       {
+        "topic": {
+         "name": "python"
+        }
+       },
+       {
+        "topic": {
+         "name": "rag"
+        }
+       }
+      ]
+     },
+     "languages": {
+      "edges": [
+       {
+        "size": 116790,
+        "node": {
+         "name": "Python",
+         "color": "#3572A5"
+        }
+       },
+       {
+        "size": 27664,
+        "node": {
+         "name": "JavaScript",
+         "color": "#f1e05a"
+        }
+       },
+       {
+        "size": 18005,
+        "node": {
+         "name": "CSS",
+         "color": "#663399"
+        }
+       },
+       {
+        "size": 16626,
+        "node": {
+         "name": "HTML",
+         "color": "#e34c26"
+        }
+       },
+       {
+        "size": 649,
+        "node": {
+         "name": "Dockerfile",
+         "color": "#384d54"
+        }
+       }
+      ]
+     }
+    },
+    {
+     "name": "mojuane",
+     "description": "📖 墨卷 — 沉浸式电子书阅读器：React 19 + Vite，TXT/EPUB 双引擎、Gutenberg 在线书库、AI 阅读洞察",
+     "stargazerCount": 0,
+     "pushedAt": "2026-08-29T18:10:20Z",
+     "url": "https://github.com/Alakazamc/mojuane",
+     "primaryLanguage": {
+      "name": "JavaScript",
+      "color": "#f1e05a"
+     },
+     "repositoryTopics": {
+      "nodes": [
+       {
+        "topic": {
+         "name": "ai"
+        }
+       },
+       {
+        "topic": {
+         "name": "ebook-reader"
+        }
+       },
+       {
+        "topic": {
+         "name": "epub"
+        }
+       },
+       {
+        "topic": {
+         "name": "react"
+        }
+       },
+       {
+        "topic": {
+         "name": "vite"
+        }
+       }
+      ]
+     },
+     "languages": {
+      "edges": [
+       {
+        "size": 69063,
+        "node": {
+         "name": "JavaScript",
+         "color": "#f1e05a"
+        }
+       },
+       {
+        "size": 32967,
+        "node": {
+         "name": "CSS",
+         "color": "#663399"
+        }
+       },
+       {
+        "size": 599,
+        "node": {
+         "name": "HTML",
+         "color": "#e34c26"
+        }
+       }
+      ]
+     }
+    },
+    {
+     "name": "restaurant-ai-manager",
+     "description": "🍜 餐饮 AI 店长：LangGraph 多智能体 + Agentic RAG 的门店经营决策支持系统（日报 / 对话 / 排班）",
+     "stargazerCount": 0,
+     "pushedAt": "2026-08-29T18:00:15Z",
+     "url": "https://github.com/Alakazamc/restaurant-ai-manager",
+     "primaryLanguage": {
+      "name": "Python",
+      "color": "#3572A5"
+     },
+     "repositoryTopics": {
+      "nodes": [
+       {
+        "topic": {
+         "name": "fastapi"
+        }
+       },
+       {
+        "topic": {
+         "name": "langgraph"
+        }
+       },
+       {
+        "topic": {
+         "name": "multi-agent"
+        }
+       },
+       {
+        "topic": {
+         "name": "pgvector"
+        }
+       },
+       {
+        "topic": {
+         "name": "rag"
+        }
+       }
+      ]
+     },
+     "languages": {
+      "edges": [
+       {
+        "size": 1190427,
+        "node": {
+         "name": "Python",
+         "color": "#3572A5"
+        }
+       },
+       {
+        "size": 162797,
+        "node": {
+         "name": "JavaScript",
+         "color": "#f1e05a"
+        }
+       },
+       {
+        "size": 66475,
+        "node": {
+         "name": "CSS",
+         "color": "#663399"
+        }
+       },
+       {
+        "size": 41105,
+        "node": {
+         "name": "HTML",
+         "color": "#e34c26"
+        }
+       },
+       {
+        "size": 1180,
+        "node": {
+         "name": "Dockerfile",
+         "color": "#384d54"
+        }
+       },
+       {
+        "size": 909,
+        "node": {
+         "name": "PowerShell",
+         "color": "#012456"
+        }
+       },
+       {
+        "size": 580,
+        "node": {
+         "name": "Mako",
+         "color": "#7e858d"
+        }
+       }
+      ]
+     }
+    },
+    {
+     "name": "-skillFoTabbit",
+     "description": null,
+     "stargazerCount": 0,
+     "pushedAt": "2026-06-14T06:39:03Z",
+     "url": "https://github.com/Alakazamc/-skillFoTabbit",
+     "primaryLanguage": null,
+     "repositoryTopics": {
+      "nodes": []
+     },
+     "languages": {
+      "edges": []
+     }
+    }
+   ]
+  }
+ }
+}

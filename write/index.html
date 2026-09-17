@@ -1,0 +1,754 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<title>写博客 · 柯西 Alakazam</title>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<style>
+  /* 像素字体：直接复用站点根目录那份 font.css。
+     ⚠️ 不要在页面里重写 @font-face —— 那个 url() 是**相对 CSS 文件**解析的
+     （见 font.css 顶部的说明），写在页面里路径就对不上了。
+     服务把 /font.css 和 /fusion-*.woff2 都代理到站点根目录。 */
+  @import url('/font.css');
+  *{box-sizing:border-box}
+  :root{
+    --ink:#3B2412; --cream:#FDF6E3; --wood:#C8A165; --wood-d:#8B5A2B;
+    --grass:#4E9440; --accent:#E8A33D;
+  }
+  html,body{margin:0;height:100%}
+  body{
+    font-family:'FusionPixel','Courier New',monospace;
+    font-size:12px; line-height:1.7; color:var(--ink);
+    background:#7FB3D5;
+    display:flex; flex-direction:column; height:100vh; overflow:hidden;
+  }
+  header{
+    background:var(--wood); border-bottom:4px solid var(--ink);
+    padding:10px 16px; display:flex; align-items:center; gap:14px; flex:0 0 auto;
+  }
+  header h1{margin:0;font-size:24px;font-weight:400}
+  header .sp{flex:1}
+  .badge{background:var(--cream);border:3px solid var(--ink);padding:4px 8px;font-size:12px}
+  main{flex:1;display:flex;min-height:0}
+  .pane{flex:1;display:flex;flex-direction:column;min-width:0}
+  .pane+.pane{border-left:4px solid var(--ink)}
+  .pane-h{
+    background:var(--cream);border-bottom:3px solid var(--ink);
+    padding:6px 12px;display:flex;align-items:center;gap:10px;flex:0 0 auto;
+  }
+  .pane-h b{font-weight:400;font-size:12px}
+  .pane-b{flex:1;overflow:auto;min-height:0}
+
+  /* 表单 */
+  .meta{padding:12px;display:grid;grid-template-columns:auto 1fr;gap:8px 10px;align-items:center;
+    border-bottom:3px solid var(--ink);background:#FFFDF5}
+  .meta label{text-align:right;font-size:12px}
+  input,textarea{
+    font-family:inherit;font-size:12px;color:var(--ink);
+    background:var(--cream);border:3px solid var(--ink);padding:6px 8px;width:100%;
+  }
+  input:focus,textarea:focus{outline:none;border-color:var(--accent);background:#fff}
+  textarea{resize:none;line-height:1.75;tab-size:2}
+
+  #body{height:100%;border:0;border-radius:0;padding:12px}
+  #preview{padding:16px 20px;background:#FFFDF5}
+  #preview h2,#preview h3,#preview h4{font-weight:400;line-height:1.5}
+  #preview h2{font-size:24px;margin:18px 0 10px;border-bottom:3px solid var(--ink);padding-bottom:4px}
+  #preview h3{font-size:18px;margin:16px 0 8px}
+  #preview h4{font-size:12px;margin:14px 0 6px}
+  #preview p{margin:0 0 12px}
+  #preview code{background:#F0E6CE;border:2px solid var(--ink);padding:0 3px}
+  #preview pre{background:#2B1D0E;color:#FDF6E3;padding:10px 12px;overflow:auto;border:3px solid var(--ink)}
+  #preview pre code{background:none;border:0;padding:0}
+  #preview blockquote{margin:0 0 12px;padding:6px 12px;border-left:5px solid var(--wood-d);background:#F5EDD8}
+  #preview blockquote p{margin:0 0 6px}
+  #preview ul,#preview ol{margin:0 0 12px;padding-left:24px}
+  #preview li{margin:2px 0}
+  #preview img{max-width:100%;border:3px solid var(--ink);image-rendering:pixelated}
+  #preview hr{border:0;border-top:3px dashed var(--wood-d);margin:16px 0}
+  #preview a{color:#185FA5}
+
+  /* 工具条 */
+  .bar{
+    background:var(--wood);border-top:4px solid var(--ink);
+    padding:8px 12px;display:flex;align-items:center;gap:8px;flex-wrap:wrap;flex:0 0 auto;
+  }
+  button{
+    font-family:inherit;font-size:12px;color:var(--ink);cursor:pointer;
+    background:var(--cream);border:3px solid var(--ink);
+    box-shadow:0 3px 0 0 var(--wood-d);padding:6px 12px;
+  }
+  button:active{transform:translateY(3px);box-shadow:none}
+  button[disabled]{opacity:.5;cursor:default}
+  button.primary{background:var(--grass);color:#fff}
+  button.danger{background:#E24B4A;color:#fff}
+  .hint{font-size:12px;background:#FFF7D9;border:3px solid var(--ink);padding:5px 9px}
+
+  /* 日志 */
+  #log{
+    display:none;position:fixed;inset:auto 0 0 0;max-height:42vh;overflow:auto;
+    background:#2B1D0E;color:#FDF6E3;padding:12px 16px;
+    border-top:4px solid var(--ink);font-size:12px;white-space:pre-wrap;line-height:1.6;
+  }
+  #log.on{display:block}
+  /* 已有文章下拉 */
+  .posts{position:absolute;background:var(--cream);border:3px solid var(--ink);
+    max-height:320px;overflow:auto;z-index:20;min-width:260px;display:none;
+    box-shadow:0 6px 0 0 rgba(59,36,18,.35)}
+  .posts.on{display:block}
+  .posts div{padding:6px 10px;cursor:pointer;border-bottom:1px solid #E5D9BC}
+  .posts div:hover{background:var(--accent)}
+  .posts small{opacity:.7}
+
+  /* 云端模式的登录面板。样式跟全站一致 —— 后台也是这个站的一部分，
+     突然冒出一个现代风的弹窗会很跳。 */
+  #login{display:none;position:fixed;inset:0;background:rgba(59,36,18,.82);
+    z-index:60;padding:24px;overflow:auto}
+  #login.on{display:flex;align-items:center;justify-content:center}
+  .card{background:var(--cream);border:4px solid var(--ink);
+    box-shadow:0 6px 0 0 var(--wood-d);max-width:660px;width:100%;padding:20px 22px}
+  .card h2{margin:0 0 12px;font-size:24px;font-weight:400}
+  .card p{margin:0 0 10px}
+  .card ol{margin:8px 0 12px;padding-left:22px}
+  .card li{margin:4px 0}
+  .card code{background:#F0E6CE;border:2px solid var(--ink);padding:0 3px}
+  .card a{color:#185FA5}
+  .card .row{display:flex;gap:8px;margin-top:12px;flex-wrap:wrap}
+  .err{display:none;background:#FCEBEB;border:3px solid #E24B4A;padding:6px 9px;margin-top:10px}
+  .err.on{display:block}
+  #mode{cursor:pointer}
+</style>
+</head>
+<body>
+
+<header>
+  <h1>写博客</h1>
+  <span class="badge" id="mode">本机专用</span>
+  <span class="sp"></span>
+  <button id="btnOpen">打开已有文章</button>
+  <div class="posts" id="postsList"></div>
+  <button id="btnSave">存草稿</button>
+  <button class="primary" id="btnPub">发布上线</button>
+</header>
+
+<main>
+  <div class="pane">
+    <div class="pane-h"><b>正文（Markdown）</b><span class="sp" style="flex:1"></span><span id="counter"></span></div>
+    <div class="pane-b" style="display:flex;flex-direction:column">
+      <div class="meta">
+        <label for="title">标题</label><input id="title" placeholder="文章标题">
+        <label for="date">日期</label><input id="date">
+        <label for="tags">标签</label><input id="tags" placeholder="用逗号分隔，例如：逆向工程, Node.js">
+        <label for="summary">摘要</label><input id="summary" placeholder="列表页显示的一行简介（可留空）">
+        <label for="slug">文件名</label><input id="slug" placeholder="留空则用标题，中文也可以">
+      </div>
+      <textarea id="body" placeholder="在这里写正文…&#10;&#10;支持：# 标题、**粗体**、*斜体*、`代码`、- 列表、> 引用、```代码块```、[链接](url)、![图片](url)"></textarea>
+    </div>
+  </div>
+
+  <div class="pane">
+    <div class="pane-h"><b>预览</b><span class="sp" style="flex:1"></span><span class="hint">预览与线上渲染规则一致</span></div>
+    <div class="pane-b"><div id="preview"></div></div>
+  </div>
+</main>
+
+<div class="bar">
+  <span class="hint" id="status">就绪</span>
+</div>
+
+<div id="log"></div>
+
+<!-- 云端模式的登录面板（本机模式永远不显示） -->
+<div id="login">
+  <div class="card">
+    <h2>连上 GitHub</h2>
+    <p>这个页面跑在线上，没有你电脑上的小服务可用，所以发布走 GitHub 官方接口。
+       需要一张<b>只对这一个仓库有效</b>的通行证。</p>
+    <ol>
+      <li>点开 <a id="tokLink" target="_blank" rel="noopener">创建细粒度 token</a></li>
+      <li><b>Repository access</b> 选 <b>Only select repositories</b> → 勾 <code>alakazamc.github.io</code></li>
+      <li><b>Permissions</b> → 找到 <b>Contents</b> → 选 <b>Read and write</b>（其他全都留 No access）</li>
+      <li>设个过期时间（建议 90 天），点生成，把 <code>github_pat_</code> 开头那串粘到下面</li>
+    </ol>
+    <p style="opacity:.75">这张通行证只存在你这台设备的浏览器里，不会发到任何第三方服务器 ——
+       它只用来调 <code>api.github.com</code>。想撤销随时去 GitHub 设置里删掉即可。</p>
+    <input id="tokInput" type="password" placeholder="粘贴 token（github_pat_ 开头）" autocomplete="off">
+    <div class="err" id="tokErr"></div>
+    <div class="row">
+      <button class="primary" id="tokOk">保存并连接</button>
+      <button id="tokCancel">先不用</button>
+      <button class="danger" id="tokClear" style="margin-left:auto">清除已存的</button>
+    </div>
+  </div>
+</div>
+
+<script>
+/* ============================================================
+   Markdown 渲染 —— **从 build/md.js 逐条搬过来的**，
+   必须与它保持一致，否则「预览是对的、发出去却变形」。
+   改 md.js 的话，这里也要同步改（两处的规则、顺序都不能差）。
+   ============================================================ */
+function esc(s){
+  return String(s)
+    .replace(/&/g,'&amp;').replace(/</g,'&lt;')
+    .replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+}
+function inline(s){
+  return s
+    .replace(/`([^`]+)`/g,(m,a)=>'<code>'+a+'</code>')
+    .replace(/!\[([^\]]*)\]\(([^)\s]+)\)/g,(m,alt,url)=>'<img src="'+url+'" alt="'+alt+'" loading="lazy">')
+    .replace(/\[([^\]]+)\]\(([^)\s]+)\)/g,(m,t,url)=>'<a href="'+url+'" target="_blank" rel="noopener">'+t+'</a>')
+    .replace(/\*\*([^*]+)\*\*/g,'<strong>$1</strong>')
+    .replace(/(^|[^*])\*([^*\n]+)\*/g,'$1<em>$2</em>');
+}
+var HR=/^\s*(?:-{3,}|\*{3,}|_{3,})\s*$/;
+var HEAD=/^\s*(#{1,4})\s+(.*)$/;
+var QUOTE=/^\s*>\s?/;
+var UL=/^\s*[-*+]\s+(.*)$/;
+var OL=/^\s*\d+[.)]\s+(.*)$/;
+var FENCE=/^\s*```/;
+
+function render(src){
+  var lines=String(src||'').replace(/\r\n?/g,'\n').split('\n');
+  var out=[], list=null;
+  function closeList(){ if(list){ out.push('</'+list+'>'); list=null; } }
+  var i=0;
+  while(i<lines.length){
+    var ln=lines[i];
+    if(FENCE.test(ln)){
+      closeList();
+      var buf=[]; i++;
+      while(i<lines.length && !FENCE.test(lines[i])){ buf.push(lines[i]); i++; }
+      i++;
+      out.push('<pre><code>'+esc(buf.join('\n'))+'</code></pre>');
+      continue;
+    }
+    if(!ln.trim()){ closeList(); i++; continue; }
+    if(HR.test(ln)){ closeList(); out.push('<hr>'); i++; continue; }
+    var h=ln.match(HEAD);
+    if(h){
+      closeList();
+      var lv=Math.min(4,h[1].length+1);
+      out.push('<h'+lv+'>'+inline(esc(h[2]))+'</h'+lv+'>');
+      i++; continue;
+    }
+    if(QUOTE.test(ln)){
+      closeList();
+      var qb=[];
+      while(i<lines.length && QUOTE.test(lines[i])){ qb.push(lines[i].replace(QUOTE,'')); i++; }
+      out.push('<blockquote>'+qb.map(l=>'<p>'+inline(esc(l))+'</p>').join('')+'</blockquote>');
+      continue;
+    }
+    var ul=ln.match(UL), ol=ln.match(OL);
+    if(ul||ol){
+      var want=ul?'ul':'ol';
+      if(list!==want){ closeList(); out.push('<'+want+'>'); list=want; }
+      out.push('<li>'+inline(esc((ul||ol)[1]))+'</li>');
+      i++; continue;
+    }
+    closeList();
+    var pb=[ln]; i++;
+    while(i<lines.length && lines[i].trim() &&
+      !HEAD.test(lines[i]) && !QUOTE.test(lines[i]) &&
+      !UL.test(lines[i]) && !OL.test(lines[i]) &&
+      !FENCE.test(lines[i]) && !HR.test(lines[i])){ pb.push(lines[i]); i++; }
+    out.push('<p>'+inline(esc(pb.join(' ')))+'</p>');
+  }
+  closeList();
+  return out.join('\n');
+}
+
+/* ============================================================
+   两种运行环境，一套界面（2026-09-17 柯西要求「不想每次开本机服务」）
+   ------------------------------------------------------------
+   本机模式：页面由 blog-server.js 提供（http://127.0.0.1:7717）。
+             发布走本机服务 → 直接跑构建 + 推 git，约 30 秒上线。
+   云端模式：页面在线上（alakazamc.github.io/write/ 或 Vercel）。
+             没有本机服务，发布走 GitHub API 提交一个 .md，
+             再由 .github/workflows/build.yml 自动重建整站并提交产物，
+             约 1-2 分钟上线。
+
+   判据是**页面自己的来源**（location.hostname），不是配置项 ——
+   少一个需要维护、还可能不同步的状态。
+   ============================================================ */
+var CLOUD = !/^(127\.0\.0\.1|localhost|\[::1\])$/.test(location.hostname);
+var REPO = 'Alakazamc/alakazamc.github.io';
+var BRANCH = 'main';
+var POSTS_DIR = 'content/posts';
+
+/* ---------- token：只存在这台设备的浏览器里 ---------- */
+var TOKEN_KEY = 'kx_blog_token';
+function getToken(){ try{ return localStorage.getItem(TOKEN_KEY) || ''; }catch(e){ return ''; } }
+function setToken(t){
+  try{ t ? localStorage.setItem(TOKEN_KEY, t) : localStorage.removeItem(TOKEN_KEY); }catch(e){}
+}
+
+/* ---------- base64：⚠️ btoa 不能直接吃中文 ----------
+   非 ASCII 字符会让 btoa 抛 InvalidCharacterError，而我们的标题几乎
+   总是中文。必须先把字符串按 UTF-8 编成字节，再逐字节变成 Latin-1 字符。
+   （这个坑在任何"要用 btoa 编码内容"的场景都会踩一次。） */
+function b64enc(str){
+  var bytes = new TextEncoder().encode(str), bin = '';
+  for (var i = 0; i < bytes.length; i++) bin += String.fromCharCode(bytes[i]);
+  return btoa(bin);
+}
+function b64dec(b64){
+  var bin = atob(String(b64).replace(/\s/g, ''));
+  var bytes = new Uint8Array(bin.length);
+  for (var i = 0; i < bin.length; i++) bytes[i] = bin.charCodeAt(i);
+  return new TextDecoder().decode(bytes);
+}
+
+/* ---------- 路径编码：⚠️ 不能整个 encodeURIComponent ----------
+   那样会把 / 也变成 %2F，API 就把 "content%2Fposts%2Fx.md" 当成一个文件名了。
+   要**分段**编码。中文文件名也必须编码，否则 400。 */
+function encPath(p){ return p.split('/').map(encodeURIComponent).join('/'); }
+
+/* ---------- GitHub API 薄封装 ---------- */
+function gh(pathOrUrl, opts){
+  opts = opts || {};
+  var url = /^https?:/.test(pathOrUrl) ? pathOrUrl : ('https://api.github.com' + pathOrUrl);
+  var h = { 'Accept': 'application/vnd.github+json', 'X-GitHub-Api-Version': '2022-11-28' };
+  var t = getToken();
+  if (t) h.Authorization = 'Bearer ' + t;
+  if (opts.body) h['Content-Type'] = 'application/json';
+  return fetch(url, { method: opts.method || 'GET', headers: h, body: opts.body })
+    .then(function(r){
+      return r.text().then(function(txt){
+        var d = null;
+        try { d = txt ? JSON.parse(txt) : null; } catch(e){}
+        if (!r.ok){
+          var e = new Error((d && d.message) || (r.status + ' ' + r.statusText));
+          e.status = r.status;
+          e.data = d;
+          throw e;
+        }
+        return d;
+      });
+    });
+}
+
+/* ---------- 文件名清洗 ----------
+   ⚠️ 必须与 blog-server.js 的 safeSlug **逐字一致**：同一篇文章不管从
+   哪种模式发出去，落到硬盘/仓库上的文件名都得一样，否则"本机发过、
+   云端又发一次"会变成两个文件。改一边就要改另一边。 */
+function safeSlug(raw){
+  var s = String(raw || '').trim();
+  s = s.replace(/\.[^.]*$/, '');
+  s = s.replace(/[\\/]/g, '-');
+  s = s.replace(/[^\w\u4e00-\u9fa5-]+/g, '-');
+  s = s.replace(/-+/g, '-').replace(/^-|-$/g, '');
+  if (!s) s = 'post-' + Date.now();
+  return s.slice(0, 80);
+}
+
+/* ---------- front-matter ----------
+   ⚠️ 同样必须与 blog-server.js 的 buildMarkdown 逐字一致 ——
+   content.js 的解析器只认这一种写法（数组写成 [a, b]，不引 YAML 库）。 */
+function buildMarkdown(p){
+  var lines = ['---'];
+  lines.push('title: ' + String(p.title || '').replace(/[\r\n]+/g, ' ').trim());
+  lines.push('date: ' + p.date);
+  if (p.tags && p.tags.length) lines.push('tags: [' + p.tags.join(', ') + ']');
+  if (p.summary) lines.push('summary: ' + String(p.summary).replace(/[\r\n]+/g, ' ').trim());
+  lines.push('---', '');
+  lines.push(String(p.body || '').trim(), '');
+  return lines.join('\n');
+}
+
+/* ============================ 界面逻辑 ============================ */
+var $ = id => document.getElementById(id);
+var elTitle=$('title'), elDate=$('date'), elTags=$('tags'),
+    elSummary=$('summary'), elSlug=$('slug'), elBody=$('body'),
+    elPrev=$('preview'), elStatus=$('status'), elLog=$('log'),
+    elCounter=$('counter');
+
+// 今天作为默认日期（本地时区，不能用 toISOString —— 那个是 UTC，晚上会差一天）
+function todayStr(){
+  var d=new Date();
+  return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0');
+}
+elDate.value=todayStr();
+
+function refresh(){
+  var src=elBody.value;
+  elPrev.innerHTML=render(src)||'<p style="opacity:.5">（正文还是空的）</p>';
+  var chars=src.length;
+  var words=(src.replace(/[\s\W]/g,'')||'').length;
+  elCounter.textContent=chars+' 字符 · 约 '+words+' 字';
+}
+elBody.addEventListener('input',refresh);
+refresh();
+
+// 标题 → 文件名（只在文件名还空着时自动填，避免覆盖手输）
+elTitle.addEventListener('input',()=>{
+  if(!elSlug.dataset.touched){
+    elSlug.value = elTitle.value.trim();
+  }
+});
+elSlug.addEventListener('input',()=>{ elSlug.dataset.touched='1'; });
+
+// Tab 键插入两个空格而不是跳出输入框（写代码块时很有用）
+elBody.addEventListener('keydown',e=>{
+  if(e.key==='Tab'){
+    e.preventDefault();
+    var s=elBody.selectionStart, en=elBody.selectionEnd;
+    elBody.value=elBody.value.slice(0,s)+'  '+elBody.value.slice(en);
+    elBody.selectionStart=elBody.selectionEnd=s+2;
+    refresh();
+  }
+  // Ctrl+S 存草稿
+  if((e.ctrlKey||e.metaKey) && e.key.toLowerCase()==='s'){
+    e.preventDefault(); doSave();
+  }
+});
+
+function payload(){
+  return {
+    title: elTitle.value.trim(),
+    date: elDate.value,
+    tags: elTags.value.split(/[,，]/).map(s=>s.trim()).filter(Boolean),
+    summary: elSummary.value.trim(),
+    slug: elSlug.value.trim() || elTitle.value.trim(),
+    body: elBody.value
+  };
+}
+
+function setStatus(t){ elStatus.textContent=t; }
+function log(t, on){ elLog.textContent += t; elLog.classList.toggle('on', !!on); elLog.scrollTop=elLog.scrollHeight; }
+function showLog(t){ elLog.textContent=t; elLog.classList.add('on'); elLog.scrollTop=elLog.scrollHeight; }
+
+function checkReady(){
+  if(!elTitle.value.trim()){ alert('先写个标题'); return false; }
+  if(!elBody.value.trim()){ alert('正文还是空的'); return false; }
+  return true;
+}
+
+/* ---- 存草稿 ----
+   本机模式：写进 content/posts/（只写文件，不构建不推送）
+   云端模式：写进**这台设备的浏览器**。
+   ⚠️ 云端没有"只写文件不构建"这回事 —— 往仓库提交任何东西都会触发
+   Actions 重建，所以草稿一律不出这台设备。 */
+var DRAFT_KEY = 'kx_blog_draft';
+async function doSave(){
+  if(!elTitle.value.trim()){ alert('先写个标题'); return; }
+  if (CLOUD){
+    try{
+      localStorage.setItem(DRAFT_KEY, JSON.stringify(payload()));
+      setStatus('已暂存到本机浏览器（不会上线）');
+    }catch(e){ setStatus('暂存失败：'+e.message); }
+    return;
+  }
+  setStatus('保存中…');
+  try{
+    var r=await fetch('/api/save',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(payload())});
+    var j=await r.json();
+    if(!j.ok) throw new Error(j.error||'保存失败');
+    setStatus('已存草稿：'+j.file+'（'+j.bytes+' 字符）');
+  }catch(e){ setStatus('保存失败：'+e.message); alert('保存失败：'+e.message); }
+}
+$('btnSave').onclick=doSave;
+
+/* ---- 轮询 Actions 的构建状态 ----
+   ⚠️ 必须按 head_sha 过滤再取。仓库里可能同时躺着别的 run（比如你手动点的，
+   或者上一次失败的），不按 sha 过滤就会把"上一次的结果"当成"这一次的结果"——
+   表现是"明明成功了却报失败"。 */
+function sleep(ms){ return new Promise(function(r){ setTimeout(r, ms); }); }
+async function watchBuild(commitSha){
+  var last='';
+  for(var i=0;i<50;i++){                    // 最多等 5 分钟
+    await sleep(6000);
+    var runs;
+    try{ runs = await gh('/repos/'+REPO+'/actions/runs?per_page=10&head_sha='+commitSha); }
+    catch(e){ continue; }                   // 网络抖一下不算失败，接着轮
+    var list = (runs && runs.workflow_runs) || [];
+    if(!list.length) continue;              // 还在排队，run 还没被创建出来
+    var run = list[0];
+    var st = run.status + (run.conclusion ? ' / ' + run.conclusion : '');
+    if(st !== last){ last = st; log('  构建状态：' + st + '\n'); }
+    if(run.status === 'completed') return { ok: run.conclusion === 'success', run: run };
+  }
+  return { ok:false, timeout:true };
+}
+
+/* ---- 发布 ----
+   本机模式：交给 blog-server.js（保存 + 构建 + 推送，日志流式回吐）
+   云端模式：提交 .md 到 GitHub → Actions 自动重建 → 轮询构建状态 */
+$('btnPub').onclick=async ()=>{
+  if(!checkReady()) return;
+  var tip = CLOUD
+    ? '文章会提交到 GitHub，服务器自动重建整站，约 1-2 分钟后线上生效。'
+    : '会在这台电脑上重建整站并推送到 GitHub，几分钟后线上生效。';
+  if(!confirm('发布《'+elTitle.value.trim()+'》\n\n'+tip+'\n\n确定吗？')) return;
+  $('btnPub').disabled=true;
+
+  /* ===== 云端模式 ===== */
+  if(CLOUD){
+    var p = payload();
+    var slug = safeSlug(p.slug || p.title);
+    var file = POSTS_DIR + '/' + slug + '.md';
+    showLog('提交到 GitHub…\n');
+    setStatus('提交中…');
+    try{
+      /* 1. 先看文件在不在。已存在就必须带上它的 sha，
+            否则 GitHub 用 422 拒绝你（这是它的防误覆盖机制）。 */
+      var sha = null;
+      try{
+        var ex = await gh('/repos/'+REPO+'/contents/'+encPath(file)+'?ref='+BRANCH);
+        sha = ex && ex.sha;
+      }catch(e){ if(e.status !== 404) throw e; }
+      log((sha ? '覆盖已有文件 ' : '新建文件 ') + slug + '.md\n');
+
+      /* 2. 提交（正文 base64 编码，branch 必须显式给） */
+      var body = {
+        message: (sha ? '更新文章：' : '新增文章：') + String(p.title).replace(/[\r\n]+/g,' '),
+        content: b64enc(buildMarkdown(p)),
+        branch: BRANCH
+      };
+      if(sha) body.sha = sha;
+      var res = await gh('/repos/'+REPO+'/contents/'+encPath(file),
+                         { method:'PUT', body: JSON.stringify(body) });
+      var commit = (res && res.commit && res.commit.sha) || '';
+      log('已提交 ' + commit.slice(0,7) + '，等服务器重建…\n');
+
+      /* 3. 等构建。⭐ 这一步才是真正让页面变出来的 ——
+            光提交 .md 只是存了源文件，首页时间线、博客列表页、
+            文章页都还没重排（本地模式里这是 push.js 干的活）。 */
+      setStatus('云端构建中…');
+      var r = await watchBuild(commit);
+      if(r.ok){
+        log('\n发布成功 ✓ 约半分钟后可见：\n  https://alakazamc.github.io/posts/' + slug + '.html\n');
+        setStatus('发布成功');
+        try{ localStorage.removeItem(DRAFT_KEY); }catch(e){}
+      }else if(r.timeout){
+        log('\n构建超过 5 分钟还没结束，自己去看看：\n  https://github.com/'+REPO+'/actions\n');
+        setStatus('构建太久，去 Actions 看看');
+      }else{
+        log('\n构建失败 ✗ 日志在这：\n  https://github.com/'+REPO+'/actions\n');
+        setStatus('构建失败');
+      }
+    }catch(e){
+      log('\n提交失败：' + e.message + '\n');
+      setStatus('提交失败：' + e.message);
+      if(e.status === 401 || e.status === 403){
+        setToken('');
+        log('（token 失效或权限不够，重新连一次）\n');
+        showLogin(true);
+      }
+    }finally{ $('btnPub').disabled=false; }
+    return;
+  }
+
+  /* ===== 本机模式（原逻辑不变）===== */
+  showLog('开始发布…\n');
+  setStatus('发布中…');
+
+  fetch('/api/publish',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(payload())})
+    .then(res=>{
+      const reader=res.body.getReader();
+      const dec=new TextDecoder();
+      let buf='';
+      (function pump(){
+        reader.read().then(({done,value})=>{
+          if(done){ $('btnPub').disabled=false; return; }
+          buf+=dec.decode(value,{stream:true});
+          let i;
+          while((i=buf.indexOf('\n\n'))>=0){
+            const chunk=buf.slice(0,i); buf=buf.slice(i+2);
+            if(!chunk.startsWith('data: ')) continue;
+            let m; try{ m=JSON.parse(chunk.slice(6)); }catch(e){ continue; }
+            if(m.stage==='saved') log('已写入 '+m.file+'\n');
+            else if(m.stage==='pushing') log('正在重建并推送…\n');
+            else if(m.stage==='log') log(m.text);
+            else if(m.stage==='done'){
+              $('btnPub').disabled=false;
+              if(m.ok){
+                log('\n发布成功 ✓ 几分钟后可见：'+m.url+'\n');
+                setStatus('发布成功');
+              }else{
+                log('\n发布失败 ✗ '+(m.error||('退出码 '+m.code))+'\n');
+                setStatus('发布失败，看下方日志');
+              }
+            }
+          }
+          pump();
+        }).catch(e=>{ $('btnPub').disabled=false; log('\n读取日志出错：'+e.message+'\n'); });
+      })();
+    })
+    .catch(e=>{ $('btnPub').disabled=false; log('\n请求失败：'+e.message+'\n'); setStatus('请求失败'); });
+};
+
+/* ---- 打开已有文章 ---- */
+$('btnOpen').onclick=async()=>{
+  const box=$('postsList');
+  if(box.classList.contains('on')){ box.classList.remove('on'); return; }
+  let posts;
+  try{
+    if(CLOUD){
+      /* ⚠️ GitHub 的 contents 接口列目录时**不返回文件正文**，
+         所以这里只能拿文件名当标题 —— 为了显示标题去逐个下载全文太慢了。 */
+      const list = await gh('/repos/'+REPO+'/contents/'+POSTS_DIR+'?ref='+BRANCH);
+      posts = (list||[])
+        .filter(x => x.type==='file' && /\.md$/.test(x.name) && !x.name.startsWith('_'))
+        .map(x => ({ file:x.name, title:x.name.replace(/\.md$/,'') }));
+    }else{
+      const r=await fetch('/api/posts');
+      const j=await r.json();
+      posts = j.posts;
+    }
+  }catch(e){ alert('读取失败：'+e.message); return; }
+  if(!posts.length){ box.innerHTML='<div style="opacity:.6">还没有文章</div>'; }
+  else{
+    box.innerHTML=posts.map(p=>
+      '<div data-f="'+esc(p.file)+'">'+esc(p.title)+' <small>'+esc(p.file)+'</small></div>').join('');
+  }
+  box.classList.add('on');
+};
+$('postsList').onclick=async(e)=>{
+  const row=e.target.closest('[data-f]');
+  if(!row) return;
+  let raw;
+  try{
+    if(CLOUD){
+      /* 云端取正文，返回的是 base64 编码的 content */
+      const f = await gh('/repos/'+REPO+'/contents/'
+                       + encPath(POSTS_DIR + '/' + row.dataset.f) + '?ref=' + BRANCH);
+      raw = b64dec(f.content);
+    }else{
+      const r=await fetch('/api/post?file='+encodeURIComponent(row.dataset.f.replace(/\.md$/,'')));
+      const j=await r.json();
+      if(!j.ok){ alert(j.error); return; }
+      raw=j.raw;
+    }
+  }catch(e2){ alert('读取失败：'+e2.message); return; }
+  const fm=/^---\r?\n([\s\S]*?)\r?\n---\r?\n?/.exec(raw);
+  const get=k=>{ const m=new RegExp('^'+k+':\\s*(.*)$','m').exec(fm?fm[1]:''); return m?m[1].trim():''; };
+  elTitle.value=get('title');
+  elDate.value=get('date')||todayStr();
+  elTags.value=get('tags').replace(/^\[|\]$/g,'');
+  elSummary.value=get('summary');
+  elSlug.value=row.dataset.f.replace(/\.md$/,'');
+  elSlug.dataset.touched='1';
+  elBody.value=fm?raw.slice(fm[0].length).trim():raw;
+  $('postsList').classList.remove('on');
+  refresh();
+  setStatus('已载入 '+row.dataset.f+'（重新发布会覆盖它）');
+};
+document.addEventListener('click',e=>{
+  if(!e.target.closest('#postsList') && !e.target.closest('#btnOpen')) $('postsList').classList.remove('on');
+});
+
+/* ---- 心跳：告诉服务"网页还开着" ----
+   服务那边超过 90 秒收不到心跳就自己退出（见 blog-server.js 的看门狗）。
+   为什么不用 beforeunload 当主判据：手机切后台、浏览器崩了、进程被强杀都不会触发，
+   只靠它服务会永久挂着 —— 那就又变成"得手动关"了。
+
+   ⚠️ 15 秒一次是有意的：浏览器会节流后台标签页的定时器（可能降到 1 分钟才跑一次），
+   间隔太小反而容易被节流到超出 90 秒而被误判成"人走了"。 */
+/* ⚠️ 只在本机模式下心跳：云端模式根本没有"本机服务"可关，
+   往 api.github.com 打无意义的请求只会浪费配额。
+   （那段看门狗逻辑在 blog-server.js 里，云端用不到。） */
+if(!CLOUD){
+const PING_MS=15000;
+let pingTimer=null, closed=false;
+function ping(){
+  if(closed) return;
+  fetch('/api/ping',{cache:'no-store'}).catch(()=>{});
+}
+ping();
+pingTimer=setInterval(ping, PING_MS);
+
+/* ---- 页面要关了：催服务尽快上路 ----
+   sendBeacon 是留给"页面正在卸载"用的 —— 它由浏览器托管发送，
+   不会因为页面被销毁而中断（普通 fetch 这时很可能发不出去）。
+   这是**加速通道**，不是唯一依赖；发不出去也有心跳超时兜底。 */
+function bye(){
+  if(closed) return;
+  closed=true;
+  clearInterval(pingTimer);
+  try{ navigator.sendBeacon('/api/bye', ''); }catch(e){}
+}
+window.addEventListener('pagehide', bye);
+window.addEventListener('beforeunload', bye);
+}
+
+/* ================= 模式初始化（2026-09-17） ================= */
+var elLogin=$('login'), elTok=$('tokInput'), elTokErr=$('tokErr');
+
+function showLogin(on){
+  elLogin.classList.toggle('on', !!on);
+  if(on) setTimeout(function(){ try{ elTok.focus(); }catch(e){} }, 60);
+}
+function tokError(msg){ elTokErr.textContent=msg; elTokErr.classList.add('on'); }
+
+/* token 生成页：能预填的都预填上，让他少点几步 */
+$('tokLink').href = 'https://github.com/settings/personal-access-tokens/new'
+  + '?name=' + encodeURIComponent('写博客')
+  + '&description=' + encodeURIComponent('给 alakazamc.github.io 提交文章用');
+
+if(CLOUD){
+  $('mode').textContent = '云端模式';
+  $('mode').title = '这个页面在线上：发布走 GitHub 接口，由 Actions 自动重建整站';
+  $('btnSave').textContent = '暂存到本机';   // 云端没有"只写文件不构建"这回事
+  if(!getToken()){
+    showLogin(true);
+  }else{
+    /* 有 token 就顺手验一次还有没有效。
+       过期的 token 会让人以为"按钮坏了"，而实际只是登录过期。 */
+    gh('/repos/'+REPO)
+      .then(function(r){ setStatus('已连上 ' + r.full_name); })
+      .catch(function(e){
+        if(e.status === 401 || e.status === 403){
+          setToken('');
+          setStatus('token 失效了，重新连一次');
+          showLogin(true);
+        }
+      });
+  }
+}else{
+  $('mode').textContent = '本机专用';
+  $('mode').title = '页面由本机小服务提供，发布走本地构建，最快';
+}
+
+$('mode').onclick = function(){ if(CLOUD) showLogin(true); };
+
+$('tokOk').onclick = async function(){
+  var t = elTok.value.trim();
+  if(!t){ tokError('先把 token 粘进来'); return; }
+  elTokErr.classList.remove('on');
+  $('tokOk').disabled = true;
+  setToken(t);
+  try{
+    var r = await gh('/repos/'+REPO);      // 读得到 = token 有效且权限够
+    setStatus('已连上 ' + r.full_name);
+    showLogin(false);
+  }catch(e){
+    setToken('');
+    tokError('连不上：' + e.message + '（检查 Contents 是否给了读写、仓库是否选对）');
+  }finally{ $('tokOk').disabled = false; }
+};
+$('tokCancel').onclick = function(){ showLogin(false); };
+$('tokClear').onclick = function(){
+  setToken(''); elTok.value='';
+  setStatus('已清除 token');
+};
+
+/* 上次没发完的草稿：**问一次**，不自动覆盖你正在写的东西 */
+if(CLOUD){
+  try{
+    var d = JSON.parse(localStorage.getItem(DRAFT_KEY) || 'null');
+    if(d && d.body && confirm('这台设备上还存着一份没发布的草稿「' + (d.title||'(无标题)') + '」，要恢复吗？')){
+      elTitle.value=d.title||'';
+      elDate.value=d.date||todayStr();
+      elTags.value=(d.tags||[]).join(', ');
+      elSummary.value=d.summary||'';
+      elSlug.value=d.slug||'';
+      elBody.value=d.body||'';
+      refresh();
+      setStatus('已恢复本机草稿');
+    }
+  }catch(e){}
+}
+</script>
+</body>
+</html>

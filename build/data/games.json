@@ -1,0 +1,270 @@
+{
+ "uid": "32133355",
+ "updatedAt": "2026-09-16T04:52:50.844Z",
+ "dataTime": 1789531067,
+ "title": "全成就收集大师",
+ "nickname": "玩家32133355",
+ "summary": {
+  "gameCount": 324,
+  "playHours": 3358.4,
+  "value": 36810,
+  "cleared": 12,
+  "achieved": 2047
+ },
+ "platforms": [
+  {
+   "key": "steam",
+   "label": "Steam",
+   "hours": 2520.7,
+   "color": "#064E96"
+  },
+  {
+   "key": "psn",
+   "label": "PSN",
+   "hours": 429.5,
+   "color": "#0071CE"
+  },
+  {
+   "key": "xbox",
+   "label": "Xbox",
+   "hours": 284.9,
+   "color": "#0F7C10"
+  },
+  {
+   "key": "switch",
+   "label": "Switch",
+   "hours": 118.8,
+   "color": "#E70012"
+  },
+  {
+   "key": "epic",
+   "label": "Epic",
+   "hours": 4.5,
+   "color": "#2F2D2E"
+  }
+ ],
+ "tags": [
+  {
+   "name": "动作",
+   "hours": 1151.5
+  },
+  {
+   "name": "单人",
+   "hours": 1061
+  },
+  {
+   "name": "角色扮演",
+   "hours": 880.4
+  },
+  {
+   "name": "开放世界",
+   "hours": 823.2
+  },
+  {
+   "name": "多人",
+   "hours": 660.1
+  },
+  {
+   "name": "冒险",
+   "hours": 639
+  },
+  {
+   "name": "迷宫探索",
+   "hours": 467.5
+  },
+  {
+   "name": "第一人称射击",
+   "hours": 463.2
+  }
+ ],
+ "favorite": {
+  "appid": 2001120,
+  "name": "双影奇境",
+  "hours": 15.9,
+  "recentHours": 4,
+  "color": "#997248",
+  "image": "https://heyboxbj.max-c.com/gameimg/steam_item_assets/2de72e1d2a196affae04b9f044a18376.jpg?imageMogr2/format/jpg"
+ },
+ "games": [
+  {
+   "appid": 578080,
+   "name": "绝地求生",
+   "hours": 292.6,
+   "platform": "steam",
+   "cleared": false,
+   "image": "https://heyboxbj.max-c.com/gameimg/steam_item_assets/578080/cfab4cc5d77f0c083826a1cba1fd0388.jpg?imageMogr2/thumbnail/460x215%3E/format/jpg",
+   "cover": "578080.jpg"
+  },
+  {
+   "appid": 1920960,
+   "name": "虚拟桌宠模拟器",
+   "hours": 197.7,
+   "platform": "steam",
+   "cleared": true,
+   "image": "https://heyboxbj.max-c.com/gameimg/steam_item_assets/b184f82e1243a13644b159091cfc1740.jpg?imageMogr2/thumbnail/460x215%3E/format/jpg",
+   "cover": "1920960.jpg"
+  },
+  {
+   "appid": 646570,
+   "name": "杀戮尖塔",
+   "hours": 170.9,
+   "platform": "steam",
+   "cleared": true,
+   "image": "https://heyboxbj.max-c.com/gameimg/steam_item_assets/ab23cf8b754af439240f7e1c5b02e517.jpg?imageMogr2/thumbnail/460x215%3E/format/jpg",
+   "cover": "646570.jpg"
+  },
+  {
+   "appid": 1091500,
+   "name": "赛博朋克2077",
+   "hours": 149.9,
+   "platform": "steam",
+   "cleared": true,
+   "image": "https://imgheybox.max-c.com/web/bbs/2025/11/21/19a9f7ea4ed2e2b8c5272b1ea96041cb.jpeg",
+   "cover": "1091500.jpg"
+  },
+  {
+   "appid": 2357570,
+   "name": "守望先锋",
+   "hours": 117.8,
+   "platform": "steam",
+   "cleared": false,
+   "image": "https://imgheybox.max-c.com/web/bbs/2026/06/23/67e4c98fc67273d8002c31edb198715f.jpeg?imageMogr2/thumbnail/460x215%3E/format/jpg",
+   "cover": "2357570.jpg"
+  },
+  {
+   "appid": 1174180,
+   "name": "荒野大镖客：救赎2",
+   "hours": 116.7,
+   "platform": "steam",
+   "cleared": false,
+   "image": "https://heyboxbj.max-c.com/gameimg/steam_item_assets/d5c05ff74545166c41fdb628b5e9537c.jpg?imageMogr2/thumbnail/460x215%3E/format/jpg",
+   "cover": "1174180.jpg"
+  },
+  {
+   "appid": 2868840,
+   "name": "杀戮尖塔2",
+   "hours": 110.8,
+   "platform": "steam",
+   "cleared": false,
+   "image": "https://heyboxbj.max-c.com/gameimg/steam_item_assets/2868840/607728a4f1be1e5b9349b580af1dda2b.jpg?imageMogr2/thumbnail/460x215%3E/format/jpg",
+   "cover": "2868840.jpg"
+  },
+  {
+   "appid": 250900,
+   "name": "以撒的结合：重生",
+   "hours": 108.1,
+   "platform": "steam",
+   "cleared": false,
+   "image": "https://heyboxbj.max-c.com/gameimg/steam_item_assets/667ddfa43be9888d6bb36fced16bf81c.jpg?imageMogr2/thumbnail/460x215%3E/format/jpg",
+   "cover": "250900.jpg"
+  },
+  {
+   "appid": 1245620,
+   "name": "艾尔登法环",
+   "hours": 106.3,
+   "platform": "steam",
+   "cleared": true,
+   "image": "https://heyboxbj.max-c.com/gameimg/steam_item_assets/1245620/1bc9f346e9af090693ffedce28713b8b.jpg?imageMogr2/thumbnail/460x215%3E/format/jpg",
+   "cover": "1245620.jpg"
+  },
+  {
+   "appid": 814380,
+   "name": "只狼：影逝二度",
+   "hours": 103.7,
+   "platform": "steam",
+   "cleared": false,
+   "image": "https://heyboxbj.max-c.com/gameimg/steam_item_assets/40e49e7479d5159c9b27522f6b111ef6.jpg?imageMogr2/thumbnail/460x215%3E/format/jpg",
+   "cover": "814380.jpg"
+  },
+  {
+   "appid": 2358720,
+   "name": "黑神话：悟空",
+   "hours": 86.6,
+   "platform": "steam",
+   "cleared": true,
+   "image": "https://heyboxbj.max-c.com/gameimg/steam_item_assets/7cfcf0560343bc0e5db5e78163ae702b.jpg?imageMogr2/thumbnail/460x215%3E/format/jpg",
+   "cover": "2358720.jpg"
+  },
+  {
+   "appid": 289070,
+   "name": "文明6",
+   "hours": 61.6,
+   "platform": "steam",
+   "cleared": false,
+   "image": "https://cdn.max-c.com/heybox/game/header/289070_zUUKm.jpg",
+   "cover": "289070.jpg"
+  },
+  {
+   "appid": 2679460,
+   "name": "暗喻幻想：ReFantazio",
+   "hours": 59.7,
+   "platform": "steam",
+   "cleared": false,
+   "image": "https://heyboxbj.max-c.com/gameimg/steam_item_assets/5765eb96798c6a04543c84da7af273fc.jpg?imageMogr2/thumbnail/460x215%3E/format/jpg",
+   "cover": "2679460.jpg"
+  },
+  {
+   "appid": 1145360,
+   "name": "哈迪斯",
+   "hours": 58.7,
+   "platform": "steam",
+   "cleared": true,
+   "image": "https://heyboxbj.max-c.com/gameimg/steam_item_assets/7bdd66da2aabb24256739ccbeb5e7a44.jpg?imageMogr2/thumbnail/460x215%3E/format/jpg",
+   "cover": "1145360.jpg"
+  },
+  {
+   "appid": 900035768,
+   "name": "女神异闻录5皇家版",
+   "hours": 52.9,
+   "platform": "xbox_v2",
+   "cleared": false,
+   "image": "https://heyboxbj.max-c.com/gameimg/xbox_game_image/c396cb50d8aff2c94a059736f8e14c54.jpg?imageMogr2/thumbnail/460x215%3E/format/jpg",
+   "cover": "900035768.jpg"
+  },
+  {
+   "appid": 2072450,
+   "name": "人中之龙８",
+   "hours": 51.4,
+   "platform": "steam",
+   "cleared": false,
+   "image": "https://heyboxbj.max-c.com/gameimg/steam_item_assets/3773a79bf07bc32e23b2f27bfe715410.jpg?imageMogr2/thumbnail/460x215%3E/format/jpg",
+   "cover": "2072450.jpg"
+  },
+  {
+   "appid": 900032622,
+   "name": "战神：诸神黄昏",
+   "hours": 51.3,
+   "platform": "psn",
+   "cleared": false,
+   "image": "https://heyboxbj.max-c.com/gameimg/psn_game_image/9208ab648740e82713affc63bee0370c.jpg?imageMogr2/thumbnail/460x215%3E/format/jpg",
+   "cover": "900032622.jpg"
+  },
+  {
+   "appid": 900135010,
+   "name": "P3R",
+   "hours": 50.8,
+   "platform": "xbox_v2",
+   "cleared": false,
+   "image": "https://heyboxbj.max-c.com/gameimg/xbox_game_image/dc09840753db4f535d593f2c68888b4e.jpg?imageMogr2/thumbnail/460x215%3E/format/jpg",
+   "cover": "900135010.jpg"
+  },
+  {
+   "appid": 900011199,
+   "name": "塞尔达传说：王国之泪",
+   "hours": 49.9,
+   "platform": "switchall",
+   "cleared": false,
+   "image": "https://heyboxbj.max-c.com/gameimg/switch_game_image/031b0598497073c927899ed16e1b42d5.jpg?imageMogr2/thumbnail/460x215%3E/format/jpg",
+   "cover": "900011199.jpg"
+  },
+  {
+   "appid": 431960,
+   "name": "Wallpaper Engine",
+   "hours": 46.6,
+   "platform": "steam",
+   "cleared": false,
+   "image": "https://cdn.max-c.com/heybox/game/header/431960_EmjCP.jpg",
+   "cover": "431960.jpg"
+  }
+ ]
+}

@@ -1,0 +1,443 @@
+{
+ "user": "Alakazamc",
+ "updatedAt": "2026-09-16T04:52:52.916Z",
+ "repos": [
+  {
+   "name": "szudesktop",
+   "description": "深圳大学校园网客户端：像素风桌面应用 + 命令行 + 校内 VPN（Go 单文件，Windows/macOS/Linux）",
+   "url": "https://github.com/Alakazamc/szudesktop",
+   "stars": 0,
+   "pushedAt": "2026-09-16",
+   "language": "HTML",
+   "color": "#e34c26",
+   "topics": [],
+   "langs": [
+    {
+     "name": "HTML",
+     "color": "#e34c26",
+     "size": 308457
+    },
+    {
+     "name": "Python",
+     "color": "#3572A5",
+     "size": 124378
+    },
+    {
+     "name": "Go",
+     "color": "#00ADD8",
+     "size": 122689
+    },
+    {
+     "name": "Makefile",
+     "color": "#427819",
+     "size": 1115
+    }
+   ]
+  },
+  {
+   "name": "shaqing",
+   "description": "🎬 杀青 · 人生短剧模拟器 — 每条命都是一部戏 | A life-as-a-movie text roguelike. 1300+ events, 10 hidden storylines, zero deps, zero ads.",
+   "url": "https://github.com/Alakazamc/shaqing",
+   "stars": 0,
+   "pushedAt": "2026-08-30",
+   "language": "JavaScript",
+   "color": "#f1e05a",
+   "topics": [],
+   "langs": [
+    {
+     "name": "JavaScript",
+     "color": "#f1e05a",
+     "size": 655428
+    },
+    {
+     "name": "CSS",
+     "color": "#663399",
+     "size": 79692
+    },
+    {
+     "name": "HTML",
+     "color": "#e34c26",
+     "size": 37086
+    }
+   ]
+  },
+  {
+   "name": "pskit-2.0",
+   "description": "🧪 BioAI Agent 工作台：LangGraph 编排 + 20+ 生信工具 + Qdrant RAG + Vue 3 SPA",
+   "url": "https://github.com/Alakazamc/pskit-2.0",
+   "stars": 0,
+   "pushedAt": "2026-08-30",
+   "language": "Python",
+   "color": "#3572A5",
+   "topics": [
+    "bioinformatics",
+    "fastapi",
+    "langgraph",
+    "qdrant"
+   ],
+   "langs": [
+    {
+     "name": "Python",
+     "color": "#3572A5",
+     "size": 137428
+    },
+    {
+     "name": "Vue",
+     "color": "#41b883",
+     "size": 27773
+    },
+    {
+     "name": "CSS",
+     "color": "#663399",
+     "size": 13398
+    },
+    {
+     "name": "TypeScript",
+     "color": "#3178c6",
+     "size": 8169
+    },
+    {
+     "name": "Shell",
+     "color": "#89e051",
+     "size": 5414
+    },
+    {
+     "name": "Dockerfile",
+     "color": "#384d54",
+     "size": 732
+    },
+    {
+     "name": "HTML",
+     "color": "#e34c26",
+     "size": 294
+    }
+   ]
+  },
+  {
+   "name": "countryMarkeyforMiniApp",
+   "description": "汉寿助农商城 — Java 微服务 + Vue3 管理后台 + uni-app 移动商城（交易闭环已通，AI/乡镇功能规划中）",
+   "url": "https://github.com/Alakazamc/countryMarkeyforMiniApp",
+   "stars": 0,
+   "pushedAt": "2026-08-29",
+   "language": "Vue",
+   "color": "#41b883",
+   "topics": [
+    "spring-cloud",
+    "uni-app",
+    "vue3",
+    "wechat-mini-program"
+   ],
+   "langs": [
+    {
+     "name": "Vue",
+     "color": "#41b883",
+     "size": 943283
+    },
+    {
+     "name": "Java",
+     "color": "#b07219",
+     "size": 737013
+    },
+    {
+     "name": "JavaScript",
+     "color": "#f1e05a",
+     "size": 192771
+    },
+    {
+     "name": "TypeScript",
+     "color": "#3178c6",
+     "size": 84074
+    },
+    {
+     "name": "SCSS",
+     "color": "#c6538c",
+     "size": 20888
+    },
+    {
+     "name": "CSS",
+     "color": "#663399",
+     "size": 10290
+    },
+    {
+     "name": "Dockerfile",
+     "color": "#384d54",
+     "size": 6597
+    },
+    {
+     "name": "HTML",
+     "color": "#e34c26",
+     "size": 1932
+    },
+    {
+     "name": "Lua",
+     "color": "#000080",
+     "size": 1678
+    },
+    {
+     "name": "Shell",
+     "color": "#89e051",
+     "size": 977
+    }
+   ]
+  },
+  {
+   "name": "weather_MCP_server",
+   "description": "Minimal MCP weather server (wttr.in) — HelloAgents course exercise",
+   "url": "https://github.com/Alakazamc/weather_MCP_server",
+   "stars": 0,
+   "pushedAt": "2026-08-29",
+   "language": "Python",
+   "color": "#3572A5",
+   "topics": [
+    "mcp",
+    "model-context-protocol"
+   ],
+   "langs": [
+    {
+     "name": "Python",
+     "color": "#3572A5",
+     "size": 3309
+    },
+    {
+     "name": "Dockerfile",
+     "color": "#384d54",
+     "size": 768
+    }
+   ]
+  },
+  {
+   "name": "ProteinAgent",
+   "description": "🧬 垂直领域异步 AI Agent 编排系统：FastAPI + Celery + Redis + Router LLM + 蛋白领域 RAG（多肽生成 / 适配体生成 / 蛋白预测）",
+   "url": "https://github.com/Alakazamc/ProteinAgent",
+   "stars": 0,
+   "pushedAt": "2026-08-29",
+   "language": "Python",
+   "color": "#3572A5",
+   "topics": [
+    "bioinformatics",
+    "celery",
+    "fastapi",
+    "llm-agent"
+   ],
+   "langs": [
+    {
+     "name": "Python",
+     "color": "#3572A5",
+     "size": 116790
+    },
+    {
+     "name": "JavaScript",
+     "color": "#f1e05a",
+     "size": 27664
+    },
+    {
+     "name": "CSS",
+     "color": "#663399",
+     "size": 18005
+    },
+    {
+     "name": "HTML",
+     "color": "#e34c26",
+     "size": 16626
+    },
+    {
+     "name": "Dockerfile",
+     "color": "#384d54",
+     "size": 649
+    }
+   ]
+  },
+  {
+   "name": "mojuane",
+   "description": "📖 墨卷 — 沉浸式电子书阅读器：React 19 + Vite，TXT/EPUB 双引擎、Gutenberg 在线书库、AI 阅读洞察",
+   "url": "https://github.com/Alakazamc/mojuane",
+   "stars": 0,
+   "pushedAt": "2026-08-29",
+   "language": "JavaScript",
+   "color": "#f1e05a",
+   "topics": [
+    "ai",
+    "ebook-reader",
+    "epub",
+    "react"
+   ],
+   "langs": [
+    {
+     "name": "JavaScript",
+     "color": "#f1e05a",
+     "size": 69063
+    },
+    {
+     "name": "CSS",
+     "color": "#663399",
+     "size": 32967
+    },
+    {
+     "name": "HTML",
+     "color": "#e34c26",
+     "size": 599
+    }
+   ]
+  },
+  {
+   "name": "restaurant-ai-manager",
+   "description": "🍜 餐饮 AI 店长：LangGraph 多智能体 + Agentic RAG 的门店经营决策支持系统（日报 / 对话 / 排班）",
+   "url": "https://github.com/Alakazamc/restaurant-ai-manager",
+   "stars": 0,
+   "pushedAt": "2026-08-29",
+   "language": "Python",
+   "color": "#3572A5",
+   "topics": [
+    "fastapi",
+    "langgraph",
+    "multi-agent",
+    "pgvector"
+   ],
+   "langs": [
+    {
+     "name": "Python",
+     "color": "#3572A5",
+     "size": 1190427
+    },
+    {
+     "name": "JavaScript",
+     "color": "#f1e05a",
+     "size": 162797
+    },
+    {
+     "name": "CSS",
+     "color": "#663399",
+     "size": 66475
+    },
+    {
+     "name": "HTML",
+     "color": "#e34c26",
+     "size": 41105
+    },
+    {
+     "name": "Dockerfile",
+     "color": "#384d54",
+     "size": 1180
+    },
+    {
+     "name": "PowerShell",
+     "color": "#012456",
+     "size": 909
+    },
+    {
+     "name": "Mako",
+     "color": "#7e858d",
+     "size": 580
+    }
+   ]
+  },
+  {
+   "name": "-skillFoTabbit",
+   "description": "",
+   "url": "https://github.com/Alakazamc/-skillFoTabbit",
+   "stars": 0,
+   "pushedAt": "2026-06-14",
+   "language": "",
+   "color": "",
+   "topics": [],
+   "langs": []
+  }
+ ],
+ "languages": [
+  {
+   "name": "Python",
+   "color": "#3572A5",
+   "size": 1572332,
+   "percent": 0.29827207558272656
+  },
+  {
+   "name": "JavaScript",
+   "color": "#f1e05a",
+   "size": 1107723,
+   "percent": 0.21013554286290975
+  },
+  {
+   "name": "Vue",
+   "color": "#41b883",
+   "size": 971056,
+   "percent": 0.18420975253767025
+  },
+  {
+   "name": "Java",
+   "color": "#b07219",
+   "size": 737013,
+   "percent": 0.13981169195911045
+  },
+  {
+   "name": "HTML",
+   "color": "#e34c26",
+   "size": 406099,
+   "percent": 0.07703715985050846
+  },
+  {
+   "name": "CSS",
+   "color": "#663399",
+   "size": 220827,
+   "percent": 0.041890979535306
+  },
+  {
+   "name": "Go",
+   "color": "#00ADD8",
+   "size": 122689,
+   "percent": 0.02327415754507899
+  },
+  {
+   "name": "TypeScript",
+   "color": "#3178c6",
+   "size": 92243,
+   "percent": 0.017498537883842247
+  },
+  {
+   "name": "SCSS",
+   "color": "#c6538c",
+   "size": 20888,
+   "percent": 0.00396246283531213
+  },
+  {
+   "name": "Dockerfile",
+   "color": "#384d54",
+   "size": 9926,
+   "percent": 0.0018829665886302281
+  },
+  {
+   "name": "Shell",
+   "color": "#89e051",
+   "size": 6391,
+   "percent": 0.0012123755256836378
+  },
+  {
+   "name": "Lua",
+   "color": "#000080",
+   "size": 1678,
+   "percent": 0.0003183173419022288
+  },
+  {
+   "name": "Makefile",
+   "color": "#427819",
+   "size": 1115,
+   "percent": 0.00021151599298032485
+  },
+  {
+   "name": "PowerShell",
+   "color": "#012456",
+   "size": 909,
+   "percent": 0.00017243770190055182
+  },
+  {
+   "name": "Mako",
+   "color": "#7e858d",
+   "size": 580,
+   "percent": 0.00011002625643819588
+  }
+ ],
+ "totals": {
+  "repos": 9,
+  "stars": 0,
+  "languages": 15
+ }
+}
