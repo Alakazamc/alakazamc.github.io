@@ -123,14 +123,9 @@ const GITHUB = (() => {
 
 // ---------- 游戏数据（「游戏架」面板） ----------
 // 数据由 build/sources/heybox.js 拉取（无头浏览器截接口），
-// 写在 data/games.json，封面落在 assets/games/<appid>.jpg。
-// 来源是**小黑盒**而不是各平台官方接口 —— 它把 Steam / PSN / Xbox / Switch
-// 四个平台的记录聚合好了，打它一个接口就够了（详见 sources/heybox.js 注释）。
-const GAMES = (() => {
-  const f = path.join(__dirname, 'data', 'games.json');
-  if (!fs.existsSync(f)) return null;
-  try { return JSON.parse(fs.readFileSync(f, 'utf8')); } catch { return null; }
-})();
+// 生涯汇总来自 data/games.json；公开分平台完整列表来自 data/game-library.json。
+// 生成时只读快照；私有来源适配器逐平台分页校验后才更新快照。
+const GAMES = require('./game-data.js').loadGames();
 
 // 小黑盒的 platform 字段 → 中文名 + 平台主色（取自它自己的 platform_infos）
 const PLATFORM = {
@@ -379,7 +374,8 @@ const galleryPanel = () => {
 // 游戏不再独占一个面板，而是作为博物馆的第二个展区；#basket 锚点保留，旧导航不失效。
 const gamesExhibit = () => {
   const src = GAMES;
-  const list = (src && src.games) || [];
+  const allGames = (src && src.games) || [];
+  const list = allGames.slice(0, 20);
 
   const tile = (g) => {
     const p = PLATFORM[g.platform] || { cn: g.platform || '其他', c: '#8A8A8A' };
@@ -419,12 +415,13 @@ const gamesExhibit = () => {
     ? `<div class="gfoot">${ic('crystal', 'sm')}<span class="sfx">生涯 ${s.playHours} h</span>` +
     `${ic('basket', 'sm')}<span class="sfx">${s.gameCount} 款</span>` +
     `${ic('coin', 'sm')}<span class="sfx">价值 ¥${s.value}</span>` +
-    `${ic('star', 'sm')}<span class="sfx">展出：时长最长的 ${list.length} 款</span></div>`
+    `${ic('star', 'sm')}<span class="sfx">首页展出 ${list.length} 条 · 已读取 ${allGames.length} 条</span></div>`
     : '';
 
   return `<section class="museum-zone game-zone" id="basket">
     <h3 class="museum-zone-title">${ic('crystal', 'sm')}游戏藏品</h3>
     ${bar}<ul class="gshelf">${list.length ? list.map(tile).join('') : blank(8)}</ul>${foot}
+    <div class="museum-more"><a href="museum/index.html?kind=game">查看全部游戏记录 · 按平台筛选</a></div>
   </section>`;
 };
 
