@@ -174,9 +174,9 @@ const SHELF_SHOW = 36;
 // 全部都还在 posts/index.html 里，不会丢。
 const TL_SHOW = 12;
 
-// 工坊面板在主页摆几个仓库。6 个 = 全宽下两行，再多就把时间线顶到第二屏外了。
+// 主页展示配置中的三项精选，全部仓库仍在工坊页。
 // 全部仓库在 workshop/index.html（「查看更多」入口点进去）。
-const REPO_SHOW = 6;
+const REPO_SHOW = 3;
 
 const controls = () => `
 <details class="appearance-settings"><summary>外观设置</summary><div class="controls">
@@ -319,7 +319,8 @@ const repos = () => {
   // 不切的话仓库一多，工坊面板会长到把时间线顶到第二屏之外，
   // 而工坊是放在最上面的（柯西要求），等于把下面的内容全埋了。
   const all = (src && src.repos) || [];
-  const list = all.slice(0, REPO_SHOW);
+  const chosen = (SITE.featuredRepos || []).map(name => all.find(r => r.name === name)).filter(Boolean);
+  const list = (chosen.length ? chosen : all).slice(0, REPO_SHOW);
 
   const card = (r) => `
       <a class="rcard" href="${r.url}" target="_blank" rel="noopener">
@@ -1006,7 +1007,7 @@ html{scroll-behavior:smooth}
 /* 工坊固定展示六项：桌面三列两行，中屏两列，手机单列。
    仓库名保留标识符，完整内容选择与手机精简留给下一轮设计。 */
 .rgrid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
-@media(max-width:1000px){.rgrid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:800px){.rgrid{grid-template-columns:1fr}}
 @media(max-width:600px){.rgrid{grid-template-columns:1fr}}
 .rcard{display:flex;flex-direction:column;gap:5px;padding:9px 10px;text-decoration:none;color:inherit;
   background:var(--cream-2);border:2px solid var(--wood-c);box-shadow:0 3px 0 rgba(59,36,18,.22);

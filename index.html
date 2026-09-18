@@ -402,7 +402,7 @@ html{scroll-behavior:smooth}
 /* 工坊固定展示六项：桌面三列两行，中屏两列，手机单列。
    仓库名保留标识符，完整内容选择与手机精简留给下一轮设计。 */
 .rgrid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
-@media(max-width:1000px){.rgrid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:800px){.rgrid{grid-template-columns:1fr}}
 @media(max-width:600px){.rgrid{grid-template-columns:1fr}}
 .rcard{display:flex;flex-direction:column;gap:5px;padding:9px 10px;text-decoration:none;color:inherit;
   background:var(--cream-2);border:2px solid var(--wood-c);box-shadow:0 3px 0 rgba(59,36,18,.22);
@@ -933,36 +933,12 @@ button.soc .soc-in{flex-direction:row;gap:6px}
           <span class="rc-t">09.18</span>
         </span>
       </a>
-      <a class="rcard" href="https://github.com/Alakazamc/shaqing" target="_blank" rel="noopener">
-        <span class="rc-h"><svg class="ic sm" viewBox="0 0 16 16"><use href="#px-chest"></use></svg><b>shaqing</b></span>
-        <span class="rc-d">🎬 杀青 · 人生短剧模拟器 — 每条命都是一部戏 | A life-as-a-movie text roguelike. 1300+ events, 10 hidden storylines, zero deps, zero ads.</span>
-        <span class="rc-f">
-          <i class="rc-l" style="background:#f1e05a"></i><em>JavaScript</em>
-          <span class="rc-t">08.30</span>
-        </span>
-      </a>
       <a class="rcard" href="https://github.com/Alakazamc/pskit-2.0" target="_blank" rel="noopener">
         <span class="rc-h"><svg class="ic sm" viewBox="0 0 16 16"><use href="#px-chest"></use></svg><b>pskit-2.0</b></span>
         <span class="rc-d">🧪 BioAI Agent 工作台：LangGraph 编排 + 20+ 生信工具 + Qdrant RAG + Vue 3 SPA</span>
         <span class="rc-f">
           <i class="rc-l" style="background:#3572A5"></i><em>Python</em>
           <span class="rc-t">08.30</span>
-        </span>
-      </a>
-      <a class="rcard" href="https://github.com/Alakazamc/countryMarkeyforMiniApp" target="_blank" rel="noopener">
-        <span class="rc-h"><svg class="ic sm" viewBox="0 0 16 16"><use href="#px-chest"></use></svg><b>countryMarkeyforMiniApp</b></span>
-        <span class="rc-d">汉寿助农商城 — Java 微服务 + Vue3 管理后台 + uni-app 移动商城（交易闭环已通，AI/乡镇功能规划中）</span>
-        <span class="rc-f">
-          <i class="rc-l" style="background:#41b883"></i><em>Vue</em>
-          <span class="rc-t">08.29</span>
-        </span>
-      </a>
-      <a class="rcard" href="https://github.com/Alakazamc/weather_MCP_server" target="_blank" rel="noopener">
-        <span class="rc-h"><svg class="ic sm" viewBox="0 0 16 16"><use href="#px-chest"></use></svg><b>weather_MCP_server</b></span>
-        <span class="rc-d">Minimal MCP weather server (wttr.in) — HelloAgents course exercise</span>
-        <span class="rc-f">
-          <i class="rc-l" style="background:#3572A5"></i><em>Python</em>
-          <span class="rc-t">08.29</span>
         </span>
       </a>
       <a class="rcard" href="https://github.com/Alakazamc/ProteinAgent" target="_blank" rel="noopener">

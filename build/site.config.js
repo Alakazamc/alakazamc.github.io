@@ -20,6 +20,8 @@
 const SITE = {
   name: '柯西 Alakazam',
   home: 'stardew-maximal-v3.html',
+  // Provisional selection from existing public projects; descriptions remain source-backed.
+  featuredRepos: ['szudesktop', 'pskit-2.0', 'ProteinAgent'],
 
   comments: {
     provider: 'giscus',           // '' | 'giscus' | 'twikoo'  —— 2026-09-16 柯西选了 giscus

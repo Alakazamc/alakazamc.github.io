@@ -393,7 +393,7 @@ html{scroll-behavior:smooth}
 /* 工坊固定展示六项：桌面三列两行，中屏两列，手机单列。
    仓库名保留标识符，完整内容选择与手机精简留给下一轮设计。 */
 .rgrid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
-@media(max-width:1000px){.rgrid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:800px){.rgrid{grid-template-columns:1fr}}
 @media(max-width:600px){.rgrid{grid-template-columns:1fr}}
 .rcard{display:flex;flex-direction:column;gap:5px;padding:9px 10px;text-decoration:none;color:inherit;
   background:var(--cream-2);border:2px solid var(--wood-c);box-shadow:0 3px 0 rgba(59,36,18,.22);
