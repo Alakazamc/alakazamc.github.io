@@ -380,6 +380,7 @@ function gh(pathOrUrl, opts){
   var h = { 'Accept': 'application/vnd.github+json', 'X-GitHub-Api-Version': '2022-11-28' };
   var t = getToken();
   if (t) h.Authorization = 'Bearer ' + t;
+  if (opts.accept) h.Accept = opts.accept;
   if (opts.body) h['Content-Type'] = 'application/json';
   return fetch(url, { method: opts.method || 'GET', headers: h, body: opts.body })
     .then(function(r){
@@ -854,7 +855,7 @@ async function putNewOrSame(rel,b64,message){
   var url='/repos/'+REPO+'/contents/'+encPath(rel);
   var expected=await blobSha(b64);
   async function existing(){
-    try{return await gh(url+'?ref='+BRANCH);}catch(e){if(e.status===404)return null;throw e;}
+    try{return await gh(url+'?ref='+BRANCH,{accept:'application/vnd.github.object+json'});}catch(e){if(e.status===404)return null;throw e;}
   }
   var old=await existing();
   if(old){if(old.sha===expected)return old;throw new Error('同名文件内容不同，已停止覆盖：'+rel);}
