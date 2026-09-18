@@ -1303,6 +1303,19 @@ body.is-article{background:var(--sky-b);min-height:100vh;padding-top:22px}
 .artbody pre{margin:0 0 14px;padding:10px 12px;background:#2A2036;color:#FFF8E7;
   border:3px solid var(--ink);overflow-x:auto;line-height:1.75}
 .artbody pre code{background:none;border:0;padding:0;color:inherit}
+/* TOC styles adapted from PaperMod post-single.css (MIT; assets/vendor/papermod-LICENSE.txt). */
+details.toc{max-width:42rem;margin:0 auto 24px;background:var(--cream-2);border:1px solid var(--wood-c)}
+details.toc summary{padding:8px 16px;cursor:pointer;font-size:12px}
+.toc .inner{padding:0 16px 12px;font-family:system-ui,"Microsoft YaHei",sans-serif;font-size:16px;line-height:1.8}
+.toc ul{list-style:none;margin:0;padding:0}
+.toc a{color:inherit;text-decoration:none}
+.toc a:hover{text-underline-offset:.3rem;text-decoration:underline}
+.artbody h2,.artbody h3,.artbody h4{scroll-margin-top:24px}
+.artbody pre{position:relative;padding-top:44px}
+.copy-code{position:absolute;top:6px;right:8px;padding:4px 8px;background:var(--cream-2);color:var(--ink);border:1px solid var(--wood-c);font:12px var(--pix);cursor:pointer}
+.copy-code:hover{background:var(--gold)}
+.site-links{text-align:center;font-size:12px;line-height:2;margin:16px 0}
+.site-links a{color:var(--ink);text-underline-offset:4px}
 .artbody img{max-width:100%;height:auto;image-rendering:auto;border:3px solid var(--ink);display:block;margin:0 auto}
 .artbody hr{border:0;height:6px;margin:20px 0;
   background:repeating-linear-gradient(90deg,var(--wood-c) 0 4px,transparent 4px 8px)}

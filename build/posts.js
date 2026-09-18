@@ -15,6 +15,7 @@ const { articles } = require('./content.js');
 const { ICONS, toSymbol } = require('./icons.js');
 const { seasonScript, bottomBlock } = require('./subpage.js');
 const SITE = require('./site.config.js');
+const {tableOfContents} = require('./papermod.js');
 
 const ROOT = path.join(__dirname, '..');
 const OUT_DIR = path.join(ROOT, 'posts');
@@ -112,6 +113,7 @@ function commentsBlock(a, opts) {
 
 // ---------- 文章页 ----------
 function page(a, prev, next) {
+  const reading = tableOfContents(a.html);
   const icon = a.icon || 'book';
   const cover = a.cover
     ? `<p class="artcover"><img src="${esc(rel(a.cover))}" alt="${esc(a.title)}"></p>`
@@ -141,8 +143,9 @@ ${spriteFor(['mailbox', 'book', 'star', 'wateringcan', 'heart', 'flower', 'wheat
     <h1 class="arttitle">${esc(a.title)}</h1>
     <p class="artmeta">${esc(metarow)}</p>
     ${cover}
+    ${reading.toc}
     <div class="artbody">
-${a.html}
+${reading.body}
     </div>
     <footer class="artfoot">
       ${a.link
@@ -157,6 +160,7 @@ ${a.html}
   </nav>
   ${bottomBlock('', '../')}
 </div>
+<script src="../assets/vendor/papermod-reading.js" defer></script>
 ${seasonScript()}
 </body>
 </html>

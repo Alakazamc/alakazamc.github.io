@@ -66,8 +66,8 @@ function bottomBlock(inner, prefix) {
   return `<div class="sitebottom">
   ${visitsBar(prefix)}
   ${inner || ''}
+  <p class="site-links"><a href="${prefix || ''}rss.xml">RSS 订阅</a> · <a href="https://github.com/adityatelange/hugo-PaperMod">阅读部件：PaperMod</a></p>
 </div>`;
 }
 
 module.exports = { seasonScript, visitsBar, bottomBlock, SEASON_NAMES };
-

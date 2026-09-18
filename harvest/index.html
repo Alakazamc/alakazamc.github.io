@@ -1,5 +1,6 @@
 <!DOCTYPE html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>收获簿 · 柯西 Alakazam</title><link rel="stylesheet" href="../assets-layers.css"><link rel="stylesheet" href="../font.css"><link rel="stylesheet" href="../assets/theme.css"><!-- SEO -->
 <link rel="canonical" href="https://alakazamc-github-io.vercel.app/harvest/">
+<link rel="alternate" type="application/rss+xml" title="柯西 Alakazam · RSS" href="https://alakazamc-github-io.vercel.app/rss.xml">
 <meta name="description" content="柯西 Alakazam 的个人主页，记录项目、文章、书影音与照片。">
 <meta property="og:type" content="website">
 <meta property="og:title" content="收获簿 · 柯西 Alakazam">
@@ -18,6 +19,7 @@
   </div>
   <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
   
+  <p class="site-links"><a href="../rss.xml">RSS 订阅</a> · <a href="https://github.com/adityatelange/hugo-PaperMod">阅读部件：PaperMod</a></p>
 </div></div><script>(function(){var q=new URLSearchParams(location.search),year=document.getElementById('year'),kind=document.getElementById('kind'),wanted=q.get('year');if(/^\d{4}$/.test(wanted)&&![...year.options].some(o=>o.value===wanted)){var o=document.createElement('option');o.value=wanted;o.textContent=wanted;year.appendChild(o)}year.value=[...year.options].some(o=>o.value===wanted)?wanted:'all';kind.value=[...kind.options].some(o=>o.value===q.get('kind'))?q.get('kind'):'all';function render(){var count=0;document.querySelectorAll('.harvest-list li').forEach(function(li){li.hidden=!(year.value==='all'||li.dataset.year===year.value)||!(kind.value==='all'||li.dataset.kind===kind.value);if(!li.hidden)count++});document.querySelector('.harvest-status').textContent=(year.value==='all'?'全部年份':year.value+' 年')+' · '+kind.options[kind.selectedIndex].text+' · '+count+' 条';document.querySelector('.harvest-empty').hidden=count!==0;var next=new URLSearchParams({year:year.value,kind:kind.value});history.replaceState(null,'','?'+next.toString())}year.onchange=kind.onchange=render;render()})();</script><script>
 (function(){
   var root = document.documentElement;
