@@ -6,6 +6,7 @@ const path = require('path');
 const { validate, buildSprite, ICONS } = require('./icons.js');
 const { toCursorSvg, encode } = require('./cursor.js');
 const { brandIcon } = require('./brands.js');
+const DC = require('./decor.js');
 const md = require('./md.js');
 const { articles } = require('./content.js');
 const SITE = require('./site.config.js');
@@ -301,7 +302,7 @@ const timeline = () => {
     (list.length
       ? `<a href="posts/index.html">进入博客（${ARTICLES.length} 篇）</a>`
       : slot('meta', '140px', '11px')) +
-    `${ic('basket')}</div>`, 'timeline');
+    `${ic('basket')}</div>` + DC.shelf(), 'timeline');
 };
 
 // ---------- 工坊（GitHub 仓库） ----------
@@ -351,7 +352,7 @@ const repos = () => {
     : '';
 
   return panel('工坊', ['chest', 'gem', 'crystal', 'coin', 'chest'],
-    `<div class="rgrid">${list.length ? list.map(card).join('') : blank(6)}</div>${foot}${more}`, 'projects');
+    `<div class="rgrid">${list.length ? list.map(card).join('') : blank(6)}</div>${foot}${more}` + DC.shelf(), 'projects');
 };
 
 // ---------- 相馆 ----------
@@ -369,7 +370,8 @@ const galleryPanel = () => {
     </a>`;
   return panel('相馆', ['star', 'heart', 'heart', 'star', 'star'], `
   <div class="gstrip">${items.map(cell).join('')}</div>
-  <div class="museum-more">${ic('star', 'sm')}<a href="gallery/index.html">相馆 · 全部 ${GALLERY.count} 张</a>${ic('heart', 'sm')}</div>`, 'gallery');
+  <div class="museum-more">${ic('star', 'sm')}<a href="gallery/index.html">相馆 · 全部 ${GALLERY.count} 张</a>${ic('heart', 'sm')}</div>` +
+    DC.shelf(), 'gallery');
 };
 
 // ---------- 博物馆里的游戏藏品 ----------
@@ -431,7 +433,7 @@ const gamesExhibit = () => {
 
 // ---------- 侧栏 ----------
 
-const seasonPanel = () => panel('季节日历', ['sunflower', 'tulip', 'flower', 'mushroom', 'sun'], FARM.calendar(), 'calendar');
+const seasonPanel = () => panel('季节日历', ['sunflower', 'tulip', 'flower', 'mushroom', 'sun'], FARM.calendar() + DC.shelf(), 'calendar');
 
 // ---------- 专精（技术栈） ----------
 // 用 GitHub 的语言字节统计驱动，数据来自 sources/github.js。
@@ -464,7 +466,7 @@ const techStack = () => {
        <div class="gfoot">${ic('gem', 'sm')}<span class="sfx">代码构成 · 按字节数统计</span></div>`
     : `<ul class="stack">${blank(5)}</ul>`;
 
-  return panel('专精', ['gem', 'ore', 'crystal', 'star', 'gem'], inner, 'skills');
+  return panel('专精', ['gem', 'ore', 'crystal', 'star', 'gem'], inner + DC.shelf(), 'skills');
 };
 
 const farmPanel = () => panel('农场一角', ['flower', 'flower', 'wheat', 'wheat', 'tree'], `
@@ -472,7 +474,8 @@ const farmPanel = () => panel('农场一角', ['flower', 'flower', 'wheat', 'whe
     ${['tree', 'scarecrow', 'beehive', 'chicken', 'cow', 'lantern', 'junimo', 'fence']
       .map((n, i) => `<span style="animation-delay:${(i * 0.24).toFixed(2)}s">${ic(n, 'lg')}</span>`).join('')}
   </div>
-  <div class="fencerow">${ic('fence')}${ic('fence')}${ic('fence')}${ic('fence')}${ic('fence')}${ic('fence')}</div>`, 'farm');
+  <div class="fencerow">${ic('fence')}${ic('fence')}${ic('fence')}${ic('fence')}${ic('fence')}${ic('fence')}</div>` +
+    DC.shelf(), 'farm');
 
 // ---------- 博物馆（豆瓣书影音） ----------
 //
@@ -557,10 +560,10 @@ const museum = () => {
        </section>
        ${gamesExhibit()}`;
 
-  return panel('博物馆', ['book', 'gem', 'crystal', 'star', 'gift'], inner, 'museum');
+  return panel('博物馆', ['book', 'gem', 'crystal', 'star', 'gift'], inner + DC.shelf(), 'museum');
 };
 
-const moneyPanel = () => panel('收获簿', ['basket', 'wheat', 'flower', 'book', 'star'], FARM.harvest(FARM.load()), 'ledger');
+const moneyPanel = () => panel('收获簿', ['basket', 'wheat', 'flower', 'book', 'star'], FARM.harvest(FARM.load()) + DC.shelf(), 'ledger');
 
 // ---------- 页脚 ----------
 const footer = () => `
@@ -1506,6 +1509,7 @@ button.soc .soc-in{flex-direction:row;gap:6px}
 .exc > a:hover .poster{box-shadow:none}
 .douban-mark-link{font-size:12px;font-weight:normal;line-height:24px;margin-left:auto;color:var(--ink);text-underline-offset:4px;white-space:nowrap}
 ${FARM.css}
+${DC.css}
 </style>
 </head>
 <body>
@@ -1525,6 +1529,14 @@ ${FARM.css}
   <div id="flora"></div>
   <div id="animals"></div>
   <div id="fireflies"></div>
+</div>
+
+<!-- 星露谷素材层（build/decor.js）：远景农舍/风车/温室/水塔/筒仓 + 池塘 + 飞鸟。
+     全部 pointer-events:none + aria-hidden，纯装饰，不吃点击也不进无障碍树。 -->
+<div class="dc" aria-hidden="true">
+  ${DC.scene()}
+  ${DC.pond()}
+  ${DC.birds()}
 </div>
 
 <!-- 素材背景层（D:\\stardewOS-main 提供）。用 data-bg="image"/"code" 切换 -->
@@ -1547,6 +1559,7 @@ ${controls()}
 <div class="wrap">
   ${bunting()}
   <div class="board" id="board">
+    ${DC.yard()}
 
     <h1 class="bn">${ic('wheat')}<span class="bt">柯西 Alakazam</span>${ic('wheat')}</h1>
     <p class="who">AI 应用 · Agent · 深圳</p>
@@ -1565,9 +1578,12 @@ ${controls()}
   ${repos()}
 
   <div class="layout">
+    ${DC.posts()}
     <main>
       ${timeline()}
+      ${DC.path()}
       ${museum()}
+      ${DC.path()}
       ${galleryPanel()}
     </main>
     <aside>
@@ -1578,6 +1594,7 @@ ${controls()}
     </aside>
   </div>
 
+  ${DC.farmyard()}
   ${FARM.scenery()}
   ${footer()}
   ${bottom()}

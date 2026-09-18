@@ -5,7 +5,7 @@ const fs = require('fs');
 const path = require('path');
 const { ICONS, toSymbol } = require('./icons.js');
 const SITE = require('./site.config.js');
-const { seasonScript, bottomBlock } = require('./subpage.js');
+const { seasonScript, bottomBlock, decorate, dcShelf, DECOR_ICONS } = require('./subpage.js');
 
 const ROOT = path.join(__dirname, '..');
 const OUT = path.join(ROOT, 'museum', 'index.html');
@@ -77,7 +77,8 @@ function page(payload) {
 <link rel="stylesheet" href="../assets/theme.css">
 </head>
 <body class="is-article is-museum-page">
-${sprite(['mailbox', 'book', 'star', 'crystal', 'basket', 'flower', 'wheat'])}
+${sprite(['mailbox', 'book', 'star', 'crystal', 'basket', 'flower', 'wheat'].concat(DECOR_ICONS))}
+${decorate()}
 <div class="wrap museum-wrap">
   <nav class="abarnav"><a class="abtn" href="../${esc(SITE.home)}#museum">${ic('mailbox', 'sm')}回到农场</a></nav>
   <section class="panel museum-page">
@@ -98,6 +99,7 @@ ${sprite(['mailbox', 'book', 'star', 'crystal', 'basket', 'flower', 'wheat'])}
       <span class="museum-page-info"></span>
       <button class="museum-page-btn" data-page="next">下一页</button>
     </nav>
+    ${dcShelf()}
     <p class="museum-note">书影音来自豆瓣公开收藏；${esc(gameNote)}${updated ? '最近同步 ' + esc(updated.slice(0, 10).replace(/-/g, '.')) + '。' : ''}</p>
   </section>
   ${bottomBlock('', '../')}

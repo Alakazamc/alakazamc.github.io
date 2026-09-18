@@ -12,7 +12,7 @@ const fs = require('fs');
 const path = require('path');
 const { ICONS, toSymbol } = require('./icons.js');
 const SITE = require('./site.config.js');
-const { seasonScript, bottomBlock } = require('./subpage.js');
+const { seasonScript, bottomBlock, decorate, dcShelf, DECOR_ICONS } = require('./subpage.js');
 
 const ROOT = path.join(__dirname, '..');
 const DATA_FILE = path.join(__dirname, 'data', 'gallery.json');
@@ -189,7 +189,8 @@ function page(data) {
 </style>
 </head>
 <body class="is-article is-gallery-page">
-${sprite(['mailbox', 'star'])}
+${decorate()}
+${sprite(['mailbox', 'star'].concat(DECOR_ICONS))}
 <div class="artpage">
   <nav class="abarnav"><a class="abtn" href="../${esc(SITE.home)}#gallery">${ic('mailbox', 'sm')}回到农场</a></nav>
   <div class="gal-card">

@@ -13,7 +13,7 @@ const fs = require('fs');
 const path = require('path');
 const { articles } = require('./content.js');
 const { ICONS, toSymbol } = require('./icons.js');
-const { seasonScript, bottomBlock } = require('./subpage.js');
+const { seasonScript, bottomBlock, decorate, dcShelf, DECOR_ICONS } = require('./subpage.js');
 const SITE = require('./site.config.js');
 const {tableOfContents} = require('./papermod.js');
 
@@ -131,7 +131,8 @@ function page(a, prev, next) {
 <link rel="stylesheet" href="../assets/theme.css">
 </head>
 <body class="is-article">
-${spriteFor(['mailbox', 'book', 'star', 'wateringcan', 'heart', 'flower', 'wheat', 'basket', icon])}
+${decorate()}
+${spriteFor(['mailbox', 'book', 'star', 'wateringcan', 'heart', 'flower', 'wheat', 'basket', icon].concat(DECOR_ICONS))}
 <div class="wrap">
   <nav class="abarnav">
     <a class="abtn" href="../${esc(SITE.home)}">${ic('mailbox', 'sm')}回到农场</a>
@@ -227,7 +228,8 @@ function blogPage(list) {
 <link rel="stylesheet" href="../assets/theme.css">
 </head>
 <body class="is-article">
-${spriteFor(['mailbox', 'basket', 'book', 'wateringcan', 'star', 'wheat', 'flower', 'chest'])}
+${decorate()}
+${spriteFor(['mailbox', 'basket', 'book', 'wateringcan', 'star', 'wheat', 'flower', 'chest'].concat(DECOR_ICONS))}
 <div class="wrap">
   <nav class="abarnav">
     <a class="abtn" href="../${esc(SITE.home)}">${ic('mailbox', 'sm')}回到农场</a>

@@ -32,6 +32,28 @@ function seasonScript() {
 </script>`;
 }
 
+// ---------- 子页面共用的星露谷素材装饰 ----------
+// 2026-09-19 柯西要求「大量堆积星露谷素材」——首页那套装饰（decor.js）
+// 只接在主页面上；子页面如果原样不动，就成了「从农场点进一篇文章 = 走进一间白房子」。
+// 这里给子页面配一套**轻量版**：远景建筑 + 作物架 + 界面图标 sprite。
+//
+// 三点取舍（都是为了不给文章页添乱）：
+//   1. 不挂池塘和飞鸟 —— 文章页有正文要读，动的东西越少越好。
+//   2. 建筑只在 ≥900px 出现：窄屏上它们会顶到正文第一行，挡字。
+//      （CSS 在 decor.js 里，靠 .dc-scene 自带的媒体查询收）
+//   3. sprite 按需裁：`dcSprite()` 只带建筑/作物架/藤蔓真正用到的那十几个图标，
+//      不给每篇文章塞 60 多个图标的整包 —— 那是几十 KB 的纯浪费。
+const DECOR_ICONS = [
+  'wheat', 'flower', 'leaf2', 'mushroom', 'sunflower', 'bee', 'grape', 'acorn',
+  'tulip', 'strawberry', 'melon', 'tomato', 'corn', 'pepper', 'beehive', 'honey',
+  'pumpkin', 'eggplant', 'ancientfruit', 'crystal', 'snowman', 'ore', 'gem', 'pot', 'lantern'
+];
+
+// prefix 与 bottomBlock 一致：'../' 或 ''。装饰本身全是内联 SVG，不引外部文件。
+const decorate = () => `<div class="dc" aria-hidden="true">${require('./decor.js').scene()}</div>`;
+
+const dcShelf = () => require('./decor.js').shelf();
+
 // 访问量统计。
 //
 // 为什么用第三方（而不是自己数）：GitHub Pages 是纯静态托管，没有后端，
@@ -70,4 +92,7 @@ function bottomBlock(inner, prefix) {
 </div>`;
 }
 
-module.exports = { seasonScript, visitsBar, bottomBlock, SEASON_NAMES };
+module.exports = {
+  seasonScript, visitsBar, bottomBlock, SEASON_NAMES,
+  decorate, dcShelf, DECOR_ICONS
+};

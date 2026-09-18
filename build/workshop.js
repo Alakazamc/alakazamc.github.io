@@ -13,7 +13,7 @@ const fs = require('fs');
 const path = require('path');
 const { ICONS, toSymbol } = require('./icons.js');
 const SITE = require('./site.config.js');
-const { seasonScript, bottomBlock } = require('./subpage.js');
+const { seasonScript, bottomBlock, decorate, dcShelf, DECOR_ICONS } = require('./subpage.js');
 
 const ROOT = path.join(__dirname, '..');
 const OUT = path.join(ROOT, 'workshop', 'index.html');
@@ -85,7 +85,8 @@ function page(payload) {
 <link rel="stylesheet" href="../assets/theme.css">
 </head>
 <body class="is-article is-workshop-page">
-${sprite(['chest', 'gem', 'crystal', 'coin', 'key', 'star', 'wheat', 'flower', 'mailbox'])}
+${sprite(['chest', 'gem', 'crystal', 'coin', 'key', 'star', 'wheat', 'flower', 'mailbox'].concat(DECOR_ICONS))}
+${decorate()}
 <div class="wrap museum-wrap">
   <nav class="abarnav"><a class="abtn" href="../${esc(SITE.home)}#projects">${ic('mailbox', 'sm')}回到农场</a></nav>
   <section class="panel museum-page">
