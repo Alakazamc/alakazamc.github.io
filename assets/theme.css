@@ -206,17 +206,32 @@ svg.ic.sm{width:12px;height:12px} svg.ic.xs{width:9px;height:9px} svg.ic.lg{widt
 
 /* ===== 站名牌 ===== */
 .board{position:relative;margin:8px auto 0;max-width:600px;text-align:center;
-  background:linear-gradient(180deg,var(--wood-a) 0%,var(--wood-b) 58%,var(--wood-c) 100%);
+  /* 木板横向接缝：每 22px 一条极淡的缝，让木纹不是一整块贴纸 */
+  background-color:var(--wood-b);
+  background-image:
+    repeating-linear-gradient(180deg,rgba(0,0,0,.07) 0 2px,transparent 2px 22px),
+    linear-gradient(180deg,var(--wood-a) 0%,var(--wood-b) 58%,var(--wood-c) 100%);
   border:6px solid var(--ink);
   box-shadow:0 0 0 4px var(--wood-c),0 12px 0 -2px rgba(59,36,18,.4),inset 0 5px 0 rgba(255,255,255,.22);
-  padding:26px 24px 22px;transition:background .8s}
+  padding:26px 24px 22px;transition:background-color .8s}
 .board::after{content:'';position:absolute;inset:5px;border:2px solid var(--wood-a);pointer-events:none;opacity:.7}
 .tag{position:absolute;top:-16px;left:50%;transform:translateX(-50%);background:var(--ink);
   color:var(--gold);border:2px solid var(--wood-c);padding:3px 16px;font-size:12px;letter-spacing:2px;white-space:nowrap}
 .board .bn{display:flex;justify-content:center;align-items:center;gap:10px;margin:8px 0 10px}
+/* 站名是 <h1>：浏览器会给它默认 2em 字号和上下外边距，不摁平就会把招牌撑高。
+   ⚠️ 摁完必须落在 12px —— 16px 不是 12 的整数倍，像素字体在 16px 下横向会糊，
+   check-layout 的那条「字号均为 12 的倍数」就是守这个的（本站写的第五条注释）。 */
+.board h1.bn{font:inherit;font-size:12px}
 /* 招牌文案一层：只有站名。层级靠字号和阴影，不靠副标题堆叠 */
 .board .bt{font-size:24px;font-weight:700;color:#FFF8E7;letter-spacing:1px;
   text-shadow:2px 2px 0 var(--ink),0 0 12px rgba(255,233,168,.35);white-space:nowrap}
+/* ⚠️ 全站面板不写副标题是柯西定的规矩（2026-09-15）—— 但这条不是副标题，
+   它回答的是访客进站的第一个问题「这是谁」。缺了它，桌面首屏只有项目卡片、
+   手机首屏更是全是门面按钮（390px 下内容掉到第二屏），等于把自我介绍藏起来了。
+   做成「钉在木牌下的小纸条」，不用旋转不用动效，跟剩下那套像素一套语言。 */
+.board .who{margin:0 0 9px;display:inline-block;background:var(--cream);color:var(--ink);
+  border:2px solid var(--ink);box-shadow:3px 3px 0 rgba(43,29,14,.42);
+  padding:4px 12px;font-size:12px;letter-spacing:.6px}
 @media (max-width:640px){
   .board .bt{font-size:24px;text-shadow:2px 2px 0 var(--ink)}
 }
@@ -287,13 +302,37 @@ html{scroll-behavior:smooth}
    （表现是「找不到」某个元素，其实它在 x=1993 的地方好好待着）。
    给两栏都上 min-width:0，滚动才真正发生在 .shelf 内部。 */
 .layout > main,.layout > aside{min-width:0}
-.panel{position:relative;background:var(--cream);border:4px solid var(--ink);
+/* 2026-09-19「越看越有的看」：给奶油底加一层每 4px 一条的极淡横纹。
+   凑近才看得出的横纹。目的是让大面积纯色不再是死板一块，
+   但又不让人意识到「这里有纹理」—— 一旦被看出来，它就是噪声不是质感了。 */
+.panel{position:relative;background-color:var(--cream);
+  background-image:repeating-linear-gradient(180deg,rgba(59,36,18,.03) 0 2px,transparent 2px 4px);
+  border:4px solid var(--ink);
   box-shadow:0 0 0 4px var(--wood-c),9px 9px 0 0 rgba(59,36,18,.28);
-  padding:28px 18px 18px;margin-bottom:32px;transform:rotate(0);transition:background .8s}
+  padding:28px 18px 18px;margin-bottom:32px;transform:rotate(0);transition:background-color .8s}
+/* 挂钉：面板顶沿左右各一颗小铜钉，坐实「钉在墙上」而不是浮在空气里 */
+.panel::after{content:'';position:absolute;top:-5px;left:0;right:0;height:6px;pointer-events:none;
+  background:
+    radial-gradient(circle at 26px 3px, var(--gold) 0 3px, transparent 3px),
+    radial-gradient(circle at calc(100% - 26px) 3px, var(--gold) 0 3px, transparent 3px)}
 .panel::before{content:'';position:absolute;inset:4px;border:2px solid var(--cream-3);pointer-events:none}
-.pt{position:absolute;top:-16px;left:18px;background:var(--ink);color:var(--gold);
+/* 标题牌：从一块纯黑升级成「深色木牌 + 两端铆钉 + 下沿内阴影」。
+   不是为了花哨，是为了让它跟外层木框、四角饰件是同一套木材。 */
+.pt{position:absolute;top:-16px;left:18px;
+  background:linear-gradient(180deg,#3B2412 0%,var(--ink) 55%,#1A1108 100%);
+  color:var(--gold);
   border:2px solid var(--wood-c);padding:3px 12px;font-size:12px;letter-spacing:1px;
-  display:flex;align-items:center;gap:6px}
+  display:flex;align-items:center;gap:6px;
+  box-shadow:inset 0 -2px 0 rgba(0,0,0,.45),2px 2px 0 rgba(43,29,14,.32);
+  /* ⚠️ 这里千万不能写 font:inherit 简写（注意别在注释里打反引号，
+     这段 CSS 活在一个 JS 模板字符串里，一个反引号就能把整段字符串提前收掉）——
+     font 简写会连 font-size 一起重置，把上面写的 12px 顶回 16px，
+     check-layout 直接红、像素字号就破了。只能单点覆盖：
+     font-family 跟父级走，font-weight 保持加粗。 */
+  margin:0;font-family:inherit;font-weight:700;line-height:inherit}
+.pt::before,.pt::after{content:'';position:absolute;top:50%;width:3px;height:3px;
+  background:var(--wood-c);transform:translateY(-50%);opacity:.9}
+.pt::before{left:3px}.pt::after{right:3px}
 .cor{position:absolute;z-index:2;opacity:.85}
 .cor.tl{top:5px;left:6px}.cor.tr{top:5px;right:6px}.cor.bl{bottom:5px;left:6px}.cor.br{bottom:5px;right:6px}
 
@@ -303,6 +342,7 @@ html{scroll-behavior:smooth}
 .vine{display:flex;align-items:center;justify-content:center;gap:10px;margin:16px 4px 13px}
 .vine::before,.vine::after{content:'';flex:1;height:6px;
   background:repeating-linear-gradient(90deg,var(--wood-c) 0 4px,transparent 4px 8px)}
+.vine .flip{display:flex;transform:scaleX(-1)}
 
 /* ===== 时间线 ===== */
 /* 一条竖轴：左列时间戳、中间轴与圆点、右边卡片。

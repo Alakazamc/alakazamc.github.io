@@ -215,17 +215,32 @@ svg.ic.sm{width:12px;height:12px} svg.ic.xs{width:9px;height:9px} svg.ic.lg{widt
 
 /* ===== 站名牌 ===== */
 .board{position:relative;margin:8px auto 0;max-width:600px;text-align:center;
-  background:linear-gradient(180deg,var(--wood-a) 0%,var(--wood-b) 58%,var(--wood-c) 100%);
+  /* 木板横向接缝：每 22px 一条极淡的缝，让木纹不是一整块贴纸 */
+  background-color:var(--wood-b);
+  background-image:
+    repeating-linear-gradient(180deg,rgba(0,0,0,.07) 0 2px,transparent 2px 22px),
+    linear-gradient(180deg,var(--wood-a) 0%,var(--wood-b) 58%,var(--wood-c) 100%);
   border:6px solid var(--ink);
   box-shadow:0 0 0 4px var(--wood-c),0 12px 0 -2px rgba(59,36,18,.4),inset 0 5px 0 rgba(255,255,255,.22);
-  padding:26px 24px 22px;transition:background .8s}
+  padding:26px 24px 22px;transition:background-color .8s}
 .board::after{content:'';position:absolute;inset:5px;border:2px solid var(--wood-a);pointer-events:none;opacity:.7}
 .tag{position:absolute;top:-16px;left:50%;transform:translateX(-50%);background:var(--ink);
   color:var(--gold);border:2px solid var(--wood-c);padding:3px 16px;font-size:12px;letter-spacing:2px;white-space:nowrap}
 .board .bn{display:flex;justify-content:center;align-items:center;gap:10px;margin:8px 0 10px}
+/* 站名是 <h1>：浏览器会给它默认 2em 字号和上下外边距，不摁平就会把招牌撑高。
+   ⚠️ 摁完必须落在 12px —— 16px 不是 12 的整数倍，像素字体在 16px 下横向会糊，
+   check-layout 的那条「字号均为 12 的倍数」就是守这个的（本站写的第五条注释）。 */
+.board h1.bn{font:inherit;font-size:12px}
 /* 招牌文案一层：只有站名。层级靠字号和阴影，不靠副标题堆叠 */
 .board .bt{font-size:24px;font-weight:700;color:#FFF8E7;letter-spacing:1px;
   text-shadow:2px 2px 0 var(--ink),0 0 12px rgba(255,233,168,.35);white-space:nowrap}
+/* ⚠️ 全站面板不写副标题是柯西定的规矩（2026-09-15）—— 但这条不是副标题，
+   它回答的是访客进站的第一个问题「这是谁」。缺了它，桌面首屏只有项目卡片、
+   手机首屏更是全是门面按钮（390px 下内容掉到第二屏），等于把自我介绍藏起来了。
+   做成「钉在木牌下的小纸条」，不用旋转不用动效，跟剩下那套像素一套语言。 */
+.board .who{margin:0 0 9px;display:inline-block;background:var(--cream);color:var(--ink);
+  border:2px solid var(--ink);box-shadow:3px 3px 0 rgba(43,29,14,.42);
+  padding:4px 12px;font-size:12px;letter-spacing:.6px}
 @media (max-width:640px){
   .board .bt{font-size:24px;text-shadow:2px 2px 0 var(--ink)}
 }
@@ -296,13 +311,37 @@ html{scroll-behavior:smooth}
    （表现是「找不到」某个元素，其实它在 x=1993 的地方好好待着）。
    给两栏都上 min-width:0，滚动才真正发生在 .shelf 内部。 */
 .layout > main,.layout > aside{min-width:0}
-.panel{position:relative;background:var(--cream);border:4px solid var(--ink);
+/* 2026-09-19「越看越有的看」：给奶油底加一层每 4px 一条的极淡横纹。
+   凑近才看得出的横纹。目的是让大面积纯色不再是死板一块，
+   但又不让人意识到「这里有纹理」—— 一旦被看出来，它就是噪声不是质感了。 */
+.panel{position:relative;background-color:var(--cream);
+  background-image:repeating-linear-gradient(180deg,rgba(59,36,18,.03) 0 2px,transparent 2px 4px);
+  border:4px solid var(--ink);
   box-shadow:0 0 0 4px var(--wood-c),9px 9px 0 0 rgba(59,36,18,.28);
-  padding:28px 18px 18px;margin-bottom:32px;transform:rotate(0);transition:background .8s}
+  padding:28px 18px 18px;margin-bottom:32px;transform:rotate(0);transition:background-color .8s}
+/* 挂钉：面板顶沿左右各一颗小铜钉，坐实「钉在墙上」而不是浮在空气里 */
+.panel::after{content:'';position:absolute;top:-5px;left:0;right:0;height:6px;pointer-events:none;
+  background:
+    radial-gradient(circle at 26px 3px, var(--gold) 0 3px, transparent 3px),
+    radial-gradient(circle at calc(100% - 26px) 3px, var(--gold) 0 3px, transparent 3px)}
 .panel::before{content:'';position:absolute;inset:4px;border:2px solid var(--cream-3);pointer-events:none}
-.pt{position:absolute;top:-16px;left:18px;background:var(--ink);color:var(--gold);
+/* 标题牌：从一块纯黑升级成「深色木牌 + 两端铆钉 + 下沿内阴影」。
+   不是为了花哨，是为了让它跟外层木框、四角饰件是同一套木材。 */
+.pt{position:absolute;top:-16px;left:18px;
+  background:linear-gradient(180deg,#3B2412 0%,var(--ink) 55%,#1A1108 100%);
+  color:var(--gold);
   border:2px solid var(--wood-c);padding:3px 12px;font-size:12px;letter-spacing:1px;
-  display:flex;align-items:center;gap:6px}
+  display:flex;align-items:center;gap:6px;
+  box-shadow:inset 0 -2px 0 rgba(0,0,0,.45),2px 2px 0 rgba(43,29,14,.32);
+  /* ⚠️ 这里千万不能写 font:inherit 简写（注意别在注释里打反引号，
+     这段 CSS 活在一个 JS 模板字符串里，一个反引号就能把整段字符串提前收掉）——
+     font 简写会连 font-size 一起重置，把上面写的 12px 顶回 16px，
+     check-layout 直接红、像素字号就破了。只能单点覆盖：
+     font-family 跟父级走，font-weight 保持加粗。 */
+  margin:0;font-family:inherit;font-weight:700;line-height:inherit}
+.pt::before,.pt::after{content:'';position:absolute;top:50%;width:3px;height:3px;
+  background:var(--wood-c);transform:translateY(-50%);opacity:.9}
+.pt::before{left:3px}.pt::after{right:3px}
 .cor{position:absolute;z-index:2;opacity:.85}
 .cor.tl{top:5px;left:6px}.cor.tr{top:5px;right:6px}.cor.bl{bottom:5px;left:6px}.cor.br{bottom:5px;right:6px}
 
@@ -312,6 +351,7 @@ html{scroll-behavior:smooth}
 .vine{display:flex;align-items:center;justify-content:center;gap:10px;margin:16px 4px 13px}
 .vine::before,.vine::after{content:'';flex:1;height:6px;
   background:repeating-linear-gradient(90deg,var(--wood-c) 0 4px,transparent 4px 8px)}
+.vine .flip{display:flex;transform:scaleX(-1)}
 
 /* ===== 时间线 ===== */
 /* 一条竖轴：左列时间戳、中间轴与圆点、右边卡片。
@@ -965,7 +1005,8 @@ html[data-farm-pet="off"] .farm-pet,html[data-farm-scenery="off"] .season-scener
   <div class="bunting"><i style="--c:#FF5A5A;animation-delay:0.00s"></i><i style="--c:#FFD23F;animation-delay:0.08s"></i><i style="--c:#5FD35F;animation-delay:0.16s"></i><i style="--c:#4FC3F7;animation-delay:0.24s"></i><i style="--c:#FF7BC5;animation-delay:0.32s"></i><i style="--c:#FF9838;animation-delay:0.40s"></i><i style="--c:#B07CFF;animation-delay:0.48s"></i><i style="--c:#FF5A5A;animation-delay:0.56s"></i><i style="--c:#FFD23F;animation-delay:0.64s"></i><i style="--c:#5FD35F;animation-delay:0.72s"></i><i style="--c:#4FC3F7;animation-delay:0.80s"></i><i style="--c:#FF7BC5;animation-delay:0.88s"></i><i style="--c:#FF9838;animation-delay:0.96s"></i><i style="--c:#B07CFF;animation-delay:1.04s"></i><i style="--c:#FF5A5A;animation-delay:1.12s"></i><i style="--c:#FFD23F;animation-delay:1.20s"></i><i style="--c:#5FD35F;animation-delay:1.28s"></i><i style="--c:#4FC3F7;animation-delay:1.36s"></i><i style="--c:#FF7BC5;animation-delay:1.44s"></i><i style="--c:#FF9838;animation-delay:1.52s"></i><i style="--c:#B07CFF;animation-delay:1.60s"></i><i style="--c:#FF5A5A;animation-delay:1.68s"></i><i style="--c:#FFD23F;animation-delay:1.76s"></i><i style="--c:#5FD35F;animation-delay:1.84s"></i><i style="--c:#4FC3F7;animation-delay:1.92s"></i><i style="--c:#FF7BC5;animation-delay:2.00s"></i></div>
   <div class="board" id="board">
 
-    <div class="bn"><svg class="ic" viewBox="0 0 16 16"><use href="#px-wheat"></use></svg><b class="bt">柯西 Alakazam</b><svg class="ic" viewBox="0 0 16 16"><use href="#px-wheat"></use></svg></div>
+    <h1 class="bn"><svg class="ic" viewBox="0 0 16 16"><use href="#px-wheat"></use></svg><span class="bt">柯西 Alakazam</span><svg class="ic" viewBox="0 0 16 16"><use href="#px-wheat"></use></svg></h1>
+    <p class="who">AI 应用 · Agent · 深圳</p>
     <nav class="social" aria-label="社交平台"><a class="soc" href="https://github.com/Alakazamc" title="GitHub" target="_blank" rel="me noopener"><svg class="bico" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 1.5C5.9 1.5 1 6.4 1 12.5c0 4.9 3.1 9 7.5 10.4.6.1.8-.3.8-.6v-2.1c-3 .7-3.7-1.4-3.7-1.4-.5-1.3-1.2-1.6-1.2-1.6-1-.7.1-.7.1-.7 1.1.1 1.7 1.1 1.7 1.1 1 1.7 2.6 1.2 3.2.9.1-.7.4-1.2.7-1.5-2.4-.3-4.9-1.2-4.9-5.4 0-1.2.4-2.2 1.1-3-.1-.3-.5-1.4.1-2.9 0 0 .9-.3 3 1.1a10.3 10.3 0 0 1 5.4 0c2.1-1.4 3-1.1 3-1.1.6 1.5.2 2.6.1 2.9.7.8 1.1 1.8 1.1 3 0 4.2-2.5 5.1-4.9 5.4.4.3.7 1 .7 2v2.9c0 .3.2.7.8.6A11 11 0 0 0 23 12.5c0-6.1-4.9-11-11-11z" fill="currentColor"/></svg><em>GitHub</em></a><a class="soc" href="https://www.xiaohongshu.com/user/profile/94119390210" title="小红书" target="_blank" rel="me noopener"><svg class="bico" viewBox="0 0 24 24" aria-hidden="true"><path d="M5.8 3.4h2.6v10.6h9.4v2.6H5.8zM10.4 6.6h8.4v2.6h-2.6v9.4h-2.6V9.2h-3.2zM11.6 12.4h6.2v2.6h-6.2z" fill="currentColor"/></svg><em>小红书</em></a><button type="button" class="soc copyable" data-copy="alakazama@qq.com" title="点击显示邮箱"><span class="soc-in"><svg class="bico" viewBox="0 0 24 24" aria-hidden="true"><path d="M3.5 5h17A1.5 1.5 0 0 1 22 6.5v11A1.5 1.5 0 0 1 20.5 19h-17A1.5 1.5 0 0 1 2 17.5v-11A1.5 1.5 0 0 1 3.5 5zm.9 2.2v.3l7.6 5 7.6-5v-.3H4.4zm15.6 2.4-7.4 4.9a1 1 0 0 1-1.2 0L4 9.6v7.2h16V9.6z" fill="currentColor"/></svg><em>邮箱</em></span></button><button type="button" class="soc copyable" data-copy="Alakazamc" title="点击显示微信"><span class="soc-in"><svg class="bico" viewBox="0 0 24 24" aria-hidden="true"><path d="M9.1 2.4c-4 0-7.2 2.7-7.2 6.1 0 1.9 1 3.6 2.6 4.7l-.7 2.1 2.4-1.2c.9.3 1.9.4 2.9.4h.5a5.6 5.6 0 0 1 4.9-3.1c2.6 0 4.8 1.5 5.5 3.6 1.3-1 2.1-2.4 2.1-4 0-3.4-3.2-6.1-7.2-6.1-4 0-7.2 2.7-7.2 6.1zM6.2 5.7a.9.9 0 1 1 0 1.8.9.9 0 0 1 0-1.8zm5.8 0a.9.9 0 1 1 0 1.8.9.9 0 0 1 0-1.8zM15.9 12c-3.3 0-6 2.2-6 4.9 0 2.7 2.7 4.9 6 4.9.7 0 1.4-.1 2-.3l2 1-.6-1.7c1.4-.9 2.3-2.3 2.3-3.9 0-2.7-2.7-4.9-5.7-4.9zm-2.2 2.8a.8.8 0 1 1 0 1.6.8.8 0 0 1 0-1.6zm4.4 0a.8.8 0 1 1 0 1.6.8.8 0 0 1 0-1.6z" fill="currentColor"/></svg><em>微信</em></span></button></nav>
     <div class="deco">
       <span><svg class="ic" viewBox="0 0 16 16"><use href="#px-strawberry"></use></svg><svg class="ic" viewBox="0 0 16 16"><use href="#px-cherry"></use></svg><svg class="ic" viewBox="0 0 16 16"><use href="#px-grape"></use></svg></span>
@@ -980,15 +1021,15 @@ html[data-farm-pet="off"] .farm-pet,html[data-farm-scenery="off"] .season-scener
        放在 main 里的话它会跟右栏的侧栏面板并排，视觉上就不是「最上面」了。 -->
   
 <section class="panel" id="projects">
-  <span class="pt"><svg class="ic xs" viewBox="0 0 16 16"><use href="#px-chest"></use></svg>工坊<svg class="ic xs" viewBox="0 0 16 16"><use href="#px-chest"></use></svg></span>
+  <h2 class="pt"><svg class="ic xs" viewBox="0 0 16 16"><use href="#px-chest"></use></svg>工坊<svg class="ic xs" viewBox="0 0 16 16"><use href="#px-chest"></use></svg></h2>
   <span class="cor tl"><svg class="ic sm" viewBox="0 0 16 16"><use href="#px-chest"></use></svg></span><span class="cor tr"><svg class="ic sm" viewBox="0 0 16 16"><use href="#px-gem"></use></svg></span><span class="cor bl"><svg class="ic sm" viewBox="0 0 16 16"><use href="#px-crystal"></use></svg></span><span class="cor br"><svg class="ic sm" viewBox="0 0 16 16"><use href="#px-coin"></use></svg></span>
   <div class="rgrid">
       <a class="rcard" href="https://github.com/Alakazamc/szudesktop" target="_blank" rel="noopener">
         <span class="rc-h"><svg class="ic sm" viewBox="0 0 16 16"><use href="#px-chest"></use></svg><b>szudesktop</b></span>
         <span class="rc-d">深圳大学校园网客户端：像素风桌面应用 + 命令行 + 校内 VPN（Go 单文件，Windows/macOS/Linux）</span>
         <span class="rc-f">
-          <i class="rc-l" style="background:#00ADD8"></i><em>Go</em>
-          <span class="rc-t">09.18</span>
+          <i class="rc-l" style="background:#e34c26"></i><em>HTML</em>
+          <span class="rc-t">09.16</span>
         </span>
       </a>
       <a class="rcard" href="https://github.com/Alakazamc/pskit-2.0" target="_blank" rel="noopener">
@@ -1013,7 +1054,7 @@ html[data-farm-pet="off"] .farm-pet,html[data-farm-scenery="off"] .season-scener
     <main>
       
 <section class="panel" id="timeline">
-  <span class="pt"><svg class="ic xs" viewBox="0 0 16 16"><use href="#px-sunflower"></use></svg>时间线<svg class="ic xs" viewBox="0 0 16 16"><use href="#px-sunflower"></use></svg></span>
+  <h2 class="pt"><svg class="ic xs" viewBox="0 0 16 16"><use href="#px-sunflower"></use></svg>时间线<svg class="ic xs" viewBox="0 0 16 16"><use href="#px-sunflower"></use></svg></h2>
   <span class="cor tl"><svg class="ic sm" viewBox="0 0 16 16"><use href="#px-flower"></use></svg></span><span class="cor tr"><svg class="ic sm" viewBox="0 0 16 16"><use href="#px-tulip"></use></svg></span><span class="cor bl"><svg class="ic sm" viewBox="0 0 16 16"><use href="#px-wheat"></use></svg></span><span class="cor br"><svg class="ic sm" viewBox="0 0 16 16"><use href="#px-mushroom"></use></svg></span>
   
   <div class="tlwrap"><span class="tl-line"></span>
@@ -1155,12 +1196,12 @@ html[data-farm-pet="off"] .farm-pet,html[data-farm-scenery="off"] .season-scener
         </a>
       </li></ul>
   </div>
-  <div class="vine"><svg class="ic" viewBox="0 0 16 16"><use href="#px-sunflower"></use></svg></div>
+  <div class="vine"><svg class="ic" viewBox="0 0 16 16"><use href="#px-leaf2"></use></svg><svg class="ic" viewBox="0 0 16 16"><use href="#px-sunflower"></use></svg><span class="flip"><svg class="ic" viewBox="0 0 16 16"><use href="#px-leaf2"></use></svg></span></div>
   <div class="more"><svg class="ic" viewBox="0 0 16 16"><use href="#px-basket"></use></svg><a href="posts/index.html">进入博客（8 篇）</a><svg class="ic" viewBox="0 0 16 16"><use href="#px-basket"></use></svg></div>
 </section>
       
 <section class="panel" id="museum">
-  <span class="pt"><svg class="ic xs" viewBox="0 0 16 16"><use href="#px-gift"></use></svg>博物馆<svg class="ic xs" viewBox="0 0 16 16"><use href="#px-gift"></use></svg></span>
+  <h2 class="pt"><svg class="ic xs" viewBox="0 0 16 16"><use href="#px-gift"></use></svg>博物馆<svg class="ic xs" viewBox="0 0 16 16"><use href="#px-gift"></use></svg></h2>
   <span class="cor tl"><svg class="ic sm" viewBox="0 0 16 16"><use href="#px-book"></use></svg></span><span class="cor tr"><svg class="ic sm" viewBox="0 0 16 16"><use href="#px-gem"></use></svg></span><span class="cor bl"><svg class="ic sm" viewBox="0 0 16 16"><use href="#px-crystal"></use></svg></span><span class="cor br"><svg class="ic sm" viewBox="0 0 16 16"><use href="#px-star"></use></svg></span>
   <section class="museum-zone douban-zone">
          <h3 class="museum-zone-title"><svg class="ic sm" viewBox="0 0 16 16"><use href="#px-book"></use></svg>书影音展览<a class="douban-mark-link" href="https://www.douban.com/people/211628276/" target="_blank" rel="noopener">去豆瓣打标</a></h3>
@@ -2679,7 +2720,7 @@ html[data-farm-pet="off"] .farm-pet,html[data-farm-scenery="off"] .season-scener
 </section>
       
 <section class="panel" id="gallery">
-  <span class="pt"><svg class="ic xs" viewBox="0 0 16 16"><use href="#px-star"></use></svg>相馆<svg class="ic xs" viewBox="0 0 16 16"><use href="#px-star"></use></svg></span>
+  <h2 class="pt"><svg class="ic xs" viewBox="0 0 16 16"><use href="#px-star"></use></svg>相馆<svg class="ic xs" viewBox="0 0 16 16"><use href="#px-star"></use></svg></h2>
   <span class="cor tl"><svg class="ic sm" viewBox="0 0 16 16"><use href="#px-star"></use></svg></span><span class="cor tr"><svg class="ic sm" viewBox="0 0 16 16"><use href="#px-heart"></use></svg></span><span class="cor bl"><svg class="ic sm" viewBox="0 0 16 16"><use href="#px-heart"></use></svg></span><span class="cor br"><svg class="ic sm" viewBox="0 0 16 16"><use href="#px-star"></use></svg></span>
   
   <div class="gstrip">
@@ -2701,29 +2742,29 @@ html[data-farm-pet="off"] .farm-pet,html[data-farm-scenery="off"] .season-scener
     <aside>
       
 <section class="panel" id="calendar">
-  <span class="pt"><svg class="ic xs" viewBox="0 0 16 16"><use href="#px-sun"></use></svg>季节日历<svg class="ic xs" viewBox="0 0 16 16"><use href="#px-sun"></use></svg></span>
+  <h2 class="pt"><svg class="ic xs" viewBox="0 0 16 16"><use href="#px-sun"></use></svg>季节日历<svg class="ic xs" viewBox="0 0 16 16"><use href="#px-sun"></use></svg></h2>
   <span class="cor tl"><svg class="ic sm" viewBox="0 0 16 16"><use href="#px-sunflower"></use></svg></span><span class="cor tr"><svg class="ic sm" viewBox="0 0 16 16"><use href="#px-tulip"></use></svg></span><span class="cor bl"><svg class="ic sm" viewBox="0 0 16 16"><use href="#px-flower"></use></svg></span><span class="cor br"><svg class="ic sm" viewBox="0 0 16 16"><use href="#px-mushroom"></use></svg></span>
   <div class="calendar-date"><time id="calendar-date"></time><span id="calendar-weekday"></span></div><div class="seasons"><button type="button" class="se" data-se="spring" data-set-season="spring" aria-label="切换春季外观" aria-pressed="false"><svg class="ic" viewBox="0 0 16 16" aria-hidden="true"><use href="#px-parsnip"></use></svg><b>春</b></button><button type="button" class="se" data-se="summer" data-set-season="summer" aria-label="切换夏季外观" aria-pressed="false"><svg class="ic" viewBox="0 0 16 16" aria-hidden="true"><use href="#px-melon"></use></svg><b>夏</b></button><button type="button" class="se" data-se="autumn" data-set-season="autumn" aria-label="切换秋季外观" aria-pressed="false"><svg class="ic" viewBox="0 0 16 16" aria-hidden="true"><use href="#px-pumpkin"></use></svg><b>秋</b></button><button type="button" class="se" data-se="winter" data-set-season="winter" aria-label="切换冬季外观" aria-pressed="false"><svg class="ic" viewBox="0 0 16 16" aria-hidden="true"><use href="#px-snowman"></use></svg><b>冬</b></button></div><p class="calendar-mode" id="calendar-mode"></p><button class="abtn calendar-auto" type="button" data-auto-season>恢复自动</button>
 </section>
       
 <section class="panel" id="skills">
-  <span class="pt"><svg class="ic xs" viewBox="0 0 16 16"><use href="#px-gem"></use></svg>专精<svg class="ic xs" viewBox="0 0 16 16"><use href="#px-gem"></use></svg></span>
+  <h2 class="pt"><svg class="ic xs" viewBox="0 0 16 16"><use href="#px-gem"></use></svg>专精<svg class="ic xs" viewBox="0 0 16 16"><use href="#px-gem"></use></svg></h2>
   <span class="cor tl"><svg class="ic sm" viewBox="0 0 16 16"><use href="#px-gem"></use></svg></span><span class="cor tr"><svg class="ic sm" viewBox="0 0 16 16"><use href="#px-ore"></use></svg></span><span class="cor bl"><svg class="ic sm" viewBox="0 0 16 16"><use href="#px-crystal"></use></svg></span><span class="cor br"><svg class="ic sm" viewBox="0 0 16 16"><use href="#px-star"></use></svg></span>
   <ul class="stack">
       <li>
         <svg class="ic sm" viewBox="0 0 16 16"><use href="#px-gem"></use></svg><em>Python</em>
-        <span class="tbar"><b style="width:30.4%;background:#3572A5"></b></span>
-        <u>30.4%</u>
+        <span class="tbar"><b style="width:29.8%;background:#3572A5"></b></span>
+        <u>29.8%</u>
       </li>
       <li>
         <svg class="ic sm" viewBox="0 0 16 16"><use href="#px-gem"></use></svg><em>JavaScript</em>
-        <span class="tbar"><b style="width:21.1%;background:#f1e05a"></b></span>
-        <u>21.1%</u>
+        <span class="tbar"><b style="width:21%;background:#f1e05a"></b></span>
+        <u>21%</u>
       </li>
       <li>
         <svg class="ic sm" viewBox="0 0 16 16"><use href="#px-gem"></use></svg><em>Vue</em>
-        <span class="tbar"><b style="width:18.5%;background:#41b883"></b></span>
-        <u>18.5%</u>
+        <span class="tbar"><b style="width:18.4%;background:#41b883"></b></span>
+        <u>18.4%</u>
       </li>
       <li>
         <svg class="ic sm" viewBox="0 0 16 16"><use href="#px-gem"></use></svg><em>Java</em>
@@ -2732,8 +2773,8 @@ html[data-farm-pet="off"] .farm-pet,html[data-farm-scenery="off"] .season-scener
       </li>
       <li>
         <svg class="ic sm" viewBox="0 0 16 16"><use href="#px-gem"></use></svg><em>HTML</em>
-        <span class="tbar"><b style="width:5.3%;background:#e34c26"></b></span>
-        <u>5.3%</u>
+        <span class="tbar"><b style="width:7.7%;background:#e34c26"></b></span>
+        <u>7.7%</u>
       </li>
       <li>
         <svg class="ic sm" viewBox="0 0 16 16"><use href="#px-gem"></use></svg><em>CSS</em>
@@ -2744,13 +2785,13 @@ html[data-farm-pet="off"] .farm-pet,html[data-farm-scenery="off"] .season-scener
 </section>
       
 <section class="panel" id="ledger">
-  <span class="pt"><svg class="ic xs" viewBox="0 0 16 16"><use href="#px-star"></use></svg>收获簿<svg class="ic xs" viewBox="0 0 16 16"><use href="#px-star"></use></svg></span>
+  <h2 class="pt"><svg class="ic xs" viewBox="0 0 16 16"><use href="#px-star"></use></svg>收获簿<svg class="ic xs" viewBox="0 0 16 16"><use href="#px-star"></use></svg></h2>
   <span class="cor tl"><svg class="ic sm" viewBox="0 0 16 16"><use href="#px-basket"></use></svg></span><span class="cor tr"><svg class="ic sm" viewBox="0 0 16 16"><use href="#px-wheat"></use></svg></span><span class="cor bl"><svg class="ic sm" viewBox="0 0 16 16"><use href="#px-flower"></use></svg></span><span class="cor br"><svg class="ic sm" viewBox="0 0 16 16"><use href="#px-book"></use></svg></span>
   <div class="harvest-heading"><label for="harvest-year">年度收获</label><select id="harvest-year" aria-label="收获年份"></select></div><div class="harvest-counts"><a data-harvest-kind="article" href="harvest/index.html?kind=article"><span><svg class="ic" viewBox="0 0 16 16" aria-hidden="true"><use href="#px-book"></use></svg>文章</span><b>0</b></a><a data-harvest-kind="photo" href="harvest/index.html?kind=photo"><span><svg class="ic" viewBox="0 0 16 16" aria-hidden="true"><use href="#px-flower"></use></svg>照片</span><b>0</b></a><a data-harvest-kind="movie" href="harvest/index.html?kind=movie"><span><svg class="ic" viewBox="0 0 16 16" aria-hidden="true"><use href="#px-star"></use></svg>看过</span><b>0</b></a><a data-harvest-kind="book" href="harvest/index.html?kind=book"><span><svg class="ic" viewBox="0 0 16 16" aria-hidden="true"><use href="#px-wateringcan"></use></svg>读过</span><b>0</b></a></div><p class="harvest-note">随已发布内容更新 · 书影音同步 2026-09-18</p><script id="harvest-summary" type="application/json">{"2020":{"article":0,"photo":0,"movie":94,"book":43},"2022":{"article":0,"photo":0,"movie":33,"book":0},"2023":{"article":2,"photo":0,"movie":53,"book":0},"2024":{"article":3,"photo":0,"movie":61,"book":1},"2025":{"article":1,"photo":0,"movie":35,"book":0},"2026":{"article":2,"photo":0,"movie":11,"book":0}}</script>
 </section>
       
 <section class="panel" id="farm">
-  <span class="pt"><svg class="ic xs" viewBox="0 0 16 16"><use href="#px-tree"></use></svg>农场一角<svg class="ic xs" viewBox="0 0 16 16"><use href="#px-tree"></use></svg></span>
+  <h2 class="pt"><svg class="ic xs" viewBox="0 0 16 16"><use href="#px-tree"></use></svg>农场一角<svg class="ic xs" viewBox="0 0 16 16"><use href="#px-tree"></use></svg></h2>
   <span class="cor tl"><svg class="ic sm" viewBox="0 0 16 16"><use href="#px-flower"></use></svg></span><span class="cor tr"><svg class="ic sm" viewBox="0 0 16 16"><use href="#px-flower"></use></svg></span><span class="cor bl"><svg class="ic sm" viewBox="0 0 16 16"><use href="#px-wheat"></use></svg></span><span class="cor br"><svg class="ic sm" viewBox="0 0 16 16"><use href="#px-wheat"></use></svg></span>
   
   <div class="scene">
@@ -2769,7 +2810,7 @@ html[data-farm-pet="off"] .farm-pet,html[data-farm-scenery="off"] .season-scener
   <div class="frow">
     <span style="animation-delay:0.00s"><svg class="ic lg" viewBox="0 0 16 16"><use href="#px-tree"></use></svg></span><span style="animation-delay:0.19s"><svg class="ic lg" viewBox="0 0 16 16"><use href="#px-mushroom"></use></svg></span><span style="animation-delay:0.38s"><svg class="ic lg" viewBox="0 0 16 16"><use href="#px-chicken"></use></svg></span><span style="animation-delay:0.57s"><svg class="ic lg" viewBox="0 0 16 16"><use href="#px-strawberry"></use></svg></span><span style="animation-delay:0.76s"><svg class="ic lg" viewBox="0 0 16 16"><use href="#px-sunflower"></use></svg></span><span style="animation-delay:0.95s"><svg class="ic lg" viewBox="0 0 16 16"><use href="#px-cow"></use></svg></span><span style="animation-delay:1.14s"><svg class="ic lg" viewBox="0 0 16 16"><use href="#px-beehive"></use></svg></span><span style="animation-delay:1.33s"><svg class="ic lg" viewBox="0 0 16 16"><use href="#px-pumpkin"></use></svg></span><span style="animation-delay:1.52s"><svg class="ic lg" viewBox="0 0 16 16"><use href="#px-scarecrow"></use></svg></span><span style="animation-delay:1.71s"><svg class="ic lg" viewBox="0 0 16 16"><use href="#px-junimo"></use></svg></span><span style="animation-delay:1.90s"><svg class="ic lg" viewBox="0 0 16 16"><use href="#px-bee"></use></svg></span><span style="animation-delay:2.09s"><svg class="ic lg" viewBox="0 0 16 16"><use href="#px-butterfly"></use></svg></span><span style="animation-delay:2.28s"><svg class="ic lg" viewBox="0 0 16 16"><use href="#px-acorn"></use></svg></span><span style="animation-delay:2.47s"><svg class="ic lg" viewBox="0 0 16 16"><use href="#px-crystal"></use></svg></span>
   </div>
-  <div class="vine"><svg class="ic" viewBox="0 0 16 16"><use href="#px-rainbow"></use></svg></div>
+  <div class="vine"><svg class="ic" viewBox="0 0 16 16"><use href="#px-leaf2"></use></svg><svg class="ic" viewBox="0 0 16 16"><use href="#px-rainbow"></use></svg><span class="flip"><svg class="ic" viewBox="0 0 16 16"><use href="#px-leaf2"></use></svg></span></div>
   <div class="fcopy">
     <svg class="ic sm" viewBox="0 0 16 16"><use href="#px-heart"></use></svg><span class="slot meta" style="width:200px;height:10px"></span><svg class="ic sm" viewBox="0 0 16 16"><use href="#px-heart"></use></svg>
   </div>
