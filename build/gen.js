@@ -498,14 +498,20 @@ const farmPanel = () => panel('农场一角', ['flower', 'flower', 'wheat', 'whe
 // 3. 没有数据时（data/douban.json 不存在）渲染占位卡片，布局不变。
 const museum = () => {
   const src = DOUBAN;
-  const items = (src && src.items || []).filter((x) => x.cover).slice(0, SHELF_SHOW);
+  const allItems = (src && src.items || []).filter((x) => x.cover);
+  const chosen = new Set(allItems.slice(0, SHELF_SHOW));
+  SHELF_KIND.filter(t => t.k !== 'all').forEach(t => {
+    allItems.filter(x => x.kind === t.k).slice(0, SHELF_SHOW).forEach(x => chosen.add(x));
+  });
+  const items = allItems.filter(x => chosen.has(x));
+  const initiallyVisible = new Set(allItems.slice(0, SHELF_SHOW));
 
   const card = (it) => {
     const c = rgb2hex(vivid(it.color || [0.55, 0.45, 0.35]));
     const stars = it.myRating
       ? '★'.repeat(it.myRating) + '☆'.repeat(5 - it.myRating) : '';
     return `
-      <li class="exc" data-kind="${it.kind}">
+      <li class="exc" data-kind="${it.kind}"${initiallyVisible.has(it) ? '' : ' hidden'}>
         <a href="${it.url}" target="_blank" rel="noopener" title="${(it.comment || it.title).replace(/"/g, '&quot;')}">
           <span class="poster" style="--pc:${c}">
             <img src="assets/covers/${it.cover}" alt="${it.title.replace(/"/g, '&quot;')}" loading="lazy">
@@ -529,7 +535,7 @@ const museum = () => {
   const counts = (src && src.counts) || {};
   const tabs = SHELF_KIND.map((t) => {
     const n = t.k === 'all' ? ((src && src.total) || 0) : (counts[t.k] || 0);
-    return `<button class="shelf-tab${t.k === 'all' ? ' on' : ''}" data-filter-kind="${t.k}">` +
+    return `<button class="shelf-tab${t.k === 'all' ? ' on' : ''}" data-filter-kind="${t.k}" aria-pressed="${t.k === 'all'}">` +
       `<em>${t.cn}</em><i>${n}</i></button>`;
   }).join('');
 
@@ -546,6 +552,7 @@ const museum = () => {
          <h3 class="museum-zone-title">${ic('book', 'sm')}书影音展览</h3>
          <div class="shelf-bar">${tabs}</div>
          <ul class="shelf">${items.map(card).join('')}</ul>
+         <p class="shelf-status" aria-live="polite">展示最近 ${Math.min(allItems.length, SHELF_SHOW)} 件 · 完整馆藏见下方入口</p>
          <div class="shelf-foot">${foot}</div>
          <div class="museum-more">${ic('book', 'sm')}<a href="museum/index.html">查看全部馆藏 · 可分类翻页</a>${ic('crystal', 'sm')}</div>
        </section>
@@ -1137,6 +1144,8 @@ html{scroll-behavior:smooth}
    现在把底板整个去掉：封面自己带描边直接落在面板上，文字排在封面下方。
    ⚠️ 去掉 padding 之后节奏全靠 gap 和固定宽高撑，别再往 a 上加背景色。 */
 .exc{flex:none;width:96px;display:flex;scroll-snap-align:start}
+.exc[hidden]{display:none!important}
+.shelf-status{margin:6px 0;text-align:center;font-size:12px;color:var(--ink-2)}
 .exc > a{flex:1;display:flex;flex-direction:column;gap:6px;text-decoration:none;color:inherit;
   transition:transform .12s steps(2)}
 .exc > a:hover{transform:translateY(-4px)}
@@ -1609,7 +1618,7 @@ ${buildSprite()}
   }
 
   /* ---- 博物馆：书 / 影 / 音 / 游 分类 ----
-     筛选用 hidden 属性而不是 CSS class —— hidden 在 flex 容器里直接是 display:none，
+     筛选用 hidden 属性；专用 CSS 规则确保它不会被卡片的 display:flex 覆盖，
      不会像「把宽度改成 0」那样留下缝隙。这一步没法用纯 CSS 做：
      :has() 选择器能选中「被点击的兄弟元素之后的元素」，但要跨到列表里的每个卡片太绕。 */
   document.querySelectorAll('[data-filter-kind]').forEach(function(b){
@@ -1617,10 +1626,16 @@ ${buildSprite()}
       var k = b.dataset.filterKind;
       document.querySelectorAll('[data-filter-kind]').forEach(function(x){
         x.classList.toggle('on', x === b);
+        x.setAttribute('aria-pressed', String(x === b));
       });
+      var shown = 0;
       document.querySelectorAll('#museum .exc').forEach(function(li){
-        li.hidden = k !== 'all' && li.dataset.kind !== k;
+        var matches = k === 'all' || li.dataset.kind === k;
+        li.hidden = !matches || shown >= ${SHELF_SHOW};
+        if (!li.hidden) shown++;
       });
+      var status = document.querySelector('#museum .shelf-status');
+      if (status) status.textContent = '展示最近 ' + shown + ' 件 · 完整馆藏见下方入口';
       // 筛完可能只剩几张，把滚动位置拉回开头，否则停在空白是中间
       var shelf = document.querySelector('#museum .shelf');
       if (shelf) shelf.scrollLeft = 0;

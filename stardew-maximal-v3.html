@@ -532,6 +532,8 @@ html{scroll-behavior:smooth}
    现在把底板整个去掉：封面自己带描边直接落在面板上，文字排在封面下方。
    ⚠️ 去掉 padding 之后节奏全靠 gap 和固定宽高撑，别再往 a 上加背景色。 */
 .exc{flex:none;width:96px;display:flex;scroll-snap-align:start}
+.exc[hidden]{display:none!important}
+.shelf-status{margin:6px 0;text-align:center;font-size:12px;color:var(--ink-2)}
 .exc > a{flex:1;display:flex;flex-direction:column;gap:6px;text-decoration:none;color:inherit;
   transition:transform .12s steps(2)}
 .exc > a:hover{transform:translateY(-4px)}
@@ -1106,7 +1108,7 @@ button.soc .soc-in{flex-direction:row;gap:6px}
   <span class="cor tl"><svg class="ic sm" viewBox="0 0 16 16"><use href="#px-book"></use></svg></span><span class="cor tr"><svg class="ic sm" viewBox="0 0 16 16"><use href="#px-gem"></use></svg></span><span class="cor bl"><svg class="ic sm" viewBox="0 0 16 16"><use href="#px-crystal"></use></svg></span><span class="cor br"><svg class="ic sm" viewBox="0 0 16 16"><use href="#px-star"></use></svg></span>
   <section class="museum-zone douban-zone">
          <h3 class="museum-zone-title"><svg class="ic sm" viewBox="0 0 16 16"><use href="#px-book"></use></svg>书影音展览</h3>
-         <div class="shelf-bar"><button class="shelf-tab on" data-filter-kind="all"><em>全部</em><i>370</i></button><button class="shelf-tab" data-filter-kind="movie"><em>影</em><i>287</i></button><button class="shelf-tab" data-filter-kind="book"><em>书</em><i>44</i></button><button class="shelf-tab" data-filter-kind="music"><em>音</em><i>37</i></button><button class="shelf-tab" data-filter-kind="game"><em>游</em><i>2</i></button></div>
+         <div class="shelf-bar"><button class="shelf-tab on" data-filter-kind="all" aria-pressed="true"><em>全部</em><i>370</i></button><button class="shelf-tab" data-filter-kind="movie" aria-pressed="false"><em>影</em><i>287</i></button><button class="shelf-tab" data-filter-kind="book" aria-pressed="false"><em>书</em><i>44</i></button><button class="shelf-tab" data-filter-kind="music" aria-pressed="false"><em>音</em><i>37</i></button><button class="shelf-tab" data-filter-kind="game" aria-pressed="false"><em>游</em><i>2</i></button></div>
          <ul class="shelf">
       <li class="exc" data-kind="movie">
         <a href="https://movie.douban.com/subject/35811064/" target="_blank" rel="noopener" title="欢迎来龙餐馆">
@@ -1539,7 +1541,896 @@ button.soc .soc-in{flex-direction:row;gap:6px}
             <span class="st">★★★★☆</span>
           </span>
         </a>
+      </li>
+      <li class="exc" data-kind="movie" hidden>
+        <a href="https://movie.douban.com/subject/26816104/" target="_blank" rel="noopener" title="从21世纪安全撤离">
+          <span class="poster" style="--pc:#575e57">
+            <img src="assets/covers/26816104.jpg" alt="从21世纪安全撤离" loading="lazy">
+          </span>
+          <span class="tx">
+            <b class="t">从21世纪安全撤离</b>
+            <i class="m">看过 · 2025-05-09</i>
+            <span class="st">★★★★☆</span>
+          </span>
+        </a>
+      </li>
+      <li class="exc" data-kind="movie" hidden>
+        <a href="https://movie.douban.com/subject/35927475/" target="_blank" rel="noopener" title="雷霆特攻队*">
+          <span class="poster" style="--pc:#635c57">
+            <img src="assets/covers/35927475.jpg" alt="雷霆特攻队*" loading="lazy">
+          </span>
+          <span class="tx">
+            <b class="t">雷霆特攻队*</b>
+            <i class="m">看过 · 2025-05-08</i>
+            <span class="st">★★★★☆</span>
+          </span>
+        </a>
+      </li>
+      <li class="exc" data-kind="music" hidden>
+        <a href="https://music.douban.com/subject/35889930/" target="_blank" rel="noopener" title="杜康">
+          <span class="poster" style="--pc:#579157">
+            <img src="assets/covers/35889930.jpg" alt="杜康" loading="lazy">
+          </span>
+          <span class="tx">
+            <b class="t">杜康</b>
+            <i class="m">听过 · 2024-10-25</i>
+            <span class="st">★★★☆☆</span>
+          </span>
+        </a>
+      </li>
+      <li class="exc" data-kind="music" hidden>
+        <a href="https://music.douban.com/subject/36240320/" target="_blank" rel="noopener" title="二十一世纪最失败说唱歌手">
+          <span class="poster" style="--pc:#5757ff">
+            <img src="assets/covers/36240320.jpg" alt="二十一世纪最失败说唱歌手" loading="lazy">
+          </span>
+          <span class="tx">
+            <b class="t">二十一世纪最失败说唱歌手</b>
+            <i class="m">听过 · 2024-10-25</i>
+            <span class="st">★★★★★</span>
+          </span>
+        </a>
+      </li>
+      <li class="exc" data-kind="music" hidden>
+        <a href="https://music.douban.com/subject/37027914/" target="_blank" rel="noopener" title="满足我MIXTAPE">
+          <span class="poster" style="--pc:#575757">
+            <img src="assets/covers/37027914.jpg" alt="满足我MIXTAPE" loading="lazy">
+          </span>
+          <span class="tx">
+            <b class="t">满足我MIXTAPE</b>
+            <i class="m">听过 · 2024-10-25</i>
+            <span class="st">★★★★☆</span>
+          </span>
+        </a>
+      </li>
+      <li class="exc" data-kind="music" hidden>
+        <a href="https://music.douban.com/subject/36397417/" target="_blank" rel="noopener" title="RUN MY CITY">
+          <span class="poster" style="--pc:#57ff7a">
+            <img src="assets/covers/36397417.jpg" alt="RUN MY CITY" loading="lazy">
+          </span>
+          <span class="tx">
+            <b class="t">RUN MY CITY</b>
+            <i class="m">听过 · 2024-10-25</i>
+            <span class="st">★★★★★</span>
+          </span>
+        </a>
+      </li>
+      <li class="exc" data-kind="music" hidden>
+        <a href="https://music.douban.com/subject/36984993/" target="_blank" rel="noopener" title="四大天王">
+          <span class="poster" style="--pc:#579657">
+            <img src="assets/covers/36984993.jpg" alt="四大天王" loading="lazy">
+          </span>
+          <span class="tx">
+            <b class="t">四大天王</b>
+            <i class="m">听过 · 2024-10-25</i>
+            <span class="st">★★★★★</span>
+          </span>
+        </a>
+      </li>
+      <li class="exc" data-kind="music" hidden>
+        <a href="https://music.douban.com/subject/36633747/" target="_blank" rel="noopener" title="夜郎溪">
+          <span class="poster" style="--pc:#57be57">
+            <img src="assets/covers/36633747.jpg" alt="夜郎溪" loading="lazy">
+          </span>
+          <span class="tx">
+            <b class="t">夜郎溪</b>
+            <i class="m">听过 · 2024-10-25</i>
+            <span class="st">★★★★★</span>
+          </span>
+        </a>
+      </li>
+      <li class="exc" data-kind="music" hidden>
+        <a href="https://music.douban.com/subject/26067550/" target="_blank" rel="noopener" title="七里八里">
+          <span class="poster" style="--pc:#b08c57">
+            <img src="assets/covers/26067550.jpg" alt="七里八里" loading="lazy">
+          </span>
+          <span class="tx">
+            <b class="t">七里八里</b>
+            <i class="m">听过 · 2024-10-25</i>
+            <span class="st">★★★★★</span>
+          </span>
+        </a>
+      </li>
+      <li class="exc" data-kind="music" hidden>
+        <a href="https://music.douban.com/subject/26716613/" target="_blank" rel="noopener" title="三缺一">
+          <span class="poster" style="--pc:#575757">
+            <img src="assets/covers/26716613.jpg" alt="三缺一" loading="lazy">
+          </span>
+          <span class="tx">
+            <b class="t">三缺一</b>
+            <i class="m">听过 · 2024-10-25</i>
+            <span class="st">★★★★☆</span>
+          </span>
+        </a>
+      </li>
+      <li class="exc" data-kind="music" hidden>
+        <a href="https://music.douban.com/subject/27196144/" target="_blank" rel="noopener" title="孤独症">
+          <span class="poster" style="--pc:#e05759">
+            <img src="assets/covers/27196144.jpg" alt="孤独症" loading="lazy">
+          </span>
+          <span class="tx">
+            <b class="t">孤独症</b>
+            <i class="m">听过 · 2024-10-25</i>
+            <span class="st">★★★★★</span>
+          </span>
+        </a>
+      </li>
+      <li class="exc" data-kind="music" hidden>
+        <a href="https://music.douban.com/subject/25970178/" target="_blank" rel="noopener" title="老时光">
+          <span class="poster" style="--pc:#57e9ff">
+            <img src="assets/covers/25970178.jpg" alt="老时光" loading="lazy">
+          </span>
+          <span class="tx">
+            <b class="t">老时光</b>
+            <i class="m">听过 · 2024-10-25</i>
+            <span class="st">★★★★★</span>
+          </span>
+        </a>
+      </li>
+      <li class="exc" data-kind="music" hidden>
+        <a href="https://music.douban.com/subject/26316727/" target="_blank" rel="noopener" title="爆出口">
+          <span class="poster" style="--pc:#575757">
+            <img src="assets/covers/26316727.jpg" alt="爆出口" loading="lazy">
+          </span>
+          <span class="tx">
+            <b class="t">爆出口</b>
+            <i class="m">听过 · 2024-10-25</i>
+            <span class="st">★★★★☆</span>
+          </span>
+        </a>
+      </li>
+      <li class="exc" data-kind="music" hidden>
+        <a href="https://music.douban.com/subject/27151556/" target="_blank" rel="noopener" title="庐山">
+          <span class="poster" style="--pc:#ff57ff">
+            <img src="assets/covers/27151556.jpg" alt="庐山" loading="lazy">
+          </span>
+          <span class="tx">
+            <b class="t">庐山</b>
+            <i class="m">听过 · 2024-10-25</i>
+            <span class="st">★★★★★</span>
+          </span>
+        </a>
+      </li>
+      <li class="exc" data-kind="music" hidden>
+        <a href="https://music.douban.com/subject/27196138/" target="_blank" rel="noopener" title="三千里">
+          <span class="poster" style="--pc:#bc57ff">
+            <img src="assets/covers/27196138.jpg" alt="三千里" loading="lazy">
+          </span>
+          <span class="tx">
+            <b class="t">三千里</b>
+            <i class="m">听过 · 2024-10-25</i>
+            <span class="st">★★★★★</span>
+          </span>
+        </a>
+      </li>
+      <li class="exc" data-kind="music" hidden>
+        <a href="https://music.douban.com/subject/30207457/" target="_blank" rel="noopener" title="淘金日记">
+          <span class="poster" style="--pc:#57ff57">
+            <img src="assets/covers/30207457.jpg" alt="淘金日记" loading="lazy">
+          </span>
+          <span class="tx">
+            <b class="t">淘金日记</b>
+            <i class="m">听过 · 2024-10-25</i>
+            <span class="st">★★★★★</span>
+          </span>
+        </a>
+      </li>
+      <li class="exc" data-kind="music" hidden>
+        <a href="https://music.douban.com/subject/27196135/" target="_blank" rel="noopener" title="W.D.G.A.F">
+          <span class="poster" style="--pc:#575757">
+            <img src="assets/covers/27196135.jpg" alt="W.D.G.A.F" loading="lazy">
+          </span>
+          <span class="tx">
+            <b class="t">W.D.G.A.F</b>
+            <i class="m">听过 · 2024-10-25</i>
+            <span class="st">★★★★★</span>
+          </span>
+        </a>
+      </li>
+      <li class="exc" data-kind="music" hidden>
+        <a href="https://music.douban.com/subject/30364467/" target="_blank" rel="noopener" title="很高兴认识你">
+          <span class="poster" style="--pc:#5757ff">
+            <img src="assets/covers/30364467.jpg" alt="很高兴认识你" loading="lazy">
+          </span>
+          <span class="tx">
+            <b class="t">很高兴认识你</b>
+            <i class="m">听过 · 2024-10-25</i>
+            <span class="st">★★★★★</span>
+          </span>
+        </a>
+      </li>
+      <li class="exc" data-kind="music" hidden>
+        <a href="https://music.douban.com/subject/36400459/" target="_blank" rel="noopener" title="假面 (Ghost face)">
+          <span class="poster" style="--pc:#8e57ff">
+            <img src="assets/covers/36400459.jpg" alt="假面 (Ghost face)" loading="lazy">
+          </span>
+          <span class="tx">
+            <b class="t">假面 (Ghost face)</b>
+            <i class="m">听过 · 2024-10-25</i>
+            <span class="st">★★★★★</span>
+          </span>
+        </a>
+      </li>
+      <li class="exc" data-kind="music" hidden>
+        <a href="https://music.douban.com/subject/36337784/" target="_blank" rel="noopener" title="瓦合">
+          <span class="poster" style="--pc:#575757">
+            <img src="assets/covers/36337784.jpg" alt="瓦合" loading="lazy">
+          </span>
+          <span class="tx">
+            <b class="t">瓦合</b>
+            <i class="m">听过 · 2024-10-25</i>
+            <span class="st">★★★★☆</span>
+          </span>
+        </a>
+      </li>
+      <li class="exc" data-kind="music" hidden>
+        <a href="https://music.douban.com/subject/26595040/" target="_blank" rel="noopener" title="草東沒有派對">
+          <span class="poster" style="--pc:#ff5757">
+            <img src="assets/covers/26595040.jpg" alt="草東沒有派對" loading="lazy">
+          </span>
+          <span class="tx">
+            <b class="t">草東沒有派對</b>
+            <i class="m">听过 · 2024-10-25</i>
+            <span class="st">★★★★★</span>
+          </span>
+        </a>
+      </li>
+      <li class="exc" data-kind="music" hidden>
+        <a href="https://music.douban.com/subject/27597608/" target="_blank" rel="noopener" title="冀西南林路行">
+          <span class="poster" style="--pc:#5757ff">
+            <img src="assets/covers/27597608.jpg" alt="冀西南林路行" loading="lazy">
+          </span>
+          <span class="tx">
+            <b class="t">冀西南林路行</b>
+            <i class="m">听过 · 2024-10-25</i>
+            <span class="st">★★★★★</span>
+          </span>
+        </a>
+      </li>
+      <li class="exc" data-kind="music" hidden>
+        <a href="https://music.douban.com/subject/34976505/" target="_blank" rel="noopener" title="如果死亡将要来临">
+          <span class="poster" style="--pc:#57575c">
+            <img src="assets/covers/34976505.jpg" alt="如果死亡将要来临" loading="lazy">
+          </span>
+          <span class="tx">
+            <b class="t">如果死亡将要来临</b>
+            <i class="m">听过 · 2024-10-25</i>
+            <span class="st"></span>
+          </span>
+        </a>
+      </li>
+      <li class="exc" data-kind="music" hidden>
+        <a href="https://music.douban.com/subject/27093412/" target="_blank" rel="noopener" title="不用去猜">
+          <span class="poster" style="--pc:#57ffff">
+            <img src="assets/covers/27093412.jpg" alt="不用去猜" loading="lazy">
+          </span>
+          <span class="tx">
+            <b class="t">不用去猜</b>
+            <i class="m">听过 · 2024-10-25</i>
+            <span class="st"></span>
+          </span>
+        </a>
+      </li>
+      <li class="exc" data-kind="music" hidden>
+        <a href="https://music.douban.com/subject/34798968/" target="_blank" rel="noopener" title="Hey KONG">
+          <span class="poster" style="--pc:#575757">
+            <img src="assets/covers/34798968.jpg" alt="Hey KONG" loading="lazy">
+          </span>
+          <span class="tx">
+            <b class="t">Hey KONG</b>
+            <i class="m">听过 · 2024-10-25</i>
+            <span class="st"></span>
+          </span>
+        </a>
+      </li>
+      <li class="exc" data-kind="music" hidden>
+        <a href="https://music.douban.com/subject/35625341/" target="_blank" rel="noopener" title="End of the world">
+          <span class="poster" style="--pc:#c85757">
+            <img src="assets/covers/35625341.jpg" alt="End of the world" loading="lazy">
+          </span>
+          <span class="tx">
+            <b class="t">End of the world</b>
+            <i class="m">听过 · 2024-10-25</i>
+            <span class="st"></span>
+          </span>
+        </a>
+      </li>
+      <li class="exc" data-kind="music" hidden>
+        <a href="https://music.douban.com/subject/30138836/" target="_blank" rel="noopener" title="崂山道士">
+          <span class="poster" style="--pc:#5757ff">
+            <img src="assets/covers/30138836.jpg" alt="崂山道士" loading="lazy">
+          </span>
+          <span class="tx">
+            <b class="t">崂山道士</b>
+            <i class="m">听过 · 2024-10-25</i>
+            <span class="st"></span>
+          </span>
+        </a>
+      </li>
+      <li class="exc" data-kind="music" hidden>
+        <a href="https://music.douban.com/subject/30427005/" target="_blank" rel="noopener" title="诗眠 | Insomnia">
+          <span class="poster" style="--pc:#ff5757">
+            <img src="assets/covers/30427005.jpg" alt="诗眠 | Insomnia" loading="lazy">
+          </span>
+          <span class="tx">
+            <b class="t">诗眠 | Insomnia</b>
+            <i class="m">听过 · 2024-10-25</i>
+            <span class="st"></span>
+          </span>
+        </a>
+      </li>
+      <li class="exc" data-kind="music" hidden>
+        <a href="https://music.douban.com/subject/26967305/" target="_blank" rel="noopener" title="以下范上">
+          <span class="poster" style="--pc:#5757ff">
+            <img src="assets/covers/26967305.jpg" alt="以下范上" loading="lazy">
+          </span>
+          <span class="tx">
+            <b class="t">以下范上</b>
+            <i class="m">听过 · 2024-10-25</i>
+            <span class="st"></span>
+          </span>
+        </a>
+      </li>
+      <li class="exc" data-kind="music" hidden>
+        <a href="https://music.douban.com/subject/27139118/" target="_blank" rel="noopener" title="二人赚">
+          <span class="poster" style="--pc:#5757ff">
+            <img src="assets/covers/27139118.jpg" alt="二人赚" loading="lazy">
+          </span>
+          <span class="tx">
+            <b class="t">二人赚</b>
+            <i class="m">听过 · 2024-10-25</i>
+            <span class="st"></span>
+          </span>
+        </a>
+      </li>
+      <li class="exc" data-kind="music" hidden>
+        <a href="https://music.douban.com/subject/30120810/" target="_blank" rel="noopener" title="爬墙少年">
+          <span class="poster" style="--pc:#5757be">
+            <img src="assets/covers/30120810.jpg" alt="爬墙少年" loading="lazy">
+          </span>
+          <span class="tx">
+            <b class="t">爬墙少年</b>
+            <i class="m">听过 · 2024-10-25</i>
+            <span class="st"></span>
+          </span>
+        </a>
+      </li>
+      <li class="exc" data-kind="music" hidden>
+        <a href="https://music.douban.com/subject/33446311/" target="_blank" rel="noopener" title="亲密爱人2017">
+          <span class="poster" style="--pc:#5757ff">
+            <img src="assets/covers/33446311.jpg" alt="亲密爱人2017" loading="lazy">
+          </span>
+          <span class="tx">
+            <b class="t">亲密爱人2017</b>
+            <i class="m">听过 · 2024-10-25</i>
+            <span class="st"></span>
+          </span>
+        </a>
+      </li>
+      <li class="exc" data-kind="music" hidden>
+        <a href="https://music.douban.com/subject/30440527/" target="_blank" rel="noopener" title="KEY to L">
+          <span class="poster" style="--pc:#ff5757">
+            <img src="assets/covers/30440527.jpg" alt="KEY to L" loading="lazy">
+          </span>
+          <span class="tx">
+            <b class="t">KEY to L</b>
+            <i class="m">听过 · 2024-10-25</i>
+            <span class="st"></span>
+          </span>
+        </a>
+      </li>
+      <li class="exc" data-kind="music" hidden>
+        <a href="https://music.douban.com/subject/30324515/" target="_blank" rel="noopener" title="我想">
+          <span class="poster" style="--pc:#576057">
+            <img src="assets/covers/30324515.jpg" alt="我想" loading="lazy">
+          </span>
+          <span class="tx">
+            <b class="t">我想</b>
+            <i class="m">听过 · 2024-10-25</i>
+            <span class="st"></span>
+          </span>
+        </a>
+      </li>
+      <li class="exc" data-kind="music" hidden>
+        <a href="https://music.douban.com/subject/30148077/" target="_blank" rel="noopener" title="奴隶">
+          <span class="poster" style="--pc:#ff57c2">
+            <img src="assets/covers/30148077.jpg" alt="奴隶" loading="lazy">
+          </span>
+          <span class="tx">
+            <b class="t">奴隶</b>
+            <i class="m">听过 · 2024-10-25</i>
+            <span class="st"></span>
+          </span>
+        </a>
+      </li>
+      <li class="exc" data-kind="music" hidden>
+        <a href="https://music.douban.com/subject/30437054/" target="_blank" rel="noopener" title="生于未来">
+          <span class="poster" style="--pc:#5757ff">
+            <img src="assets/covers/30437054.jpg" alt="生于未来" loading="lazy">
+          </span>
+          <span class="tx">
+            <b class="t">生于未来</b>
+            <i class="m">听过 · 2024-10-25</i>
+            <span class="st">★★★★★</span>
+          </span>
+        </a>
+      </li>
+      <li class="exc" data-kind="book" hidden>
+        <a href="https://book.douban.com/subject/26171466/" target="_blank" rel="noopener" title="惊为天人">
+          <span class="poster" style="--pc:#5757ff">
+            <img src="assets/covers/26171466.jpg" alt="筚路维艰" loading="lazy">
+          </span>
+          <span class="tx">
+            <b class="t">筚路维艰</b>
+            <i class="m">读过 · 2024-05-09</i>
+            <span class="st">★★★★★</span>
+          </span>
+        </a>
+      </li>
+      <li class="exc" data-kind="game" hidden>
+        <a href="https://www.douban.com/game/33375088/" target="_blank" rel="noopener" title="女神异闻录5 皇家版 ペルソナ5 ザ・ロイヤル">
+          <span class="poster" style="--pc:#57575f">
+            <img src="assets/covers/33375088.jpg" alt="女神异闻录5 皇家版 ペルソナ5 ザ・ロイヤル" loading="lazy">
+          </span>
+          <span class="tx">
+            <b class="t">女神异闻录5 皇家版 ペルソナ5 ザ・ロイヤル</b>
+            <i class="m">玩过 · 2024-03-01</i>
+            <span class="st">★★★★★</span>
+          </span>
+        </a>
+      </li>
+      <li class="exc" data-kind="game" hidden>
+        <a href="https://www.douban.com/game/36352772/" target="_blank" rel="noopener" title="女神异闻录3 Reload ペルソナ３ リロード">
+          <span class="poster" style="--pc:#f5a257">
+            <img src="assets/covers/36352772.jpg" alt="女神异闻录3 Reload ペルソナ３ リロード" loading="lazy">
+          </span>
+          <span class="tx">
+            <b class="t">女神异闻录3 Reload ペルソナ３ リロード</b>
+            <i class="m">玩过 · 2024-03-01</i>
+            <span class="st">★★★★★</span>
+          </span>
+        </a>
+      </li>
+      <li class="exc" data-kind="book" hidden>
+        <a href="https://book.douban.com/subject/1829226/" target="_blank" rel="noopener" title="肖申克的救赎">
+          <span class="poster" style="--pc:#ff5757">
+            <img src="assets/covers/1829226.jpg" alt="肖申克的救赎" loading="lazy">
+          </span>
+          <span class="tx">
+            <b class="t">肖申克的救赎</b>
+            <i class="m">读过 · 2020-02-21</i>
+            <span class="st"></span>
+          </span>
+        </a>
+      </li>
+      <li class="exc" data-kind="book" hidden>
+        <a href="https://book.douban.com/subject/25985021/" target="_blank" rel="noopener" title="人类简史">
+          <span class="poster" style="--pc:#5757ff">
+            <img src="assets/covers/25985021.jpg" alt="人类简史" loading="lazy">
+          </span>
+          <span class="tx">
+            <b class="t">人类简史</b>
+            <i class="m">读过 · 2020-02-21</i>
+            <span class="st"></span>
+          </span>
+        </a>
+      </li>
+      <li class="exc" data-kind="book" hidden>
+        <a href="https://book.douban.com/subject/1060068/" target="_blank" rel="noopener" title="撒哈拉的故事">
+          <span class="poster" style="--pc:#5757ff">
+            <img src="assets/covers/1060068.jpg" alt="撒哈拉的故事" loading="lazy">
+          </span>
+          <span class="tx">
+            <b class="t">撒哈拉的故事</b>
+            <i class="m">读过 · 2020-02-21</i>
+            <span class="st"></span>
+          </span>
+        </a>
+      </li>
+      <li class="exc" data-kind="book" hidden>
+        <a href="https://book.douban.com/subject/1040211/" target="_blank" rel="noopener" title="福尔摩斯探案全集">
+          <span class="poster" style="--pc:#e857be">
+            <img src="assets/covers/1040211.jpg" alt="福尔摩斯探案全集" loading="lazy">
+          </span>
+          <span class="tx">
+            <b class="t">福尔摩斯探案全集</b>
+            <i class="m">读过 · 2020-02-21</i>
+            <span class="st"></span>
+          </span>
+        </a>
+      </li>
+      <li class="exc" data-kind="book" hidden>
+        <a href="https://book.douban.com/subject/6518605/" target="_blank" rel="noopener" title="三体全集">
+          <span class="poster" style="--pc:#ff5757">
+            <img src="assets/covers/6518605.jpg" alt="三体全集" loading="lazy">
+          </span>
+          <span class="tx">
+            <b class="t">三体全集</b>
+            <i class="m">读过 · 2020-02-21</i>
+            <span class="st"></span>
+          </span>
+        </a>
+      </li>
+      <li class="exc" data-kind="book" hidden>
+        <a href="https://book.douban.com/subject/4820710/" target="_blank" rel="noopener" title="1984">
+          <span class="poster" style="--pc:#ca577f">
+            <img src="assets/covers/4820710.jpg" alt="1984" loading="lazy">
+          </span>
+          <span class="tx">
+            <b class="t">1984</b>
+            <i class="m">读过 · 2020-02-21</i>
+            <span class="st"></span>
+          </span>
+        </a>
+      </li>
+      <li class="exc" data-kind="book" hidden>
+        <a href="https://book.douban.com/subject/6082808/" target="_blank" rel="noopener" title="百年孤独">
+          <span class="poster" style="--pc:#578d57">
+            <img src="assets/covers/6082808.jpg" alt="百年孤独" loading="lazy">
+          </span>
+          <span class="tx">
+            <b class="t">百年孤独</b>
+            <i class="m">读过 · 2020-02-21</i>
+            <span class="st"></span>
+          </span>
+        </a>
+      </li>
+      <li class="exc" data-kind="book" hidden>
+        <a href="https://book.douban.com/subject/1841531/" target="_blank" rel="noopener" title="鲁滨孙漂流记">
+          <span class="poster" style="--pc:#5757ab">
+            <img src="assets/covers/1841531.jpg" alt="鲁滨孙漂流记" loading="lazy">
+          </span>
+          <span class="tx">
+            <b class="t">鲁滨孙漂流记</b>
+            <i class="m">读过 · 2020-02-20</i>
+            <span class="st"></span>
+          </span>
+        </a>
+      </li>
+      <li class="exc" data-kind="book" hidden>
+        <a href="https://book.douban.com/subject/24934182/" target="_blank" rel="noopener" title="一个人的朝圣">
+          <span class="poster" style="--pc:#5757ff">
+            <img src="assets/covers/24934182.jpg" alt="一个人的朝圣" loading="lazy">
+          </span>
+          <span class="tx">
+            <b class="t">一个人的朝圣</b>
+            <i class="m">读过 · 2020-02-20</i>
+            <span class="st"></span>
+          </span>
+        </a>
+      </li>
+      <li class="exc" data-kind="book" hidden>
+        <a href="https://book.douban.com/subject/1020459/" target="_blank" rel="noopener" title="此间的少年">
+          <span class="poster" style="--pc:#5757ff">
+            <img src="assets/covers/1020459.jpg" alt="此间的少年" loading="lazy">
+          </span>
+          <span class="tx">
+            <b class="t">此间的少年</b>
+            <i class="m">读过 · 2020-02-20</i>
+            <span class="st"></span>
+          </span>
+        </a>
+      </li>
+      <li class="exc" data-kind="book" hidden>
+        <a href="https://book.douban.com/subject/1089243/" target="_blank" rel="noopener" title="黄金时代">
+          <span class="poster" style="--pc:#5773ff">
+            <img src="assets/covers/1089243.jpg" alt="黄金时代" loading="lazy">
+          </span>
+          <span class="tx">
+            <b class="t">黄金时代</b>
+            <i class="m">读过 · 2020-02-20</i>
+            <span class="st"></span>
+          </span>
+        </a>
+      </li>
+      <li class="exc" data-kind="book" hidden>
+        <a href="https://book.douban.com/subject/1077778/" target="_blank" rel="noopener" title="爱的教育">
+          <span class="poster" style="--pc:#57ffff">
+            <img src="assets/covers/1077778.jpg" alt="爱的教育" loading="lazy">
+          </span>
+          <span class="tx">
+            <b class="t">爱的教育</b>
+            <i class="m">读过 · 2020-02-20</i>
+            <span class="st"></span>
+          </span>
+        </a>
+      </li>
+      <li class="exc" data-kind="book" hidden>
+        <a href="https://book.douban.com/subject/1122914/" target="_blank" rel="noopener" title="鲁滨逊漂流记">
+          <span class="poster" style="--pc:#91aaf7">
+            <img src="assets/covers/1122914.jpg" alt="鲁滨逊漂流记" loading="lazy">
+          </span>
+          <span class="tx">
+            <b class="t">鲁滨逊漂流记</b>
+            <i class="m">读过 · 2020-02-20</i>
+            <span class="st"></span>
+          </span>
+        </a>
+      </li>
+      <li class="exc" data-kind="book" hidden>
+        <a href="https://book.douban.com/subject/1894744/" target="_blank" rel="noopener" title="钢铁是怎样炼成的">
+          <span class="poster" style="--pc:#57d6ff">
+            <img src="assets/covers/1894744.jpg" alt="钢铁是怎样炼成的" loading="lazy">
+          </span>
+          <span class="tx">
+            <b class="t">钢铁是怎样炼成的</b>
+            <i class="m">读过 · 2020-02-20</i>
+            <span class="st"></span>
+          </span>
+        </a>
+      </li>
+      <li class="exc" data-kind="book" hidden>
+        <a href="https://book.douban.com/subject/1201620/" target="_blank" rel="noopener" title="人类群星闪耀时">
+          <span class="poster" style="--pc:#57ffff">
+            <img src="assets/covers/1201620.jpg" alt="人类群星闪耀时" loading="lazy">
+          </span>
+          <span class="tx">
+            <b class="t">人类群星闪耀时</b>
+            <i class="m">读过 · 2020-02-20</i>
+            <span class="st"></span>
+          </span>
+        </a>
+      </li>
+      <li class="exc" data-kind="book" hidden>
+        <a href="https://book.douban.com/subject/1070759/" target="_blank" rel="noopener" title="高老头">
+          <span class="poster" style="--pc:#579e9d">
+            <img src="assets/covers/1070759.jpg" alt="高老头" loading="lazy">
+          </span>
+          <span class="tx">
+            <b class="t">高老头</b>
+            <i class="m">读过 · 2020-02-20</i>
+            <span class="st"></span>
+          </span>
+        </a>
+      </li>
+      <li class="exc" data-kind="book" hidden>
+        <a href="https://book.douban.com/subject/25897657/" target="_blank" rel="noopener" title="悲惨世界">
+          <span class="poster" style="--pc:#ff578b">
+            <img src="assets/covers/25897657.jpg" alt="悲惨世界" loading="lazy">
+          </span>
+          <span class="tx">
+            <b class="t">悲惨世界</b>
+            <i class="m">读过 · 2020-02-20</i>
+            <span class="st"></span>
+          </span>
+        </a>
+      </li>
+      <li class="exc" data-kind="book" hidden>
+        <a href="https://book.douban.com/subject/4760224/" target="_blank" rel="noopener" title="许三观卖血记">
+          <span class="poster" style="--pc:#8c5757">
+            <img src="assets/covers/4760224.jpg" alt="许三观卖血记" loading="lazy">
+          </span>
+          <span class="tx">
+            <b class="t">许三观卖血记</b>
+            <i class="m">读过 · 2020-02-20</i>
+            <span class="st"></span>
+          </span>
+        </a>
+      </li>
+      <li class="exc" data-kind="book" hidden>
+        <a href="https://book.douban.com/subject/6313496/" target="_blank" rel="noopener" title="卡拉马佐夫兄弟">
+          <span class="poster" style="--pc:#57ffff">
+            <img src="assets/covers/6313496.jpg" alt="卡拉马佐夫兄弟" loading="lazy">
+          </span>
+          <span class="tx">
+            <b class="t">卡拉马佐夫兄弟</b>
+            <i class="m">读过 · 2020-02-20</i>
+            <span class="st"></span>
+          </span>
+        </a>
+      </li>
+      <li class="exc" data-kind="book" hidden>
+        <a href="https://book.douban.com/subject/4242172/" target="_blank" rel="noopener" title="天才在左 疯子在右">
+          <span class="poster" style="--pc:#577f8f">
+            <img src="assets/covers/4242172.jpg" alt="天才在左 疯子在右" loading="lazy">
+          </span>
+          <span class="tx">
+            <b class="t">天才在左 疯子在右</b>
+            <i class="m">读过 · 2020-02-20</i>
+            <span class="st"></span>
+          </span>
+        </a>
+      </li>
+      <li class="exc" data-kind="book" hidden>
+        <a href="https://book.douban.com/subject/4913064/" target="_blank" rel="noopener" title="活着">
+          <span class="poster" style="--pc:#575757">
+            <img src="assets/covers/4913064.jpg" alt="活着" loading="lazy">
+          </span>
+          <span class="tx">
+            <b class="t">活着</b>
+            <i class="m">读过 · 2020-02-20</i>
+            <span class="st"></span>
+          </span>
+        </a>
+      </li>
+      <li class="exc" data-kind="book" hidden>
+        <a href="https://book.douban.com/subject/1873231/" target="_blank" rel="noopener" title="明朝那些事儿（壹）">
+          <span class="poster" style="--pc:#5757ff">
+            <img src="assets/covers/1873231.jpg" alt="明朝那些事儿（壹）" loading="lazy">
+          </span>
+          <span class="tx">
+            <b class="t">明朝那些事儿（壹）</b>
+            <i class="m">读过 · 2020-02-20</i>
+            <span class="st"></span>
+          </span>
+        </a>
+      </li>
+      <li class="exc" data-kind="book" hidden>
+        <a href="https://book.douban.com/subject/1043815/" target="_blank" rel="noopener" title="骆驼祥子">
+          <span class="poster" style="--pc:#5757ff">
+            <img src="assets/covers/1043815.jpg" alt="骆驼祥子" loading="lazy">
+          </span>
+          <span class="tx">
+            <b class="t">骆驼祥子</b>
+            <i class="m">读过 · 2020-02-20</i>
+            <span class="st"></span>
+          </span>
+        </a>
+      </li>
+      <li class="exc" data-kind="book" hidden>
+        <a href="https://book.douban.com/subject/6746289/" target="_blank" rel="noopener" title="新参者">
+          <span class="poster" style="--pc:#5757ff">
+            <img src="assets/covers/6746289.jpg" alt="新参者" loading="lazy">
+          </span>
+          <span class="tx">
+            <b class="t">新参者</b>
+            <i class="m">读过 · 2020-02-20</i>
+            <span class="st"></span>
+          </span>
+        </a>
+      </li>
+      <li class="exc" data-kind="book" hidden>
+        <a href="https://book.douban.com/subject/1321017/" target="_blank" rel="noopener" title="九州·缥缈录">
+          <span class="poster" style="--pc:#ffcebb">
+            <img src="assets/covers/1321017.jpg" alt="九州·缥缈录" loading="lazy">
+          </span>
+          <span class="tx">
+            <b class="t">九州·缥缈录</b>
+            <i class="m">读过 · 2020-02-20</i>
+            <span class="st"></span>
+          </span>
+        </a>
+      </li>
+      <li class="exc" data-kind="book" hidden>
+        <a href="https://book.douban.com/subject/1029791/" target="_blank" rel="noopener" title="许三观卖血记">
+          <span class="poster" style="--pc:#5757ff">
+            <img src="assets/covers/1029791.jpg" alt="许三观卖血记" loading="lazy">
+          </span>
+          <span class="tx">
+            <b class="t">许三观卖血记</b>
+            <i class="m">读过 · 2020-02-20</i>
+            <span class="st"></span>
+          </span>
+        </a>
+      </li>
+      <li class="exc" data-kind="book" hidden>
+        <a href="https://book.douban.com/subject/1012489/" target="_blank" rel="noopener" title="童年 在人间 我的大学">
+          <span class="poster" style="--pc:#5757f4">
+            <img src="assets/covers/1012489.jpg" alt="童年 在人间 我的大学" loading="lazy">
+          </span>
+          <span class="tx">
+            <b class="t">童年 在人间 我的大学</b>
+            <i class="m">读过 · 2020-02-20</i>
+            <span class="st"></span>
+          </span>
+        </a>
+      </li>
+      <li class="exc" data-kind="book" hidden>
+        <a href="https://book.douban.com/subject/1449351/" target="_blank" rel="noopener" title="呐喊">
+          <span class="poster" style="--pc:#5757ff">
+            <img src="assets/covers/1449351.jpg" alt="呐喊" loading="lazy">
+          </span>
+          <span class="tx">
+            <b class="t">呐喊</b>
+            <i class="m">读过 · 2020-02-20</i>
+            <span class="st"></span>
+          </span>
+        </a>
+      </li>
+      <li class="exc" data-kind="book" hidden>
+        <a href="https://book.douban.com/subject/26371317/" target="_blank" rel="noopener" title="24个比利">
+          <span class="poster" style="--pc:#5757ce">
+            <img src="assets/covers/26371317.jpg" alt="24个比利" loading="lazy">
+          </span>
+          <span class="tx">
+            <b class="t">24个比利</b>
+            <i class="m">读过 · 2020-02-20</i>
+            <span class="st"></span>
+          </span>
+        </a>
+      </li>
+      <li class="exc" data-kind="book" hidden>
+        <a href="https://book.douban.com/subject/25733470/" target="_blank" rel="noopener" title="没有色彩的多崎作和他的巡礼之年">
+          <span class="poster" style="--pc:#87fe57">
+            <img src="assets/covers/25733470.jpg" alt="没有色彩的多崎作和他的巡礼之年" loading="lazy">
+          </span>
+          <span class="tx">
+            <b class="t">没有色彩的多崎作和他的巡礼之年</b>
+            <i class="m">读过 · 2020-02-20</i>
+            <span class="st"></span>
+          </span>
+        </a>
+      </li>
+      <li class="exc" data-kind="book" hidden>
+        <a href="https://book.douban.com/subject/1321789/" target="_blank" rel="noopener" title="美丽新世界">
+          <span class="poster" style="--pc:#5757ff">
+            <img src="assets/covers/1321789.jpg" alt="美丽新世界" loading="lazy">
+          </span>
+          <span class="tx">
+            <b class="t">美丽新世界</b>
+            <i class="m">读过 · 2020-02-20</i>
+            <span class="st"></span>
+          </span>
+        </a>
+      </li>
+      <li class="exc" data-kind="book" hidden>
+        <a href="https://book.douban.com/subject/1041482/" target="_blank" rel="noopener" title="万历十五年">
+          <span class="poster" style="--pc:#5757ff">
+            <img src="assets/covers/1041482.jpg" alt="万历十五年" loading="lazy">
+          </span>
+          <span class="tx">
+            <b class="t">万历十五年</b>
+            <i class="m">读过 · 2020-02-20</i>
+            <span class="st"></span>
+          </span>
+        </a>
+      </li>
+      <li class="exc" data-kind="book" hidden>
+        <a href="https://book.douban.com/subject/1011754/" target="_blank" rel="noopener" title="海子的诗">
+          <span class="poster" style="--pc:#c657ff">
+            <img src="assets/covers/1011754.jpg" alt="海子的诗" loading="lazy">
+          </span>
+          <span class="tx">
+            <b class="t">海子的诗</b>
+            <i class="m">读过 · 2020-02-20</i>
+            <span class="st"></span>
+          </span>
+        </a>
+      </li>
+      <li class="exc" data-kind="book" hidden>
+        <a href="https://book.douban.com/subject/2253413/" target="_blank" rel="noopener" title="巴黎圣母院">
+          <span class="poster" style="--pc:#d4c857">
+            <img src="assets/covers/2253413.jpg" alt="巴黎圣母院" loading="lazy">
+          </span>
+          <span class="tx">
+            <b class="t">巴黎圣母院</b>
+            <i class="m">读过 · 2020-02-20</i>
+            <span class="st"></span>
+          </span>
+        </a>
+      </li>
+      <li class="exc" data-kind="book" hidden>
+        <a href="https://book.douban.com/subject/1082522/" target="_blank" rel="noopener" title="家">
+          <span class="poster" style="--pc:#5776d1">
+            <img src="assets/covers/1082522.jpg" alt="家" loading="lazy">
+          </span>
+          <span class="tx">
+            <b class="t">家</b>
+            <i class="m">读过 · 2020-02-20</i>
+            <span class="st"></span>
+          </span>
+        </a>
       </li></ul>
+         <p class="shelf-status" aria-live="polite">展示最近 36 件 · 完整馆藏见下方入口</p>
          <div class="shelf-foot"> <svg class="ic sm" viewBox="0 0 16 16"><use href="#px-book"></use></svg><span class="sfx">已收录 370 件</span><svg class="ic sm" viewBox="0 0 16 16"><use href="#px-star"></use></svg><span class="sfx">更新 2026.09.15</span><svg class="ic sm" viewBox="0 0 16 16"><use href="#px-key"></use></svg><span class="sfx">豆瓣 @211628276</span></div>
          <div class="museum-more"><svg class="ic sm" viewBox="0 0 16 16"><use href="#px-book"></use></svg><a href="museum/index.html">查看全部馆藏 · 可分类翻页</a><svg class="ic sm" viewBox="0 0 16 16"><use href="#px-crystal"></use></svg></div>
        </section>
@@ -1951,7 +2842,7 @@ button.soc .soc-in{flex-direction:row;gap:6px}
   }
 
   /* ---- 博物馆：书 / 影 / 音 / 游 分类 ----
-     筛选用 hidden 属性而不是 CSS class —— hidden 在 flex 容器里直接是 display:none，
+     筛选用 hidden 属性；专用 CSS 规则确保它不会被卡片的 display:flex 覆盖，
      不会像「把宽度改成 0」那样留下缝隙。这一步没法用纯 CSS 做：
      :has() 选择器能选中「被点击的兄弟元素之后的元素」，但要跨到列表里的每个卡片太绕。 */
   document.querySelectorAll('[data-filter-kind]').forEach(function(b){
@@ -1959,10 +2850,16 @@ button.soc .soc-in{flex-direction:row;gap:6px}
       var k = b.dataset.filterKind;
       document.querySelectorAll('[data-filter-kind]').forEach(function(x){
         x.classList.toggle('on', x === b);
+        x.setAttribute('aria-pressed', String(x === b));
       });
+      var shown = 0;
       document.querySelectorAll('#museum .exc').forEach(function(li){
-        li.hidden = k !== 'all' && li.dataset.kind !== k;
+        var matches = k === 'all' || li.dataset.kind === k;
+        li.hidden = !matches || shown >= 36;
+        if (!li.hidden) shown++;
       });
+      var status = document.querySelector('#museum .shelf-status');
+      if (status) status.textContent = '展示最近 ' + shown + ' 件 · 完整馆藏见下方入口';
       // 筛完可能只剩几张，把滚动位置拉回开头，否则停在空白是中间
       var shelf = document.querySelector('#museum .shelf');
       if (shelf) shelf.scrollLeft = 0;

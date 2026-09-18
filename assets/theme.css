@@ -523,6 +523,8 @@ html{scroll-behavior:smooth}
    现在把底板整个去掉：封面自己带描边直接落在面板上，文字排在封面下方。
    ⚠️ 去掉 padding 之后节奏全靠 gap 和固定宽高撑，别再往 a 上加背景色。 */
 .exc{flex:none;width:96px;display:flex;scroll-snap-align:start}
+.exc[hidden]{display:none!important}
+.shelf-status{margin:6px 0;text-align:center;font-size:12px;color:var(--ink-2)}
 .exc > a{flex:1;display:flex;flex-direction:column;gap:6px;text-decoration:none;color:inherit;
   transition:transform .12s steps(2)}
 .exc > a:hover{transform:translateY(-4px)}
