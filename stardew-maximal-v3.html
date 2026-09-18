@@ -847,6 +847,39 @@ button.soc .soc-in{flex-direction:row;gap:6px}
   .arttitle{font-size:24px;line-height:36px}
 }
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*::before,*::after{animation:none!important;transition:none!important}}
+
+/* Farm modules: preserve pixel palette; restrained motion, readable content. */
+#calendar,#ledger,.harvest-page{font-size:12px;line-height:24px}
+.calendar-date{display:flex;flex-direction:column;gap:8px;margin:4px 0 20px}
+.calendar-date time{font-size:24px;line-height:36px;font-weight:bold;font-variant-numeric:tabular-nums}
+.calendar-date span,.calendar-mode,.harvest-note{font-size:12px;line-height:24px}
+#calendar .se{font:inherit;cursor:pointer;min-height:60px;display:flex;align-items:center;justify-content:center;gap:12px;color:var(--ink);background:var(--cream);border:2px solid var(--wood-c);padding:8px}
+#calendar .se b{font-size:12px;line-height:24px;margin:0}
+#calendar .se.on{outline:2px solid var(--wood-c);outline-offset:2px;background:var(--accent,#ffe087);color:#3b2412}
+.calendar-mode{margin:16px 0 8px}.calendar-auto{min-height:40px;font:inherit}
+.harvest-heading{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:12px}
+.harvest-heading select,.harvest-filters select{font:inherit;line-height:24px;color:var(--ink);background:var(--cream);border:2px solid var(--wood-c);padding:6px;max-width:100%}
+.harvest-counts a{display:flex;align-items:center;justify-content:space-between;gap:12px;min-height:48px;border-bottom:1px solid var(--wood-c);text-decoration:none;color:var(--ink)}
+.harvest-counts a span{display:flex;align-items:center;gap:10px}.harvest-counts a b{font-size:24px;line-height:36px}.harvest-note{margin:16px 0 0;opacity:.85}
+.harvest-filters{display:flex;flex-wrap:wrap;gap:16px;margin:24px 0}.harvest-filters label{display:flex;align-items:center;gap:8px}
+.harvest-list{list-style:none;padding:0;margin:20px 0}.harvest-list li{padding:16px 0;border-bottom:1px solid var(--wood-c)}
+.harvest-list a{color:var(--ink);font-weight:bold;line-height:24px}.harvest-list small{display:block;font-size:12px;line-height:24px;opacity:.8}
+.harvest-list [hidden],.harvest-empty[hidden]{display:none!important}
+.farm-option{display:flex;align-items:center;gap:8px;font-size:12px;line-height:24px;min-height:36px}.farm-option input{width:16px;height:16px;accent-color:var(--wood-c)}
+.farm-edge-area{height:110px;position:relative;margin:24px 0 0}.edge-plot{position:absolute;bottom:0;display:flex;align-items:flex-end;gap:8px;pointer-events:none}.edge-plot.left{left:6px}.edge-plot.right{right:6px}
+.edge-plot .ic{width:32px;height:32px}.edge-lantern{display:block;align-self:flex-start;margin-bottom:28px;opacity:.65}
+html[data-time="night"] .edge-lantern{opacity:1;filter:drop-shadow(0 0 9px #ffbc47)}
+.season-plants{display:none;position:relative;align-items:flex-end;gap:4px}
+html[data-season="spring"] .season-plants.spring,html[data-season="summer"] .season-plants.summer,html[data-season="autumn"] .season-plants.autumn,html[data-season="winter"] .season-plants.winter{display:flex}
+.season-plants.winter{min-width:74px}
+.snow-cap{display:block;position:absolute;bottom:-5px;left:-4px;width:74px;height:10px;background:#eefaff;box-shadow:4px -4px 0 #eefaff,-4px 2px 0 #bad7e4}
+.farm-pet{position:absolute;bottom:0;left:calc(50% - 30px);width:60px;text-align:center}.farm-pet button{width:60px;height:60px;padding:8px;border:0;background:transparent;cursor:pointer}.farm-pet .ic{width:44px;height:44px}.pet-reply{display:block;min-height:24px;font-size:12px;line-height:24px;color:var(--ink);background:var(--cream);white-space:normal}.pet-reply:empty{visibility:hidden}
+.farm-pet button:active{transform:translateY(3px)}.farm-pet button:focus-visible{outline:2px solid var(--wood-c);outline-offset:2px}
+html[data-farm-pet="off"] .farm-pet,html[data-farm-scenery="off"] .season-scenery{display:none}
+@media(min-width:1400px){.farm-edge-area{height:0;margin:0}.edge-plot{position:fixed;bottom:30px;z-index:3;width:70px;flex-wrap:wrap;gap:0}.edge-plot.left{left:10px}.edge-plot.right{right:10px}.edge-lantern{margin-bottom:8px}.farm-pet{position:fixed;left:15px;bottom:140px;z-index:3}}
+@media(max-width:600px){.edge-plot .ic{width:24px;height:24px}.edge-plot{gap:0}.edge-plot.right .edge-lantern{display:none}.calendar-date time{font-size:24px}.harvest-heading{flex-wrap:wrap}}
+@media(prefers-reduced-motion:reduce){.farm-pet button{transition:none;animation:none}}
+
 </style>
 <!-- SEO -->
 <link rel="canonical" href="https://alakazamc-github-io.vercel.app/">
@@ -903,6 +936,7 @@ button.soc .soc-in{flex-direction:row;gap:6px}
     <button class="cbtn bgmode" data-bg-toggle="image"><svg class="ic sm" viewBox="0 0 16 16"><use href="#px-tree"></use></svg><em>风景</em></button>
     <button class="cbtn bgmode" data-bg-toggle="code"><svg class="ic sm" viewBox="0 0 16 16"><use href="#px-flower"></use></svg><em>像素</em></button>
   </div>
+<label class="farm-option"><input type="checkbox" data-farm-option="pet" checked>农场小鸡</label><label class="farm-option"><input type="checkbox" data-farm-option="scenery" checked>季节景物</label>
 </div></details>
 
 <div class="wrap">
@@ -918,7 +952,7 @@ button.soc .soc-in{flex-direction:row;gap:6px}
   </div>
 
   <div class="hang"><span style="animation-delay:0.00s"><svg class="ic" viewBox="0 0 16 16"><use href="#px-strawberry"></use></svg></span><span style="animation-delay:0.30s"><svg class="ic" viewBox="0 0 16 16"><use href="#px-cherry"></use></svg></span><span style="animation-delay:0.60s"><svg class="ic" viewBox="0 0 16 16"><use href="#px-grape"></use></svg></span><span style="animation-delay:0.90s"><svg class="ic" viewBox="0 0 16 16"><use href="#px-blueberry"></use></svg></span><span style="animation-delay:1.20s"><svg class="ic" viewBox="0 0 16 16"><use href="#px-starfruit"></use></svg></span><span style="animation-delay:1.50s"><svg class="ic" viewBox="0 0 16 16"><use href="#px-mushroom"></use></svg></span><span style="animation-delay:1.80s"><svg class="ic" viewBox="0 0 16 16"><use href="#px-pepper"></use></svg></span><span style="animation-delay:2.10s"><svg class="ic" viewBox="0 0 16 16"><use href="#px-tomato"></use></svg></span><span style="animation-delay:2.40s"><svg class="ic" viewBox="0 0 16 16"><use href="#px-acorn"></use></svg></span></div>
-  <nav class="toolbar" aria-label="主页导航"><a class="tool" href="#timeline"><svg class="ic" viewBox="0 0 16 16"><use href="#px-wateringcan"></use></svg><em>时间线</em></a><a class="tool" href="write/index.html"><svg class="ic" viewBox="0 0 16 16"><use href="#px-book"></use></svg><em>写作台</em></a><a class="tool" href="#museum"><svg class="ic" viewBox="0 0 16 16"><use href="#px-book"></use></svg><em>博物馆</em></a><a class="tool" href="#projects"><svg class="ic" viewBox="0 0 16 16"><use href="#px-chest"></use></svg><em>工坊</em></a><a class="tool" href="#gallery"><svg class="ic" viewBox="0 0 16 16"><use href="#px-scythe"></use></svg><em>相馆</em></a></nav><details class="secondary-nav"><summary>更多分区</summary><a href="#basket">游戏</a><a href="#calendar">日历</a><a href="#ledger">账本</a><a href="#skills">专精</a><a href="#farm">农场一角</a></details>
+  <nav class="toolbar" aria-label="主页导航"><a class="tool" href="#timeline"><svg class="ic" viewBox="0 0 16 16"><use href="#px-wateringcan"></use></svg><em>时间线</em></a><a class="tool" href="write/index.html"><svg class="ic" viewBox="0 0 16 16"><use href="#px-book"></use></svg><em>写作台</em></a><a class="tool" href="#museum"><svg class="ic" viewBox="0 0 16 16"><use href="#px-book"></use></svg><em>博物馆</em></a><a class="tool" href="#projects"><svg class="ic" viewBox="0 0 16 16"><use href="#px-chest"></use></svg><em>工坊</em></a><a class="tool" href="#gallery"><svg class="ic" viewBox="0 0 16 16"><use href="#px-scythe"></use></svg><em>相馆</em></a></nav><details class="secondary-nav"><summary>更多分区</summary><a href="#basket">游戏</a><a href="#calendar">日历</a><a href="#ledger">收获簿</a><a href="#skills">专精</a><a href="#farm">农场一角</a></details>
 
   <!-- 工坊单独放在两栏之外，占满整行 —— 柯西要求「把代码仓库放在最上面」，
        放在 main 里的话它会跟右栏的侧栏面板并排，视觉上就不是「最上面」了。 -->
@@ -2647,14 +2681,7 @@ button.soc .soc-in{flex-direction:row;gap:6px}
 <section class="panel" id="calendar">
   <span class="pt"><svg class="ic xs" viewBox="0 0 16 16"><use href="#px-sun"></use></svg>季节日历<svg class="ic xs" viewBox="0 0 16 16"><use href="#px-sun"></use></svg></span>
   <span class="cor tl"><svg class="ic sm" viewBox="0 0 16 16"><use href="#px-sunflower"></use></svg></span><span class="cor tr"><svg class="ic sm" viewBox="0 0 16 16"><use href="#px-tulip"></use></svg></span><span class="cor bl"><svg class="ic sm" viewBox="0 0 16 16"><use href="#px-flower"></use></svg></span><span class="cor br"><svg class="ic sm" viewBox="0 0 16 16"><use href="#px-mushroom"></use></svg></span>
-  
-  <div class="seasons">
-    <span class="se" data-se="spring" style="--sc:#A8E6A1"><svg class="ic" viewBox="0 0 16 16"><use href="#px-parsnip"></use></svg><b><span class="slot meta" style="width:72%;height:7px"></span></b></span><span class="se" data-se="summer" style="--sc:#FFE066"><svg class="ic" viewBox="0 0 16 16"><use href="#px-melon"></use></svg><b><span class="slot meta" style="width:72%;height:7px"></span></b></span><span class="se" data-se="autumn" style="--sc:#FFB05C"><svg class="ic" viewBox="0 0 16 16"><use href="#px-pumpkin"></use></svg><b><span class="slot meta" style="width:72%;height:7px"></span></b></span><span class="se" data-se="winter" style="--sc:#CFE7F2"><svg class="ic" viewBox="0 0 16 16"><use href="#px-snowman"></use></svg><b><span class="slot meta" style="width:72%;height:7px"></span></b></span>
-  </div>
-  <div class="weather">
-    <svg class="ic sm" viewBox="0 0 16 16"><use href="#px-sun"></use></svg><svg class="ic sm" viewBox="0 0 16 16"><use href="#px-cloud"></use></svg><svg class="ic sm" viewBox="0 0 16 16"><use href="#px-raindrop"></use></svg><svg class="ic sm" viewBox="0 0 16 16"><use href="#px-rainbow"></use></svg>
-    <span class="slot meta" style="flex:1;height:9px"></span>
-  </div>
+  <div class="calendar-date"><time id="calendar-date"></time><span id="calendar-weekday"></span></div><div class="seasons"><button type="button" class="se" data-se="spring" data-set-season="spring" aria-label="切换春季外观" aria-pressed="false"><svg class="ic" viewBox="0 0 16 16" aria-hidden="true"><use href="#px-parsnip"></use></svg><b>春</b></button><button type="button" class="se" data-se="summer" data-set-season="summer" aria-label="切换夏季外观" aria-pressed="false"><svg class="ic" viewBox="0 0 16 16" aria-hidden="true"><use href="#px-melon"></use></svg><b>夏</b></button><button type="button" class="se" data-se="autumn" data-set-season="autumn" aria-label="切换秋季外观" aria-pressed="false"><svg class="ic" viewBox="0 0 16 16" aria-hidden="true"><use href="#px-pumpkin"></use></svg><b>秋</b></button><button type="button" class="se" data-se="winter" data-set-season="winter" aria-label="切换冬季外观" aria-pressed="false"><svg class="ic" viewBox="0 0 16 16" aria-hidden="true"><use href="#px-snowman"></use></svg><b>冬</b></button></div><p class="calendar-mode" id="calendar-mode"></p><button class="abtn calendar-auto" type="button" data-auto-season>恢复自动</button>
 </section>
       
 <section class="panel" id="skills">
@@ -2695,18 +2722,9 @@ button.soc .soc-in{flex-direction:row;gap:6px}
 </section>
       
 <section class="panel" id="ledger">
-  <span class="pt"><svg class="ic xs" viewBox="0 0 16 16"><use href="#px-coin"></use></svg>账本<svg class="ic xs" viewBox="0 0 16 16"><use href="#px-coin"></use></svg></span>
-  <span class="cor tl"><svg class="ic sm" viewBox="0 0 16 16"><use href="#px-coin"></use></svg></span><span class="cor tr"><svg class="ic sm" viewBox="0 0 16 16"><use href="#px-coin"></use></svg></span><span class="cor bl"><svg class="ic sm" viewBox="0 0 16 16"><use href="#px-gift"></use></svg></span><span class="cor br"><svg class="ic sm" viewBox="0 0 16 16"><use href="#px-gift"></use></svg></span>
-  
-  <div class="money">
-    
-      <span class="mrow" style="--mc:#FFD23F"><svg class="ic sm" viewBox="0 0 16 16"><use href="#px-coin"></use></svg><span class="slot title" style="width:52px;height:13px"></span></span>
-      <span class="mrow" style="--mc:#B07CFF"><svg class="ic sm" viewBox="0 0 16 16"><use href="#px-gem"></use></svg><span class="slot title" style="width:52px;height:13px"></span></span>
-      <span class="mrow" style="--mc:#8FA3B0"><svg class="ic sm" viewBox="0 0 16 16"><use href="#px-ore"></use></svg><span class="slot title" style="width:52px;height:13px"></span></span>
-      <span class="mrow" style="--mc:#7EC8F0"><svg class="ic sm" viewBox="0 0 16 16"><use href="#px-crystal"></use></svg><span class="slot title" style="width:52px;height:13px"></span></span>
-  </div>
-  <div class="vine"><svg class="ic" viewBox="0 0 16 16"><use href="#px-coin"></use></svg></div>
-  <div class="mrow foot"><svg class="ic sm" viewBox="0 0 16 16"><use href="#px-acorn"></use></svg><span class="slot body" style="width:100%;height:9px"></span></div>
+  <span class="pt"><svg class="ic xs" viewBox="0 0 16 16"><use href="#px-star"></use></svg>收获簿<svg class="ic xs" viewBox="0 0 16 16"><use href="#px-star"></use></svg></span>
+  <span class="cor tl"><svg class="ic sm" viewBox="0 0 16 16"><use href="#px-basket"></use></svg></span><span class="cor tr"><svg class="ic sm" viewBox="0 0 16 16"><use href="#px-wheat"></use></svg></span><span class="cor bl"><svg class="ic sm" viewBox="0 0 16 16"><use href="#px-flower"></use></svg></span><span class="cor br"><svg class="ic sm" viewBox="0 0 16 16"><use href="#px-book"></use></svg></span>
+  <div class="harvest-heading"><label for="harvest-year">年度收获</label><select id="harvest-year" aria-label="收获年份"></select></div><div class="harvest-counts"><a data-harvest-kind="article" href="harvest/index.html?kind=article"><span><svg class="ic" viewBox="0 0 16 16" aria-hidden="true"><use href="#px-book"></use></svg>文章</span><b>0</b></a><a data-harvest-kind="photo" href="harvest/index.html?kind=photo"><span><svg class="ic" viewBox="0 0 16 16" aria-hidden="true"><use href="#px-flower"></use></svg>照片</span><b>0</b></a><a data-harvest-kind="movie" href="harvest/index.html?kind=movie"><span><svg class="ic" viewBox="0 0 16 16" aria-hidden="true"><use href="#px-star"></use></svg>看过</span><b>0</b></a><a data-harvest-kind="book" href="harvest/index.html?kind=book"><span><svg class="ic" viewBox="0 0 16 16" aria-hidden="true"><use href="#px-wateringcan"></use></svg>读过</span><b>0</b></a></div><p class="harvest-note">随已发布内容更新 · 书影音同步 2026-09-15</p><script id="harvest-summary" type="application/json">{"2020":{"article":0,"photo":0,"movie":94,"book":43},"2022":{"article":0,"photo":0,"movie":33,"book":0},"2023":{"article":2,"photo":0,"movie":53,"book":0},"2024":{"article":3,"photo":0,"movie":61,"book":1},"2025":{"article":1,"photo":0,"movie":35,"book":0},"2026":{"article":2,"photo":0,"movie":11,"book":0}}</script>
 </section>
       
 <section class="panel" id="farm">
@@ -2721,6 +2739,7 @@ button.soc .soc-in{flex-direction:row;gap:6px}
     </aside>
   </div>
 
+  <div class="farm-edge-area"><div class="season-scenery" aria-hidden="true"><div class="edge-plot left"><span class="edge-lantern"><svg class="ic" viewBox="0 0 16 16" aria-hidden="true"><use href="#px-lantern"></use></svg></span><span class="season-plants spring"><svg class="ic" viewBox="0 0 16 16" aria-hidden="true"><use href="#px-tulip"></use></svg><svg class="ic" viewBox="0 0 16 16" aria-hidden="true"><use href="#px-flower"></use></svg></span><span class="season-plants summer"><svg class="ic" viewBox="0 0 16 16" aria-hidden="true"><use href="#px-sunflower"></use></svg><svg class="ic" viewBox="0 0 16 16" aria-hidden="true"><use href="#px-melon"></use></svg></span><span class="season-plants autumn"><svg class="ic" viewBox="0 0 16 16" aria-hidden="true"><use href="#px-pumpkin"></use></svg><svg class="ic" viewBox="0 0 16 16" aria-hidden="true"><use href="#px-wheat"></use></svg></span><span class="season-plants winter"><svg class="ic" viewBox="0 0 16 16" aria-hidden="true"><use href="#px-snowman"></use></svg><i class="snow-cap"></i></span></div><div class="edge-plot right"><span class="edge-lantern"><svg class="ic" viewBox="0 0 16 16" aria-hidden="true"><use href="#px-lantern"></use></svg></span><span class="season-plants spring"><svg class="ic" viewBox="0 0 16 16" aria-hidden="true"><use href="#px-tulip"></use></svg><svg class="ic" viewBox="0 0 16 16" aria-hidden="true"><use href="#px-flower"></use></svg></span><span class="season-plants summer"><svg class="ic" viewBox="0 0 16 16" aria-hidden="true"><use href="#px-sunflower"></use></svg><svg class="ic" viewBox="0 0 16 16" aria-hidden="true"><use href="#px-melon"></use></svg></span><span class="season-plants autumn"><svg class="ic" viewBox="0 0 16 16" aria-hidden="true"><use href="#px-pumpkin"></use></svg><svg class="ic" viewBox="0 0 16 16" aria-hidden="true"><use href="#px-wheat"></use></svg></span><span class="season-plants winter"><svg class="ic" viewBox="0 0 16 16" aria-hidden="true"><use href="#px-snowman"></use></svg><i class="snow-cap"></i></span></div></div><div class="farm-pet"><button id="farm-pet" type="button" aria-label="摸摸小鸡"><svg class="ic" viewBox="0 0 16 16" aria-hidden="true"><use href="#px-chicken"></use></svg></button><span class="pet-reply" role="status" aria-live="polite"></span></div></div>
   
 <footer class="farm">
   <div class="fgrass"></div>
@@ -2780,11 +2799,13 @@ button.soc .soc-in{flex-direction:row;gap:6px}
   /* ---- 季节 / 昼夜 ---- */
   // 手动切过季节就置 true。声明必须在监听器之前 ——
   // var 只提升声明不提升赋值，写在后面这里读到的是 undefined。
-  var manual = false;
+  var manual = false, manualTime = false;
   function applySeason(s){
     root.dataset.season = s;
+    document.querySelectorAll('#calendar .se').forEach(function(el){el.classList.toggle('now',el.dataset.se===s);});
     document.querySelectorAll('[data-set-season]').forEach(function(b){
       b.classList.toggle('on', b.dataset.setSeason === s);
+      b.setAttribute('aria-pressed',String(b.dataset.setSeason===s));
     });
     buildFall(s);
     buildFlora(s);
@@ -2800,6 +2821,7 @@ button.soc .soc-in{flex-direction:row;gap:6px}
       // 刷新页面又回到「按真实时间走」，不然每次打开都停在手选的季节上。
       manual = true;
       applySeason(b.dataset.setSeason);
+      updateCalendar();
     });
   });
 
@@ -2821,26 +2843,26 @@ button.soc .soc-in{flex-direction:row;gap:6px}
     if (m >= 9 && m <= 11) return 'autumn';
     return 'winter';
   }
-  function autoSeason(){
-    var now = new Date();
-    var s = seasonOf(now.getMonth() + 1);
-    applySeason(s);
-    // 昼夜：6:00-18:00 白天，其余夜间
-    var h = now.getHours();
-    if (h < 6 || h >= 18){
-      root.dataset.time = 'night';
-      var dnb = document.querySelector('[data-toggle-time]');
-      if (dnb){
-        dnb.innerHTML = '<svg class="ic sm" viewBox="0 0 16 16"><use href="#px-moon"></use></svg><em>夜</em>';
-        dnb.classList.add('on');
-      }
-    }
-    // 季节面板那四格：按 data-se 属性对齐（**不能靠循环下标** ——
-    // 那几个格子之间还夹着图标和 <b>，下标跟季节顺序对不上，会全不亮）。
-    document.querySelectorAll('#calendar .se').forEach(function(el){
-      el.classList.toggle('now', el.dataset.se === s);
-    });
+  function updateCalendar(){
+    var now=new Date(),date=now.getFullYear()+'-'+String(now.getMonth()+1).padStart(2,'0')+'-'+String(now.getDate()).padStart(2,'0');
+    var el=document.getElementById('calendar-date');el.dateTime=date;el.textContent=now.getFullYear()+' / '+String(now.getMonth()+1).padStart(2,'0')+' / '+String(now.getDate()).padStart(2,'0');
+    document.getElementById('calendar-weekday').textContent='星期'+'日一二三四五六'[now.getDay()];
+    document.getElementById('calendar-mode').textContent=(manual||manualTime?'手动外观':'自动外观')+' · '+{spring:'春',summer:'夏',autumn:'秋',winter:'冬'}[root.dataset.season]+'季 · '+(root.dataset.time==='night'?'夜间':'白天');
+    document.querySelector('[data-auto-season]').disabled=!manual&&!manualTime;
   }
+  function applyTime(value){
+    root.dataset.time=value;var night=value==='night',button=document.querySelector('[data-toggle-time]');
+    button.querySelector('use').setAttribute('href','#px-'+(night?'moon':'sun'));button.querySelector('em').textContent=night?'夜':'昼';button.classList.toggle('on',night);button.setAttribute('aria-pressed',String(night));
+  }
+  function autoSeason(){
+    var now=new Date(),season=seasonOf(now.getMonth()+1);
+    if(!manual&&root.dataset.season!==season)applySeason(season);
+    if(!manualTime)applyTime(now.getHours()<6||now.getHours()>=18?'night':'day');
+    updateCalendar();
+  }
+  document.querySelector('[data-auto-season]').addEventListener('click',function(){manual=false;manualTime=false;autoSeason();});
+  setInterval(autoSeason,30000);
+  document.addEventListener('visibilitychange',function(){if(!document.hidden)autoSeason();});
 
   /* ---- 博物馆：书 / 影 / 音 / 游 分类 ----
      筛选用 hidden 属性；专用 CSS 规则确保它不会被卡片的 display:flex 覆盖，
@@ -2867,14 +2889,7 @@ button.soc .soc-in{flex-direction:row;gap:6px}
     });
   });
   var dn = document.querySelector('[data-toggle-time]');
-  dn.addEventListener('click', function(){
-    var night = root.dataset.time === 'night';
-    root.dataset.time = night ? 'day' : 'night';
-    dn.innerHTML = night
-      ? '<svg class="ic sm" viewBox="0 0 16 16"><use href="#px-sun"></use></svg><em>昼</em>'
-      : '<svg class="ic sm" viewBox="0 0 16 16"><use href="#px-moon"></use></svg><em>夜</em>';
-    dn.classList.toggle('on', !night);
-  });
+  dn.addEventListener('click',function(){manualTime=true;applyTime(root.dataset.time==='night'?'day':'night');updateCalendar();});
 
   /* ---- 邮箱 / 微信：点击显示号码（不跳转） ---- */
   (function(){
@@ -3133,8 +3148,16 @@ button.soc .soc-in{flex-direction:row;gap:6px}
   /* ⚠️ 这里原本是 applySeason('spring') —— 写死春天。
      现在改成按真实时间自动判定，且**必须在这里调用**：
      这是脚本的最后一行，buildAnimals 等函数此时才真正有值（见 autoSeason 上的注释）。 */
+  applySeason(seasonOf(new Date().getMonth()+1));
   autoSeason();
 })();
 </script>
+<script>(function(){
+ var root=document.documentElement,years=JSON.parse(document.getElementById('harvest-summary').textContent),select=document.getElementById('harvest-year');
+ var current=String(new Date().getFullYear());Array.from(new Set([current].concat(Object.keys(years)))).sort().reverse().forEach(function(y){var o=document.createElement('option');o.value=y;o.textContent=y+' 年';select.appendChild(o)});select.value=current;
+ function show(){var counts=years[select.value]||{};document.querySelectorAll('[data-harvest-kind]').forEach(function(a){var k=a.dataset.harvestKind;a.querySelector('b').textContent=counts[k]||0;a.href='harvest/index.html?year='+select.value+'&kind='+k;});}select.addEventListener('change',show);show();
+ document.querySelectorAll('[data-farm-option]').forEach(function(input){var key=input.dataset.farmOption;try{input.checked=localStorage.getItem('kx-farm-'+key)!=='off'}catch(e){}function apply(){root.setAttribute('data-farm-'+key,input.checked?'on':'off');}apply();input.addEventListener('change',function(){apply();try{localStorage.setItem('kx-farm-'+key,input.checked?'on':'off')}catch(e){}});});
+ var pet=document.getElementById('farm-pet'),reply=document.querySelector('.pet-reply'),n=0,timer;pet.addEventListener('click',function(){var messages=root.dataset.time==='night'?['啾…晚安','小声一点','陪你看星星']:['啾啾！','摸摸头','今天也加油'];reply.textContent=messages[n++%messages.length];clearTimeout(timer);timer=setTimeout(function(){reply.textContent=''},4000);});
+})();</script>
 </body>
 </html>

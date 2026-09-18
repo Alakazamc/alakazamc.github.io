@@ -70,6 +70,7 @@ function loadPosts() {
         slug,
         title,
         date,
+        dateKnown: !!data.date,
         tags: Array.isArray(data.tags) ? data.tags : (data.tags ? [String(data.tags)] : []),
         source: 'site',
         html: md.render(body),

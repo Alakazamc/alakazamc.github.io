@@ -838,3 +838,36 @@ button.soc .soc-in{flex-direction:row;gap:6px}
   .arttitle{font-size:24px;line-height:36px}
 }
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*::before,*::after{animation:none!important;transition:none!important}}
+
+/* Farm modules: preserve pixel palette; restrained motion, readable content. */
+#calendar,#ledger,.harvest-page{font-size:12px;line-height:24px}
+.calendar-date{display:flex;flex-direction:column;gap:8px;margin:4px 0 20px}
+.calendar-date time{font-size:24px;line-height:36px;font-weight:bold;font-variant-numeric:tabular-nums}
+.calendar-date span,.calendar-mode,.harvest-note{font-size:12px;line-height:24px}
+#calendar .se{font:inherit;cursor:pointer;min-height:60px;display:flex;align-items:center;justify-content:center;gap:12px;color:var(--ink);background:var(--cream);border:2px solid var(--wood-c);padding:8px}
+#calendar .se b{font-size:12px;line-height:24px;margin:0}
+#calendar .se.on{outline:2px solid var(--wood-c);outline-offset:2px;background:var(--accent,#ffe087);color:#3b2412}
+.calendar-mode{margin:16px 0 8px}.calendar-auto{min-height:40px;font:inherit}
+.harvest-heading{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:12px}
+.harvest-heading select,.harvest-filters select{font:inherit;line-height:24px;color:var(--ink);background:var(--cream);border:2px solid var(--wood-c);padding:6px;max-width:100%}
+.harvest-counts a{display:flex;align-items:center;justify-content:space-between;gap:12px;min-height:48px;border-bottom:1px solid var(--wood-c);text-decoration:none;color:var(--ink)}
+.harvest-counts a span{display:flex;align-items:center;gap:10px}.harvest-counts a b{font-size:24px;line-height:36px}.harvest-note{margin:16px 0 0;opacity:.85}
+.harvest-filters{display:flex;flex-wrap:wrap;gap:16px;margin:24px 0}.harvest-filters label{display:flex;align-items:center;gap:8px}
+.harvest-list{list-style:none;padding:0;margin:20px 0}.harvest-list li{padding:16px 0;border-bottom:1px solid var(--wood-c)}
+.harvest-list a{color:var(--ink);font-weight:bold;line-height:24px}.harvest-list small{display:block;font-size:12px;line-height:24px;opacity:.8}
+.harvest-list [hidden],.harvest-empty[hidden]{display:none!important}
+.farm-option{display:flex;align-items:center;gap:8px;font-size:12px;line-height:24px;min-height:36px}.farm-option input{width:16px;height:16px;accent-color:var(--wood-c)}
+.farm-edge-area{height:110px;position:relative;margin:24px 0 0}.edge-plot{position:absolute;bottom:0;display:flex;align-items:flex-end;gap:8px;pointer-events:none}.edge-plot.left{left:6px}.edge-plot.right{right:6px}
+.edge-plot .ic{width:32px;height:32px}.edge-lantern{display:block;align-self:flex-start;margin-bottom:28px;opacity:.65}
+html[data-time="night"] .edge-lantern{opacity:1;filter:drop-shadow(0 0 9px #ffbc47)}
+.season-plants{display:none;position:relative;align-items:flex-end;gap:4px}
+html[data-season="spring"] .season-plants.spring,html[data-season="summer"] .season-plants.summer,html[data-season="autumn"] .season-plants.autumn,html[data-season="winter"] .season-plants.winter{display:flex}
+.season-plants.winter{min-width:74px}
+.snow-cap{display:block;position:absolute;bottom:-5px;left:-4px;width:74px;height:10px;background:#eefaff;box-shadow:4px -4px 0 #eefaff,-4px 2px 0 #bad7e4}
+.farm-pet{position:absolute;bottom:0;left:calc(50% - 30px);width:60px;text-align:center}.farm-pet button{width:60px;height:60px;padding:8px;border:0;background:transparent;cursor:pointer}.farm-pet .ic{width:44px;height:44px}.pet-reply{display:block;min-height:24px;font-size:12px;line-height:24px;color:var(--ink);background:var(--cream);white-space:normal}.pet-reply:empty{visibility:hidden}
+.farm-pet button:active{transform:translateY(3px)}.farm-pet button:focus-visible{outline:2px solid var(--wood-c);outline-offset:2px}
+html[data-farm-pet="off"] .farm-pet,html[data-farm-scenery="off"] .season-scenery{display:none}
+@media(min-width:1400px){.farm-edge-area{height:0;margin:0}.edge-plot{position:fixed;bottom:30px;z-index:3;width:70px;flex-wrap:wrap;gap:0}.edge-plot.left{left:10px}.edge-plot.right{right:10px}.edge-lantern{margin-bottom:8px}.farm-pet{position:fixed;left:15px;bottom:140px;z-index:3}}
+@media(max-width:600px){.edge-plot .ic{width:24px;height:24px}.edge-plot{gap:0}.edge-plot.right .edge-lantern{display:none}.calendar-date time{font-size:24px}.harvest-heading{flex-wrap:wrap}}
+@media(prefers-reduced-motion:reduce){.farm-pet button{transition:none;animation:none}}
+

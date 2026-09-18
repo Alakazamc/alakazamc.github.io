@@ -110,7 +110,7 @@ function page(data) {
       const src = `../assets/gallery/${esc(it.thumb)}`;
       const caption = esc((it.generated ? '插画 · ' : '') + (it.caption || it.file));
       const date = esc(it.date || '');
-      return `<a class="gal-item" href="${href}" data-w="${it.w}" data-h="${it.h}" ` +
+      return `<a class="gal-item" id="photo-${esc(it.file)}" href="${href}" data-w="${it.w}" data-h="${it.h}" ` +
         `data-caption="${caption}" data-date="${date}" ` +
         `style="width:${it.outW}px;height:${it.outH}px;flex:0 0 ${it.outW}px">` +
         `<img src="${src}" width="${it.tw}" height="${it.th}" loading="lazy" alt="${caption}"><span class="gal-caption">${caption}</span></a>`;

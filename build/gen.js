@@ -9,6 +9,7 @@ const { brandIcon } = require('./brands.js');
 const md = require('./md.js');
 const { articles } = require('./content.js');
 const SITE = require('./site.config.js');
+const FARM = require('./farm-modules.js');
 const galleryData = require('./gallery-data.js');
 
 // 相馆元数据是用户在写作页上传后新增的，构建前必须先刷新数据快照。
@@ -185,6 +186,7 @@ const controls = () => `
     <button class="cbtn bgmode" data-bg-toggle="image">${ic('tree', 'sm')}<em>风景</em></button>
     <button class="cbtn bgmode" data-bg-toggle="code">${ic('flower', 'sm')}<em>像素</em></button>
   </div>
+${FARM.settings()}
 </div></details>`;
 
 const bunting = () => {
@@ -222,7 +224,7 @@ const toolbar = () => {
   const mail = ACCOUNTS.find((a) => a.k === 'mail');
   const mailBtn = `<button type="button" class="tool copyable" data-copy="${md.esc(mail.copy)}" title="点击显示邮箱">${ic('mailbox')}<em>邮箱</em></button>`;
   return `<nav class="toolbar" aria-label="主页导航">${items.map(([n, t, h]) =>
-    `<a class="tool" href="${h}">${ic(n)}<em>${t}</em></a>`).join('')}</nav><details class="secondary-nav"><summary>更多分区</summary><a href="#basket">游戏</a><a href="#calendar">日历</a><a href="#ledger">账本</a><a href="#skills">专精</a><a href="#farm">农场一角</a></details>`;
+    `<a class="tool" href="${h}">${ic(n)}<em>${t}</em></a>`).join('')}</nav><details class="secondary-nav"><summary>更多分区</summary><a href="#basket">游戏</a><a href="#calendar">日历</a><a href="#ledger">收获簿</a><a href="#skills">专精</a><a href="#farm">农场一角</a></details>`;
 };
 
 // ---------- 主体 ----------
@@ -427,16 +429,7 @@ const gamesExhibit = () => {
 
 // ---------- 侧栏 ----------
 
-const seasonPanel = () => panel('季节日历', ['sunflower', 'tulip', 'flower', 'mushroom', 'sun'], `
-  <div class="seasons">
-    ${[['spring', 'parsnip', '#A8E6A1'], ['summer', 'melon', '#FFE066'],
-  ['autumn', 'pumpkin', '#FFB05C'], ['winter', 'snowman', '#CFE7F2']]
-      .map(([k, n, c]) => `<span class="se" data-se="${k}" style="--sc:${c}">${ic(n)}<b>${slot('meta', '72%', '7px')}</b></span>`).join('')}
-  </div>
-  <div class="weather">
-    ${ic('sun', 'sm')}${ic('cloud', 'sm')}${ic('raindrop', 'sm')}${ic('rainbow', 'sm')}
-    <span class="slot meta" style="flex:1;height:9px"></span>
-  </div>`, 'calendar');
+const seasonPanel = () => panel('季节日历', ['sunflower', 'tulip', 'flower', 'mushroom', 'sun'], FARM.calendar(), 'calendar');
 
 // ---------- 专精（技术栈） ----------
 // 用 GitHub 的语言字节统计驱动，数据来自 sources/github.js。
@@ -565,14 +558,7 @@ const museum = () => {
   return panel('博物馆', ['book', 'gem', 'crystal', 'star', 'gift'], inner, 'museum');
 };
 
-const moneyPanel = () => panel('账本', ['coin', 'coin', 'gift', 'gift', 'coin'], `
-  <div class="money">
-    ${[['coin', '#FFD23F'], ['gem', '#B07CFF'], ['ore', '#8FA3B0'], ['crystal', '#7EC8F0']]
-      .map(([n, c]) => `
-      <span class="mrow" style="--mc:${c}">${ic(n, 'sm')}<span class="slot title" style="width:52px;height:13px"></span></span>`).join('')}
-  </div>
-  ${vine('coin')}
-  <div class="mrow foot">${ic('acorn', 'sm')}${slot('body', '100%', '9px')}</div>`, 'ledger');
+const moneyPanel = () => panel('收获簿', ['basket', 'wheat', 'flower', 'book', 'star'], FARM.harvest(FARM.load()), 'ledger');
 
 // ---------- 页脚 ----------
 const footer = () => `
@@ -1456,6 +1442,7 @@ button.soc .soc-in{flex-direction:row;gap:6px}
   .arttitle{font-size:24px;line-height:36px}
 }
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*::before,*::after{animation:none!important;transition:none!important}}
+${FARM.css}
 </style>
 </head>
 <body>
@@ -1527,6 +1514,7 @@ ${controls()}
     </aside>
   </div>
 
+  ${FARM.scenery()}
   ${footer()}
   ${bottom()}
 </div>
@@ -1552,11 +1540,13 @@ ${buildSprite()}
   /* ---- 季节 / 昼夜 ---- */
   // 手动切过季节就置 true。声明必须在监听器之前 ——
   // var 只提升声明不提升赋值，写在后面这里读到的是 undefined。
-  var manual = false;
+  var manual = false, manualTime = false;
   function applySeason(s){
     root.dataset.season = s;
+    document.querySelectorAll('#calendar .se').forEach(function(el){el.classList.toggle('now',el.dataset.se===s);});
     document.querySelectorAll('[data-set-season]').forEach(function(b){
       b.classList.toggle('on', b.dataset.setSeason === s);
+      b.setAttribute('aria-pressed',String(b.dataset.setSeason===s));
     });
     buildFall(s);
     buildFlora(s);
@@ -1572,6 +1562,7 @@ ${buildSprite()}
       // 刷新页面又回到「按真实时间走」，不然每次打开都停在手选的季节上。
       manual = true;
       applySeason(b.dataset.setSeason);
+      updateCalendar();
     });
   });
 
@@ -1593,26 +1584,26 @@ ${buildSprite()}
     if (m >= 9 && m <= 11) return 'autumn';
     return 'winter';
   }
-  function autoSeason(){
-    var now = new Date();
-    var s = seasonOf(now.getMonth() + 1);
-    applySeason(s);
-    // 昼夜：6:00-18:00 白天，其余夜间
-    var h = now.getHours();
-    if (h < 6 || h >= 18){
-      root.dataset.time = 'night';
-      var dnb = document.querySelector('[data-toggle-time]');
-      if (dnb){
-        dnb.innerHTML = '<svg class="ic sm" viewBox="0 0 16 16"><use href="#px-moon"></use></svg><em>夜</em>';
-        dnb.classList.add('on');
-      }
-    }
-    // 季节面板那四格：按 data-se 属性对齐（**不能靠循环下标** ——
-    // 那几个格子之间还夹着图标和 <b>，下标跟季节顺序对不上，会全不亮）。
-    document.querySelectorAll('#calendar .se').forEach(function(el){
-      el.classList.toggle('now', el.dataset.se === s);
-    });
+  function updateCalendar(){
+    var now=new Date(),date=now.getFullYear()+'-'+String(now.getMonth()+1).padStart(2,'0')+'-'+String(now.getDate()).padStart(2,'0');
+    var el=document.getElementById('calendar-date');el.dateTime=date;el.textContent=now.getFullYear()+' / '+String(now.getMonth()+1).padStart(2,'0')+' / '+String(now.getDate()).padStart(2,'0');
+    document.getElementById('calendar-weekday').textContent='星期'+'日一二三四五六'[now.getDay()];
+    document.getElementById('calendar-mode').textContent=(manual||manualTime?'手动外观':'自动外观')+' · '+{spring:'春',summer:'夏',autumn:'秋',winter:'冬'}[root.dataset.season]+'季 · '+(root.dataset.time==='night'?'夜间':'白天');
+    document.querySelector('[data-auto-season]').disabled=!manual&&!manualTime;
   }
+  function applyTime(value){
+    root.dataset.time=value;var night=value==='night',button=document.querySelector('[data-toggle-time]');
+    button.querySelector('use').setAttribute('href','#px-'+(night?'moon':'sun'));button.querySelector('em').textContent=night?'夜':'昼';button.classList.toggle('on',night);button.setAttribute('aria-pressed',String(night));
+  }
+  function autoSeason(){
+    var now=new Date(),season=seasonOf(now.getMonth()+1);
+    if(!manual&&root.dataset.season!==season)applySeason(season);
+    if(!manualTime)applyTime(now.getHours()<6||now.getHours()>=18?'night':'day');
+    updateCalendar();
+  }
+  document.querySelector('[data-auto-season]').addEventListener('click',function(){manual=false;manualTime=false;autoSeason();});
+  setInterval(autoSeason,30000);
+  document.addEventListener('visibilitychange',function(){if(!document.hidden)autoSeason();});
 
   /* ---- 博物馆：书 / 影 / 音 / 游 分类 ----
      筛选用 hidden 属性；专用 CSS 规则确保它不会被卡片的 display:flex 覆盖，
@@ -1639,14 +1630,7 @@ ${buildSprite()}
     });
   });
   var dn = document.querySelector('[data-toggle-time]');
-  dn.addEventListener('click', function(){
-    var night = root.dataset.time === 'night';
-    root.dataset.time = night ? 'day' : 'night';
-    dn.innerHTML = night
-      ? '<svg class="ic sm" viewBox="0 0 16 16"><use href="#px-sun"></use></svg><em>昼</em>'
-      : '<svg class="ic sm" viewBox="0 0 16 16"><use href="#px-moon"></use></svg><em>夜</em>';
-    dn.classList.toggle('on', !night);
-  });
+  dn.addEventListener('click',function(){manualTime=true;applyTime(root.dataset.time==='night'?'day':'night');updateCalendar();});
 
   /* ---- 邮箱 / 微信：点击显示号码（不跳转） ---- */
   (function(){
@@ -1905,9 +1889,11 @@ ${buildSprite()}
   /* ⚠️ 这里原本是 applySeason('spring') —— 写死春天。
      现在改成按真实时间自动判定，且**必须在这里调用**：
      这是脚本的最后一行，buildAnimals 等函数此时才真正有值（见 autoSeason 上的注释）。 */
+  applySeason(seasonOf(new Date().getMonth()+1));
   autoSeason();
 })();
 </script>
+<script>${FARM.homeScript}</script>
 </body>
 </html>`;
 
@@ -1939,6 +1925,7 @@ try {
   // 相馆子页：数据已在上方由 gallery-data.js 刷新（本机/云端同一条链），
   // 这里只负责把 build/data/gallery.json 排版成 gallery/index.html。
   require('./gallery.js').build();
+  FARM.build();
   require('./seo.js').apply(path.join(__dirname, '..'));
 } catch (e) {
   console.error('⚠️  子页面生成失败（主页面已正常输出）：' + e.message);

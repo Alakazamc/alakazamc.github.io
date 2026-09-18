@@ -5,7 +5,7 @@ const {esc} = require('./md.js');
 const ORIGIN = 'https://alakazamc-github-io.vercel.app';
 function apply(root) {
   const files = ['stardew-maximal-v3.html'];
-  for (const dir of ['posts','museum','workshop','gallery']) {
+  for (const dir of ['posts','museum','workshop','gallery','harvest']) {
     for (const name of fs.readdirSync(path.join(root,dir))) if(name.endsWith('.html') && !name.startsWith('_')) files.push(dir+'/'+name);
   }
   for (const rel of files) {
