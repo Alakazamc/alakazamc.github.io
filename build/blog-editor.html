@@ -50,27 +50,27 @@
   input:focus,textarea:focus{outline:none;border-color:var(--accent);background:#fff}
   textarea{resize:none;line-height:1.75;tab-size:2}
 
-  #body{height:100%;border:0;border-radius:0;padding:12px}
+  #body{height:100%;border:0;border-radius:0;padding:12px;font-family:ui-monospace,Consolas,"Microsoft YaHei",monospace;font-size:16px;line-height:1.8}
   /* 拖图片进来时给个明确反馈 —— 不然松手之前不知道会不会生效 */
   #body.drop{background:#EAF6E6;outline:3px dashed var(--grass);outline-offset:-6px}
   /* 封面那一行：输入框 + 两个按钮。输入框要能缩，不然按钮会被挤出格子 */
   .coverbox{display:flex;gap:6px}
   .coverbox input{flex:1;min-width:0}
   .coverbox button{padding:6px 10px;white-space:nowrap}
-  #preview{padding:16px 20px;background:#FFFDF5}
-  #preview h2,#preview h3,#preview h4{font-weight:400;line-height:1.5}
+  #preview{padding:16px 20px;background:#FFFDF5;font-family:system-ui,-apple-system,"Segoe UI","PingFang SC","Microsoft YaHei",sans-serif;font-size:18px;line-height:1.9;max-width:42rem;margin-inline:auto;overflow-wrap:break-word}
+  #preview h2,#preview h3,#preview h4{font-family:"FusionPixel","Courier New",monospace;font-weight:400;line-height:1.6}
   #preview h2{font-size:24px;margin:18px 0 10px;border-bottom:3px solid var(--ink);padding-bottom:4px}
   #preview h3{font-size:24px;margin:16px 0 8px}
-  #preview h4{font-size:12px;margin:14px 0 6px}
-  #preview p{margin:0 0 12px}
-  #preview code{background:#F0E6CE;border:2px solid var(--ink);padding:0 3px}
+  #preview h4{font-size:24px;margin:14px 0 6px}
+  #preview p{margin:0 0 1.25em}
+  #preview code{font-family:ui-monospace,Consolas,"SFMono-Regular",monospace;font-size:15px;background:#F0E6CE;border:2px solid var(--ink);padding:0 3px}
   #preview pre{background:#2B1D0E;color:#FDF6E3;padding:10px 12px;overflow:auto;border:3px solid var(--ink)}
   #preview pre code{background:none;border:0;padding:0}
   #preview blockquote{margin:0 0 12px;padding:6px 12px;border-left:5px solid var(--wood-d);background:#F5EDD8}
   #preview blockquote p{margin:0 0 6px}
   #preview ul,#preview ol{margin:0 0 12px;padding-left:24px}
   #preview li{margin:2px 0}
-  #preview img{max-width:100%;border:3px solid var(--ink);image-rendering:pixelated}
+  #preview img{max-width:100%;border:3px solid var(--ink);image-rendering:auto}
   #preview hr{border:0;border-top:3px dashed var(--wood-d);margin:16px 0}
   #preview a{color:#185FA5}
 

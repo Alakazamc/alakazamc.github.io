@@ -667,8 +667,7 @@ a.wcard-link:hover{transform:translateY(-3px);box-shadow:0 6px 0 rgba(59,36,18,.
    但样式表是共用的，所以它会跟着主页面一起下发。几十行 CSS
    换「文章页和主站是同一套皮、不会各改各的」，这个交换划算。
 
-   行高给到 2.0（比常规博客松）是刻意的：像素字形没有抗锯齿，
-   行距不够时上下两行会粘连成一片，读起来很累。 */
+   标题与控件保留像素字体，长文使用系统字体和独立阅读行宽。 */
 body.is-article{background:var(--sky-b);min-height:100vh;padding-top:22px}
 .abarnav{display:flex;gap:8px;margin-bottom:16px;flex-wrap:wrap}
 .abtn{display:flex;align-items:center;gap:5px;background:var(--cream-2);
@@ -681,11 +680,14 @@ body.is-article{background:var(--sky-b);min-height:100vh;padding-top:22px}
 .artcover{margin:0 0 16px;text-align:center}
 .artcover img{max-width:180px;max-height:250px;border:3px solid var(--ink);
   box-shadow:0 5px 0 rgba(59,36,18,.28);display:inline-block}
-.artbody{font-size:12px;line-height:2.0;word-break:break-word}
-.artbody p{margin:0 0 14px}
+.artbody{font-family:system-ui,-apple-system,"Segoe UI","PingFang SC","Microsoft YaHei",sans-serif;
+  font-size:18px;line-height:1.9;max-width:42rem;margin-inline:auto;overflow-wrap:break-word;
+  font-kerning:normal}
+.artbody h2,.artbody h3,.artbody h4{font-family:var(--pix);line-height:1.6}
+.artbody p{margin:0 0 1.25em}
 .artbody h2{font-size:24px;margin:26px 0 10px;padding-bottom:5px;border-bottom:3px solid var(--cream-3)}
-.artbody h3{font-size:12px;font-weight:700;margin:20px 0 8px}
-.artbody h4{font-size:12px;margin:16px 0 6px;opacity:.8}
+.artbody h3{font-size:24px;font-weight:700;margin:20px 0 8px}
+.artbody h4{font-size:24px;margin:16px 0 6px;opacity:.8}
 .artbody a{color:var(--wood-b);text-decoration:none;border-bottom:2px solid var(--gold-3)}
 .artbody a:hover{background:var(--gold)}
 .artbody ul,.artbody ol{margin:0 0 14px;padding-left:22px}
@@ -693,11 +695,11 @@ body.is-article{background:var(--sky-b);min-height:100vh;padding-top:22px}
 .artbody blockquote{margin:0 0 14px;padding:8px 12px;background:var(--cream-2);
   border-left:5px solid var(--wood-c)}
 .artbody blockquote p:last-child{margin:0}
-.artbody code{background:var(--cream-2);border:1px solid var(--cream-3);padding:0 3px}
+.artbody code{font-family:ui-monospace,Consolas,"SFMono-Regular",monospace;font-size:15px;background:var(--cream-2);border:1px solid var(--cream-3);padding:0 3px}
 .artbody pre{margin:0 0 14px;padding:10px 12px;background:#2A2036;color:#FFF8E7;
   border:3px solid var(--ink);overflow-x:auto;line-height:1.75}
 .artbody pre code{background:none;border:0;padding:0;color:inherit}
-.artbody img{max-width:100%;border:3px solid var(--ink);display:block;margin:0 auto}
+.artbody img{max-width:100%;height:auto;image-rendering:auto;border:3px solid var(--ink);display:block;margin:0 auto}
 .artbody hr{border:0;height:6px;margin:20px 0;
   background:repeating-linear-gradient(90deg,var(--wood-c) 0 4px,transparent 4px 8px)}
 .artfoot{margin-top:24px;padding-top:12px;border-top:3px solid var(--cream-3);
