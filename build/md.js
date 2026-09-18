@@ -33,17 +33,28 @@ const esc = (s) =>
     .replace(/"/g, '&quot;');
 
 // 行内语法。入参必须是**已经转义过**的字符串。
-const inline = (s) =>
-  s
-    .replace(/`([^`]+)`/g, (m, a) => '<code>' + a + '</code>')
-    .replace(/!\[([^\]]*)\]\(([^)\s]+)\)/g,
-      (m, alt, url) => '<img src="' + url + '" alt="' + alt + '" loading="lazy">')
-    .replace(/\[([^\]]+)\]\(([^)\s]+)\)/g,
-      (m, t, url) => '<a href="' + url + '" target="_blank" rel="noopener">' + t + '</a>')
-    // 粗体必须先于斜体，否则 **x** 会被 * 先吃掉一半
-    .replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>')
-    .replace(/(^|[^*])\*([^*\n]+)\*/g, '$1<em>$2</em>');
-
+function safeUrl(url, image) {
+  if (!url || /[\u0000-\u0020\u007f\\]/.test(url) || url.startsWith('//')) return false;
+  if (/^[a-z][a-z0-9+.-]*:/i.test(url)) return image ? /^https?:/i.test(url) : /^(https?:|mailto:)/i.test(url);
+  return !url.split(/[/?#]/)[0].includes(':');
+}
+function inline(s) {
+  // Tokenize first: generated markup, code and URL attributes never enter emphasis parsing.
+  const token = /`([^`]+)`|(!?)\[([^\]]*)\]\(([^)\s]+)\)|\*\*([^*]+)\*\*|\*([^*\n]+)\*/g;
+  let out = '', at = 0, m;
+  while ((m = token.exec(s))) {
+    out += s.slice(at, m.index);
+    if (m[1] !== undefined) out += '<code>' + m[1] + '</code>';
+    else if (m[3] !== undefined) {
+      if (!safeUrl(m[4], !!m[2])) out += m[3];
+      else if (m[2]) out += '<img src="' + m[4] + '" alt="' + m[3] + '" loading="lazy">';
+      else out += '<a href="' + m[4] + '" target="_blank" rel="noopener noreferrer">' + inline(m[3]) + '</a>';
+    } else if (m[5] !== undefined) out += '<strong>' + m[5] + '</strong>';
+    else out += '<em>' + m[6] + '</em>';
+    at = token.lastIndex;
+  }
+  return out + s.slice(at);
+}
 const HR = /^\s*(?:-{3,}|\*{3,}|_{3,})\s*$/;
 const HEAD = /^\s*(#{1,4})\s+(.*)$/;
 const QUOTE = /^\s*>\s?/;

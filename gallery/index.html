@@ -10,21 +10,23 @@
 <style>
 /* ===== 相馆专属布局（仅本页生效，不污染全局样式表） =====
    字号 / 行高一律用 12 的倍数（12 / 24 / 36 / 48），不出现 14 / 16 / 18。 */
-.gal-card{background:var(--cream);border:4px solid var(--ink);
-  box-shadow:0 0 0 4px var(--wood-c),9px 9px 0 0 rgba(59,36,18,.28);
+.gal-card{background:var(--cream);border:2px solid var(--wood-c);
+  box-shadow:0 4px 0 rgba(59,36,18,.15);
   padding:24px 12px 18px;margin-bottom:32px}
-.gal-title{font-size:36px;line-height:48px;margin:6px 0 12px;word-break:break-word}
+.gal-title{font-size:24px;line-height:36px;margin:6px 0 12px;word-break:break-word}
 .gal-note{font-size:12px;line-height:24px;opacity:.66;margin:0 0 12px}
 
 /* 错列容器：列间 6px 间距。行宽是构建期算好的（正好铺满容器），
    正常情况永不溢出；万一极端情况差一两像素，用折行兜底 ——
    ⚠️ 不用 overflow-x:auto：这站的规矩是内容不许藏进横向滚动条。 */
 .gal-rows{margin:4px 0 8px}
-.gal-row{display:flex;gap:6px;margin-bottom:6px;flex-wrap:wrap;justify-content:center}
+.gal-row{display:flex;gap:16px;margin-bottom:16px;flex-wrap:wrap;justify-content:center}
 /* 每张图：木色描边 + 落影，无圆角（像素风）。尺寸构建期算好，绝不裁切。 */
 .gal-item{display:block;position:relative;background:var(--cream-3);
-  border:3px solid var(--ink);box-shadow:0 4px 0 rgba(59,36,18,.28);
+  border:1px solid var(--wood-c);box-shadow:none;
   overflow:hidden;transition:transform .12s steps(2),box-shadow .12s}
+.gal-caption{position:absolute;left:0;right:0;bottom:0;background:var(--cream);color:var(--ink);font-size:12px;line-height:24px;padding:4px 8px;opacity:0;transition:opacity .15s}
+.gal-item:hover .gal-caption,.gal-item:focus-visible .gal-caption{opacity:1}
 .gal-item img{display:block;width:100%;height:100%;object-fit:contain;image-rendering:auto}
 .gal-item:hover{transform:translateY(-3px);box-shadow:0 7px 0 rgba(59,36,18,.34)}
 .gal-item:focus-visible{outline:3px solid var(--gold);outline-offset:2px}
@@ -32,8 +34,8 @@
 
 /* 窄屏：一行一张，宽度撑满，高度按原图比例自适应。 */
 @media (max-width:680px){
-  .gal-row{display:block;margin-bottom:6px}
-  .gal-item{width:100%!important;height:auto!important;flex:none!important;margin-bottom:0}
+  .gal-row{display:block;margin-bottom:16px}
+  .gal-item{width:100%!important;height:auto!important;flex:none!important;margin-bottom:16px}
   .gal-item img{height:auto}
 }
 
@@ -59,6 +61,16 @@
 .lb-close:hover,.lb-nav:hover{background:var(--gold)}
 .lb-close:focus-visible,.lb-nav:focus-visible{outline:3px solid var(--gold);outline-offset:2px}
 </style>
+<!-- SEO -->
+<link rel="canonical" href="https://alakazamc-github-io.vercel.app/gallery/">
+<meta name="description" content="柯西 Alakazam 的个人主页，记录项目、文章、书影音与照片。">
+<meta property="og:type" content="website">
+<meta property="og:title" content="相馆 · 柯西 Alakazam">
+<meta property="og:description" content="柯西 Alakazam 的个人主页，记录项目、文章、书影音与照片。">
+<meta property="og:url" content="https://alakazamc-github-io.vercel.app/gallery/">
+<meta property="og:image" content="https://alakazamc-github-io.vercel.app/assets/preview.png">
+<meta name="twitter:card" content="summary_large_image">
+<!-- /SEO -->
 </head>
 <body class="is-article is-gallery-page">
 <svg xmlns="http://www.w3.org/2000/svg" style="display:none" aria-hidden="true"><symbol id="px-mailbox" viewBox="0 0 16 16"><rect x="5" y="1" width="5" height="1" fill="#C08A45"/><rect x="4" y="2" width="1" height="1" fill="#C08A45"/><rect x="5" y="2" width="5" height="1" fill="#9C6431"/><rect x="10" y="2" width="1" height="1" fill="#C08A45"/><rect x="4" y="3" width="1" height="1" fill="#C08A45"/><rect x="5" y="3" width="1" height="1" fill="#9C6431"/><rect x="6" y="3" width="3" height="1" fill="#E43B44"/><rect x="9" y="3" width="1" height="1" fill="#9C6431"/><rect x="10" y="3" width="1" height="1" fill="#C08A45"/><rect x="4" y="4" width="1" height="1" fill="#C08A45"/><rect x="5" y="4" width="5" height="1" fill="#9C6431"/><rect x="10" y="4" width="1" height="1" fill="#C08A45"/><rect x="5" y="5" width="5" height="1" fill="#C08A45"/><rect x="7" y="6" width="1" height="1" fill="#6B4423"/><rect x="7" y="7" width="1" height="1" fill="#6B4423"/><rect x="7" y="8" width="1" height="1" fill="#6B4423"/><rect x="7" y="9" width="1" height="1" fill="#6B4423"/><rect x="6" y="10" width="3" height="1" fill="#6B4423"/></symbol><symbol id="px-star" viewBox="0 0 16 16"><rect x="7" y="1" width="1" height="1" fill="#F5D259"/><rect x="7" y="2" width="1" height="1" fill="#F5D259"/><rect x="6" y="3" width="3" height="1" fill="#F5D259"/><rect x="2" y="4" width="1" height="1" fill="#F5D259"/><rect x="6" y="4" width="3" height="1" fill="#F5D259"/><rect x="12" y="4" width="1" height="1" fill="#F5D259"/><rect x="3" y="5" width="1" height="1" fill="#F5D259"/><rect x="6" y="5" width="3" height="1" fill="#F5D259"/><rect x="11" y="5" width="1" height="1" fill="#F5D259"/><rect x="4" y="6" width="7" height="1" fill="#F5D259"/><rect x="5" y="7" width="5" height="1" fill="#F5D259"/><rect x="4" y="8" width="7" height="1" fill="#F5D259"/><rect x="3" y="9" width="2" height="1" fill="#F5D259"/><rect x="6" y="9" width="3" height="1" fill="#F5D259"/><rect x="10" y="9" width="2" height="1" fill="#F5D259"/><rect x="2" y="10" width="2" height="1" fill="#F5D259"/><rect x="6" y="10" width="3" height="1" fill="#F5D259"/><rect x="11" y="10" width="2" height="1" fill="#F5D259"/><rect x="1" y="11" width="1" height="1" fill="#F5D259"/><rect x="5" y="11" width="5" height="1" fill="#F5D259"/><rect x="13" y="11" width="1" height="1" fill="#F5D259"/><rect x="7" y="12" width="1" height="1" fill="#F5D259"/></symbol></svg>
@@ -66,8 +78,8 @@
   <nav class="abarnav"><a class="abtn" href="../stardew-maximal-v3.html#gallery"><svg class="ic sm" viewBox="0 0 16 16"><use href="#px-mailbox"></use></svg>回到农场</a></nav>
   <div class="gal-card">
     <h1 class="gal-title">相馆</h1>
-    <p class="gal-note">共 6 张相片 · 更新于 2026-09-02</p>
-    <div class="gal-rows"><div class="gal-row"><a class="gal-item" href="../assets/gallery/dusk-mine.webp" data-w="1440" data-h="960" data-caption="黄昏时的矿区入口" data-date="2026-09-02" style="width:272px;height:181px;flex:0 0 272px"><img src="../assets/gallery/dusk-mine-t.webp" width="640" height="427" loading="lazy" alt="黄昏时的矿区入口"></a><a class="gal-item" href="../assets/gallery/night-lake.webp" data-w="1440" data-h="1440" data-caption="星夜的湖畔" data-date="2026-08-18" style="width:181px;height:181px;flex:0 0 181px"><img src="../assets/gallery/night-lake-t.webp" width="640" height="640" loading="lazy" alt="星夜的湖畔"></a><a class="gal-item" href="../assets/gallery/summer-coast.webp" data-w="1344" data-h="756" data-caption="夏天的海岸，光很足" data-date="2026-07-30" style="width:322px;height:181px;flex:0 0 322px"><img src="../assets/gallery/summer-coast-t.webp" width="640" height="360" loading="lazy" alt="夏天的海岸，光很足"></a></div><div class="gal-row"><a class="gal-item" href="../assets/gallery/spring-farm.webp" data-w="1440" data-h="960" data-caption="春天的农场，作物刚下地" data-date="2026-04-12" style="width:270px;height:180px;flex:0 0 270px"><img src="../assets/gallery/spring-farm-t.webp" width="640" height="427" loading="lazy" alt="春天的农场，作物刚下地"></a><a class="gal-item" href="../assets/gallery/winter-town.webp" data-w="960" data-h="1440" data-caption="冬夜的小镇，路灯还亮着" data-date="2026-01-05" style="width:120px;height:180px;flex:0 0 120px"><img src="../assets/gallery/winter-town-t.webp" width="427" height="640" loading="lazy" alt="冬夜的小镇，路灯还亮着"></a><a class="gal-item" href="../assets/gallery/autumn-patch.webp" data-w="1440" data-h="960" data-caption="秋日的南瓜地" data-date="2025-10-20" style="width:270px;height:180px;flex:0 0 270px"><img src="../assets/gallery/autumn-patch-t.webp" width="640" height="427" loading="lazy" alt="秋日的南瓜地"></a></div></div>
+    <p class="gal-note">共 6 张作品（含 6 张生成插画） · 更新于 2026-09-02</p>
+    <div class="gal-rows"><div class="gal-row"><a class="gal-item" href="../assets/gallery/dusk-mine.webp" data-w="1440" data-h="960" data-caption="插画 · 黄昏时的矿区入口" data-date="2026-09-02" style="width:466px;height:310px;flex:0 0 466px"><img src="../assets/gallery/dusk-mine-t.webp" width="640" height="427" loading="lazy" alt="插画 · 黄昏时的矿区入口"><span class="gal-caption">插画 · 黄昏时的矿区入口</span></a><a class="gal-item" href="../assets/gallery/night-lake.webp" data-w="1440" data-h="1440" data-caption="插画 · 星夜的湖畔" data-date="2026-08-18" style="width:310px;height:310px;flex:0 0 310px"><img src="../assets/gallery/night-lake-t.webp" width="640" height="640" loading="lazy" alt="插画 · 星夜的湖畔"><span class="gal-caption">插画 · 星夜的湖畔</span></a></div><div class="gal-row"><a class="gal-item" href="../assets/gallery/summer-coast.webp" data-w="1344" data-h="756" data-caption="插画 · 夏天的海岸，光很足" data-date="2026-07-30" style="width:343px;height:193px;flex:0 0 343px"><img src="../assets/gallery/summer-coast-t.webp" width="640" height="360" loading="lazy" alt="插画 · 夏天的海岸，光很足"><span class="gal-caption">插画 · 夏天的海岸，光很足</span></a><a class="gal-item" href="../assets/gallery/spring-farm.webp" data-w="1440" data-h="960" data-caption="插画 · 春天的农场，作物刚下地" data-date="2026-04-12" style="width:289px;height:193px;flex:0 0 289px"><img src="../assets/gallery/spring-farm-t.webp" width="640" height="427" loading="lazy" alt="插画 · 春天的农场，作物刚下地"><span class="gal-caption">插画 · 春天的农场，作物刚下地</span></a><a class="gal-item" href="../assets/gallery/winter-town.webp" data-w="960" data-h="1440" data-caption="插画 · 冬夜的小镇，路灯还亮着" data-date="2026-01-05" style="width:128px;height:193px;flex:0 0 128px"><img src="../assets/gallery/winter-town-t.webp" width="427" height="640" loading="lazy" alt="插画 · 冬夜的小镇，路灯还亮着"><span class="gal-caption">插画 · 冬夜的小镇，路灯还亮着</span></a></div><div class="gal-row"><a class="gal-item" href="../assets/gallery/autumn-patch.webp" data-w="1440" data-h="960" data-caption="插画 · 秋日的南瓜地" data-date="2025-10-20" style="width:270px;height:180px;flex:0 0 270px"><img src="../assets/gallery/autumn-patch-t.webp" width="640" height="427" loading="lazy" alt="插画 · 秋日的南瓜地"><span class="gal-caption">插画 · 秋日的南瓜地</span></a></div></div>
   </div>
   <div class="sitebottom">
   <div class="visitbar">
@@ -119,7 +131,15 @@
     var it = list[idx];
     img.src = it.href;
     img.alt = it.caption;
-    cap.innerHTML = '<b>'+it.caption+'</b>' + (it.date ? '<i>'+it.date+'</i>' : '');
+    cap.textContent = '';
+    var captionNode = document.createElement('b');
+    captionNode.textContent = it.caption;
+    cap.appendChild(captionNode);
+    if (it.date) {
+      var dateNode = document.createElement('i');
+      dateNode.textContent = it.date;
+      cap.appendChild(dateNode);
+    }
   }
   function open(i){
     idx = i; lastFocus = document.activeElement;

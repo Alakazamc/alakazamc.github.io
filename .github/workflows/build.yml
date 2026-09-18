@@ -11,6 +11,8 @@ name: 重建站点
 #      它不碰 content/ 也不碰 build/，所以不会触发自己。
 #      **不要为了"省事"把 paths 删掉** —— 删了就是无限循环，而且烧的是你的 Actions 额度。
 on:
+  schedule:
+    - cron: '23 22 * * *' # 每天北京时间 06:23，更新公开 GitHub 数据
   push:
     branches: [main]
     paths:
@@ -30,6 +32,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 0
 
       - uses: actions/setup-node@v4
         with:
@@ -37,23 +42,34 @@ jobs:
 
       # gen.js 是零依赖、不联网的（只读 build/data/*.json 快照），
       # 所以这里**故意不做 npm install** —— 没有 package.json，也没有依赖可装。
-      - name: 重建站点
-        run: node build/gen.js
-
       - name: 提交产物
         env:
           # 用 env 传而不是直接拼进 shell —— commit message 里可能有引号、
           # 美元符号或换行，直接拼进命令行会被 shell 解析（也可能被注入）。
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          REFRESH_DATA: ${{ github.event_name == 'schedule' || github.event_name == 'workflow_dispatch' }}
           COMMIT_MSG: ${{ github.event.head_commit.message }}
         run: |
           git config user.name  "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add -A
-          if git diff --staged --quiet; then
-            echo "产物没有变化，不需要提交"
-            exit 0
-          fi
           # 只取第一行：多行 message 会破坏 commit 标题
           TITLE=$(printf '%s' "${COMMIT_MSG:-手动触发}" | head -1)
-          git commit -m "自动重建：$TITLE"
-          git push
+          for attempt in 1 2 3; do
+            # 此 checkout 只包含云端版本；重新生成，绝不合并旧页面覆盖新内容。
+            git fetch origin main
+            git reset --hard origin/main
+            if [ "$REFRESH_DATA" = "true" ]; then
+              node build/refresh-github.js || echo "::warning::GitHub 更新失败，保留上次数据"
+            fi
+            node build/gen.js
+            git add -A
+            if git diff --staged --quiet; then
+              echo "产物没有变化，不需要提交"
+              exit 0
+            fi
+            git commit -m "自动重建：$TITLE"
+            if git push origin HEAD:main; then exit 0; fi
+            echo "构建期间有新提交，基于最新云端内容重建（$attempt/3）"
+          done
+          echo "云端仍有并发更新，请重新运行构建"
+          exit 1

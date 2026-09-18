@@ -21,11 +21,11 @@ const OUT = path.join(ROOT, 'gallery', 'index.html');
 // 页面列宽 820（任务给定）。justify 算法需要的「实际排版宽」是 820 减去卡片边框与内边距，
 // 这里显式从 820 推导出来，既守住 820 的设计值，又不会出现横向滚动条。
 const PAGE_W = 820;
-const CARD_BORDER = 8;   // .gal-card 左右边框各 4px
+const CARD_BORDER = 4;   // .gal-card 左右边框各 4px
 const CARD_PAD = 24;     // .gal-card 左右内边距各 12px
 const GAL = {
   page: PAGE_W,
-  gap: 6,                // 列间距
+  gap: 16,                // 列间距
   targetH: 180,          // 目标行高（12 的倍数，避免和字体网格打架）
   container: PAGE_W - CARD_BORDER - CARD_PAD // = 788，实际排版宽度
 };
@@ -108,12 +108,12 @@ function page(data) {
       // 内联 width/height/flex-basis 由 justify 算法算好，保证等高且不裁切。
       const href = `../assets/gallery/${esc(it.file)}`;
       const src = `../assets/gallery/${esc(it.thumb)}`;
-      const caption = esc(it.caption || it.file);
+      const caption = esc((it.generated ? '插画 · ' : '') + (it.caption || it.file));
       const date = esc(it.date || '');
       return `<a class="gal-item" href="${href}" data-w="${it.w}" data-h="${it.h}" ` +
         `data-caption="${caption}" data-date="${date}" ` +
         `style="width:${it.outW}px;height:${it.outH}px;flex:0 0 ${it.outW}px">` +
-        `<img src="${src}" width="${it.tw}" height="${it.th}" loading="lazy" alt="${caption}"></a>`;
+        `<img src="${src}" width="${it.tw}" height="${it.th}" loading="lazy" alt="${caption}"><span class="gal-caption">${caption}</span></a>`;
     }).join('');
     return `<div class="gal-row">${cells}</div>`;
   }).join('');
@@ -136,21 +136,23 @@ function page(data) {
 <style>
 /* ===== 相馆专属布局（仅本页生效，不污染全局样式表） =====
    字号 / 行高一律用 12 的倍数（12 / 24 / 36 / 48），不出现 14 / 16 / 18。 */
-.gal-card{background:var(--cream);border:4px solid var(--ink);
-  box-shadow:0 0 0 4px var(--wood-c),9px 9px 0 0 rgba(59,36,18,.28);
+.gal-card{background:var(--cream);border:2px solid var(--wood-c);
+  box-shadow:0 4px 0 rgba(59,36,18,.15);
   padding:24px 12px 18px;margin-bottom:32px}
-.gal-title{font-size:36px;line-height:48px;margin:6px 0 12px;word-break:break-word}
+.gal-title{font-size:24px;line-height:36px;margin:6px 0 12px;word-break:break-word}
 .gal-note{font-size:12px;line-height:24px;opacity:.66;margin:0 0 12px}
 
 /* 错列容器：列间 6px 间距。行宽是构建期算好的（正好铺满容器），
    正常情况永不溢出；万一极端情况差一两像素，用折行兜底 ——
    ⚠️ 不用 overflow-x:auto：这站的规矩是内容不许藏进横向滚动条。 */
 .gal-rows{margin:4px 0 8px}
-.gal-row{display:flex;gap:6px;margin-bottom:6px;flex-wrap:wrap;justify-content:center}
+.gal-row{display:flex;gap:16px;margin-bottom:16px;flex-wrap:wrap;justify-content:center}
 /* 每张图：木色描边 + 落影，无圆角（像素风）。尺寸构建期算好，绝不裁切。 */
 .gal-item{display:block;position:relative;background:var(--cream-3);
-  border:3px solid var(--ink);box-shadow:0 4px 0 rgba(59,36,18,.28);
+  border:1px solid var(--wood-c);box-shadow:none;
   overflow:hidden;transition:transform .12s steps(2),box-shadow .12s}
+.gal-caption{position:absolute;left:0;right:0;bottom:0;background:var(--cream);color:var(--ink);font-size:12px;line-height:24px;padding:4px 8px;opacity:0;transition:opacity .15s}
+.gal-item:hover .gal-caption,.gal-item:focus-visible .gal-caption{opacity:1}
 .gal-item img{display:block;width:100%;height:100%;object-fit:contain;image-rendering:auto}
 .gal-item:hover{transform:translateY(-3px);box-shadow:0 7px 0 rgba(59,36,18,.34)}
 .gal-item:focus-visible{outline:3px solid var(--gold);outline-offset:2px}
@@ -158,8 +160,8 @@ function page(data) {
 
 /* 窄屏：一行一张，宽度撑满，高度按原图比例自适应。 */
 @media (max-width:680px){
-  .gal-row{display:block;margin-bottom:6px}
-  .gal-item{width:100%!important;height:auto!important;flex:none!important;margin-bottom:0}
+  .gal-row{display:block;margin-bottom:16px}
+  .gal-item{width:100%!important;height:auto!important;flex:none!important;margin-bottom:16px}
   .gal-item img{height:auto}
 }
 
@@ -192,7 +194,7 @@ ${sprite(['mailbox', 'star'])}
   <nav class="abarnav"><a class="abtn" href="../${esc(SITE.home)}#gallery">${ic('mailbox', 'sm')}回到农场</a></nav>
   <div class="gal-card">
     <h1 class="gal-title">相馆</h1>
-    <p class="gal-note">${items.length ? ('共 ' + items.length + ' 张相片' + (upd ? ' · 更新于 ' + upd : '')) : ''}</p>
+    <p class="gal-note">${items.length ? ('共 ' + items.length + ' 张作品' + (items.some(it => it.generated) ? '（含 ' + items.filter(it => it.generated).length + ' 张生成插画）' : '') + (upd ? ' · 更新于 ' + upd : '')) : ''}</p>
     ${gallery}
   </div>
   ${bottomBlock('', '../')}
@@ -235,7 +237,15 @@ ${sprite(['mailbox', 'star'])}
     var it = list[idx];
     img.src = it.href;
     img.alt = it.caption;
-    cap.innerHTML = '<b>'+it.caption+'</b>' + (it.date ? '<i>'+it.date+'</i>' : '');
+    cap.textContent = '';
+    var captionNode = document.createElement('b');
+    captionNode.textContent = it.caption;
+    cap.appendChild(captionNode);
+    if (it.date) {
+      var dateNode = document.createElement('i');
+      dateNode.textContent = it.date;
+      cap.appendChild(dateNode);
+    }
   }
   function open(i){
     idx = i; lastFocus = document.activeElement;

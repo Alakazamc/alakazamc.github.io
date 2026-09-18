@@ -179,7 +179,7 @@ const TL_SHOW = 12;
 const REPO_SHOW = 6;
 
 const controls = () => `
-<div class="controls">
+<details class="appearance-settings"><summary>外观设置</summary><div class="controls">
   <div class="crow">
     ${[['spring', 'parsnip', '春'], ['summer', 'melon', '夏'], ['autumn', 'pumpkin', '秋'], ['winter', 'snowman', '冬']]
       .map(([k, n, t]) =>
@@ -187,10 +187,10 @@ const controls = () => `
   </div>
   <button class="cbtn daynight" data-toggle-time>${ic('sun', 'sm')}<em>昼</em></button>
   <div class="crow">
-    <button class="cbtn bgmode" data-bg-toggle="image">${ic('tree', 'sm')}<em>素材</em></button>
-    <button class="cbtn bgmode" data-bg-toggle="code">${ic('flower', 'sm')}<em>代码</em></button>
+    <button class="cbtn bgmode" data-bg-toggle="image">${ic('tree', 'sm')}<em>风景</em></button>
+    <button class="cbtn bgmode" data-bg-toggle="code">${ic('flower', 'sm')}<em>像素</em></button>
   </div>
-</div>`;
+</div></details>`;
 
 const bunting = () => {
   const cs = ['#FF5A5A', '#FFD23F', '#5FD35F', '#4FC3F7', '#FF7BC5', '#FF9838', '#B07CFF'];
@@ -214,12 +214,11 @@ const hang = () => {
 const toolbar = () => {
   const items = [
     ['wateringcan', '时间线', '#timeline'],
+    ['book', '写作台', 'write/index.html'],
     ['book', '博物馆', '#museum'],
     ['chest', '工坊', '#projects'],
     ['scythe', '相馆', '#gallery'],
-    ['crystal', '游戏', '#basket'],
-    ['sun', '日历', '#calendar'],
-    ['coin', '账本', '#ledger']
+
   ];
   // ⚠️ 「联系」不能再写成 mailto: —— 柯西 2026-09-16 明确要求邮箱点击是**显示号码**
   // 而不是拉起邮件客户端（没装邮件客户端的机器上点 mailto 毫无反应）。
@@ -227,8 +226,8 @@ const toolbar = () => {
   // 「邮箱」，因为点下去得到的是号码，不是联系方式的选择。
   const mail = ACCOUNTS.find((a) => a.k === 'mail');
   const mailBtn = `<button type="button" class="tool copyable" data-copy="${md.esc(mail.copy)}" title="点击显示邮箱">${ic('mailbox')}<em>邮箱</em></button>`;
-  return `<nav class="toolbar" aria-label="页面分区导航">${items.map(([n, t, h]) =>
-    `<a class="tool" href="${h}">${ic(n)}<em>${t}</em></a>`).join('')}${mailBtn}</nav>`;
+  return `<nav class="toolbar" aria-label="主页导航">${items.map(([n, t, h]) =>
+    `<a class="tool" href="${h}">${ic(n)}<em>${t}</em></a>`).join('')}</nav><details class="secondary-nav"><summary>更多分区</summary><a href="#basket">游戏</a><a href="#calendar">日历</a><a href="#ledger">账本</a><a href="#skills">专精</a><a href="#farm">农场一角</a></details>`;
 };
 
 // ---------- 主体 ----------
@@ -365,8 +364,8 @@ const galleryPanel = () => {
   const items = (GALLERY.items || []).slice(0, 4);
   if (!items.length) return '';   // 一张照片都没有：整个面板不渲染，不留灰块
   const cell = (it) => `
-    <a class="gp" href="gallery/index.html" title="${md.esc(it.caption)}">
-      <img src="assets/gallery/${it.thumb}" alt="${md.esc(it.caption)}" width="${it.tw}" height="${it.th}" loading="lazy">
+    <a class="gp" href="gallery/index.html" title="${md.esc((it.generated ? '插画 · ' : '') + it.caption)}">
+      <img src="assets/gallery/${it.thumb}" alt="${md.esc((it.generated ? '插画 · ' : '') + it.caption)}" width="${it.tw}" height="${it.th}" loading="lazy">
     </a>`;
   return panel('相馆', ['star', 'heart', 'heart', 'star', 'star'], `
   <div class="gstrip">${items.map(cell).join('')}</div>
@@ -608,7 +607,7 @@ const HTML = `<!DOCTYPE html>
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>星露谷风格个人主页 · 极繁版 v3</title>
+<title>${md.esc(SITE.name)} · 个人主页</title>
 <link rel="stylesheet" href="assets-layers.css">
 <!-- 像素字体的 @font-face 在根目录的 font.css 里，不在下面的内联样式块 ——
      原因见该文件开头的注释（CSS 的 url() 相对 CSS 文件解析，文章页在子目录会 404）。
@@ -829,10 +828,10 @@ svg.ic.sm{width:12px;height:12px} svg.ic.xs{width:9px;height:9px} svg.ic.lg{widt
   color:var(--gold);border:2px solid var(--wood-c);padding:3px 16px;font-size:12px;letter-spacing:2px;white-space:nowrap}
 .board .bn{display:flex;justify-content:center;align-items:center;gap:10px;margin:8px 0 10px}
 /* 招牌文案一层：只有站名。层级靠字号和阴影，不靠副标题堆叠 */
-.board .bt{font-size:28px;font-weight:700;color:#FFF8E7;letter-spacing:1px;
+.board .bt{font-size:24px;font-weight:700;color:#FFF8E7;letter-spacing:1px;
   text-shadow:2px 2px 0 var(--ink),0 0 12px rgba(255,233,168,.35);white-space:nowrap}
 @media (max-width:640px){
-  .board .bt{font-size:21px;text-shadow:2px 2px 0 var(--ink)}
+  .board .bt{font-size:24px;text-shadow:2px 2px 0 var(--ink)}
 }
 /* 平台导航：一排木质小牌，图标是 16×16 像素画 */
 .social{display:flex;justify-content:center;gap:8px;flex-wrap:wrap;margin-top:2px}
@@ -865,7 +864,7 @@ button.soc:active{transform:translateY(0)}
   font-size:12px;letter-spacing:.4px;white-space:nowrap;
   opacity:0;pointer-events:none;transition:opacity .14s,transform .14s}
 .contact-tip.on{opacity:1;pointer-events:auto;transform:translateX(-50%) translateY(0)}
-.contact-tip b{font-size:14px;font-weight:700;letter-spacing:.6px;
+.contact-tip b{font-size:12px;font-weight:700;letter-spacing:.6px;
   background:var(--cream-2);border:2px solid var(--ink);padding:3px 7px;user-select:all}
 .contact-tip span{opacity:.8}
 @media (max-width:640px){.contact-tip{font-size:12px;bottom:22px;max-width:calc(100vw - 24px)}}
@@ -984,7 +983,7 @@ html{scroll-behavior:smooth}
 .tl-item.lead .tl-card{background:linear-gradient(180deg,#FFF6D6,var(--cream-2));
   border-width:3px;padding:10px 12px}
 .tl-item.lead .tl-dot{background:var(--gold)}
-.tl-item.lead .tl-title{font-size:18px;line-height:1.4;-webkit-line-clamp:2}
+.tl-item.lead .tl-title{font-size:24px;line-height:1.4;-webkit-line-clamp:2}
 .tl-item.lead .tl-exc{font-size:12px;-webkit-line-clamp:3}
 .tl-item.lead .tl-cover{width:64px;height:90px}
 /* 窄屏（<1080px）：时间戳列没地方站，display:none 让它整个退出网格，
@@ -1004,10 +1003,11 @@ html{scroll-behavior:smooth}
 .more a:hover{background:var(--gold)}
 
 /* ===== 项目卡 ===== */
-/* 工坊(GitHub 仓库):两列小卡。仓库名用等宽观感,因为它是标识符不是文案 */
-/* auto-fill:工坊是全宽面板(在 .layout 之外),所以列数该由容器宽度自己算,
-   窄屏自动降列。写死 2 列的话全宽下每个卡片会宽到 500px+,很难看。 */
-.rgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(252px,1fr));gap:9px}
+/* 工坊固定展示六项：桌面三列两行，中屏两列，手机单列。
+   仓库名保留标识符，完整内容选择与手机精简留给下一轮设计。 */
+.rgrid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
+@media(max-width:1000px){.rgrid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:600px){.rgrid{grid-template-columns:1fr}}
 .rcard{display:flex;flex-direction:column;gap:5px;padding:9px 10px;text-decoration:none;color:inherit;
   background:var(--cream-2);border:2px solid var(--wood-c);box-shadow:0 3px 0 rgba(59,36,18,.22);
   transition:transform .12s,box-shadow .12s}
@@ -1241,7 +1241,7 @@ a.wcard-link:hover{transform:translateY(-3px);box-shadow:0 6px 0 rgba(59,36,18,.
 .fcopy{display:flex;align-items:center;justify-content:center;gap:8px;padding:2px 0 24px}
 
 /* ===== 飘落物 / 萤火虫 / 宠物 ===== */
-#fall{position:fixed;inset:0;pointer-events:none;z-index:5;overflow:hidden}
+#fall{position:fixed;inset:0;pointer-events:none;z-index:1;overflow:hidden}
 #fall span{position:absolute;top:-48px;animation-name:fall;animation-timing-function:linear;animation-iteration-count:infinite}
 @keyframes fall{
   0%{transform:translateY(-48px) rotate(0deg)}
@@ -1288,14 +1288,14 @@ body.is-article{background:var(--sky-b);min-height:100vh;padding-top:22px}
   text-decoration:none;color:inherit;box-shadow:0 3px 0 rgba(59,36,18,.25)}
 .abtn:hover{background:var(--gold);transform:translateY(-2px)}
 .artpage{max-width:820px;margin:0 auto 26px}
-.arttitle{font-size:19px;line-height:1.5;margin:6px 0 8px;word-break:break-word}
+.arttitle{font-size:24px;line-height:1.5;margin:6px 0 8px;word-break:break-word}
 .artmeta{font-size:12px;opacity:.66;margin:0 0 16px;line-height:1.7}
 .artcover{margin:0 0 16px;text-align:center}
 .artcover img{max-width:180px;max-height:250px;border:3px solid var(--ink);
   box-shadow:0 5px 0 rgba(59,36,18,.28);display:inline-block}
 .artbody{font-size:12px;line-height:2.0;word-break:break-word}
 .artbody p{margin:0 0 14px}
-.artbody h2{font-size:18px;margin:26px 0 10px;padding-bottom:5px;border-bottom:3px solid var(--cream-3)}
+.artbody h2{font-size:24px;margin:26px 0 10px;padding-bottom:5px;border-bottom:3px solid var(--cream-3)}
 .artbody h3{font-size:12px;font-weight:700;margin:20px 0 8px}
 .artbody h4{font-size:12px;margin:16px 0 6px;opacity:.8}
 .artbody a{color:var(--wood-b);text-decoration:none;border-bottom:2px solid var(--gold-3)}
@@ -1329,7 +1329,7 @@ body.is-article{background:var(--sky-b);min-height:100vh;padding-top:22px}
   background:var(--cream-2);border:3px solid var(--ink);box-shadow:0 0 0 3px var(--wood-c);
   padding:9px 12px;margin:0 auto 22px;font-size:12px;letter-spacing:.4px}
 .visitbar .vlabel{opacity:.75}
-.visitbar .vnum{font-weight:700;font-size:14px;min-width:30px;text-align:center;
+.visitbar .vnum{font-weight:700;font-size:12px;min-width:30px;text-align:center;
   background:var(--cream);border:2px solid var(--wood-c);padding:2px 8px}
 /* 数字没回来之前显示占位点，避免"空一行"导致下方内容跳动 */
 .visitbar .vslot{opacity:.45;letter-spacing:2px}
@@ -1385,6 +1385,70 @@ body.is-article{background:var(--sky-b);min-height:100vh;padding-top:22px}
   .blog-lead-cover{width:100%;height:150px}
   .blog-row-src{display:none}
 }
+
+/* Reading hierarchy: scene stays decorative; paper, frames and links have separate roles. */
+:root{--reading-surface:var(--cream);--reading-muted:var(--cream-2);--frame:var(--wood-c);--link-accent:var(--gold-3)}
+.bg,.asset-bg{filter:saturate(.65) brightness(.9)}
+.appearance-settings{position:relative;z-index:60;max-width:1180px;margin:12px auto 0;text-align:right;padding:0 12px}
+.appearance-settings>summary,.secondary-nav>summary{cursor:pointer;font-size:12px;line-height:24px}
+.appearance-settings>summary{display:inline-block;padding:4px 12px;background:var(--cream);border:1px solid var(--frame)}
+.appearance-settings .controls{position:absolute;top:36px;right:12px;display:flex;flex-wrap:wrap;max-width:calc(100vw - 32px);padding:12px;background:var(--cream);border:2px solid var(--frame);box-shadow:0 4px 0 rgba(43,29,14,.2)}
+.controls .crow,.controls .daynight{border:0;box-shadow:none;padding:0}
+.controls .cbtn{min-height:44px}
+.board{padding:16px 24px 14px;border-width:3px;box-shadow:0 3px 0 var(--frame)}
+.board::after,.board .deco,.hang{display:none}
+.board .bt{font-size:24px;white-space:normal}
+.social .soc{border:1px solid rgba(43,29,14,.4);padding:6px 10px;flex-direction:row;gap:6px}
+button.soc .soc-in{flex-direction:row;gap:6px}
+.social .soc em{white-space:nowrap}
+.social .soc{flex:0 0 auto}
+.social .soc .bico{width:20px;height:20px;flex:0 0 20px;display:block}
+.toolbar{margin:20px 0 8px;gap:12px}
+.tool{flex-direction:row;min-height:44px;padding:8px 12px;gap:8px;border:2px solid var(--frame);box-shadow:0 3px 0 var(--frame)}
+.tool:hover,.tool:focus-visible{box-shadow:0 3px 0 var(--frame);transform:translateY(-1px)}
+.secondary-nav{text-align:center;margin:0 0 24px;font-size:12px}
+.secondary-nav a{display:inline-block;color:inherit;padding:10px 12px;text-underline-offset:4px}
+.panel{border:2px solid var(--frame);box-shadow:0 4px 0 rgba(43,29,14,.15);padding:24px;background:var(--reading-surface);margin-bottom:28px}
+.panel::before{display:none}
+.pt{letter-spacing:0}
+.rcard,.wcard-link{background:var(--reading-muted);border:1px solid var(--frame);box-shadow:none;padding:16px;gap:10px}
+.rcard:hover,.wcard-link:hover{box-shadow:0 3px 0 rgba(43,29,14,.15);transform:translateY(-2px)}
+.rc-d,.wcard-desc{line-height:1.8;opacity:.9}
+.rc-f{padding-top:4px}
+.rfoot{margin-top:16px}
+.museum-more{margin-top:16px;line-height:24px}
+.artpage{max-width:820px;margin:0 auto 32px}
+.arttitle,.gal-title{font-size:24px;line-height:36px;margin:8px 0 16px}
+.artbody{max-width:64ch;margin-inline:auto;line-height:2}
+.artbody h2{font-size:24px;line-height:36px}
+.artbody pre{white-space:pre-wrap;overflow-wrap:anywhere}
+.artbody a{color:var(--ink);text-decoration:underline;text-decoration-color:var(--link-accent);text-underline-offset:4px}
+.artmeta,.museum-status,.museum-note{opacity:.85;line-height:24px}
+.abtn{min-height:44px;align-items:center;box-shadow:none}
+@media(max-width:680px){
+  .bunting{display:none}
+  .board{margin-top:14px;padding:16px 12px}
+  .board .bn{gap:4px}
+  .board .bn>.ic{display:none}
+  .social{gap:6px}
+  .social .soc{padding:6px 8px}
+  .social .pico{width:16px;height:16px}
+  .toolbar{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}
+  .tool{justify-content:center}
+  .tool{padding:8px;gap:4px}
+  .panel{padding:20px 14px;margin-bottom:24px}
+  .rgrid .rcard:nth-child(n+3){display:none}
+  .rgrid{gap:12px}
+  .rcard{padding:12px;gap:6px}
+  .rc-d{display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+  .rfoot{display:none}
+  .museum-item-detail,.museum-item-source{display:none}
+  .museum-item-poster{height:180px;border-width:1px;box-shadow:none}
+  .museum-item-title{line-height:24px;min-height:48px}
+  .museum-item-meta{line-height:24px;opacity:.85}
+  .arttitle{font-size:24px;line-height:36px}
+}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*::before,*::after{animation:none!important;transition:none!important}}
 </style>
 </head>
 <body>
@@ -1426,7 +1490,7 @@ ${controls()}
 <div class="wrap">
   ${bunting()}
   <div class="board" id="board">
-    <span class="tag">${ic('star', 'xs')} 个人博客 ${ic('star', 'xs')}</span>
+
     <div class="bn">${ic('wheat')}<b class="bt">柯西 Alakazam</b>${ic('wheat')}</div>
     ${social()}
     <div class="deco">
@@ -1862,6 +1926,7 @@ try {
   // 相馆子页：数据已在上方由 gallery-data.js 刷新（本机/云端同一条链），
   // 这里只负责把 build/data/gallery.json 排版成 gallery/index.html。
   require('./gallery.js').build();
+  require('./seo.js').apply(path.join(__dirname, '..'));
 } catch (e) {
   console.error('⚠️  子页面生成失败（主页面已正常输出）：' + e.message);
   process.exitCode = 1;
