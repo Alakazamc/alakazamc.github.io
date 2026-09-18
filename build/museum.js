@@ -81,7 +81,7 @@ ${sprite(['mailbox', 'book', 'star', 'crystal', 'basket', 'flower', 'wheat'])}
 <div class="wrap museum-wrap">
   <nav class="abarnav"><a class="abtn" href="../${esc(SITE.home)}#museum">${ic('mailbox', 'sm')}回到农场</a></nav>
   <section class="panel museum-page">
-    <span class="pt">${ic('book', 'xs')}博物馆${ic('crystal', 'xs')}</span>
+    <h2 class="pt">${ic('book', 'xs')}博物馆${ic('crystal', 'xs')}</h2>
     <h1 class="arttitle">馆藏 ${payload.items.length} 件</h1>
     <p class="artmeta"><a class="douban-mark-link" href="https://www.douban.com/people/${esc(String(payload.douban.uid || '211628276'))}/" target="_blank" rel="noopener">去豆瓣打标</a></p>
     <p class="artmeta">豆瓣书影音 ${payload.douban.total || 0} 件 · 小黑盒游戏记录 ${((payload.games.games || []).length)} 条 · 生涯快照 ${summary.gameCount || 0} 款</p>

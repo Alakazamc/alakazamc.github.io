@@ -89,7 +89,7 @@ ${sprite(['chest', 'gem', 'crystal', 'coin', 'key', 'star', 'wheat', 'flower', '
 <div class="wrap museum-wrap">
   <nav class="abarnav"><a class="abtn" href="../${esc(SITE.home)}#projects">${ic('mailbox', 'sm')}回到农场</a></nav>
   <section class="panel museum-page">
-    <span class="pt">${ic('chest', 'xs')}工坊${ic('crystal', 'xs')}</span>
+    <h2 class="pt">${ic('chest', 'xs')}工坊${ic('crystal', 'xs')}</h2>
     <h1 class="arttitle">仓库 ${repos.length} 个</h1>
     <p class="artmeta">主语言 ${langs.length} 种 · ${tot.languages || '—'} 种语言构成 · @${esc(src.user || 'Alakazamc')}${updated ? ' · 最近同步 ' + esc(updated) : ''}</p>
     ${repos.length ? `

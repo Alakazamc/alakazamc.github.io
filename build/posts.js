@@ -58,7 +58,7 @@ function commentsBlock(a, opts) {
   const c = (SITE.comments || {});
   const blockId = o.id || 'comments';
   const title = o.title || '评论';
-  const head = `<span class="pt">${ic('mailbox', 'xs')}${title}${ic('mailbox', 'xs')}</span>`;
+  const head = `<h2 class="pt">${ic('mailbox', 'xs')}${title}${ic('mailbox', 'xs')}</h2>`;
 
   if (c.provider === 'giscus' && c.giscus && c.giscus.repo && c.giscus.repoId) {
     const g = c.giscus;
@@ -138,7 +138,7 @@ ${spriteFor(['mailbox', 'book', 'star', 'wateringcan', 'heart', 'flower', 'wheat
     <a class="abtn" href="index.html">${ic('basket', 'sm')}博客首页</a>
   </nav>
   <article class="panel artpage">
-    <span class="pt">${ic(icon, 'xs')}${SRC_LABEL[a.source] || '文章'}${ic(icon, 'xs')}</span>
+    <h2 class="pt">${ic(icon, 'xs')}${SRC_LABEL[a.source] || '文章'}${ic(icon, 'xs')}</h2>
     ${corners('flower', 'flower', 'wheat', 'wheat')}
     <h1 class="arttitle">${esc(a.title)}</h1>
     <p class="artmeta">${esc(metarow)}</p>
@@ -233,7 +233,7 @@ ${spriteFor(['mailbox', 'basket', 'book', 'wateringcan', 'star', 'wheat', 'flowe
     <a class="abtn" href="../${esc(SITE.home)}">${ic('mailbox', 'sm')}回到农场</a>
   </nav>
   <section class="panel artpage">
-    <span class="pt">${ic('basket', 'xs')}博客${ic('basket', 'xs')}</span>
+    <h2 class="pt">${ic('basket', 'xs')}博客${ic('basket', 'xs')}</h2>
     ${corners('wheat', 'flower', 'flower', 'wheat')}
     <h1 class="arttitle">一共 ${list.length} 篇</h1>
     <p class="artmeta">本站手写 ${siteCount} 篇 · 豆瓣影评 ${doubanCount} 篇 · 按时间倒序</p>
