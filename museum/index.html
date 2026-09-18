@@ -79,7 +79,7 @@
     var shown = list.slice((page - 1) * PAGE_SIZE, page * PAGE_SIZE);
     grid.textContent = '';
     shown.forEach(function(x){
-      var li = el('li','museum-item');
+      var li = el('li','museum-item');li.dataset.kind=x.kind;
       var box = x.url ? el('a','museum-item-link') : el('div','museum-item-link');
       if(x.url){ box.href=x.url; box.target='_blank'; box.rel='noopener'; }
       var poster = el('span','museum-item-poster');

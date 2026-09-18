@@ -1014,7 +1014,7 @@ html{scroll-behavior:smooth}
 .rc-t{margin-left:auto;font-variant-numeric:tabular-nums}
 .rfoot{display:flex;align-items:center;justify-content:center;gap:7px;margin-top:9px;font-size:12px;opacity:.72}
 
-/* 博物馆游戏展品：所有封面固定为同一尺寸，时长只作为文字信息，不再改变卡片大小。 */
+/* 游戏卡片等宽，封面保留原图比例，不加留边、边框或裁切。 */
 .gbar{display:flex;height:16px;border:2px solid var(--wood-c);overflow:hidden;margin-bottom:7px}
 .gbar i{display:block}
 .glegend{display:flex;flex-wrap:wrap;gap:5px 12px;margin-bottom:10px;font-size:12px;opacity:.78}
@@ -1023,9 +1023,8 @@ html{scroll-behavior:smooth}
 .glegend b{font-weight:500}
 .gshelf{list-style:none;margin:0;padding:3px 2px 11px;display:flex;flex-wrap:wrap;gap:10px;align-items:flex-start}
 .gt{flex:none;width:140px;display:flex;flex-direction:column;gap:3px}
-.gt-i{position:relative;display:block;aspect-ratio:16/9;overflow:hidden;border:2px solid var(--ink);
-  box-shadow:0 3px 0 rgba(59,36,18,.28);background:var(--cream-3)}
-.gt-i img{width:100%;height:100%;object-fit:cover;display:block}
+.gt-i{position:relative;display:block;overflow:hidden;border:0;box-shadow:none;background:transparent}
+.gt-i img{width:100%;height:auto;display:block}
 .gt-blank{display:flex;align-items:center;justify-content:center;width:100%;height:100%;opacity:.45}
 .gt-p{position:absolute;left:0;bottom:0;font-style:normal;font-size:12px;line-height:1.15;
   padding:1px 4px;color:#fff;letter-spacing:.2px}
@@ -1442,6 +1441,9 @@ button.soc .soc-in{flex-direction:row;gap:6px}
   .arttitle{font-size:24px;line-height:36px}
 }
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*::before,*::after{animation:none!important;transition:none!important}}
+.museum-item[data-kind="game"] .museum-item-poster{height:auto;aspect-ratio:auto;display:block;flex:none;border:0;box-shadow:none;background:transparent;overflow:visible}
+.museum-item[data-kind="game"] .museum-item-poster img{width:100%;height:auto;display:block}
+.museum-item[data-kind="game"] a.museum-item-link:hover .museum-item-poster{transform:none;box-shadow:none}
 ${FARM.css}
 </style>
 </head>
