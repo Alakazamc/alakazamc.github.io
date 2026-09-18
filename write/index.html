@@ -146,6 +146,7 @@
 body{height:auto;min-height:100dvh;overflow:visible}header{flex-wrap:wrap;gap:8px;padding:12px}header h1{font-size:24px}header .sp{display:none}
 main{display:block}.pane+.pane{border-left:0;border-top:2px solid var(--ink)}.pane-b{overflow:visible}#body{min-height:50dvh}.bar{position:sticky;bottom:0;z-index:10;padding:8px}.hint{width:100%;overflow-wrap:anywhere}#preview{padding:16px}#login{padding:12px}#login.on{align-items:flex-start}.card{padding:16px}.card code{overflow-wrap:anywhere}.meta{grid-template-columns:48px minmax(0,1fr);gap:8px}.coverbox{flex-wrap:wrap}.coverbox input{flex-basis:100%}.gfield input[type=text]{min-width:0;width:100%;flex-basis:100%}.posts{max-width:calc(100vw - 24px);min-width:0}button{min-height:44px}
 }
+.sync-tools{padding:8px 16px;background:var(--cream,#fff8e8);color:var(--ink,#3b2412);font-size:12px;line-height:24px;border-bottom:1px solid #b69872}.sync-tools summary{cursor:pointer}.sync-tools p{margin:8px 0}.sync-tools button{min-height:40px}.sync-tools [role=status]{white-space:pre-line}
 </style>
 </head>
 <body>
@@ -162,7 +163,7 @@ main{display:block}.pane+.pane{border-left:0;border-top:2px solid var(--ink)}.pa
   <div class="posts" id="postsList"></div>
   <button id="btnSave">存草稿</button>
   <button class="primary" id="btnPub">发布上线</button>
-</header>
+</header><details class="sync-tools"><summary>收藏同步</summary><p>书影音和游戏每天自动更新，也可以立即同步。</p><p id="syncSources">正在读取上次同步时间…</p><button type="button" id="btnSyncSources">立即同步收藏</button><p id="syncResult" role="status" aria-live="polite"></p></details>
 
 <main id="main">
   <div class="pane">
@@ -1304,6 +1305,36 @@ if(CLOUD){
 }
 // 初始为「写文章」模式（相馆区默认隐藏）
 setGalleryMode(false);
+
+/* External snapshots: request through Contents, using the same repository permission. */
+var sourceSyncBusy=false;
+function displaySourceSync(state){
+  var labels={douban:'书影音',games:'游戏'};
+  $('syncSources').textContent=Object.keys(labels).map(function(k){var x=(state.sources||{})[k]||{};return labels[k]+'：'+(x.lastSuccess?'上次成功 '+new Date(x.lastSuccess).toLocaleString('zh-CN',{hour12:false}):'尚无成功记录')+(x.status==='failed'?'（本次失败，保留旧数据）':x.status==='unavailable'?'（同步服务未配置）':'');}).join('；');
+}
+async function readSourceSync(){var x=await gh('/repos/'+REPO+'/contents/build/data/external-sync.json?ref='+BRANCH);return JSON.parse(b64dec(x.content));}
+async function syncSources(){
+ if(sourceSyncBusy)return;
+ if(!getToken()){showLogin(true);$('syncResult').textContent='先连接写作台，再同步收藏。';return;}
+ sourceSyncBusy=true;$('btnSyncSources').disabled=true;$('syncResult').textContent='正在提交同步请求…';
+ try{
+   var url='/repos/'+REPO+'/contents/content/sync-request.json',old=null;
+   try{old=await gh(url+'?ref='+BRANCH)}catch(e){if(e.status!==404)throw e;}
+   var id=crypto.randomUUID(),body={message:'请求更新书影音和游戏收藏',branch:BRANCH,content:b64enc(JSON.stringify({id:id,requestedAt:new Date().toISOString()},null,2))};if(old)body.sha=old.sha;
+   var saved=await gh(url,{method:'PUT',body:JSON.stringify(body)});
+   $('syncResult').textContent='请求已保存，云端正在读取收藏；可稍后回来看结果。';
+   var result=await watchBuild(saved.commit.sha);
+   if(!result.ok){$('syncResult').textContent=result.timeout?'同步仍在进行或尚未确认，请稍后查看上次成功时间。':'本次云端构建失败，已有收藏保留，可重试。';return;}
+   var state=await readSourceSync();displaySourceSync(state);
+   if(state.handledRequest!==id){$('syncResult').textContent='已有更新的同步请求，结果以最近一次同步为准。';return;}
+   var failed=Object.values(state.sources||{}).some(x=>x.status!=='success');
+   $('syncResult').textContent=failed?'同步已结束，部分来源没有更新成功，已保留其上次数据。':'收藏已同步并完成构建，网站部署后即可看到新内容。';
+ }catch(e){$('syncResult').textContent=e.status===409?'有新的同步请求，请稍后重试。':'同步未能完成，已有收藏保留；可检查连接后重试。';}
+ finally{sourceSyncBusy=false;$('btnSyncSources').disabled=false;}
+}
+$('btnSyncSources').onclick=syncSources;
+fetch('../build/data/external-sync.json?t='+Date.now(),{cache:'no-store'}).then(r=>{if(!r.ok)throw Error('Unavailable');return r.json()}).then(displaySourceSync).catch(()=>{$('syncSources').textContent='暂时无法读取同步时间，已有收藏不受影响。'});
+
 </script>
 </body>
 </html>

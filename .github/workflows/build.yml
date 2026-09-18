@@ -47,6 +47,7 @@ jobs:
           # 用 env 传而不是直接拼进 shell —— commit message 里可能有引号、
           # 美元符号或换行，直接拼进命令行会被 shell 解析（也可能被注入）。
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          SOURCE_ADAPTER_BUNDLE: ${{ secrets.SOURCE_ADAPTER_BUNDLE }}
           REFRESH_DATA: ${{ github.event_name == 'schedule' || github.event_name == 'workflow_dispatch' }}
           COMMIT_MSG: ${{ github.event.head_commit.message }}
         run: |
@@ -61,6 +62,7 @@ jobs:
             if [ "$REFRESH_DATA" = "true" ]; then
               node build/refresh-github.js || echo "::warning::GitHub 更新失败，保留上次数据"
             fi
+            node build/refresh-library.js || echo "::warning::收藏同步失败，保留上次数据"
             node build/gen.js
             git add -A
             if git diff --staged --quiet; then

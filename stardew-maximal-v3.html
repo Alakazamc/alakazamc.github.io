@@ -846,9 +846,13 @@ button.soc .soc-in{flex-direction:row;gap:6px}
   .arttitle{font-size:24px;line-height:36px}
 }
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*::before,*::after{animation:none!important;transition:none!important}}
-.museum-item[data-kind="game"] .museum-item-poster{height:auto;aspect-ratio:auto;display:block;flex:none;border:0;box-shadow:none;background:transparent;overflow:visible}
-.museum-item[data-kind="game"] .museum-item-poster img{width:100%;height:auto;display:block}
-.museum-item[data-kind="game"] a.museum-item-link:hover .museum-item-poster{transform:none;box-shadow:none}
+.museum-item .museum-item-poster{height:auto;aspect-ratio:auto;display:block;flex:none;border:0;box-shadow:none;background:transparent;overflow:visible}
+.museum-item .museum-item-poster img{width:100%;height:auto;display:block}
+.museum-item a.museum-item-link:hover .museum-item-poster{transform:none;box-shadow:none}
+.exc .poster{height:auto;display:block;border:0;box-shadow:none;background:transparent;overflow:visible}
+.exc .poster img{width:100%;height:auto;max-height:none;display:block}
+.exc > a:hover .poster{box-shadow:none}
+.douban-mark-link{font-size:12px;font-weight:normal;line-height:24px;margin-left:auto;color:var(--ink);text-underline-offset:4px;white-space:nowrap}
 
 /* Farm modules: preserve pixel palette; restrained motion, readable content. */
 #calendar,#ledger,.harvest-page{font-size:12px;line-height:24px}
@@ -1143,7 +1147,7 @@ html[data-farm-pet="off"] .farm-pet,html[data-farm-scenery="off"] .season-scener
   <span class="pt"><svg class="ic xs" viewBox="0 0 16 16"><use href="#px-gift"></use></svg>博物馆<svg class="ic xs" viewBox="0 0 16 16"><use href="#px-gift"></use></svg></span>
   <span class="cor tl"><svg class="ic sm" viewBox="0 0 16 16"><use href="#px-book"></use></svg></span><span class="cor tr"><svg class="ic sm" viewBox="0 0 16 16"><use href="#px-gem"></use></svg></span><span class="cor bl"><svg class="ic sm" viewBox="0 0 16 16"><use href="#px-crystal"></use></svg></span><span class="cor br"><svg class="ic sm" viewBox="0 0 16 16"><use href="#px-star"></use></svg></span>
   <section class="museum-zone douban-zone">
-         <h3 class="museum-zone-title"><svg class="ic sm" viewBox="0 0 16 16"><use href="#px-book"></use></svg>书影音展览</h3>
+         <h3 class="museum-zone-title"><svg class="ic sm" viewBox="0 0 16 16"><use href="#px-book"></use></svg>书影音展览<a class="douban-mark-link" href="https://www.douban.com/people/211628276/" target="_blank" rel="noopener">去豆瓣打标</a></h3>
          <div class="shelf-bar"><button class="shelf-tab on" data-filter-kind="all" aria-pressed="true"><em>全部</em><i>370</i></button><button class="shelf-tab" data-filter-kind="movie" aria-pressed="false"><em>影</em><i>287</i></button><button class="shelf-tab" data-filter-kind="book" aria-pressed="false"><em>书</em><i>44</i></button><button class="shelf-tab" data-filter-kind="music" aria-pressed="false"><em>音</em><i>37</i></button><button class="shelf-tab" data-filter-kind="game" aria-pressed="false"><em>游</em><i>2</i></button></div>
          <ul class="shelf">
       <li class="exc" data-kind="movie">

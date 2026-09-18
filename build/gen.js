@@ -539,7 +539,7 @@ const museum = () => {
 
   const inner = items.length
     ? `<section class="museum-zone douban-zone">
-         <h3 class="museum-zone-title">${ic('book', 'sm')}书影音展览</h3>
+         <h3 class="museum-zone-title">${ic('book', 'sm')}书影音展览<a class="douban-mark-link" href="https://www.douban.com/people/${md.esc(String(src.uid || '211628276'))}/" target="_blank" rel="noopener">去豆瓣打标</a></h3>
          <div class="shelf-bar">${tabs}</div>
          <ul class="shelf">${items.map(card).join('')}</ul>
          <p class="shelf-status" aria-live="polite">展示最近 ${Math.min(allItems.length, SHELF_SHOW)} 件 · 完整馆藏见下方入口</p>
@@ -548,7 +548,7 @@ const museum = () => {
        </section>
        ${gamesExhibit()}`
     : `<section class="museum-zone douban-zone">
-         <h3 class="museum-zone-title">${ic('book', 'sm')}书影音展览</h3>
+         <h3 class="museum-zone-title">${ic('book', 'sm')}书影音展览<a class="douban-mark-link" href="https://www.douban.com/people/${md.esc(String(src.uid || '211628276'))}/" target="_blank" rel="noopener">去豆瓣打标</a></h3>
          <div class="shelf-bar">${tabs}</div>
          <ul class="shelf">${blank(8)}</ul>
          <div class="shelf-foot">${ic('book', 'sm')}${slot('meta', '120px', '9px')}${ic('star', 'sm')}</div>
@@ -1441,9 +1441,13 @@ button.soc .soc-in{flex-direction:row;gap:6px}
   .arttitle{font-size:24px;line-height:36px}
 }
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*::before,*::after{animation:none!important;transition:none!important}}
-.museum-item[data-kind="game"] .museum-item-poster{height:auto;aspect-ratio:auto;display:block;flex:none;border:0;box-shadow:none;background:transparent;overflow:visible}
-.museum-item[data-kind="game"] .museum-item-poster img{width:100%;height:auto;display:block}
-.museum-item[data-kind="game"] a.museum-item-link:hover .museum-item-poster{transform:none;box-shadow:none}
+.museum-item .museum-item-poster{height:auto;aspect-ratio:auto;display:block;flex:none;border:0;box-shadow:none;background:transparent;overflow:visible}
+.museum-item .museum-item-poster img{width:100%;height:auto;display:block}
+.museum-item a.museum-item-link:hover .museum-item-poster{transform:none;box-shadow:none}
+.exc .poster{height:auto;display:block;border:0;box-shadow:none;background:transparent;overflow:visible}
+.exc .poster img{width:100%;height:auto;max-height:none;display:block}
+.exc > a:hover .poster{box-shadow:none}
+.douban-mark-link{font-size:12px;font-weight:normal;line-height:24px;margin-left:auto;color:var(--ink);text-underline-offset:4px;white-space:nowrap}
 ${FARM.css}
 </style>
 </head>
