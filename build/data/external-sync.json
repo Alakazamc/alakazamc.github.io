@@ -1,14 +1,16 @@
 {
   "sources": {
     "douban": {
-      "status": "snapshot",
-      "lastSuccess": "2026-09-15T16:00:08.037Z",
+      "status": "success",
+      "lastSuccess": "2026-09-18T14:32:44.475Z",
       "count": 370
     },
     "games": {
-      "status": "snapshot",
-      "lastSuccess": "2026-09-18T12:11:05.506Z",
+      "status": "success",
+      "lastSuccess": "2026-09-18T14:32:44.475Z",
       "count": 294
     }
-  }
+  },
+  "attemptedAt": "2026-09-18T14:32:44.475Z",
+  "handledRequest": "initial-6e878a24-cbc7-431b-914f-7cb1157cb059"
 }
