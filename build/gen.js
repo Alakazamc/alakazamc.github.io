@@ -149,7 +149,7 @@ const SHELF_KIND = [
   { k: 'movie', cn: '影' },
   { k: 'book', cn: '书' },
   { k: 'music', cn: '音乐' },
-  { k: 'game', cn: '游' }
+  { k: 'game', cn: '游戏' }
 ];
 
 // 豆瓣给的封面主色是两个坑：
@@ -230,7 +230,7 @@ const toolbar = () => {
   const mail = ACCOUNTS.find((a) => a.k === 'mail');
   const mailBtn = `<button type="button" class="tool copyable" data-copy="${md.esc(mail.copy)}" title="点击显示邮箱">${ic('mailbox')}<em>邮箱</em></button>`;
   return `<nav class="toolbar" aria-label="主页导航">${items.map(([n, t, h]) =>
-    `<a class="tool" href="${h}">${ic(n)}<em>${t}</em></a>`).join('')}</nav><details class="secondary-nav"><summary>更多分区</summary><a href="#basket">游戏</a><a href="#calendar">日历</a><a href="#ledger">收获簿</a><a href="#music">唱片机</a><a href="#skills">专精</a><a href="#farm">农场一角</a></details>`;
+    `<a class="tool" href="${h}">${ic(n)}<em>${t}</em></a>`).join('')}</nav><details class="secondary-nav"><summary>更多分区</summary><a href="#calendar">日历</a><a href="#ledger">收获簿</a><a href="#music">唱片机</a><a href="#skills">专精</a><a href="#farm">农场一角</a></details>`;
 };
 
 // ---------- 主体 ----------
@@ -377,63 +377,6 @@ const galleryPanel = () => {
     DC.shelf(), 'gallery');
 };
 
-// ---------- 博物馆里的游戏藏品 ----------
-// 数据来自 build/sources/heybox.js。小黑盒把 Steam / PSN / Xbox / Switch / Epic
-// 聚合成一份；但 game_wall 服务端只给按时长排序的 20 款，所以这里如实写“20 款”。
-// 游戏不再独占一个面板，而是作为博物馆的第二个展区；#basket 锚点保留，旧导航不失效。
-const gamesExhibit = () => {
-  const src = GAMES;
-  const allGames = (src && src.games) || [];
-  const list = allGames.slice(0, 20);
-
-  const tile = (g) => {
-    const p = PLATFORM[g.platform] || { cn: g.platform || '其他', c: '#8A8A8A' };
-    const tip = `${g.name} · ${g.hours} 小时` + (g.cleared ? ' · 全成就' : '');
-    return `
-      <li class="gt" title="${tip.replace(/"/g, '&quot;')}">
-        <span class="gt-i">
-          ${g.cover
-        ? `<img src="assets/games/${g.cover}" alt="" loading="lazy">`
-        : `<span class="gt-blank">${ic('crystal')}</span>`}
-          <i class="gt-p" style="background:${p.c}">${md.esc(p.cn)}</i>
-          ${g.cleared ? `<b class="gt-c">${ic('star', 'xs')}</b>` : ''}
-        </span>
-        <b class="gt-n">${md.esc(g.name)}</b>
-        <em class="gt-h">${g.hours} h</em>
-      </li>`;
-  };
-
-  const blank = (n) => Array.from({ length: n }, () => `
-      <li class="gt">
-        <span class="gt-i"><span class="gt-blank">${ic('crystal')}</span></span>
-        ${slot('title', '78%', '12px')}${slot('meta', '44%', '11px')}
-      </li>`).join('');
-
-  const plats = (src && src.platforms) || [];
-  const ptot = plats.reduce((a, b) => a + b.hours, 0) || 1;
-  const bar = plats.length
-    ? `<div class="gbar">${plats.map((p) =>
-      `<i style="flex:${(p.hours / ptot).toFixed(4)};background:${p.color}" ` +
-      `title="${p.label} ${p.hours} 小时"></i>`).join('')}</div>
-       <div class="glegend">${plats.slice(0, 5).map((p) =>
-      `<span><i style="background:${p.color}"></i>${p.label} <b>${Math.round(p.hours)}h</b></span>`).join('')}</div>`
-    : '';
-
-  const s = (src && src.summary) || {};
-  const foot = list.length
-    ? `<div class="gfoot">${ic('crystal', 'sm')}<span class="sfx">生涯 ${s.playHours} h</span>` +
-    `${ic('basket', 'sm')}<span class="sfx">${s.gameCount} 款</span>` +
-    `${ic('coin', 'sm')}<span class="sfx">价值 ¥${s.value}</span>` +
-    `${ic('star', 'sm')}<span class="sfx">首页展出 ${list.length} 条 · 已读取 ${allGames.length} 条</span></div>`
-    : '';
-
-  return `<section class="museum-zone game-zone" id="basket">
-    <h3 class="museum-zone-title">${ic('crystal', 'sm')}游戏藏品</h3>
-    ${bar}<ul class="gshelf">${list.length ? list.map(tile).join('') : blank(8)}</ul>${foot}
-    <div class="museum-more"><a href="museum/index.html?kind=game">查看全部游戏记录 · 按平台筛选</a></div>
-  </section>`;
-};
-
 // ---------- 侧栏 ----------
 
 const seasonPanel = () => panel('季节日历', ['sunflower', 'tulip', 'flower', 'mushroom', 'sun'], FARM.calendar() + DC.shelf(), 'calendar');
@@ -496,8 +439,13 @@ const farmPanel = () => panel('农场一角', ['flower', 'flower', 'wheat', 'whe
 // 3. 没有数据时（data/douban.json 不存在）渲染占位卡片，布局不变。
 const museum = () => {
   const src = DOUBAN;
-  const albumItems = ALBUMS.items.map(x => ({ ...x, kind: 'music', image: x.cover + '?param=200y200', verb: '网易云收藏' }));
-  const allItems = albumItems.concat((src && src.items || []).filter((x) => x.cover));
+  const albumItems = ALBUMS.items.map(x => ({ ...x, kind: 'music', image: x.cover + '?param=200y200', source: '网易云收藏' }));
+  const gameItems = (GAMES.games || []).map(x => ({
+    kind: 'game', title: x.name, image: x.cover ? 'assets/games/' + x.cover : '',
+    url: 'museum/index.html?kind=game', source: x.platformLabel || PLATFORM[x.platform]?.cn || x.platform,
+    meta: [x.hours != null ? x.hours + ' 小时' : '', x.cleared ? '全成就' : '', x.notOwned ? '非当前拥有' : ''].filter(Boolean).join(' · ')
+  }));
+  const allItems = albumItems.concat(gameItems, (src && src.items || []).filter((x) => x.cover));
   const chosen = new Set(allItems.slice(0, SHELF_SHOW));
   SHELF_KIND.filter(t => t.k !== 'all').forEach(t => {
     allItems.filter(x => x.kind === t.k).slice(0, SHELF_SHOW).forEach(x => chosen.add(x));
@@ -506,19 +454,18 @@ const museum = () => {
   const initiallyVisible = new Set(allItems.slice(0, SHELF_SHOW));
 
   const card = (it) => {
+    const image = it.image || (it.cover ? 'assets/covers/' + it.cover : '');
     const c = rgb2hex(vivid(it.color || [0.55, 0.45, 0.35]));
     const stars = it.myRating
       ? '★'.repeat(it.myRating) + '☆'.repeat(5 - it.myRating) : '';
     return `
       <li class="exc" data-kind="${it.kind}"${initiallyVisible.has(it) ? '' : ' hidden'}>
         <a href="${md.esc(it.url)}" target="_blank" rel="noopener" title="${md.esc(it.comment || it.title)}">
-          <span class="poster" style="--pc:${c}">
-            <img src="${md.esc(it.image || 'assets/covers/' + it.cover)}" alt="${md.esc(it.title)}" loading="lazy" referrerpolicy="no-referrer">
-          </span>
+          ${image ? `<span class="poster" style="--pc:${c}"><img src="${md.esc(image)}" alt="${md.esc(it.title)}" loading="lazy" referrerpolicy="no-referrer"></span>` : ''}
           <span class="tx">
             <b class="t">${md.esc(it.title)}</b>
-            <i class="m">${md.esc(it.artist || (it.verb + ' · ' + (it.date || '—')))}</i>
-            ${it.image ? '<i class="m">网易云收藏</i>' : ''}
+            <i class="m">${md.esc(it.artist || it.meta || (it.verb ? it.verb + ' · ' + (it.date || '—') : ''))}</i>
+            ${it.source ? '<i class="m">' + md.esc(it.source) + '</i>' : ''}
             <span class="st">${stars}</span>
           </span>
         </a>
@@ -542,28 +489,26 @@ const museum = () => {
   // 底部这行是**状态**不是标语：写清楚收录了多少件、数据什么时候更新过，
   // 以及这批数据属于哪个豆瓣号 —— 抓取脚本的号一旦和页面对不上，
   // 这行会直接把矛盾暴露出来（曾经抓到过别人的账号，靠这个才发现）。
-  const updated = [src.updatedAt, ALBUMS.updatedAt].filter(Boolean).sort().pop()?.slice(0, 10).replace(/-/g, '.') || '';
-  const foot = ` ${ic('book', 'sm')}<span class="sfx">已收录 ${allItems.length} 件 · 豆瓣 ${src.total || 0} · 网易云 ${ALBUMS.items.length}</span>` +
+  const updated = [src.updatedAt, ALBUMS.updatedAt, GAMES.libraryUpdatedAt].filter(Boolean).sort().pop()?.slice(0, 10).replace(/-/g, '.') || '';
+  const foot = ` ${ic('book', 'sm')}<span class="sfx">已收录 ${allItems.length} 件 · 豆瓣 ${src.total || 0} · 网易云 ${ALBUMS.items.length} · 游戏 ${gameItems.length}</span>` +
     `${ic('star', 'sm')}<span class="sfx">更新 ${updated || '—'}</span>` +
     (src && src.uid ? `${ic('key', 'sm')}<span class="sfx">豆瓣 @${src.uid}</span>` : '');
 
   const inner = items.length
     ? `<section class="museum-zone douban-zone">
-         <h3 class="museum-zone-title">${ic('book', 'sm')}书影音展览<a class="douban-mark-link" href="https://www.douban.com/people/${md.esc(String(src.uid || '211628276'))}/" target="_blank" rel="noopener">去豆瓣打标</a></h3>
+         <h3 class="museum-zone-title">${ic('book', 'sm')}收藏展览<a class="douban-mark-link" href="https://www.douban.com/people/${md.esc(String(src.uid || '211628276'))}/" target="_blank" rel="noopener">去豆瓣打标</a></h3>
          <div class="shelf-bar">${tabs}</div>
          <ul class="shelf">${items.map(card).join('')}</ul>
          <p class="shelf-status" aria-live="polite">展示 ${Math.min(allItems.length, SHELF_SHOW)} 件 · 完整馆藏见下方入口</p>
          <div class="shelf-foot">${foot}</div>
-         <div class="museum-more">${ic('book', 'sm')}<a href="museum/index.html">查看全部馆藏 · 可分类翻页</a>${ic('crystal', 'sm')}</div>
-       </section>
-       ${gamesExhibit()}`
+         <div class="museum-more">${ic('book', 'sm')}<a data-museum-more href="museum/index.html">查看全部馆藏 · 可分类翻页</a>${ic('crystal', 'sm')}</div>
+       </section>`
     : `<section class="museum-zone douban-zone">
-         <h3 class="museum-zone-title">${ic('book', 'sm')}书影音展览<a class="douban-mark-link" href="https://www.douban.com/people/${md.esc(String(src.uid || '211628276'))}/" target="_blank" rel="noopener">去豆瓣打标</a></h3>
+         <h3 class="museum-zone-title">${ic('book', 'sm')}收藏展览<a class="douban-mark-link" href="https://www.douban.com/people/${md.esc(String(src.uid || '211628276'))}/" target="_blank" rel="noopener">去豆瓣打标</a></h3>
          <div class="shelf-bar">${tabs}</div>
          <ul class="shelf">${blank(8)}</ul>
          <div class="shelf-foot">${ic('book', 'sm')}${slot('meta', '120px', '9px')}${ic('star', 'sm')}</div>
-       </section>
-       ${gamesExhibit()}`;
+       </section>`;
 
   return panel('博物馆', ['book', 'gem', 'crystal', 'star', 'gift'], inner + DC.shelf(), 'museum');
 };
@@ -904,7 +849,7 @@ button.tool{cursor:pointer;font:inherit;background:var(--cream);appearance:none}
 button.tool::-moz-focus-inner{border:0}
 
 /* 导航落点：面板本身有 4px 边框 + 外发光，直接滚到顶会被顶部切掉一截 */
-#timeline,#projects,#gallery,#basket,#calendar,#skills,#ledger,#farm{scroll-margin-top:24px}
+#timeline,#projects,#gallery,#calendar,#skills,#ledger,#farm{scroll-margin-top:24px}
 html{scroll-behavior:smooth}
 @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
 
@@ -1147,7 +1092,7 @@ html{scroll-behavior:smooth}
 .mrow{display:flex;align-items:center;gap:7px;background:var(--cream-2);border:2px solid var(--wood-c);padding:5px 8px}
 .mrow.foot{margin-top:2px}
 
-/* ===== 博物馆（豆瓣书影音展览列） =====
+/* ===== 博物馆（豆瓣收藏展览列） =====
    横向滚动的一排展品卡。封面是真实图片（2:3 / 方 / 各种比例都有），
    所以统一走 object-fit:contain 一张都别裁；露出来的地方用这条作品自己的主色垫底。
    横向滚动 + scroll-snap 是这里的正确解法 —— 一排 36 张卡塞进网格会把主栏高度撑爆。 */
@@ -1702,11 +1647,20 @@ ${buildSprite()}
       });
       var status = document.querySelector('#museum .shelf-status');
       if (status) status.textContent = '展示 ' + shown + ' 件 · 完整馆藏见下方入口';
+      var more = document.querySelector('[data-museum-more]');
+      if (more) {
+        more.href = 'museum/index.html' + (k === 'all' ? '' : '?kind=' + k);
+        more.textContent = k === 'game' ? '查看全部游戏 · 按平台筛选' : '查看全部馆藏 · 可分类翻页';
+      }
       // 筛完可能只剩几张，把滚动位置拉回开头，否则停在空白是中间
       var shelf = document.querySelector('#museum .shelf');
       if (shelf) shelf.scrollLeft = 0;
     });
   });
+  if (location.hash === '#basket') {
+    document.querySelector('[data-filter-kind="game"]').click();
+    document.getElementById('museum').scrollIntoView();
+  }
   var dn = document.querySelector('[data-toggle-time]');
   dn.addEventListener('click',function(){manualTime=true;applyTime(root.dataset.time==='night'?'day':'night');updateCalendar();});
 

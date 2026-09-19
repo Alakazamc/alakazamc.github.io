@@ -63,7 +63,7 @@ function page(payload) {
   const tabs = [
     ['all', '全部', payload.items.length], ['book', '书', counts.book || 0],
     ['movie', '影', counts.movie || 0], ['music', '音乐', counts.music || 0],
-    ['game', '游', counts.game || 0]
+    ['game', '游戏', counts.game || 0]
   ];
   const updated = [payload.douban.updatedAt, payload.games.updatedAt, payload.games.libraryUpdatedAt, payload.albums.updatedAt].filter(Boolean).sort().pop();
   const summary = payload.games.summary || {};
