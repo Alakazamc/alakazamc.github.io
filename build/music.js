@@ -10,19 +10,26 @@ function rows(tracks) {
 
 function render() {
   const data = JSON.parse(fs.readFileSync(path.join(__dirname, 'data/netease.json'), 'utf8'));
+  const albumPath = path.join(__dirname, '../content/netease-albums.json');
+  if (fs.existsSync(albumPath)) {
+    const collection = JSON.parse(fs.readFileSync(albumPath, 'utf8'));
+    data.albums = collection.items.map((album, index) => ({ ...album, rank: index + 1 }));
+    data.albumsUpdatedAt = collection.updatedAt;
+  }
+  const periods = data.albums ? { ...labels, albums: '专辑收藏' } : labels;
   const first = data.week[0];
-  return `<div class="music-tabs" role="group" aria-label="听歌排行时段">${Object.entries(labels).map(([key, label]) => `<button type="button" data-music-period="${key}" aria-pressed="${key === 'week'}">${label}</button>`).join('')}</div>
+  return `<div class="music-tabs" role="group" aria-label="音乐收藏与排行">${Object.entries(periods).map(([key, label]) => `<button type="button" data-music-period="${key}" aria-pressed="${key === 'week'}">${label}</button>`).join('')}</div>
   <div class="record-player" aria-hidden="true"><div class="record-deck"><div class="record-disc"><img class="record-label" ${first ? 'src="' + esc(first.cover + '?param=96y96') + '"' : ''} width="48" height="48" alt="" referrerpolicy="no-referrer" ${first ? '' : 'hidden'}></div><i class="record-arm"></i><i class="record-light"></i></div><div class="record-speaker"></div></div>
   <p class="music-selection"><span data-music-heading>本周听歌排行</span><a class="music-listen" href="${first ? esc(first.url) : 'https://music.163.com/#/user/home?id=' + data.uid}" target="_blank" rel="noopener noreferrer">去网易云听 ↗</a></p>
   <ol class="music-list">${rows(data.week.slice(0, 5))}</ol><p class="music-empty" ${data.week.length ? 'hidden' : ''}>这段时间还没有听歌记录。</p>
   <div class="music-pager"><button type="button" data-music-prev aria-label="上一页听歌排行" disabled>上一页</button><span data-music-page role="status" aria-live="polite">${data.week.length ? '1–' + Math.min(5, data.week.length) : '0'} / ${data.week.length}</span><button type="button" data-music-next aria-label="下一页听歌排行" ${data.week.length <= 5 ? 'disabled' : ''}>下一页</button></div>
-  <p class="music-source"><a href="https://music.163.com/#/user/home?id=${data.uid}" target="_blank" rel="noopener noreferrer">网易云 · Alakazam__ ↗</a><span>更新 <time datetime="${esc(data.updatedAt)}">${esc(data.updatedAt.slice(0, 10))}</time></span></p>
+  <p class="music-source"><a href="https://music.163.com/#/user/home?id=${data.uid}" target="_blank" rel="noopener noreferrer">网易云 · Alakazam__ ↗</a><span>更新 <time data-music-updated datetime="${esc(data.updatedAt)}">${esc(data.updatedAt.slice(0, 10))}</time></span></p>
   <script id="music-data" type="application/json">${safeJSON(data)}</script>`;
 }
 
 const css = `
 #music{scroll-margin-top:24px;font-size:12px;line-height:24px}
-.music-tabs{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:16px}
+.music-tabs{display:grid;grid-template-columns:repeat(auto-fit,minmax(64px,1fr));gap:8px;margin-bottom:16px}
 #music button{font:inherit;line-height:24px;color:var(--ink);background:var(--cream-2);border:1px solid var(--timber-light);padding:4px 8px;cursor:pointer}
 #music button[aria-pressed="true"]{background:var(--ink);color:var(--cream);border-color:var(--ink)}
 #music button:disabled{opacity:.4;cursor:default}#music button:active:not(:disabled){transform:translateY(2px)}
@@ -49,7 +56,7 @@ html[data-time="night"] .record-light{background:#efca6a;box-shadow:0 0 8px #efc
 const script = `(function(){
 const root=document.getElementById('music'), data=JSON.parse(document.getElementById('music-data').textContent);
 const list=root.querySelector('.music-list'), previous=root.querySelector('[data-music-prev]'), next=root.querySelector('[data-music-next]');
-let period='week',page=0;
+let period=new URLSearchParams(location.search).get('music')==='albums'&&data.albums?'albums':'week',page=0;
 function show(){
  const tracks=data[period],start=page*5,visible=tracks.slice(start,start+5);
  list.replaceChildren();
@@ -60,11 +67,13 @@ function show(){
   copy.append(title,artist);a.append(rank,copy);li.append(a);list.append(li);
  });
  root.querySelectorAll('[data-music-period]').forEach(button=>button.setAttribute('aria-pressed',String(button.dataset.musicPeriod===period)));
- root.querySelector('[data-music-heading]').textContent=(period==='week'?'本周':'所有时间')+'听歌排行';
+ root.querySelector('[data-music-heading]').textContent=period==='albums'?'专辑收藏':(period==='week'?'本周':'所有时间')+'听歌排行';
  root.querySelector('[data-music-page]').textContent=(tracks.length?(start+1)+'–'+Math.min(start+5,tracks.length):'0')+' / '+tracks.length;
  root.querySelector('.music-empty').hidden=tracks.length>0;
+ root.querySelector('.music-empty').textContent=period==='albums'?'还没有收藏专辑。':'这段时间还没有听歌记录。';
+ const updated=period==='albums'?data.albumsUpdatedAt:data.updatedAt,time=root.querySelector('[data-music-updated]');time.dateTime=updated;time.textContent=updated.slice(0,10);
  previous.disabled=page===0;next.disabled=start+5>=tracks.length;
- const cover=root.querySelector('.record-label'),link=root.querySelector('.music-listen');cover.hidden=!visible.length;
+ const cover=root.querySelector('.record-label'),link=root.querySelector('.music-listen');cover.hidden=!visible.length;link.textContent=period==='albums'?'去网易云看 ↗':'去网易云听 ↗';
  if(visible.length){cover.src=visible[0].cover+'?param=96y96';link.href=visible[0].url;link.title=visible[0].title;}else{cover.removeAttribute('src');link.href='https://music.163.com/#/user/home?id='+data.uid;link.removeAttribute('title');}
 }
 root.querySelectorAll('[data-music-period]').forEach(button=>button.addEventListener('click',()=>{period=button.dataset.musicPeriod;page=0;show();}));
