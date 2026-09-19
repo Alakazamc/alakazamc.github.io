@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "uid": "32133355",
-  "updatedAt": "2026-09-18T14:33:51.049Z",
+  "updatedAt": "2026-09-19T00:26:50.348Z",
   "platforms": {
     "steam": {
       "complete": true,
@@ -2306,6 +2306,16 @@
       "reportedTotal": 53,
       "games": [
         {
+          "appid": "900006616",
+          "sourceId": "NPWR33408_00",
+          "name": "最后生还者2",
+          "platform": "psn",
+          "platformLabel": "PSN",
+          "hours": 6.8,
+          "cleared": false,
+          "cover": "psn-900006616.jpg"
+        },
+        {
           "appid": "900032622",
           "sourceId": "NPWR22392_00",
           "name": "战神：诸神黄昏",
@@ -2454,16 +2464,6 @@
           "hours": 8,
           "cleared": false,
           "cover": "psn-900135636.jpg"
-        },
-        {
-          "appid": "900006616",
-          "sourceId": "NPWR33408_00",
-          "name": "最后生还者2",
-          "platform": "psn",
-          "platformLabel": "PSN",
-          "hours": 6.8,
-          "cleared": false,
-          "cover": "psn-900006616.jpg"
         },
         {
           "appid": "900152832",

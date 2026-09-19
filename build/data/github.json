@@ -1,31 +1,36 @@
 {
  "user": "Alakazamc",
- "updatedAt": "2026-09-16T04:52:52.916Z",
+ "updatedAt": "2026-09-19T00:25:37.453Z",
  "repos": [
   {
    "name": "szudesktop",
    "description": "深圳大学校园网客户端：像素风桌面应用 + 命令行 + 校内 VPN（Go 单文件，Windows/macOS/Linux）",
    "url": "https://github.com/Alakazamc/szudesktop",
-   "stars": 0,
-   "pushedAt": "2026-09-16",
-   "language": "HTML",
-   "color": "#e34c26",
+   "stars": 3,
+   "pushedAt": "2026-09-18",
+   "language": "Go",
+   "color": "#00ADD8",
    "topics": [],
    "langs": [
     {
-     "name": "HTML",
-     "color": "#e34c26",
-     "size": 308457
+     "name": "Go",
+     "color": "#00ADD8",
+     "size": 255248
     },
     {
      "name": "Python",
      "color": "#3572A5",
-     "size": 124378
+     "size": 143046
     },
     {
-     "name": "Go",
-     "color": "#00ADD8",
-     "size": 122689
+     "name": "JavaScript",
+     "color": "#f1e05a",
+     "size": 78560
+    },
+    {
+     "name": "HTML",
+     "color": "#e34c26",
+     "size": 18544
     },
     {
      "name": "Makefile",
@@ -347,97 +352,97 @@
   {
    "name": "Python",
    "color": "#3572A5",
-   "size": 1572332,
-   "percent": 0.29827207558272656
+   "size": 1591000,
+   "percent": 0.3052955831155232
   },
   {
    "name": "JavaScript",
    "color": "#f1e05a",
-   "size": 1107723,
-   "percent": 0.21013554286290975
+   "size": 1186283,
+   "percent": 0.22763479586739924
   },
   {
    "name": "Vue",
    "color": "#41b883",
    "size": 971056,
-   "percent": 0.18420975253767025
+   "percent": 0.186335077157654
   },
   {
    "name": "Java",
    "color": "#b07219",
    "size": 737013,
-   "percent": 0.13981169195911045
+   "percent": 0.14142477284646204
   },
   {
-   "name": "HTML",
-   "color": "#e34c26",
-   "size": 406099,
-   "percent": 0.07703715985050846
+   "name": "Go",
+   "color": "#00ADD8",
+   "size": 255248,
+   "percent": 0.048979313010101236
   },
   {
    "name": "CSS",
    "color": "#663399",
    "size": 220827,
-   "percent": 0.041890979535306
+   "percent": 0.042374297757794874
   },
   {
-   "name": "Go",
-   "color": "#00ADD8",
-   "size": 122689,
-   "percent": 0.02327415754507899
+   "name": "HTML",
+   "color": "#e34c26",
+   "size": 116186,
+   "percent": 0.022294828799409288
   },
   {
    "name": "TypeScript",
    "color": "#3178c6",
    "size": 92243,
-   "percent": 0.017498537883842247
+   "percent": 0.017700427701650034
   },
   {
    "name": "SCSS",
    "color": "#c6538c",
    "size": 20888,
-   "percent": 0.00396246283531213
+   "percent": 0.004008179849225046
   },
   {
    "name": "Dockerfile",
    "color": "#384d54",
    "size": 9926,
-   "percent": 0.0018829665886302281
+   "percent": 0.0019046913626679341
   },
   {
    "name": "Shell",
    "color": "#89e051",
    "size": 6391,
-   "percent": 0.0012123755256836378
+   "percent": 0.0012263633385866178
   },
   {
    "name": "Lua",
    "color": "#000080",
    "size": 1678,
-   "percent": 0.0003183173419022288
+   "percent": 0.00032198993618343677
   },
   {
    "name": "Makefile",
    "color": "#427819",
    "size": 1115,
-   "percent": 0.00021151599298032485
+   "percent": 0.00021395636403130633
   },
   {
    "name": "PowerShell",
    "color": "#012456",
    "size": 909,
-   "percent": 0.00017243770190055182
+   "percent": 0.00017442720619233851
   },
   {
    "name": "Mako",
    "color": "#7e858d",
    "size": 580,
-   "percent": 0.00011002625643819588
+   "percent": 0.00011129568711942392
   }
  ],
  "totals": {
   "repos": 9,
-  "stars": 0,
+  "stars": 3,
   "languages": 15
  }
 }
