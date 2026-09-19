@@ -5,7 +5,7 @@ function hero(scene, social, counts, icon) {
     <div class="entry-copy">
       <p class="entry-label">${icon('book', 'sm')}代码 · 阅读 · 生活</p>
       <h1 class="bn"><span class="bt">柯西 Alakazam</span></h1>
-      <p class="who">AI 应用 · Agent · 深圳</p>
+      <p class="who">fake it til u make it</p>
       <p class="entry-intro">这里记录我的项目、文章，还有书影音与游戏收藏。</p>
       ${social}
       <nav class="entry-counts" aria-label="内容概览">
