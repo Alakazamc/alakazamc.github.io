@@ -163,7 +163,7 @@ main{display:block}.pane+.pane{border-left:0;border-top:2px solid var(--ink)}.pa
   <div class="posts" id="postsList"></div>
   <button id="btnSave">存草稿</button>
   <button class="primary" id="btnPub">发布上线</button>
-</header><details class="sync-tools"><summary>收藏同步</summary><p>书影音和游戏每天自动更新，也可以立即同步。</p><p id="syncSources">正在读取上次同步时间…</p><button type="button" id="btnSyncSources">立即同步收藏</button><p id="syncResult" role="status" aria-live="polite"></p></details>
+</header><details class="sync-tools"><summary>收藏同步</summary><p>书影音、游戏和听歌排行每天自动更新，也可以立即同步。</p><p id="syncSources">正在读取上次同步时间…</p><button type="button" id="btnSyncSources">立即同步收藏</button><p id="syncResult" role="status" aria-live="polite"></p></details>
 
 <main id="main">
   <div class="pane">
@@ -1309,7 +1309,7 @@ setGalleryMode(false);
 /* External snapshots: request through Contents, using the same repository permission. */
 var sourceSyncBusy=false;
 function displaySourceSync(state){
-  var labels={douban:'书影音',games:'游戏'};
+  var labels={douban:'书影音',games:'游戏',netease:'听歌排行'};
   $('syncSources').textContent=Object.keys(labels).map(function(k){var x=(state.sources||{})[k]||{};return labels[k]+'：'+(x.lastSuccess?'上次成功 '+new Date(x.lastSuccess).toLocaleString('zh-CN',{hour12:false}):'尚无成功记录')+(x.status==='failed'?'（本次失败，保留旧数据）':x.status==='unavailable'?'（同步服务未配置）':'');}).join('；');
 }
 async function readSourceSync(){var x=await gh('/repos/'+REPO+'/contents/build/data/external-sync.json?ref='+BRANCH);return JSON.parse(b64dec(x.content));}

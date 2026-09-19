@@ -9,6 +9,12 @@
       "status": "success",
       "lastSuccess": "2026-09-19T00:25:37.533Z",
       "count": 294
+    },
+    "netease": {
+      "status": "success",
+      "lastSuccess": "2026-09-19T04:43:10.410Z",
+      "weekCount": 100,
+      "allCount": 100
     }
   },
   "attemptedAt": "2026-09-19T00:25:37.533Z",

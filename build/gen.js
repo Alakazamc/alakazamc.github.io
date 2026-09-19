@@ -8,6 +8,7 @@ const { toCursorSvg, encode } = require('./cursor.js');
 const { brandIcon } = require('./brands.js');
 const DC = require('./decor.js');
 const PIXEL = require('./pixel-art.js');
+const MUSIC = require('./music.js');
 const md = require('./md.js');
 const { articles } = require('./content.js');
 const SITE = require('./site.config.js');
@@ -228,7 +229,7 @@ const toolbar = () => {
   const mail = ACCOUNTS.find((a) => a.k === 'mail');
   const mailBtn = `<button type="button" class="tool copyable" data-copy="${md.esc(mail.copy)}" title="点击显示邮箱">${ic('mailbox')}<em>邮箱</em></button>`;
   return `<nav class="toolbar" aria-label="主页导航">${items.map(([n, t, h]) =>
-    `<a class="tool" href="${h}">${ic(n)}<em>${t}</em></a>`).join('')}</nav><details class="secondary-nav"><summary>更多分区</summary><a href="#basket">游戏</a><a href="#calendar">日历</a><a href="#ledger">收获簿</a><a href="#skills">专精</a><a href="#farm">农场一角</a></details>`;
+    `<a class="tool" href="${h}">${ic(n)}<em>${t}</em></a>`).join('')}</nav><details class="secondary-nav"><summary>更多分区</summary><a href="#basket">游戏</a><a href="#calendar">日历</a><a href="#ledger">收获簿</a><a href="#music">唱片机</a><a href="#skills">专精</a><a href="#farm">农场一角</a></details>`;
 };
 
 // ---------- 主体 ----------
@@ -1512,6 +1513,7 @@ button.soc .soc-in{flex-direction:row;gap:6px}
 ${FARM.css}
 ${DC.css}
 ${PIXEL.css}
+${MUSIC.css}
 </style>
 </head>
 <body>
@@ -1579,6 +1581,7 @@ ${controls()}
     </main>
     <aside>
       ${seasonPanel()}
+      ${panel('唱片机', ['star', 'flower', 'star', 'flower', 'star'], MUSIC.render() + DC.shelf(), 'music')}
       ${techStack()}
       ${moneyPanel()}
       ${farmPanel()}
@@ -1966,6 +1969,7 @@ ${buildSprite()}
 })();
 </script>
 <script>${FARM.homeScript}</script>
+<script>${MUSIC.script}</script>
 </body>
 </html>`;
 

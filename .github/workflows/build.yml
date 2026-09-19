@@ -12,7 +12,7 @@ name: 重建站点
 #      **不要为了"省事"把 paths 删掉** —— 删了就是无限循环，而且烧的是你的 Actions 额度。
 on:
   schedule:
-    - cron: '23 22 * * *' # 每天北京时间 06:23，更新公开 GitHub 数据
+    - cron: '23 22 * * *' # 每天北京时间 06:23，更新 GitHub、收藏和听歌排行
   push:
     branches: [main]
     paths:
@@ -62,6 +62,7 @@ jobs:
             if [ "$REFRESH_DATA" = "true" ]; then
               node build/refresh-github.js || echo "::warning::GitHub 更新失败，保留上次数据"
             fi
+            node build/refresh-music.js || echo "::warning::网易云同步失败，保留上次排行"
             node build/refresh-library.js || echo "::warning::收藏同步失败，保留上次数据"
             node build/gen.js
             git add -A
