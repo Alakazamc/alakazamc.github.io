@@ -9,6 +9,7 @@ const { brandIcon } = require('./brands.js');
 const DC = require('./decor.js');
 const PIXEL = require('./pixel-art.js');
 const MUSIC = require('./music.js');
+const ALBUMS = require('./album-data.js').load();
 const md = require('./md.js');
 const { articles } = require('./content.js');
 const SITE = require('./site.config.js');
@@ -147,7 +148,7 @@ const SHELF_KIND = [
   { k: 'all', cn: '全部' },
   { k: 'movie', cn: '影' },
   { k: 'book', cn: '书' },
-  { k: 'music', cn: '音' },
+  { k: 'music', cn: '音乐' },
   { k: 'game', cn: '游' }
 ];
 
@@ -495,7 +496,8 @@ const farmPanel = () => panel('农场一角', ['flower', 'flower', 'wheat', 'whe
 // 3. 没有数据时（data/douban.json 不存在）渲染占位卡片，布局不变。
 const museum = () => {
   const src = DOUBAN;
-  const allItems = (src && src.items || []).filter((x) => x.cover);
+  const albumItems = ALBUMS.items.map(x => ({ ...x, kind: 'music', image: x.cover + '?param=200y200', verb: '网易云收藏' }));
+  const allItems = albumItems.concat((src && src.items || []).filter((x) => x.cover));
   const chosen = new Set(allItems.slice(0, SHELF_SHOW));
   SHELF_KIND.filter(t => t.k !== 'all').forEach(t => {
     allItems.filter(x => x.kind === t.k).slice(0, SHELF_SHOW).forEach(x => chosen.add(x));
@@ -509,13 +511,14 @@ const museum = () => {
       ? '★'.repeat(it.myRating) + '☆'.repeat(5 - it.myRating) : '';
     return `
       <li class="exc" data-kind="${it.kind}"${initiallyVisible.has(it) ? '' : ' hidden'}>
-        <a href="${it.url}" target="_blank" rel="noopener" title="${(it.comment || it.title).replace(/"/g, '&quot;')}">
+        <a href="${md.esc(it.url)}" target="_blank" rel="noopener" title="${md.esc(it.comment || it.title)}">
           <span class="poster" style="--pc:${c}">
-            <img src="assets/covers/${it.cover}" alt="${it.title.replace(/"/g, '&quot;')}" loading="lazy">
+            <img src="${md.esc(it.image || 'assets/covers/' + it.cover)}" alt="${md.esc(it.title)}" loading="lazy" referrerpolicy="no-referrer">
           </span>
           <span class="tx">
-            <b class="t">${it.title}</b>
-            <i class="m">${it.verb} · ${it.date || '—'}</i>
+            <b class="t">${md.esc(it.title)}</b>
+            <i class="m">${md.esc(it.artist || (it.verb + ' · ' + (it.date || '—')))}</i>
+            ${it.image ? '<i class="m">网易云收藏</i>' : ''}
             <span class="st">${stars}</span>
           </span>
         </a>
@@ -529,9 +532,9 @@ const museum = () => {
           <span class="slot body" style="width:44px;height:8px"></span></span></a>
       </li>`.repeat(n);
 
-  const counts = (src && src.counts) || {};
+  const counts = allItems.reduce((out, x) => { out[x.kind] = (out[x.kind] || 0) + 1; return out; }, {});
   const tabs = SHELF_KIND.map((t) => {
-    const n = t.k === 'all' ? ((src && src.total) || 0) : (counts[t.k] || 0);
+    const n = t.k === 'all' ? allItems.length : (counts[t.k] || 0);
     return `<button class="shelf-tab${t.k === 'all' ? ' on' : ''}" data-filter-kind="${t.k}" aria-pressed="${t.k === 'all'}">` +
       `<em>${t.cn}</em><i>${n}</i></button>`;
   }).join('');
@@ -539,8 +542,8 @@ const museum = () => {
   // 底部这行是**状态**不是标语：写清楚收录了多少件、数据什么时候更新过，
   // 以及这批数据属于哪个豆瓣号 —— 抓取脚本的号一旦和页面对不上，
   // 这行会直接把矛盾暴露出来（曾经抓到过别人的账号，靠这个才发现）。
-  const updated = src && src.updatedAt ? src.updatedAt.slice(0, 10).replace(/-/g, '.') : '';
-  const foot = ` ${ic('book', 'sm')}<span class="sfx">已收录 ${(src && src.total) || 0} 件</span>` +
+  const updated = [src.updatedAt, ALBUMS.updatedAt].filter(Boolean).sort().pop()?.slice(0, 10).replace(/-/g, '.') || '';
+  const foot = ` ${ic('book', 'sm')}<span class="sfx">已收录 ${allItems.length} 件 · 豆瓣 ${src.total || 0} · 网易云 ${ALBUMS.items.length}</span>` +
     `${ic('star', 'sm')}<span class="sfx">更新 ${updated || '—'}</span>` +
     (src && src.uid ? `${ic('key', 'sm')}<span class="sfx">豆瓣 @${src.uid}</span>` : '');
 
@@ -549,7 +552,7 @@ const museum = () => {
          <h3 class="museum-zone-title">${ic('book', 'sm')}书影音展览<a class="douban-mark-link" href="https://www.douban.com/people/${md.esc(String(src.uid || '211628276'))}/" target="_blank" rel="noopener">去豆瓣打标</a></h3>
          <div class="shelf-bar">${tabs}</div>
          <ul class="shelf">${items.map(card).join('')}</ul>
-         <p class="shelf-status" aria-live="polite">展示最近 ${Math.min(allItems.length, SHELF_SHOW)} 件 · 完整馆藏见下方入口</p>
+         <p class="shelf-status" aria-live="polite">展示 ${Math.min(allItems.length, SHELF_SHOW)} 件 · 完整馆藏见下方入口</p>
          <div class="shelf-foot">${foot}</div>
          <div class="museum-more">${ic('book', 'sm')}<a href="museum/index.html">查看全部馆藏 · 可分类翻页</a>${ic('crystal', 'sm')}</div>
        </section>
@@ -1561,7 +1564,7 @@ ${MUSIC.css}
 ${controls()}
 
 <div class="wrap">
-  ${PIXEL.hero(DC.panorama(), social(), {articles:ARTICLES.length,collection:(DOUBAN.items || []).length + (GAMES.games || []).length,photos:GALLERY.count || 0}, ic)}
+  ${PIXEL.hero(DC.panorama(), social(), {articles:ARTICLES.length,collection:(DOUBAN.items || []).length + (GAMES.games || []).length + ALBUMS.items.length,photos:GALLERY.count || 0}, ic)}
 
   ${hang()}
   ${toolbar()}
@@ -1698,7 +1701,7 @@ ${buildSprite()}
         if (!li.hidden) shown++;
       });
       var status = document.querySelector('#museum .shelf-status');
-      if (status) status.textContent = '展示最近 ' + shown + ' 件 · 完整馆藏见下方入口';
+      if (status) status.textContent = '展示 ' + shown + ' 件 · 完整馆藏见下方入口';
       // 筛完可能只剩几张，把滚动位置拉回开头，否则停在空白是中间
       var shelf = document.querySelector('#museum .shelf');
       if (shelf) shelf.scrollLeft = 0;

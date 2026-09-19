@@ -28,6 +28,11 @@ function read(file) {
 function normalize() {
   const d = read(DOUBAN_FILE);
   const g = require('./game-data.js').loadGames();
+  const albums = require('./album-data.js').load();
+  const netease = albums.items.map(x => ({
+    id: 'netease-album-' + x.id, kind: 'music', platform: '', title: x.title,
+    meta: x.artist, detail: '', image: x.cover + '?param=400y400', url: x.url, source: '网易云 · 收藏专辑'
+  }));
   const douban = (d.items || []).filter((x) => x.cover).map((x) => ({
     id: 'douban-' + x.kind + '-' + x.id,
     kind: x.kind,
@@ -50,17 +55,17 @@ function normalize() {
     url: '',
     source: '小黑盒'
   }));
-  return { items: douban.concat(games), douban: d, games: g };
+  return { items: netease.concat(douban, games), douban: d, games: g, albums };
 }
 
 function page(payload) {
   const counts = payload.items.reduce((a, x) => (a[x.kind] = (a[x.kind] || 0) + 1, a), {});
   const tabs = [
     ['all', '全部', payload.items.length], ['book', '书', counts.book || 0],
-    ['movie', '影', counts.movie || 0], ['music', '音', counts.music || 0],
+    ['movie', '影', counts.movie || 0], ['music', '音乐', counts.music || 0],
     ['game', '游', counts.game || 0]
   ];
-  const updated = [payload.douban.updatedAt, payload.games.updatedAt, payload.games.libraryUpdatedAt].filter(Boolean).sort().pop();
+  const updated = [payload.douban.updatedAt, payload.games.updatedAt, payload.games.libraryUpdatedAt, payload.albums.updatedAt].filter(Boolean).sort().pop();
   const summary = payload.games.summary || {};
   const labels={steam:'Steam',psn:'PSN',xbox_v2:'Xbox',switchall:'Switch',epic:'Epic',douban:'豆瓣收藏'};
   const platformOptions=Object.entries(labels).map(([key,label])=>({key,label,count:payload.items.filter(x=>x.kind==='game'&&x.platform===key).length})).filter(x=>x.count);
@@ -85,7 +90,7 @@ ${decorate()}
     <h2 class="pt">${ic('book', 'xs')}博物馆${ic('crystal', 'xs')}</h2>
     <h1 class="arttitle">馆藏 ${payload.items.length} 件</h1>
     <p class="artmeta"><a class="douban-mark-link" href="https://www.douban.com/people/${esc(String(payload.douban.uid || '211628276'))}/" target="_blank" rel="noopener">去豆瓣打标</a></p>
-    <p class="artmeta">豆瓣书影音 ${payload.douban.total || 0} 件 · 小黑盒游戏记录 ${((payload.games.games || []).length)} 条 · 生涯快照 ${summary.gameCount || 0} 款</p>
+    <p class="artmeta">豆瓣书影音 ${payload.douban.total || 0} 件 · 网易云收藏专辑 ${payload.albums.items.length} 张 · 小黑盒游戏记录 ${((payload.games.games || []).length)} 条 · 生涯快照 ${summary.gameCount || 0} 款</p>
     <div class="museum-filters" role="tablist" aria-label="馆藏分类">
       ${tabs.map(([k, label, n], i) => `<button class="museum-filter${i === 0 ? ' on' : ''}" data-kind="${k}" role="tab" aria-selected="${i === 0}">${label}<i>${n}</i></button>`).join('')}
     </div>
@@ -100,7 +105,7 @@ ${decorate()}
       <button class="museum-page-btn" data-page="next">下一页</button>
     </nav>
     ${dcShelf()}
-    <p class="museum-note">书影音来自豆瓣公开收藏；${esc(gameNote)}${updated ? '最近同步 ' + esc(updated.slice(0, 10).replace(/-/g, '.')) + '。' : ''}</p>
+    <p class="museum-note">书影音来自豆瓣公开收藏，网易云专辑由桌面工具同步；同一作品在不同来源的记录分别保留。${esc(gameNote)}${updated ? '最近同步 ' + esc(updated.slice(0, 10).replace(/-/g, '.')) + '。' : ''}</p>
   </section>
   ${bottomBlock('', '../')}
 </div>
@@ -134,7 +139,7 @@ ${decorate()}
       var box = x.url ? el('a','museum-item-link') : el('div','museum-item-link');
       if(x.url){ box.href=x.url; box.target='_blank'; box.rel='noopener'; }
       var poster = el('span','museum-item-poster');
-      if(x.image){ var img=document.createElement('img'); img.src=x.image; img.alt=x.title; img.loading='lazy'; poster.appendChild(img); }
+      if(x.image){ var img=document.createElement('img'); img.src=x.image; img.alt=x.title; img.loading='lazy'; img.referrerPolicy='no-referrer'; poster.appendChild(img); }
       
       var tx=el('span','museum-item-text');
       tx.appendChild(el('b','museum-item-title',x.title));
