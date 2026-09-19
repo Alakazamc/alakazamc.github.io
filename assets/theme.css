@@ -1171,7 +1171,7 @@ body:not(.is-article) .panel>.pt>.ic{width:24px;height:24px}
 
 
 #music{scroll-margin-top:24px;font-size:12px;line-height:24px}
-.music-tabs{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:16px}
+.music-tabs{display:grid;grid-template-columns:repeat(auto-fit,minmax(64px,1fr));gap:8px;margin-bottom:16px}
 #music button{font:inherit;line-height:24px;color:var(--ink);background:var(--cream-2);border:1px solid var(--timber-light);padding:4px 8px;cursor:pointer}
 #music button[aria-pressed="true"]{background:var(--ink);color:var(--cream);border-color:var(--ink)}
 #music button:disabled{opacity:.4;cursor:default}#music button:active:not(:disabled){transform:translateY(2px)}
