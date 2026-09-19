@@ -290,7 +290,7 @@ button.tool{cursor:pointer;font:inherit;background:var(--cream);appearance:none}
 button.tool::-moz-focus-inner{border:0}
 
 /* 导航落点：面板本身有 4px 边框 + 外发光，直接滚到顶会被顶部切掉一截 */
-#timeline,#projects,#gallery,#basket,#calendar,#skills,#ledger,#farm{scroll-margin-top:24px}
+#timeline,#projects,#gallery,#calendar,#skills,#ledger,#farm{scroll-margin-top:24px}
 html{scroll-behavior:smooth}
 @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
 
@@ -533,7 +533,7 @@ html{scroll-behavior:smooth}
 .mrow{display:flex;align-items:center;gap:7px;background:var(--cream-2);border:2px solid var(--wood-c);padding:5px 8px}
 .mrow.foot{margin-top:2px}
 
-/* ===== 博物馆（豆瓣书影音展览列） =====
+/* ===== 博物馆（豆瓣收藏展览列） =====
    横向滚动的一排展品卡。封面是真实图片（2:3 / 方 / 各种比例都有），
    所以统一走 object-fit:contain 一张都别裁；露出来的地方用这条作品自己的主色垫底。
    横向滚动 + scroll-snap 是这里的正确解法 —— 一排 36 张卡塞进网格会把主栏高度撑爆。 */
