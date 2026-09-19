@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "uid": "32133355",
-  "updatedAt": "2026-09-19T00:26:50.348Z",
+  "updatedAt": "2026-09-19T04:47:02.158Z",
   "platforms": {
     "steam": {
       "complete": true,
@@ -2847,7 +2847,7 @@
           "name": "Grand Theft Auto V 增强版 (PC)",
           "platform": "xbox_v2",
           "platformLabel": "Xbox",
-          "hours": 17.2,
+          "hours": 17.7,
           "cleared": false,
           "cover": "xbox_v2-900177776.jpg"
         },
@@ -3243,7 +3243,7 @@
           "name": "塞尔达传说：王国之泪",
           "platform": "switchall",
           "platformLabel": "Switch",
-          "hours": 49,
+          "hours": 50,
           "cleared": false,
           "cover": "900011199.jpg"
         },
