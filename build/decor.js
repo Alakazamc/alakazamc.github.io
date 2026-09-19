@@ -199,6 +199,7 @@ const SHELF = {
 // ---------- 输出：DOM 片段 ----------
 const scene = () => `<div class="dc-scene" aria-hidden="true">${HOUSE}${MILL}${GREEN}${TOWER}${SILO}</div>`;
 const pond = () => `<div class="dc-pond" aria-hidden="true">${POND}</div>`;
+const panorama = () => `<div class="pixel-window" aria-hidden="true"><div class="window-hills"></div><div class="window-cloud"></div>${HOUSE}${MILL}${POND}<span class="window-tree">${ic('tree')}</span><div class="window-crops">${ic('pumpkin')}${ic('sunflower')}${ic('chicken')}</div></div>`;
 const birds = () => `<div class="dc-birds" aria-hidden="true">` +
   `${BIRD(22)}${BIRD(18)}${BIRD(26)}${BIRD(16)}${BIRD(20)}</div>`;
 
@@ -378,4 +379,4 @@ html[data-time="night"] .dc-farmyard{filter:brightness(.6)}
 }
 `;
 
-module.exports = { css, scene, pond, birds, yard, shelf, path, farmyard, posts };
+module.exports = { css, scene, pond, panorama, birds, yard, shelf, path, farmyard, posts };

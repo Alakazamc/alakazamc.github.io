@@ -7,6 +7,7 @@ const { validate, buildSprite, ICONS } = require('./icons.js');
 const { toCursorSvg, encode } = require('./cursor.js');
 const { brandIcon } = require('./brands.js');
 const DC = require('./decor.js');
+const PIXEL = require('./pixel-art.js');
 const md = require('./md.js');
 const { articles } = require('./content.js');
 const SITE = require('./site.config.js');
@@ -1510,6 +1511,7 @@ button.soc .soc-in{flex-direction:row;gap:6px}
 .douban-mark-link{font-size:12px;font-weight:normal;line-height:24px;margin-left:auto;color:var(--ink);text-underline-offset:4px;white-space:nowrap}
 ${FARM.css}
 ${DC.css}
+${PIXEL.css}
 </style>
 </head>
 <body>
@@ -1557,18 +1559,7 @@ ${DC.css}
 ${controls()}
 
 <div class="wrap">
-  ${bunting()}
-  <div class="board" id="board">
-    ${DC.yard()}
-
-    <h1 class="bn">${ic('wheat')}<span class="bt">柯西 Alakazam</span>${ic('wheat')}</h1>
-    <p class="who">AI 应用 · Agent · 深圳</p>
-    ${social()}
-    <div class="deco">
-      <span>${ic('strawberry')}${ic('cherry')}${ic('grape')}</span>
-      <span>${ic('acorn')}${ic('mushroom')}${ic('blueberry')}</span>
-    </div>
-  </div>
+  ${PIXEL.hero(DC.panorama(), social(), {articles:ARTICLES.length,collection:(DOUBAN.items || []).length + (GAMES.games || []).length,photos:GALLERY.count || 0}, ic)}
 
   ${hang()}
   ${toolbar()}
