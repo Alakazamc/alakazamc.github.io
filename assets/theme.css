@@ -1168,6 +1168,30 @@ body:not(.is-article) .panel>.pt>.ic{width:24px;height:24px}
 .sitebottom{margin-top:32px}.site-links{line-height:24px}.dc-farmyard{padding-top:20px}
 @media(max-width:1000px){.board.pixel-entry{grid-template-columns:minmax(0,1fr) 300px;gap:8px}.entry-copy{padding:16px 12px}.board.pixel-entry .bt{font-size:24px;line-height:36px}.entry-counts{gap:12px}.entry-counts b{font-size:12px}.layout{grid-template-columns:minmax(0,1fr) 264px;gap:20px}.rc-h b{font-size:12px;line-height:24px}.rgrid{gap:12px}.rcard{padding:16px 12px}}
 @media(max-width:760px){.wrap{padding:0 16px 32px}.appearance-settings{padding:0 16px}.board.pixel-entry{grid-template-columns:1fr;padding:8px;gap:0}.entry-copy{padding:16px}.entry-view{padding:8px}.pixel-window{height:184px}.pixel-window .dc-house{width:160px!important;left:calc(50% - 110px)}.pixel-window .dc-mill{right:32px;width:80px!important}.entry-caption{padding:6px}.entry-label{margin-bottom:12px}.entry-counts{margin-top:16px;gap:16px}.entry-counts b{font-size:24px}.toolbar{grid-template-columns:repeat(5,minmax(0,1fr));gap:4px;padding:6px}.toolbar .tool{flex-direction:column;padding:8px 2px;gap:4px}.toolbar .tool .ic{width:24px;height:24px}.layout{grid-template-columns:1fr}.panel{padding:20px;margin-bottom:28px}.panel>.pt{margin-bottom:18px}body:not(.is-article) .panel>.pt{font-size:24px}.dc-shelf{margin:20px -18px -18px}.rgrid{grid-template-columns:1fr}.rcard{min-height:0}.rc-h b{font-size:24px;line-height:32px}.rc-d{-webkit-line-clamp:3}.rfoot{display:none}#projects .museum-more{margin-top:20px;justify-content:center}.tl-item{grid-template-columns:40px 18px minmax(0,1fr);gap:8px}.tl-line{left:55px;width:3px}.tl-dot{width:18px;height:18px}.tl-card{padding:10px;grid-template-columns:40px minmax(0,1fr);gap:10px}.tl-cover{width:40px}.tl-item.lead .tl-card{padding:12px}.tl-item.lead .tl-title{font-size:24px;line-height:36px}.layout>aside{display:grid;grid-template-columns:1fr;gap:0}.gstrip img{height:96px}.museum-zone-title{flex-wrap:wrap}.douban-mark-link{margin-left:0}.dc-scene,.dc-pond{display:none}}
+/* ===== 窄屏横向溢出的两个源头（2026-09-20 量出来的，别再当"环境问题"） =====
+   ⚠️ 这两条**必须留在本文件**：本文件是样式表里最后一份，写进 gen.js 会被上面的
+   .shelf-tab / .dc-shelf 覆盖（同特异性、后来者胜），看着改了其实没生效。
+
+   1) 博物馆的 5 个分类按钮（全部1198 / 影287 / 书44 / 音乐571 / 游戏296）
+      一行天然要 354px，而它所在面板的内容宽只有 320px→242 / 360px→282 /
+      375px→297 / 390px→312。实测 360px 就已经顶出面板外（页面横向溢出 9px）。
+      先收紧内边距（375px 以上这样就是一行了），再允许折行兜底 ——
+      折行只在真的放不下时发生，不是把窄屏都变成两行。
+      ⚠️ 不能用 overflow-x:auto：内容会藏进滚动条后面，DOM 里查得到、屏幕上看不见。 */
+@media(max-width:430px){
+  .shelf-bar{flex-wrap:wrap;gap:4px}
+  .shelf-tab{padding:6px 4px}
+  .shelf-tab i{padding:0 2px}
+}
+/*   2) 装饰层「面板底部作物架」(.dc-shelf，build/decor.js) 本身是 aria-hidden 的纯装饰，
+      却是把右栏顶宽的真凶：8 个作物 × 24px + 7 × 16px 间隙 = 304px 的**硬最小宽**，
+      320px 时把右栏每个面板都撑到 338px → 整页横向溢出 34px。
+      试过 .dc-shelf{overflow:hidden}：**没用** —— 块级 flex 容器的 overflow 不会让
+      最小内容宽变小（实测仍然 328），所以只能让它在窄屏真的变窄。
+      间隙 16→8 后作物组 248px，反推到 298px 视口都不会再溢出。 */
+@media(max-width:360px){
+  .dc-shelf .dc-season{gap:8px}
+}
 
 
 #music{scroll-margin-top:24px;font-size:12px;line-height:24px}
