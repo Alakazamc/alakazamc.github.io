@@ -1,6 +1,6 @@
 {
  "user": "Alakazamc",
- "updatedAt": "2026-09-19T04:45:48.726Z",
+ "updatedAt": "2026-09-20T00:11:17.419Z",
  "repos": [
   {
    "name": "szudesktop",
@@ -15,22 +15,22 @@
     {
      "name": "Go",
      "color": "#00ADD8",
-     "size": 300979
+     "size": 306395
     },
     {
      "name": "Python",
      "color": "#3572A5",
-     "size": 143046
+     "size": 144755
     },
     {
      "name": "JavaScript",
      "color": "#f1e05a",
-     "size": 87216
+     "size": 91242
     },
     {
      "name": "HTML",
      "color": "#e34c26",
-     "size": 18544
+     "size": 18548
     },
     {
      "name": "Makefile",
@@ -352,92 +352,92 @@
   {
    "name": "Python",
    "color": "#3572A5",
-   "size": 1591000,
-   "percent": 0.30214234303695786
+   "size": 1592709,
+   "percent": 0.30182749860950164
   },
   {
    "name": "JavaScript",
    "color": "#f1e05a",
-   "size": 1194939,
-   "percent": 0.22692751052560614
+   "size": 1198965,
+   "percent": 0.2272107502816529
   },
   {
    "name": "Vue",
    "color": "#41b883",
    "size": 971056,
-   "percent": 0.18441051857957017
+   "percent": 0.18402068644664418
   },
   {
    "name": "Java",
    "color": "#b07219",
    "size": 737013,
-   "percent": 0.13996406955920643
+   "percent": 0.13966819439877884
   },
   {
    "name": "Go",
    "color": "#00ADD8",
-   "size": 300979,
-   "percent": 0.057158076847844456
+   "size": 306395,
+   "percent": 0.05806361139194809
   },
   {
    "name": "CSS",
    "color": "#663399",
    "size": 220827,
-   "percent": 0.041936635566198796
+   "percent": 0.04184798418006078
   },
   {
    "name": "HTML",
    "color": "#e34c26",
-   "size": 116186,
-   "percent": 0.022064557050969193
+   "size": 116190,
+   "percent": 0.02201867200062158
   },
   {
    "name": "TypeScript",
    "color": "#3178c6",
    "size": 92243,
-   "percent": 0.017517609144411125
+   "percent": 0.017480578030409987
   },
   {
    "name": "SCSS",
    "color": "#c6538c",
    "size": 20888,
-   "percent": 0.003966781433913246
+   "percent": 0.003958395909708094
   },
   {
    "name": "Dockerfile",
    "color": "#384d54",
    "size": 9926,
-   "percent": 0.0018850187913166836
+   "percent": 0.0018810339812218762
   },
   {
    "name": "Shell",
    "color": "#89e051",
    "size": 6391,
-   "percent": 0.001213696866341419
+   "percent": 0.0012111311881915182
   },
   {
    "name": "Lua",
    "color": "#000080",
    "size": 1678,
-   "percent": 0.0003186642687718512
+   "percent": 0.000317990632731242
   },
   {
    "name": "Makefile",
    "color": "#427819",
    "size": 1115,
-   "percent": 0.00021174651947593212
+   "percent": 0.00021129890077195164
   },
   {
    "name": "PowerShell",
    "color": "#012456",
    "size": 909,
-   "percent": 0.00017262563785078232
+   "percent": 0.0001722607182078063
   },
   {
    "name": "Mako",
    "color": "#7e858d",
    "size": 580,
-   "percent": 0.00011014617156595572
+   "percent": 0.00010991332954953538
   }
  ],
  "totals": {
