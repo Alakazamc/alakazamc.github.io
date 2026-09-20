@@ -3,18 +3,18 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>深大校园网疑云：为什么我连路由器的时候，官方登录应用失败了 · 柯西 Alakazam</title>
+<title>模型快了 100 倍，整件事为什么只快了 3%？ · 柯西 Alakazam</title>
 <link rel="stylesheet" href="../assets-layers.css">
 <link rel="stylesheet" href="../font.css">
 <link rel="stylesheet" href="../assets/theme.css">
 <!-- SEO -->
-<link rel="canonical" href="https://alakazamc.github.io/posts/深大校园网疑云-为什么我连路由器的时候-官方登录应用失败了.html">
+<link rel="canonical" href="https://alakazamc.github.io/posts/05-模型提速与评测陷阱.html">
 <link rel="alternate" type="application/rss+xml" title="柯西 Alakazam · RSS" href="https://alakazamc.github.io/rss.xml">
-<meta name="description" content="最近在做SZUDesktop桌面应用，在设置校园网登录功能的时候遇到了 认证失败：acid 用错了（Unknow ac-type）。 的bug。 在排查一番以后，发现不仅是自己连不上，官方的上">
+<meta name="description" content="资料核对：2026 年 9 月 20 日 先算一笔小账。 假设审查一次代码修改，模型判断需要 10 秒，必要测试需要 300 秒，两步顺序执行。总共 310 秒。 换上新模型，判断时间降到 0">
 <meta property="og:type" content="article">
-<meta property="og:title" content="深大校园网疑云：为什么我连路由器的时候，官方登录应用失败了 · 柯西 Alakazam">
-<meta property="og:description" content="最近在做SZUDesktop桌面应用，在设置校园网登录功能的时候遇到了 认证失败：acid 用错了（Unknow ac-type）。 的bug。 在排查一番以后，发现不仅是自己连不上，官方的上">
-<meta property="og:url" content="https://alakazamc.github.io/posts/深大校园网疑云-为什么我连路由器的时候-官方登录应用失败了.html">
+<meta property="og:title" content="模型快了 100 倍，整件事为什么只快了 3%？ · 柯西 Alakazam">
+<meta property="og:description" content="资料核对：2026 年 9 月 20 日 先算一笔小账。 假设审查一次代码修改，模型判断需要 10 秒，必要测试需要 300 秒，两步顺序执行。总共 310 秒。 换上新模型，判断时间降到 0">
+<meta property="og:url" content="https://alakazamc.github.io/posts/05-模型提速与评测陷阱.html">
 <meta property="og:image" content="https://alakazamc.github.io/assets/preview.png">
 <meta name="twitter:card" content="summary_large_image">
 <!-- /SEO -->
@@ -30,123 +30,91 @@
   <article class="panel artpage">
     <h2 class="pt"><svg class="ic xs" viewBox="0 0 16 16"><use href="#px-wateringcan"></use></svg>本站<svg class="ic xs" viewBox="0 0 16 16"><use href="#px-wateringcan"></use></svg></h2>
     <span class="cor tl"><svg class="ic sm" viewBox="0 0 16 16"><use href="#px-flower"></use></svg></span><span class="cor tr"><svg class="ic sm" viewBox="0 0 16 16"><use href="#px-flower"></use></svg></span><span class="cor bl"><svg class="ic sm" viewBox="0 0 16 16"><use href="#px-wheat"></use></svg></span><span class="cor br"><svg class="ic sm" viewBox="0 0 16 16"><use href="#px-wheat"></use></svg></span>
-    <h1 class="arttitle">深大校园网疑云：为什么我连路由器的时候，官方登录应用失败了</h1>
-    <p class="artmeta">2026-09-17</p>
+    <h1 class="arttitle">模型快了 100 倍，整件事为什么只快了 3%？</h1>
+    <p class="artmeta">2026-09-20 · 模型 / AI / 评测</p>
     
-    
+    <details class="toc" open>
+    <summary><span class="title">文章目录</span></summary>
+    <nav class="inner" aria-label="文章目录"><ul>
+      <li style="margin-left:0px"><a href="#section-1">先看看秒表从哪里开始计时</a></li>
+<li style="margin-left:0px"><a href="#section-2">别让一个考生写作文，另一个只涂答题卡</a></li>
+<li style="margin-left:0px"><a href="#section-3">“标准答案”是谁说的？</a></li>
+<li style="margin-left:0px"><a href="#section-4">99% 的准确率，可以漏掉全部危险案例</a></li>
+<li style="margin-left:0px"><a href="#section-5">零错误，也可能是因为它几乎什么都没做</a></li>
+<li style="margin-left:0px"><a href="#section-6">一百次都对，够不够交出批准权？</a></li>
+<li style="margin-left:0px"><a href="#section-7">没收到投诉，也不能直接算作全对</a></li>
+<li style="margin-left:0px"><a href="#section-8">真正值得交付的，不是一个最大的数字</a></li>
+<li style="margin-left:0px"><a href="#section-9">参考资料与说明</a></li>
+    </ul></nav>
+  </details>
     <div class="artbody">
-<p>最近在做SZUDesktop桌面应用，在设置校园网登录功能的时候遇到了</p>
-<p>认证失败：ac_id 用错了（Unknow ac-type）。</p>
-<p>的bug。</p>
-<p>在排查一番以后，发现不仅是自己连不上，官方的上网认证客户端同样连不上！</p>
-<p>必须手动打开一个网页才能登录：</p>
-<p>https://net.szu.edu.cn/srun_portal_success?ac_id=12&amp;theme=proyx</p>
-<p>我们自己的工具在这个网络下同样连不上。这就排除了「客户端软件写错了」的可能——官方和我们一起挂，说明问题在协议参数，不在代码质量。</p>
-<p>那时候最自然的怀疑是：这个线路把 ac_id 换成了 12，而我们的代码还在用 1。</p>
-<p>门户会把你传进去的编号原样回填到页面配置里。而这个 acid 会参与登录时的 chksum 校验和加密串生成——也就是说，编号传错了，算出来的签名就是错的，服务端直接拒绝。</p>
-<p>踩坑：为什么不能从页面上猜</p>
-<p>知道 ac_id 会变之后，第一个念头是「那我把所有可能的编号试一遍，哪个能返回登录页就用哪个」。</p>
-<p>于是我写了段代码，挨个请求 ac_id=1/2/3/4/5/10/12，看哪个能拿到正常页面。</p>
-<p>结果很打击人：</p>
-<p>ac_id=1 → 8333 字节</p>
-<p>ac_id=2 → 8333 字节</p>
-<p>ac_id=3 → 8334 字节</p>
-<p>ac_id=4 → 8333 字节</p>
-<p>ac_id=5 → 8333 字节</p>
-<p>ac_id=10 → 8333 字节</p>
-<p>ac_id=12 → 8333 字节</p>
-<p>全都返回完整登录页，体积几乎一样，差 1 个字节。 页面里翻遍了也找不到任何字段能说明「你现在实际挂在哪个接入点」。</p>
-<p>换句话说：门户页面只能告诉你「这个编号存在」，不能告诉你「你就在这个编号上」。 试一遍全都能用，等于全是瞎猜。</p>
-<p>正解：让网关自己告诉你</p>
-<p>那 ac_id 到底从哪来？</p>
-<p>去过酒店、机场的朋友可能见过「连接 Wi-Fi 后自动弹出登录页」——那个弹窗不是魔法，是网关干的：你请求外网，网关发现你没认证，把你的请求半路拦下来，返回一个 302 跳转到认证页。这个跳转地址里就带着它想让你用的参数，包括 ac_id。</p>
-<p>所以正确做法是：未认证的时候主动去访问一个外网站点，然后读那个 302 跳转里的 ac_id</p>
-<p>func (c *SrunClient) discoverAcIDFromRedirect() string {</p>
-<p>probes := []string{</p>
-<p>	connectivityProbe,                                   // 未认证时必定被拦</p>
-<p>	&quot;http://www.msftconnecttest.com/redirect&quot;,           // Windows 自带探测</p>
-<p>	&quot;http://connectivitycheck.gstatic.com/generate_204&quot;, // 安卓/Chrome</p>
-<p>	&quot;http://captive.apple.com/hotspot-detect.html&quot;,      // 苹果</p>
-<p>}</p>
-<p>for _, p := range probes {</p>
-<p>	resp, err := c.http.Get(p)</p>
-<p>	if err != nil {</p>
-<p>		continue</p>
-<p>	}</p>
-<p>	loc := resp.Header.Get(&quot;Location&quot;)</p>
-<p>	body, _ := io.ReadAll(io.LimitReader(resp.Body, 8192))</p>
-<p>	_ = resp.Body.Close()</p>
-<p>	// 只认 3xx 跳转。200 说明没被拦，那就是正常上网，不是校园网闸门。</p>
-<p>	if resp.StatusCode/100 != 3 {</p>
-<p>		continue</p>
-<p>	}</p>
-<p>	if id := c.acIDFromLocation(p, loc); id != &quot;&quot; {</p>
-<p>		return id</p>
-<p>	}</p>
-<p>	// 有些网关不返回 Location 头，而是塞一个带 meta refresh /</p>
-<p>	// JS 跳转的拦截页。这种也一起捞，否则在那些设备上就彻底瞎了。</p>
-<p>	if id := acIDFromInterceptPage(string(body)); id != &quot;&quot; {</p>
-<p>		return id</p>
-<p>	}</p>
-<p>}</p>
-<p>return &quot;&quot; }</p>
-<p>这段有几个点值得说：</p>
-<p>探针必须是真正的外网站点。我一开始把「认证门户自己」也放进了探针列表，结果门户必然 302 到它自己的登录页，而那个地址里带着默认的ac_id=1。于是已经在线、网关根本没拦的时候，这里也会「成功」读出一个 1，还被当成可信值。这是个极具欺骗性的假信号，我差点就信了。</p>
-<p>只认 3xx。加了resp.StatusCode/100 != 3这一条之后，假信号立刻消失。返回 200 说明你根本没被拦，那就是正常上网状态。</p>
-<p>兼容没有 Location 头的网关。有些设备返回的是个带或 JSlocation.href = ...的拦截页，也一并解析。</p>
-<p>设计：给每个值标上「可信度」</p>
-<p>发现方式有好几种，可靠性差很多。如果都当成一样的值，就会出事。所以我用一个 AcIDSource 把来源显式标出来：</p>
-<p>const (</p>
-<p>// Manual 用户显式指定。最高优先级，也是唯一&quot;绝对可信&quot;的。</p>
-<p>AcIDSourceManual AcIDSource = &quot;manual&quot;</p>
-<p>// Cache 这张网上次认证成功用过的，跟着成功结果来的。</p>
-<p>AcIDSourceCache AcIDSource = &quot;cache&quot;</p>
-<p>// Redirect 未认证时被校园网网关拦下，从跳转地址里读出来的。</p>
-<p>AcIDSourceRedirect AcIDSource = &quot;redirect&quot;</p>
-<p>// Guess 只从门户页面试探出来的，只能说明&quot;这个编号存在&quot;，</p>
-<p>// 不能说明你就在这个接入点上。不该缓存。</p>
-<p>AcIDSourceGuess AcIDSource = &quot;guess&quot; )</p>
-<p>取值优先级从高到低：</p>
-<p>func (c *SrunClient) resolveAcIDWithSource() (string, AcIDSource) {</p>
-<p>if c.AcID != &quot;&quot; {</p>
-<p>	return c.AcID, AcIDSourceManual        // 1. 用户说了算</p>
-<p>}</p>
-<p>if c.lastAcID != &quot;&quot; {</p>
-<p>	return c.lastAcID, AcIDSourceCache     // 2. 这张网上次成功过</p>
-<p>}</p>
-<p>if id := c.discoverAcIDFromRedirect(); id != &quot;&quot; {</p>
-<p>	return id, AcIDSourceRedirect          // 3. 网关跳转，权威</p>
-<p>}</p>
-<p>if id := c.discoverAcIDFromPortal(); id != &quot;&quot; {</p>
-<p>	return id, AcIDSourceGuess             // 4. 挨个试，猜的</p>
-<p>}</p>
-<p>return &quot;1&quot;, AcIDSourceGuess                // 5. 最后兜底，也是猜的 }</p>
-<p>关键规则：只有可信来源的成功结果才写缓存。</p>
-<p>if acIDSource != AcIDSourceGuess {</p>
-<p>c.rememberAcID(acID) }</p>
-<p>这条看着不起眼，但它防止了一个很恶心的情况：如果猜出来的值也被缓存，那第一次猜错之后，以后每次都会用这个错值，而且用户完全不知道为什么——他只会觉得「这软件越来越烂了」。</p>
-<p>宁可每次都重新探测，也不要缓存一个没验证过的猜测。</p>
-<p>缓存按什么键存</p>
-<p>缓存键也得选对。答案是：默认网关优先，出口 IP 兜底。</p>
-<p>为什么用网关而不是 MAC 地址或路由器型号？因为ac_id 跟着物理接入位置走，不跟着设备走：</p>
-<p>// Gateway 跟着&quot;插哪个口&quot;变，正好和 ac_id 的变化同步。</p>
-<p>func Egress() string { return NetKey(Gateway(), LocalIP()) }</p>
-<p>同一台路由器，拔下来插回原来那个墙口→ac_id还是12</p>
-<p>同一台路由器，换个墙口 → 变了</p>
-<p>换一台路由器，插原墙口 →还是 12</p>
-<p>所以这个缓存是绑在「你现在插在哪个网络口上」的，不是绑在设备上的。网关地址正好和这件事同步变化。</p>
-<p>所以「换个路由器会变吗」</p>
-<p>回到最初那个问题。答案是：</p>
-<p>换路由器本身不会变。变的是你插在哪个墙口 / 走哪条线路。</p>
-<p>ac_id 是网管给每个接入点分的编号。你换路由器，只要还是插原来那个口，学校那边看到的还是同一个接入点，编号当然不变。真正会让它变的是换个墙口、换条线路、或者像这次一样——从直接插墙口改成经过路由器。</p>
-<p>至于用户要不要管这件事？不用。 现在这套逻辑会在未认证时自己问网关，问不到就用上次成功的，都拿不到才猜一个。用户唯一需要做的，就是在它猜的时候别太当真——所以界面上标了「⚠️ 猜的，不一定对」。</p>
-<p>小结</p>
-<p>题目不算大，但这几个坑挺典型：一个看起来像「配置常量」的参数，其实是运行时环境信息。 把它写死，就等于假设所有用户都在同一个接入点上——而这在一个有几百个接入点的校园网里，显然不成立。</p>
-<p>题外话</p>
-<p>我最近在做一个SZUDesktop的客户端程序，目前是纯本地项目，之后可能接入校园网内服务器！</p>
-<p>计划是支持windows，macos和linux三端版本。</p>
-<p>还在开发中，目前没有正式版本，欢迎大家之后了解使用！</p>
-<p>https://github.com/Alakazamc/szudesktop.git</p>
+<blockquote><p>资料核对：2026 年 9 月 20 日</p></blockquote>
+<p>先算一笔小账。</p>
+<p>假设审查一次代码修改，模型判断需要 10 秒，必要测试需要 300 秒，两步顺序执行。总共 310 秒。</p>
+<p>换上新模型，判断时间降到 0.1 秒，快了整整 100 倍。新的总时间却是 300.1 秒，只比原来少了约 3.2%。</p>
+<p>“模型快了 100 倍”和“整件事只快了约 3%”，都没有撒谎。</p>
+<p>这只是说明问题的假设算例，不是任何模型的实测。但它很适合用来读 Jev 的成绩单。TypeSafe 将 Jev 定位为快速、结构化的决策组件。[1] 这种组件可能真有价值，可单次调用的优势，究竟能支持多大的自动化结论？</p>
+<h2 id="section-1">先看看秒表从哪里开始计时</h2>
+<p>模型调用往往只是软件流程的一段。取得输入、检索材料、等待工具、处理失败、人工复核，都可能占时间。</p>
+<p>在开头的假设里，测试才是大头，所以压缩模型时间对总耗时影响有限。如果另一个任务不需要长测试，原来几乎都在等待模型，收益就可能大得多。</p>
+<p>因此，不该看到 100 倍就兴奋，也不该看到 3% 就失望。两种收益描述了不同任务结构。真正要问的是：自己的系统卡在哪里？</p>
+<p>平均时间也不是全部。假设多数调用很快，少数经常超时重试，用户体验就可能与漂亮平均值不一致。我希望产品报告完整任务的等待分布，至少说明失败和重试有没有算进去，而不是只截取最流畅的一次。</p>
+<p>TypeSafe 的发布文也注明，部分展示使用了对自身有利的短输入，并提醒一些公布收益处于真实收益的较高端。[2] 阅读时应该把这些限制和大数字一起带走，而不是只转发其中一半。</p>
+<h2 id="section-2">别让一个考生写作文，另一个只涂答题卡</h2>
+<p>再看比较是否对称。</p>
+<p>同样是选择负责部门，一边被要求生成长解释、完整概率和格式包装，另一边只返回所需选项，两者的延迟自然不能直接解释为底层能力差距。</p>
+<p>不过，要求输出完整概率也未必不公平。如果业务确实需要这些信息，就该比较各方案交付同样结果的总成本。关键是说清楚任务需求，而不是事后挑最有利的输出要求。</p>
+<p>生成式模型可以通过受约束生成输出结构化内容，XGrammar 等研究就在处理这件事。[3] 所以合理基线不该只是一个未经配置的聊天窗口。</p>
+<p>我会区分两种比较：一种看在相同预算下谁能做得更好，另一种看达到相近质量时谁更省。它们都合理，但回答的问题不同。推理设置、上下文长度、是否返回概率，也需要记录。</p>
+<p>若自己只需要分十类，现成分类器甚至规则系统也值得参赛。让昂贵的大模型成为唯一对手，很容易赢出一场与真实选择无关的比赛。</p>
+<h2 id="section-3">“标准答案”是谁说的？</h2>
+<p>速度容易测，正确性有时更难。</p>
+<p>TypeSafe 公开的 workflow 评测，把任务拆成代码规则与模型判断，使用强模型回答形成参考标签，并假设流程代码正确。[4] 这能比较不同模型在指定流程里与参考判断的一致程度。</p>
+<p>这种办法不是没有价值。某些语义问题难以快速取得可靠标签，强模型能提供可复用参考，也方便分析不同模型在哪些地方意见不一。</p>
+<p>但“与强模型一致”和“已经与真实结果核对”，仍然是两种证据。参考模型可能也错，尤其当所有模型都面对同一份缺失材料时，一致不能补出事实。</p>
+<p>至于流程代码本身，评测既然把它当作正确前提，就不能再拿成绩证明这个前提。旧状态、权限问题、漏掉的检查，都需要另行测试。</p>
+<p>这像考试使用了一份参考答案。学生与答案对得很齐，能说明一件事；参考答案是否正确、考题是否覆盖实际工作，还得另外讨论。不能要求一份评测包办所有问题，也不能把它包装成已经包办。</p>
+<h2 id="section-4">99% 的准确率，可以漏掉全部危险案例</h2>
+<p>下面再做一组假设。</p>
+<p>共有 1,000 个 PR，其中 990 个按既定标准可以放行，10 个含有严重问题。我们写一个审批器：谁来都通过。</p>
+<p>总体准确率是多少？99%。</p>
+<p>它拦下了几个严重问题？零个。</p>
+<p>数字没错，问题选错了。大多数案例本来就可以放行，一个总说“可以”的系统，靠着多数类也能得到漂亮成绩。但审批器最需要发挥作用的那部分，它完全失职。</p>
+<p>这组数据里，自动放行覆盖率为 100%，放行中的错误比例为 1%，严重问题漏检率为 100%。这几个数不能互相替代。尤其“放行里错了多少”和“所有危险案例漏了多少”，分母就不同。</p>
+<p>我还想知道错误的后果。漏掉注释格式问题，与漏掉权限条件缺失，不能只按“一次错误”平摊。业务可以自行定义风险类别，但定义需要在看测试结果之前确定，不能出了事故才换口径。</p>
+<p>因此，一张对自动审批真正有帮助的成绩单，应该把自动处理了多少、放行错了多少、关键风险漏了多少放在一起。</p>
+<h2 id="section-5">零错误，也可能是因为它几乎什么都没做</h2>
+<p>反过来，一个系统把绝大多数请求转人工，只挑极少数简单案例自动处理，错误率也可能非常好看。</p>
+<p>这不一定是坏事。谨慎起步很合理，小范围自动化也能有收益。但产品需要把范围写出来，不能拿那一小块的表现代表全部工作。</p>
+<p>机器学习中的选择性分类，就研究允许模型对部分输入拒答时，覆盖率和风险如何取舍。[5] 对用户来说，不必先记术语，记住一句就够了：要同时问“错得少不少”和“到底替我干了多少”。</p>
+<p>更细一点，还应检查转人工后的成本。如果模型把所有复杂材料都打包丢给人，附带大量误报，人工未必比从头处理更轻松。节省的不是模型输出字数，而是整个任务所需的工作。</p>
+<p>阈值越高越安全，也不能不经验证就相信。模型可能在某类错误上特别自信，简单提高门槛未必把它筛出去。阈值只能提出一个方案，实际风险需要数据回答。</p>
+<h2 id="section-6">一百次都对，够不够交出批准权？</h2>
+<p>演示最容易制造的印象，是“我亲眼看它成功了这么多次，应该很稳”。</p>
+<p>但假设某系统每次独立出错的概率为 1%，一百次都没出错的概率仍约为 36.6%。这个数由 0.99 的一百次方得到。也就是说，一个真实存在 1% 错误率的系统，拿出一百次零错误展示，并不稀奇。</p>
+<p>这仍然是假设计算，不是在估计 Jev 的错误率。</p>
+<p>现实案例还可能彼此相似：同一仓库、同一种修改、同一份模板。数量看起来多，有效覆盖却很窄。如果开发者看着失败案例反复调提示词，再拿同一批案例宣布成功，测试更接近练习题，而不是陌生考卷。</p>
+<p>这就是保留集的重要性：先冻结模型、提示和规则，再用没有参与调试的材料检查。对于部署，我还希望看到不同仓库、不同风险类型的结果，而不仅是一串总分。</p>
+<h2 id="section-7">没收到投诉，也不能直接算作全对</h2>
+<p>上线后的反馈同样需要小心解释。一个错误可能立即引发失败，也可能在很久以后才碰到触发条件。没有人报告问题，不代表每个决定都经过了完整复核。</p>
+<p>对于自动审批，我会事先规定观察方式：抽查哪些已放行项目，跟踪多久，怎样记录后来发现的缺陷，以及哪些结果仍属未知。不能把没有标签的案例顺手归到正确一栏。</p>
+<p>还可以先让系统在后台只做预测，由原有流程继续负责决定，再比较它本来会怎样处理。这样的试运行不能回答全部部署风险，但至少能在交出权限前，发现一部分明显分歧。</p>
+<p>这也提醒我们，演示成功、保留集表现和上线表现，不是相互替代的三张奖状。它们覆盖不同阶段，各有盲区。一个产品愿意把这些盲区写出来，反而更方便使用者判断适用范围。</p>
+<h2 id="section-8">真正值得交付的，不是一个最大的数字</h2>
+<p>如果让我验收自动审批产品，我会先限定允许处理的范围，再约定参考判断怎样取得。人工复核、可复现缺陷、实际测试结果或后续观察，都可以提供部分依据，但各自的局限也应说明。</p>
+<p>然后，比较完整系统，而不是只比较模型接口。候选方案使用清楚的输入和输出要求，记录自动处理比例、错误放行、关键风险漏检，以及端到端成本与耗时。失败案例最好能回到具体输入与证据，而不是归结成一句“模型偶尔不稳定”。</p>
+<p>我也希望看到版本信息。模型、提示词或审批规则变化后，原有结果是否继续成立，需要重新检查。评测报告应该像产品的质检记录，注明它测的是哪批货，而不是成为永不过期的宣传许可证。</p>
+<p>Jev 可能把某些判断做得更快、更便宜；这些进步值得认真测，也值得在合适场景里使用。但要证明“已经可以无人审批”，还需要覆盖权限、执行、失败处理和真实结果的证据。</p>
+<p><strong>看成绩单时，先把分母、前提和计时范围找出来。最大的数字，未必回答了你最关心的问题。</strong></p>
+<h2 id="section-9">参考资料与说明</h2>
+<blockquote><p><strong>说明</strong>：文中情境和示例数字为说明性假设，不是 Jev 实测结果。产品能力与项目状态以核对当日的公开材料为准；相关引用不代表独立测试或安全审计。参考资料标题可点击打开。</p></blockquote>
+<ul>
+<li>[1] TypeSafe AI：<a href="https://docs.typesafe.ai/concepts/system-one" target="_blank" rel="noopener noreferrer">System One</a>。</li>
+<li>[2] TypeSafe AI，2026-09-15：<a href="https://typesafe.ai/blog/introducing-system-one-models-and-jev" target="_blank" rel="noopener noreferrer">Introducing System One Models &amp; Jev</a>。</li>
+<li>[3] Dong 等，MLSys 2025：<a href="https://arxiv.org/abs/2411.15100" target="_blank" rel="noopener noreferrer">XGrammar: Flexible and Efficient Structured Generation Engine for Large Language Models</a>。</li>
+<li>[4] TypeSafe AI：<a href="https://evals.typesafe.ai/" target="_blank" rel="noopener noreferrer">Workflow evals：评测方法及参考标签说明</a>。</li>
+<li>[5] Geifman 与 El-Yaniv：<a href="https://arxiv.org/abs/1705.08500" target="_blank" rel="noopener noreferrer">Selective Classification for Deep Neural Networks</a>。</li>
+</ul>
     </div>
     <footer class="artfoot">
       <span class="artorig quiet">柯西 Alakazam</span>
@@ -167,8 +135,8 @@
   </div>
 </section>
   <nav class="apager">
-    <a class="apg prev" href="01-Jev与BERT.html"><i>上一篇</i><b>Jev 火了：我们是不是把 BERT 又发明了一遍？</b></a>
-    <a class="apg next" href="douban-17737066.html"><i>下一篇</i><b>一部好电影，但是我讨厌mj</b></a>
+    <span class="apg empty"></span>
+    <a class="apg next" href="04-AI审批与代码检查.html"><i>下一篇</i><b>AI 点下“批准”之前，谁真正检查过代码？</b></a>
   </nav>
   <div class="sitebottom">
   <div class="visitbar">

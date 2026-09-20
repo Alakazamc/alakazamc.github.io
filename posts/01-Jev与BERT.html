@@ -3,18 +3,18 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>深大校园网疑云：为什么我连路由器的时候，官方登录应用失败了 · 柯西 Alakazam</title>
+<title>Jev 火了：我们是不是把 BERT 又发明了一遍？ · 柯西 Alakazam</title>
 <link rel="stylesheet" href="../assets-layers.css">
 <link rel="stylesheet" href="../font.css">
 <link rel="stylesheet" href="../assets/theme.css">
 <!-- SEO -->
-<link rel="canonical" href="https://alakazamc.github.io/posts/深大校园网疑云-为什么我连路由器的时候-官方登录应用失败了.html">
+<link rel="canonical" href="https://alakazamc.github.io/posts/01-Jev与BERT.html">
 <link rel="alternate" type="application/rss+xml" title="柯西 Alakazam · RSS" href="https://alakazamc.github.io/rss.xml">
-<meta name="description" content="最近在做SZUDesktop桌面应用，在设置校园网登录功能的时候遇到了 认证失败：acid 用错了（Unknow ac-type）。 的bug。 在排查一番以后，发现不仅是自己连不上，官方的上">
+<meta name="description" content="资料核对：2026 年 9 月 20 日 有人端来一台新咖啡机，说它不跟你聊天，不介绍咖啡文化，按一下按钮就出杯，特别适合办公室。 你看了半天，忍不住问：“咖啡机本来不就应该这样吗？” 读到 ">
 <meta property="og:type" content="article">
-<meta property="og:title" content="深大校园网疑云：为什么我连路由器的时候，官方登录应用失败了 · 柯西 Alakazam">
-<meta property="og:description" content="最近在做SZUDesktop桌面应用，在设置校园网登录功能的时候遇到了 认证失败：acid 用错了（Unknow ac-type）。 的bug。 在排查一番以后，发现不仅是自己连不上，官方的上">
-<meta property="og:url" content="https://alakazamc.github.io/posts/深大校园网疑云-为什么我连路由器的时候-官方登录应用失败了.html">
+<meta property="og:title" content="Jev 火了：我们是不是把 BERT 又发明了一遍？ · 柯西 Alakazam">
+<meta property="og:description" content="资料核对：2026 年 9 月 20 日 有人端来一台新咖啡机，说它不跟你聊天，不介绍咖啡文化，按一下按钮就出杯，特别适合办公室。 你看了半天，忍不住问：“咖啡机本来不就应该这样吗？” 读到 ">
+<meta property="og:url" content="https://alakazamc.github.io/posts/01-Jev与BERT.html">
 <meta property="og:image" content="https://alakazamc.github.io/assets/preview.png">
 <meta name="twitter:card" content="summary_large_image">
 <!-- /SEO -->
@@ -30,123 +30,84 @@
   <article class="panel artpage">
     <h2 class="pt"><svg class="ic xs" viewBox="0 0 16 16"><use href="#px-wateringcan"></use></svg>本站<svg class="ic xs" viewBox="0 0 16 16"><use href="#px-wateringcan"></use></svg></h2>
     <span class="cor tl"><svg class="ic sm" viewBox="0 0 16 16"><use href="#px-flower"></use></svg></span><span class="cor tr"><svg class="ic sm" viewBox="0 0 16 16"><use href="#px-flower"></use></svg></span><span class="cor bl"><svg class="ic sm" viewBox="0 0 16 16"><use href="#px-wheat"></use></svg></span><span class="cor br"><svg class="ic sm" viewBox="0 0 16 16"><use href="#px-wheat"></use></svg></span>
-    <h1 class="arttitle">深大校园网疑云：为什么我连路由器的时候，官方登录应用失败了</h1>
-    <p class="artmeta">2026-09-17</p>
+    <h1 class="arttitle">Jev 火了：我们是不是把 BERT 又发明了一遍？</h1>
+    <p class="artmeta">2026-09-20 · 模型 / AI / BERT</p>
     
-    
+    <details class="toc" open>
+    <summary><span class="title">文章目录</span></summary>
+    <nav class="inner" aria-label="文章目录"><ul>
+      <li style="margin-left:0px"><a href="#section-1">BERT 早就交过这种答题卡</a></li>
+<li style="margin-left:0px"><a href="#section-2">看见出餐口，猜不出厨房</a></li>
+<li style="margin-left:0px"><a href="#section-3">真正有意思的是：换一道题，要不要重新培训？</a></li>
+<li style="margin-left:0px"><a href="#section-4">“输出向量”，究竟输出了什么？</a></li>
+<li style="margin-left:0px"><a href="#section-5">训练概率，比训练漂亮回答更接近软件需求吗？</a></li>
+<li style="margin-left:0px"><a href="#section-6">把业务规则写清楚，也是一份工作</a></li>
+<li style="margin-left:0px"><a href="#section-7">我会怎样判断，它值不值得用？</a></li>
+<li style="margin-left:0px"><a href="#section-8">参考资料与说明</a></li>
+    </ul></nav>
+  </details>
     <div class="artbody">
-<p>最近在做SZUDesktop桌面应用，在设置校园网登录功能的时候遇到了</p>
-<p>认证失败：ac_id 用错了（Unknow ac-type）。</p>
-<p>的bug。</p>
-<p>在排查一番以后，发现不仅是自己连不上，官方的上网认证客户端同样连不上！</p>
-<p>必须手动打开一个网页才能登录：</p>
-<p>https://net.szu.edu.cn/srun_portal_success?ac_id=12&amp;theme=proyx</p>
-<p>我们自己的工具在这个网络下同样连不上。这就排除了「客户端软件写错了」的可能——官方和我们一起挂，说明问题在协议参数，不在代码质量。</p>
-<p>那时候最自然的怀疑是：这个线路把 ac_id 换成了 12，而我们的代码还在用 1。</p>
-<p>门户会把你传进去的编号原样回填到页面配置里。而这个 acid 会参与登录时的 chksum 校验和加密串生成——也就是说，编号传错了，算出来的签名就是错的，服务端直接拒绝。</p>
-<p>踩坑：为什么不能从页面上猜</p>
-<p>知道 ac_id 会变之后，第一个念头是「那我把所有可能的编号试一遍，哪个能返回登录页就用哪个」。</p>
-<p>于是我写了段代码，挨个请求 ac_id=1/2/3/4/5/10/12，看哪个能拿到正常页面。</p>
-<p>结果很打击人：</p>
-<p>ac_id=1 → 8333 字节</p>
-<p>ac_id=2 → 8333 字节</p>
-<p>ac_id=3 → 8334 字节</p>
-<p>ac_id=4 → 8333 字节</p>
-<p>ac_id=5 → 8333 字节</p>
-<p>ac_id=10 → 8333 字节</p>
-<p>ac_id=12 → 8333 字节</p>
-<p>全都返回完整登录页，体积几乎一样，差 1 个字节。 页面里翻遍了也找不到任何字段能说明「你现在实际挂在哪个接入点」。</p>
-<p>换句话说：门户页面只能告诉你「这个编号存在」，不能告诉你「你就在这个编号上」。 试一遍全都能用，等于全是瞎猜。</p>
-<p>正解：让网关自己告诉你</p>
-<p>那 ac_id 到底从哪来？</p>
-<p>去过酒店、机场的朋友可能见过「连接 Wi-Fi 后自动弹出登录页」——那个弹窗不是魔法，是网关干的：你请求外网，网关发现你没认证，把你的请求半路拦下来，返回一个 302 跳转到认证页。这个跳转地址里就带着它想让你用的参数，包括 ac_id。</p>
-<p>所以正确做法是：未认证的时候主动去访问一个外网站点，然后读那个 302 跳转里的 ac_id</p>
-<p>func (c *SrunClient) discoverAcIDFromRedirect() string {</p>
-<p>probes := []string{</p>
-<p>	connectivityProbe,                                   // 未认证时必定被拦</p>
-<p>	&quot;http://www.msftconnecttest.com/redirect&quot;,           // Windows 自带探测</p>
-<p>	&quot;http://connectivitycheck.gstatic.com/generate_204&quot;, // 安卓/Chrome</p>
-<p>	&quot;http://captive.apple.com/hotspot-detect.html&quot;,      // 苹果</p>
-<p>}</p>
-<p>for _, p := range probes {</p>
-<p>	resp, err := c.http.Get(p)</p>
-<p>	if err != nil {</p>
-<p>		continue</p>
-<p>	}</p>
-<p>	loc := resp.Header.Get(&quot;Location&quot;)</p>
-<p>	body, _ := io.ReadAll(io.LimitReader(resp.Body, 8192))</p>
-<p>	_ = resp.Body.Close()</p>
-<p>	// 只认 3xx 跳转。200 说明没被拦，那就是正常上网，不是校园网闸门。</p>
-<p>	if resp.StatusCode/100 != 3 {</p>
-<p>		continue</p>
-<p>	}</p>
-<p>	if id := c.acIDFromLocation(p, loc); id != &quot;&quot; {</p>
-<p>		return id</p>
-<p>	}</p>
-<p>	// 有些网关不返回 Location 头，而是塞一个带 meta refresh /</p>
-<p>	// JS 跳转的拦截页。这种也一起捞，否则在那些设备上就彻底瞎了。</p>
-<p>	if id := acIDFromInterceptPage(string(body)); id != &quot;&quot; {</p>
-<p>		return id</p>
-<p>	}</p>
-<p>}</p>
-<p>return &quot;&quot; }</p>
-<p>这段有几个点值得说：</p>
-<p>探针必须是真正的外网站点。我一开始把「认证门户自己」也放进了探针列表，结果门户必然 302 到它自己的登录页，而那个地址里带着默认的ac_id=1。于是已经在线、网关根本没拦的时候，这里也会「成功」读出一个 1，还被当成可信值。这是个极具欺骗性的假信号，我差点就信了。</p>
-<p>只认 3xx。加了resp.StatusCode/100 != 3这一条之后，假信号立刻消失。返回 200 说明你根本没被拦，那就是正常上网状态。</p>
-<p>兼容没有 Location 头的网关。有些设备返回的是个带或 JSlocation.href = ...的拦截页，也一并解析。</p>
-<p>设计：给每个值标上「可信度」</p>
-<p>发现方式有好几种，可靠性差很多。如果都当成一样的值，就会出事。所以我用一个 AcIDSource 把来源显式标出来：</p>
-<p>const (</p>
-<p>// Manual 用户显式指定。最高优先级，也是唯一&quot;绝对可信&quot;的。</p>
-<p>AcIDSourceManual AcIDSource = &quot;manual&quot;</p>
-<p>// Cache 这张网上次认证成功用过的，跟着成功结果来的。</p>
-<p>AcIDSourceCache AcIDSource = &quot;cache&quot;</p>
-<p>// Redirect 未认证时被校园网网关拦下，从跳转地址里读出来的。</p>
-<p>AcIDSourceRedirect AcIDSource = &quot;redirect&quot;</p>
-<p>// Guess 只从门户页面试探出来的，只能说明&quot;这个编号存在&quot;，</p>
-<p>// 不能说明你就在这个接入点上。不该缓存。</p>
-<p>AcIDSourceGuess AcIDSource = &quot;guess&quot; )</p>
-<p>取值优先级从高到低：</p>
-<p>func (c *SrunClient) resolveAcIDWithSource() (string, AcIDSource) {</p>
-<p>if c.AcID != &quot;&quot; {</p>
-<p>	return c.AcID, AcIDSourceManual        // 1. 用户说了算</p>
-<p>}</p>
-<p>if c.lastAcID != &quot;&quot; {</p>
-<p>	return c.lastAcID, AcIDSourceCache     // 2. 这张网上次成功过</p>
-<p>}</p>
-<p>if id := c.discoverAcIDFromRedirect(); id != &quot;&quot; {</p>
-<p>	return id, AcIDSourceRedirect          // 3. 网关跳转，权威</p>
-<p>}</p>
-<p>if id := c.discoverAcIDFromPortal(); id != &quot;&quot; {</p>
-<p>	return id, AcIDSourceGuess             // 4. 挨个试，猜的</p>
-<p>}</p>
-<p>return &quot;1&quot;, AcIDSourceGuess                // 5. 最后兜底，也是猜的 }</p>
-<p>关键规则：只有可信来源的成功结果才写缓存。</p>
-<p>if acIDSource != AcIDSourceGuess {</p>
-<p>c.rememberAcID(acID) }</p>
-<p>这条看着不起眼，但它防止了一个很恶心的情况：如果猜出来的值也被缓存，那第一次猜错之后，以后每次都会用这个错值，而且用户完全不知道为什么——他只会觉得「这软件越来越烂了」。</p>
-<p>宁可每次都重新探测，也不要缓存一个没验证过的猜测。</p>
-<p>缓存按什么键存</p>
-<p>缓存键也得选对。答案是：默认网关优先，出口 IP 兜底。</p>
-<p>为什么用网关而不是 MAC 地址或路由器型号？因为ac_id 跟着物理接入位置走，不跟着设备走：</p>
-<p>// Gateway 跟着&quot;插哪个口&quot;变，正好和 ac_id 的变化同步。</p>
-<p>func Egress() string { return NetKey(Gateway(), LocalIP()) }</p>
-<p>同一台路由器，拔下来插回原来那个墙口→ac_id还是12</p>
-<p>同一台路由器，换个墙口 → 变了</p>
-<p>换一台路由器，插原墙口 →还是 12</p>
-<p>所以这个缓存是绑在「你现在插在哪个网络口上」的，不是绑在设备上的。网关地址正好和这件事同步变化。</p>
-<p>所以「换个路由器会变吗」</p>
-<p>回到最初那个问题。答案是：</p>
-<p>换路由器本身不会变。变的是你插在哪个墙口 / 走哪条线路。</p>
-<p>ac_id 是网管给每个接入点分的编号。你换路由器，只要还是插原来那个口，学校那边看到的还是同一个接入点，编号当然不变。真正会让它变的是换个墙口、换条线路、或者像这次一样——从直接插墙口改成经过路由器。</p>
-<p>至于用户要不要管这件事？不用。 现在这套逻辑会在未认证时自己问网关，问不到就用上次成功的，都拿不到才猜一个。用户唯一需要做的，就是在它猜的时候别太当真——所以界面上标了「⚠️ 猜的，不一定对」。</p>
-<p>小结</p>
-<p>题目不算大，但这几个坑挺典型：一个看起来像「配置常量」的参数，其实是运行时环境信息。 把它写死，就等于假设所有用户都在同一个接入点上——而这在一个有几百个接入点的校园网里，显然不成立。</p>
-<p>题外话</p>
-<p>我最近在做一个SZUDesktop的客户端程序，目前是纯本地项目，之后可能接入校园网内服务器！</p>
-<p>计划是支持windows，macos和linux三端版本。</p>
-<p>还在开发中，目前没有正式版本，欢迎大家之后了解使用！</p>
-<p>https://github.com/Alakazamc/szudesktop.git</p>
+<blockquote><p>资料核对：2026 年 9 月 20 日</p></blockquote>
+<p>有人端来一台新咖啡机，说它不跟你聊天，不介绍咖啡文化，按一下按钮就出杯，特别适合办公室。</p>
+<p>你看了半天，忍不住问：“咖啡机本来不就应该这样吗？”</p>
+<p>读到 Jev 的介绍，我也有类似的疑问。TypeSafe 把它定位为给软件做判断的模型：输入材料和问题，返回选项、评分或概率，不以生成长篇文字为目标。[1] 听起来很实用。但“理解输入，然后做选择题”，BERT 不是早就会了吗？</p>
+<p>这个怀疑有道理。不过，要把它问到底，得先分清：我们是在比较两台机器的内部结构，还是在比较它们能接哪些活？</p>
+<h2 id="section-1">BERT 早就交过这种答题卡</h2>
+<p>BERT 不是单独一层 Transformer encoder，而是多层双向编码器。原始训练包括预测被遮住的词，以及判断句子之间的关系；做分类时，可以在表示之上接一个输出层，并用任务数据微调。[2]</p>
+<p>不必被这些术语吓住。可以把编码器想成负责阅读材料的部分：它让一句话里的各个位置结合上下文形成表示。分类头再根据这些表示，给候选类别打分，变成概率。</p>
+<p>假设我们做一个客服分流器。用户发来：“我已经付过钱，怎么还是显示未支付？”系统要在“支付”“账号”“物流”之间选一个。训练合适的 BERT 分类器，就可以把这条消息分到支付问题，而不必先写三百字分析。</p>
+<p>这说明，<strong>直接输出类别和概率，并不是 Jev 才带来的能力。</strong> 同样，只返回数字，也不意味着模型只是查字典。“付过钱”和“扣款成功”用词不同，却可能需要送到同一个队列；这个任务仍然需要理解。</p>
+<p>不过，“BERT 能做这种事”，和“BERT 在所有相关任务上已经做得一样好”，之间还差着完整的实验。会出咖啡，不能直接证明出杯速度、口味稳定性和维护成本都相同。</p>
+<h2 id="section-2">看见出餐口，猜不出厨房</h2>
+<p>模型架构、训练目标和产品接口，经常被介绍文章压成一句话。</p>
+<p>架构说的是内部怎么计算。训练目标说的是什么结果受到奖励，什么错误需要修正。接口说的是使用者怎么提问，最后拿到什么。</p>
+<p>把这三件事混起来，最容易出现两种误判：看到返回概率，就说“这一定是 BERT”；看到接口很新，就说“底层智能已经彻底不同”。</p>
+<p>TypeSafe 的发布文宣称使用了新架构、并行输出机制和 RLCD 训练。[3] 但在本文核对的发布材料里，没有足够的结构细节，让我完成它与标准编码器的逐项比较。因此，“就是 BERT 换皮”和“已经摆脱 Transformer”都不是我能确认的结论。</p>
+<p>这里留一个空白，比拿熟悉的术语把空白填满更诚实。<strong>相同的输出形式，可以来自不同实现；不同的产品名称，也可能共享许多基础技术。</strong></p>
+<h2 id="section-3">真正有意思的是：换一道题，要不要重新培训？</h2>
+<p>还是那个客服系统。</p>
+<p>今天只分支付、账号和物流，明天业务又想问：“这位用户有没有明确要求退款？”后天还要判断：“应该先补充材料，还是直接转人工？”</p>
+<p>传统 BERT 分类器常见的工作方式，是预先确定任务，用对应标签数据适配模型。[2] 这并非缺点。如果任务长期稳定，团队又有足够样本，一个专门训练的模型可能很合适。没有必要为了赶潮流，把已经稳定运行的分拣员换掉。</p>
+<p>Jev 的公开接口则让使用者在请求中提供问题、候选项或评分标准。[1] 它试图承担的角色更像临时接题的工作人员：把这次的材料、题目和答题规则交给它，再拿结果。</p>
+<p>比如，问题从“属于哪个部门”改为“需要不需要补充订单号”，不一定需要使用者自己重训一个分类头。这种任务配置方式，对需求经常变化的软件可能更方便。</p>
+<p>但方便换题，不等于每道题都答得好。接口支持一个任务，只说明题目能递进去；泛化能力需要看模型在没有专门适配的新问题上表现如何。</p>
+<p>也别把 BERT 描述成只能死记几个标签。把标签写成自然语言描述、借助自然语言推断做零样本分类，早已有研究探索。[4] 所以比较时不能让一边充分训练和调提示，另一边拿来就用，然后把差距全算成“新范式”的胜利。</p>
+<h2 id="section-4">“输出向量”，究竟输出了什么？</h2>
+<p>还有一个容易误会的地方：不是所有数字数组，都承担同一种工作。</p>
+<p>普通 embedding 可以看作一组表示输入特征的坐标。你拿它去做检索或相似度比较，还需要后续步骤。分类概率则与明确标签绑定：这个数对应支付，那个数对应账号。程序知道该怎样解释。</p>
+<p>Jev 的文档列出 Choice、Score 和 Noul，分别面向选项选择、按标准评分以及是非判断。[1] 把它统称为“吐出一个向量”，虽然没有完全说错，却把最影响使用方式的部分省掉了。</p>
+<p>我们可以设计一个假设输出：支付 0.8，账号 0.15，物流 0.05。这是一张针对当前题目的答题卡，不是输入文本的通用身份证。换了问题，数字的含义就变了。</p>
+<p>而且，这些数也不是事实证明。它们表达模型如何判断，不代表系统已经查过账单。用户说“钱扣了”，模型能识别他在投诉扣款，却不能因此宣称实际交易记录已经确认。</p>
+<p>“理解用户在说什么”和“核实用户说的是否属实”，从这里就开始分岔了。</p>
+<h2 id="section-5">训练概率，比训练漂亮回答更接近软件需求吗？</h2>
+<p>TypeSafe 把 RLCD 解释为面向校准决策的强化学习：希望输出概率与实际结果更匹配。[5] 这是值得评估的目标，但不能仅凭名字断定训练方法有多新，或已经在所有任务上兑现。</p>
+<p>设想两个客服分流器，最后分对的比例一样。其中一个动不动报“百分之百确定”，另一个在材料不足时给出明显犹豫的分布。若这种不确定性确实经过验证，程序就能把难题留下，先自动处理有把握的部分。</p>
+<p>这种能力很有用。不过，概率校准是一个已有研究方向，而不是把 softmax 输出打印出来就自动完成的事情。[6] 是否有效，仍需把预测与真实结果对照。</p>
+<p>也不能把生成式模型说成只能聊天、无法提供结构化答案。受约束生成可以限制模型按语法或结构输出；XGrammar 就是这类研究之一。[7] 比较对象应当是经过合理配置的方案，而不是故意让一个模型写长作文，再笑它交答题卡太慢。</p>
+<h2 id="section-6">把业务规则写清楚，也是一份工作</h2>
+<p>还有一笔成本，不能因为模型直接输出选项就消失：谁来定义这些选项，谁来整理材料？</p>
+<p>假设客服队列里同时有“退款”“支付失败”和“重复扣款”。一位用户说“付了两遍，希望处理一下”，究竟该去哪个队列，可能取决于公司的流程，而不只是中文理解。若退款必须先核实交易，题目就应该把分流与退款执行分开。</p>
+<p>这里模型面对的，不是藏在世界某处、等待被发现的唯一标签，而是需要团队先明确的工作约定。规则本身含糊，模型答得再稳定，也可能只是在稳定地执行一种误解。</p>
+<p>所以，我不会只比较“调一次接口有多简单”。接入前要整理哪些字段、维护哪些标准、业务变更时谁来更新，都属于实际成本。一个好组件可以降低这些成本，却不该假装它们不存在。</p>
+<h2 id="section-7">我会怎样判断，它值不值得用？</h2>
+<p>如果要做选择，我会把问题落到两组任务上。</p>
+<p>一组是标签固定、训练样本充足的任务，看看专用分类器能不能更省。另一组是题目经常变、样本不足的任务，看看 Jev 这种可配置判断接口是否真正减少适配成本。生成式模型也参加比较，但只要求返回所需答案，不让它承担额外的写作工作。</p>
+<p>除了答对多少，还要看哪些题会错、换个领域掉多少，以及输入变长后有什么变化。把这些表现和总成本放在一起，才能知道便利是否值得付费。</p>
+<p>如果一个固定规则已经能准确分流，就不用把它强行升级为 AI。如果语义变化太多、维护规则很累，一个更灵活的判断组件就有机会。选择应由问题决定，而不是由模型名称决定。</p>
+<p>技术的新颖性和产品的价值，也可以分开。它未必需要重新发明神经网络，才能做出好用的产品；但如果宣称是根本性突破，就需要拿出对应的技术证据。</p>
+<p>我对 Jev 最感兴趣的，不是它会不会回答“我是谁”，而是它能否让软件以更低代价完成原本难写的判断。至于是不是 BERT 的远房亲戚，可以继续研究。</p>
+<p><strong>先拿出一份公平的成绩单，再决定该叫它换皮，还是进步。</strong></p>
+<h2 id="section-8">参考资料与说明</h2>
+<blockquote><p><strong>说明</strong>：文中情境和示例数字为说明性假设，不是 Jev 实测结果。产品能力与项目状态以核对当日的公开材料为准；相关引用不代表独立测试或安全审计。参考资料标题可点击打开。</p></blockquote>
+<ul>
+<li>[1] TypeSafe AI：<a href="https://docs.typesafe.ai/introduction" target="_blank" rel="noopener noreferrer">Introduction</a>。</li>
+<li>[2] Devlin 等：<a href="https://arxiv.org/abs/1810.04805" target="_blank" rel="noopener noreferrer">BERT: Pre-training of Deep Bidirectional Transformers for Language Understanding</a>。</li>
+<li>[3] TypeSafe AI，2026-09-15：<a href="https://typesafe.ai/blog/introducing-system-one-models-and-jev" target="_blank" rel="noopener noreferrer">Introducing System One Models &amp; Jev</a>。</li>
+<li>[4] Yin 等：<a href="https://arxiv.org/abs/1909.00161" target="_blank" rel="noopener noreferrer">Benchmarking Zero-shot Text Classification: Datasets, Evaluation and Entailment Approach</a>。</li>
+<li>[5] TypeSafe AI：<a href="https://docs.typesafe.ai/introduction/machine-learning-primer" target="_blank" rel="noopener noreferrer">AI primer</a>。</li>
+<li>[6] Guo 等，ICML 2017：<a href="https://proceedings.mlr.press/v70/guo17a.html" target="_blank" rel="noopener noreferrer">On Calibration of Modern Neural Networks</a>。</li>
+<li>[7] Dong 等，MLSys 2025：<a href="https://arxiv.org/abs/2411.15100" target="_blank" rel="noopener noreferrer">XGrammar: Flexible and Efficient Structured Generation Engine for Large Language Models</a>。</li>
+</ul>
     </div>
     <footer class="artfoot">
       <span class="artorig quiet">柯西 Alakazam</span>
@@ -167,8 +128,8 @@
   </div>
 </section>
   <nav class="apager">
-    <a class="apg prev" href="01-Jev与BERT.html"><i>上一篇</i><b>Jev 火了：我们是不是把 BERT 又发明了一遍？</b></a>
-    <a class="apg next" href="douban-17737066.html"><i>下一篇</i><b>一部好电影，但是我讨厌mj</b></a>
+    <a class="apg prev" href="02-数字输出与工具调用.html"><i>上一篇</i><b>只会输出几个数字的 AI，怎么替你干活？</b></a>
+    <a class="apg next" href="深大校园网疑云-为什么我连路由器的时候-官方登录应用失败了.html"><i>下一篇</i><b>深大校园网疑云：为什么我连路由器的时候，官方登录应用失败了</b></a>
   </nav>
   <div class="sitebottom">
   <div class="visitbar">

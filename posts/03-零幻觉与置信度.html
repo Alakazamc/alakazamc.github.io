@@ -3,18 +3,18 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>深大校园网疑云：为什么我连路由器的时候，官方登录应用失败了 · 柯西 Alakazam</title>
+<title>“零幻觉”的 AI，为什么仍然会批错？ · 柯西 Alakazam</title>
 <link rel="stylesheet" href="../assets-layers.css">
 <link rel="stylesheet" href="../font.css">
 <link rel="stylesheet" href="../assets/theme.css">
 <!-- SEO -->
-<link rel="canonical" href="https://alakazamc.github.io/posts/深大校园网疑云-为什么我连路由器的时候-官方登录应用失败了.html">
+<link rel="canonical" href="https://alakazamc.github.io/posts/03-零幻觉与置信度.html">
 <link rel="alternate" type="application/rss+xml" title="柯西 Alakazam · RSS" href="https://alakazamc.github.io/rss.xml">
-<meta name="description" content="最近在做SZUDesktop桌面应用，在设置校园网登录功能的时候遇到了 认证失败：acid 用错了（Unknow ac-type）。 的bug。 在排查一番以后，发现不仅是自己连不上，官方的上">
+<meta name="description" content="资料核对：2026 年 9 月 20 日 有一种考试机器，永远不会漏涂答题卡，不会把 A 写成奇怪的符号，也不会在只有三个选项时填出第四个。 厂家说：“它不会乱答。” 你追问：“那本来该选 B">
 <meta property="og:type" content="article">
-<meta property="og:title" content="深大校园网疑云：为什么我连路由器的时候，官方登录应用失败了 · 柯西 Alakazam">
-<meta property="og:description" content="最近在做SZUDesktop桌面应用，在设置校园网登录功能的时候遇到了 认证失败：acid 用错了（Unknow ac-type）。 的bug。 在排查一番以后，发现不仅是自己连不上，官方的上">
-<meta property="og:url" content="https://alakazamc.github.io/posts/深大校园网疑云-为什么我连路由器的时候-官方登录应用失败了.html">
+<meta property="og:title" content="“零幻觉”的 AI，为什么仍然会批错？ · 柯西 Alakazam">
+<meta property="og:description" content="资料核对：2026 年 9 月 20 日 有一种考试机器，永远不会漏涂答题卡，不会把 A 写成奇怪的符号，也不会在只有三个选项时填出第四个。 厂家说：“它不会乱答。” 你追问：“那本来该选 B">
+<meta property="og:url" content="https://alakazamc.github.io/posts/03-零幻觉与置信度.html">
 <meta property="og:image" content="https://alakazamc.github.io/assets/preview.png">
 <meta name="twitter:card" content="summary_large_image">
 <!-- /SEO -->
@@ -30,123 +30,88 @@
   <article class="panel artpage">
     <h2 class="pt"><svg class="ic xs" viewBox="0 0 16 16"><use href="#px-wateringcan"></use></svg>本站<svg class="ic xs" viewBox="0 0 16 16"><use href="#px-wateringcan"></use></svg></h2>
     <span class="cor tl"><svg class="ic sm" viewBox="0 0 16 16"><use href="#px-flower"></use></svg></span><span class="cor tr"><svg class="ic sm" viewBox="0 0 16 16"><use href="#px-flower"></use></svg></span><span class="cor bl"><svg class="ic sm" viewBox="0 0 16 16"><use href="#px-wheat"></use></svg></span><span class="cor br"><svg class="ic sm" viewBox="0 0 16 16"><use href="#px-wheat"></use></svg></span>
-    <h1 class="arttitle">深大校园网疑云：为什么我连路由器的时候，官方登录应用失败了</h1>
-    <p class="artmeta">2026-09-17</p>
+    <h1 class="arttitle">“零幻觉”的 AI，为什么仍然会批错？</h1>
+    <p class="artmeta">2026-09-20 · 模型 / AI / 置信度</p>
     
-    
+    <details class="toc" open>
+    <summary><span class="title">文章目录</span></summary>
+    <nav class="inner" aria-label="文章目录"><ul>
+      <li style="margin-left:0px"><a href="#section-1">答案只能写进三个格子，仍然可能写错格子</a></li>
+<li style="margin-left:0px"><a href="#section-2">精确的小数，会让人误以为背后做过测量</a></li>
+<li style="margin-left:0px"><a href="#section-3">校准不是让模型永远正确，而是让把握别乱报</a></li>
+<li style="margin-left:0px"><a href="#section-4">同样是 99%，不同错误完全不是一笔账</a></li>
+<li style="margin-left:0px"><a href="#section-5">真要相信这个数，就做一次对账</a></li>
+<li style="margin-left:0px"><a href="#section-6">在熟悉的街区认路，到了陌生城市还准吗？</a></li>
+<li style="margin-left:0px"><a href="#section-7">它说得再确定，也不能替你查一条不存在的记录</a></li>
+<li style="margin-left:0px"><a href="#section-8">参考资料与说明</a></li>
+    </ul></nav>
+  </details>
     <div class="artbody">
-<p>最近在做SZUDesktop桌面应用，在设置校园网登录功能的时候遇到了</p>
-<p>认证失败：ac_id 用错了（Unknow ac-type）。</p>
-<p>的bug。</p>
-<p>在排查一番以后，发现不仅是自己连不上，官方的上网认证客户端同样连不上！</p>
-<p>必须手动打开一个网页才能登录：</p>
-<p>https://net.szu.edu.cn/srun_portal_success?ac_id=12&amp;theme=proyx</p>
-<p>我们自己的工具在这个网络下同样连不上。这就排除了「客户端软件写错了」的可能——官方和我们一起挂，说明问题在协议参数，不在代码质量。</p>
-<p>那时候最自然的怀疑是：这个线路把 ac_id 换成了 12，而我们的代码还在用 1。</p>
-<p>门户会把你传进去的编号原样回填到页面配置里。而这个 acid 会参与登录时的 chksum 校验和加密串生成——也就是说，编号传错了，算出来的签名就是错的，服务端直接拒绝。</p>
-<p>踩坑：为什么不能从页面上猜</p>
-<p>知道 ac_id 会变之后，第一个念头是「那我把所有可能的编号试一遍，哪个能返回登录页就用哪个」。</p>
-<p>于是我写了段代码，挨个请求 ac_id=1/2/3/4/5/10/12，看哪个能拿到正常页面。</p>
-<p>结果很打击人：</p>
-<p>ac_id=1 → 8333 字节</p>
-<p>ac_id=2 → 8333 字节</p>
-<p>ac_id=3 → 8334 字节</p>
-<p>ac_id=4 → 8333 字节</p>
-<p>ac_id=5 → 8333 字节</p>
-<p>ac_id=10 → 8333 字节</p>
-<p>ac_id=12 → 8333 字节</p>
-<p>全都返回完整登录页，体积几乎一样，差 1 个字节。 页面里翻遍了也找不到任何字段能说明「你现在实际挂在哪个接入点」。</p>
-<p>换句话说：门户页面只能告诉你「这个编号存在」，不能告诉你「你就在这个编号上」。 试一遍全都能用，等于全是瞎猜。</p>
-<p>正解：让网关自己告诉你</p>
-<p>那 ac_id 到底从哪来？</p>
-<p>去过酒店、机场的朋友可能见过「连接 Wi-Fi 后自动弹出登录页」——那个弹窗不是魔法，是网关干的：你请求外网，网关发现你没认证，把你的请求半路拦下来，返回一个 302 跳转到认证页。这个跳转地址里就带着它想让你用的参数，包括 ac_id。</p>
-<p>所以正确做法是：未认证的时候主动去访问一个外网站点，然后读那个 302 跳转里的 ac_id</p>
-<p>func (c *SrunClient) discoverAcIDFromRedirect() string {</p>
-<p>probes := []string{</p>
-<p>	connectivityProbe,                                   // 未认证时必定被拦</p>
-<p>	&quot;http://www.msftconnecttest.com/redirect&quot;,           // Windows 自带探测</p>
-<p>	&quot;http://connectivitycheck.gstatic.com/generate_204&quot;, // 安卓/Chrome</p>
-<p>	&quot;http://captive.apple.com/hotspot-detect.html&quot;,      // 苹果</p>
-<p>}</p>
-<p>for _, p := range probes {</p>
-<p>	resp, err := c.http.Get(p)</p>
-<p>	if err != nil {</p>
-<p>		continue</p>
-<p>	}</p>
-<p>	loc := resp.Header.Get(&quot;Location&quot;)</p>
-<p>	body, _ := io.ReadAll(io.LimitReader(resp.Body, 8192))</p>
-<p>	_ = resp.Body.Close()</p>
-<p>	// 只认 3xx 跳转。200 说明没被拦，那就是正常上网，不是校园网闸门。</p>
-<p>	if resp.StatusCode/100 != 3 {</p>
-<p>		continue</p>
-<p>	}</p>
-<p>	if id := c.acIDFromLocation(p, loc); id != &quot;&quot; {</p>
-<p>		return id</p>
-<p>	}</p>
-<p>	// 有些网关不返回 Location 头，而是塞一个带 meta refresh /</p>
-<p>	// JS 跳转的拦截页。这种也一起捞，否则在那些设备上就彻底瞎了。</p>
-<p>	if id := acIDFromInterceptPage(string(body)); id != &quot;&quot; {</p>
-<p>		return id</p>
-<p>	}</p>
-<p>}</p>
-<p>return &quot;&quot; }</p>
-<p>这段有几个点值得说：</p>
-<p>探针必须是真正的外网站点。我一开始把「认证门户自己」也放进了探针列表，结果门户必然 302 到它自己的登录页，而那个地址里带着默认的ac_id=1。于是已经在线、网关根本没拦的时候，这里也会「成功」读出一个 1，还被当成可信值。这是个极具欺骗性的假信号，我差点就信了。</p>
-<p>只认 3xx。加了resp.StatusCode/100 != 3这一条之后，假信号立刻消失。返回 200 说明你根本没被拦，那就是正常上网状态。</p>
-<p>兼容没有 Location 头的网关。有些设备返回的是个带或 JSlocation.href = ...的拦截页，也一并解析。</p>
-<p>设计：给每个值标上「可信度」</p>
-<p>发现方式有好几种，可靠性差很多。如果都当成一样的值，就会出事。所以我用一个 AcIDSource 把来源显式标出来：</p>
-<p>const (</p>
-<p>// Manual 用户显式指定。最高优先级，也是唯一&quot;绝对可信&quot;的。</p>
-<p>AcIDSourceManual AcIDSource = &quot;manual&quot;</p>
-<p>// Cache 这张网上次认证成功用过的，跟着成功结果来的。</p>
-<p>AcIDSourceCache AcIDSource = &quot;cache&quot;</p>
-<p>// Redirect 未认证时被校园网网关拦下，从跳转地址里读出来的。</p>
-<p>AcIDSourceRedirect AcIDSource = &quot;redirect&quot;</p>
-<p>// Guess 只从门户页面试探出来的，只能说明&quot;这个编号存在&quot;，</p>
-<p>// 不能说明你就在这个接入点上。不该缓存。</p>
-<p>AcIDSourceGuess AcIDSource = &quot;guess&quot; )</p>
-<p>取值优先级从高到低：</p>
-<p>func (c *SrunClient) resolveAcIDWithSource() (string, AcIDSource) {</p>
-<p>if c.AcID != &quot;&quot; {</p>
-<p>	return c.AcID, AcIDSourceManual        // 1. 用户说了算</p>
-<p>}</p>
-<p>if c.lastAcID != &quot;&quot; {</p>
-<p>	return c.lastAcID, AcIDSourceCache     // 2. 这张网上次成功过</p>
-<p>}</p>
-<p>if id := c.discoverAcIDFromRedirect(); id != &quot;&quot; {</p>
-<p>	return id, AcIDSourceRedirect          // 3. 网关跳转，权威</p>
-<p>}</p>
-<p>if id := c.discoverAcIDFromPortal(); id != &quot;&quot; {</p>
-<p>	return id, AcIDSourceGuess             // 4. 挨个试，猜的</p>
-<p>}</p>
-<p>return &quot;1&quot;, AcIDSourceGuess                // 5. 最后兜底，也是猜的 }</p>
-<p>关键规则：只有可信来源的成功结果才写缓存。</p>
-<p>if acIDSource != AcIDSourceGuess {</p>
-<p>c.rememberAcID(acID) }</p>
-<p>这条看着不起眼，但它防止了一个很恶心的情况：如果猜出来的值也被缓存，那第一次猜错之后，以后每次都会用这个错值，而且用户完全不知道为什么——他只会觉得「这软件越来越烂了」。</p>
-<p>宁可每次都重新探测，也不要缓存一个没验证过的猜测。</p>
-<p>缓存按什么键存</p>
-<p>缓存键也得选对。答案是：默认网关优先，出口 IP 兜底。</p>
-<p>为什么用网关而不是 MAC 地址或路由器型号？因为ac_id 跟着物理接入位置走，不跟着设备走：</p>
-<p>// Gateway 跟着&quot;插哪个口&quot;变，正好和 ac_id 的变化同步。</p>
-<p>func Egress() string { return NetKey(Gateway(), LocalIP()) }</p>
-<p>同一台路由器，拔下来插回原来那个墙口→ac_id还是12</p>
-<p>同一台路由器，换个墙口 → 变了</p>
-<p>换一台路由器，插原墙口 →还是 12</p>
-<p>所以这个缓存是绑在「你现在插在哪个网络口上」的，不是绑在设备上的。网关地址正好和这件事同步变化。</p>
-<p>所以「换个路由器会变吗」</p>
-<p>回到最初那个问题。答案是：</p>
-<p>换路由器本身不会变。变的是你插在哪个墙口 / 走哪条线路。</p>
-<p>ac_id 是网管给每个接入点分的编号。你换路由器，只要还是插原来那个口，学校那边看到的还是同一个接入点，编号当然不变。真正会让它变的是换个墙口、换条线路、或者像这次一样——从直接插墙口改成经过路由器。</p>
-<p>至于用户要不要管这件事？不用。 现在这套逻辑会在未认证时自己问网关，问不到就用上次成功的，都拿不到才猜一个。用户唯一需要做的，就是在它猜的时候别太当真——所以界面上标了「⚠️ 猜的，不一定对」。</p>
-<p>小结</p>
-<p>题目不算大，但这几个坑挺典型：一个看起来像「配置常量」的参数，其实是运行时环境信息。 把它写死，就等于假设所有用户都在同一个接入点上——而这在一个有几百个接入点的校园网里，显然不成立。</p>
-<p>题外话</p>
-<p>我最近在做一个SZUDesktop的客户端程序，目前是纯本地项目，之后可能接入校园网内服务器！</p>
-<p>计划是支持windows，macos和linux三端版本。</p>
-<p>还在开发中，目前没有正式版本，欢迎大家之后了解使用！</p>
-<p>https://github.com/Alakazamc/szudesktop.git</p>
+<blockquote><p>资料核对：2026 年 9 月 20 日</p></blockquote>
+<p>有一种考试机器，永远不会漏涂答题卡，不会把 A 写成奇怪的符号，也不会在只有三个选项时填出第四个。</p>
+<p>厂家说：“它不会乱答。”</p>
+<p>你追问：“那本来该选 B 的题，它会不会选 A？”</p>
+<p>对方说：“但它填的是合法选项。”</p>
+<p>问题就出在这里。我们想知道答案对不对，对方保证的可能只是答案长得对不对。</p>
+<p>Jev 是 TypeSafe 推出的结构化决策模型。这家公司发布文中的“零幻觉”表述引起了我的注意。细看说明，其图里的 0% 并非来自错误率实测，而是依据输出符合 schema 的保证。[1] 这是一个有价值的工程约束，但它到底能替我们排除多少风险？</p>
+<h2 id="section-1">答案只能写进三个格子，仍然可能写错格子</h2>
+<p>Schema 可以理解成填写规范。</p>
+<p>假设审批系统只接受“通过”“拒绝”“补充材料”。限定输出后，模型不会突然返回“我建议你重新思考人生”，也不会造出程序不认识的新状态。软件可以直接处理结果，少了一类接口麻烦。</p>
+<p>然而，该拒绝的申请被填进“通过”那个格子，依然符合规范。</p>
+<p>这像一张账单：日期格式标准、金额都是数字、每个栏目都填了，不代表账单内容就是真实的。格式检查可以拦住“金额栏填了一首诗”，却无法独自确认“这笔消费确实发生过”。</p>
+<p>因此，“不会生成非法选项”与“不会判断错误”不能互相替换。严格说，选错类别可能叫误分类，不一定属于狭义的生成式幻觉。术语可以厘清，但业务后果不会因为改名就消失。</p>
+<p><strong>一个危险决定，完全可以用格式正确的方式返回。</strong></p>
+<h2 id="section-2">精确的小数，会让人误以为背后做过测量</h2>
+<p>人说“我觉得差不多”，听起来很主观。软件说“可信度 0.987”，气质立刻变了，仿佛后台藏着一套精密仪器。</p>
+<p>但数字也可能只是模型倾向的表达，不是额外做过一次核验。</p>
+<p>Jev 的文档解释，Choice 和 Score 中的 confidence 是从输出概率分布计算出的统计量，概括分布有多集中。[2] 它不是第二位审查员看完证据后的签字，也不能直接等同于所选答案的真实正确率。</p>
+<p>这里有三个不同的量：模型给某个答案多少概率，整个分布有多犹豫，以及这类答案在现实中有多大比例是对的。它们有关联，却不是同一张身份证。</p>
+<p>在一个假设分类任务中，A、B、C 分别得到 0.98、0.01、0.01，说明模型在这几个选项里非常偏向 A。要进一步宣称“这类判断有 98% 正确率”，需要拿一批对应案例与真实结果比较。</p>
+<p>还有一个容易忽略的问题：正确答案可能根本不在选项里。只让人在苹果、香蕉和梨中选择，却递给他一个桃子，即使他坚定选了最接近的那个，也没把桃子变成梨。</p>
+<p>所以，候选是否完整、有没有“以上都不是”或“材料不足”，也影响这串数字能否被正确使用。</p>
+<h2 id="section-3">校准不是让模型永远正确，而是让把握别乱报</h2>
+<p>概率当然不是摆设。</p>
+<p>设想一个替你预估包裹能否明天到达的助手。它说“八成把握”的那批包裹，长期看大约八成按时到；说“五成”的那批，也差不多一半。你就能根据它的把握安排事情。</p>
+<p>反过来，如果它永远报九成，实际却经常错，这个数字就不值得依赖。</p>
+<p>让预测概率与实际发生频率相匹配，就是校准关注的问题。它早已有系统研究；输出一个 softmax 分布，不会自动得到良好校准。[3] TypeSafe 把这件事列为 RLCD 的训练目标，同时承认校准针对预测群体，不保证每个单独答案正确。[4]</p>
+<p>这里有个反直觉的区别：准确率高，不代表把握报得准；把握报得准，也不代表任务完成得足够好。</p>
+<p>假设一批包裹中八成都能准时到，一个助手不看任何信息，对每件都报 80%，总体频率可能与它相符。但它没告诉你，哪两件最可能迟到。一个有用的系统还需要区分不同案例，而不只是报出一个漂亮平均数。</p>
+<p>因此，我会同时看判断能力、校准表现，以及模型能否识别它容易出错的那部分任务。只展示其中一项，容易制造不完整的好印象。</p>
+<h2 id="section-4">同样是 99%，不同错误完全不是一笔账</h2>
+<p>下面只做一个假设算例，不是在报告任何模型的成绩。</p>
+<p>若某组自动判断的真实正确率确实为 99%，一万次对应约一百次错误的期望数量。这个比例能否接受，取决于那一百次是什么。</p>
+<p>把客服消息转错队列，可能多花几分钟；把未经核验的内容直接发布，后果就不同。处理成本、可撤销程度和发现错误的速度，也会改变合适的自动化范围。</p>
+<p>所以不存在一个适用于所有业务的“置信度大于 0.9 就执行”魔法阈值。即使先不考虑概率是否可信，执行与否也是一个包含后果的决策，而不仅是数值比较。</p>
+<p>TypeSafe 文档也要求根据具体任务测试阈值，而不是照搬示例。[2] 对使用者来说，更重要的是问清楚：这个阈值选在什么数据上，错的都是什么，到了自己的业务里是否仍然适用？</p>
+<p>把阈值调高，可能减少自动处理量，但并不凭空证明剩下的结果可靠。它只是一个需要验证的筛选方案。</p>
+<h2 id="section-5">真要相信这个数，就做一次对账</h2>
+<p>假设我们想检验一个分类器报出的 90% 是否靠谱。可以收集独立的已标注案例，把预测概率相近的放在一起，查看各组实际正确比例；再单独检查准备自动执行的那部分。这里是在提出一种核查办法，不是在报告现成实验。</p>
+<p>分组时还要保留样本数。十个案例里的九个正确，与一万个案例里的九千个正确，虽然比例相同，支撑结论的证据量却不同。不能把一个很小分组的巧合，当成稳定规律。</p>
+<p>反过来，在一批标成 99% 的预测里发现一次错误，也不自动证明校准失败。只要它不是承诺必对，错误本来就在统计描述之内。应看错误频率、发生条件和不确定范围，而不是拿单个成败判断全部能力。</p>
+<p>这也是我不赞成把概率当装饰、也不赞成把概率全盘否定的原因。数字需要对账。对得上账，它可以帮助管理风险；没对过账，再精确的小数也只是一个待检验的主张。</p>
+<h2 id="section-6">在熟悉的街区认路，到了陌生城市还准吗？</h2>
+<p>一个模型在普通客服消息上很准，换成缩写密集的技术故障报告，未必还能维持同样表现。输入变了，概率的含义也需要重新检查。</p>
+<p>关于数据分布变化的研究，已经表明不确定性估计和校准表现可能随环境变化而退化。[5] 因此，“经过校准”后面最好带上范围，而不是当成模型永久佩戴的勋章。</p>
+<p>总体平均值还可能掩盖局部失败。假设普通请求占绝大多数，模型处理得好；少量权限变更问题表现很差。总体成绩依然漂亮，真正危险的任务却可能恰好集中在那一小块。</p>
+<p>甚至问题写法也可能影响结果。Jev 1.13 的限制文档提醒，不要把一种问题类型上调好的阈值直接搬到另一种类型；不同提问得到的数值也不保证满足所有预期恒等关系。[6]</p>
+<p>这不意味着所有概率都不可用，而是不能脱离问题定义解释它。阈值、提示词、选项和模型版本共同构成实际系统，改动其中一项，旧成绩就需要重新审视。</p>
+<h2 id="section-7">它说得再确定，也不能替你查一条不存在的记录</h2>
+<p>最后看一个很小的场景。</p>
+<p>有人提交了一次代码修改，并在说明里写：“已经测试，全部通过。”模型读完，认为很可信，给了很高的放行概率。</p>
+<p>这可以说明模型相信这份材料，却不说明它已经查询测试平台。哪次提交跑过测试、执行了哪些用例、有没有超时，仍然是另一组事实。</p>
+<p>同理，系统没有权限读取一份记录时，最准确的状态可能是“暂时无法核实”。低概率不等于缺失证据，高概率也不能弥补缺失证据。证据有没有取得，应当单独记录，不能藏在一个总分里。</p>
+<p>我并不反对用概率帮助自动化。相反，一个知道何时犹豫的组件，比逢题必答“没问题”的组件更值得研究。只是，犹豫或坚定都应接受实际结果的检验。</p>
+<p><strong>概率可以帮助决定要不要再查一步，但不能把“还没查过”，写成“已经查证”。</strong></p>
+<h2 id="section-8">参考资料与说明</h2>
+<blockquote><p><strong>说明</strong>：文中情境和示例数字为说明性假设，不是 Jev 实测结果。产品能力与项目状态以核对当日的公开材料为准；相关引用不代表独立测试或安全审计。参考资料标题可点击打开。</p></blockquote>
+<ul>
+<li>[1] TypeSafe AI，2026-09-15：<a href="https://typesafe.ai/blog/introducing-system-one-models-and-jev" target="_blank" rel="noopener noreferrer">Introducing System One Models &amp; Jev</a>。</li>
+<li>[2] TypeSafe AI：<a href="https://docs.typesafe.ai/confidence" target="_blank" rel="noopener noreferrer">Confidence</a>。</li>
+<li>[3] Guo 等，ICML 2017：<a href="https://proceedings.mlr.press/v70/guo17a.html" target="_blank" rel="noopener noreferrer">On Calibration of Modern Neural Networks</a>。</li>
+<li>[4] TypeSafe AI：<a href="https://docs.typesafe.ai/introduction/machine-learning-primer" target="_blank" rel="noopener noreferrer">AI primer</a>。</li>
+<li>[5] Ovadia 等：<a href="https://arxiv.org/abs/1906.02530" target="_blank" rel="noopener noreferrer">Can You Trust Your Model’s Uncertainty? Evaluating Predictive Uncertainty Under Dataset Shift</a>。</li>
+<li>[6] TypeSafe AI，适用 Jev 1.13：<a href="https://docs.typesafe.ai/model-jaggedness/jev-1.13" target="_blank" rel="noopener noreferrer">Jev 1.13 jaggedness</a>。</li>
+</ul>
     </div>
     <footer class="artfoot">
       <span class="artorig quiet">柯西 Alakazam</span>
@@ -167,8 +132,8 @@
   </div>
 </section>
   <nav class="apager">
-    <a class="apg prev" href="01-Jev与BERT.html"><i>上一篇</i><b>Jev 火了：我们是不是把 BERT 又发明了一遍？</b></a>
-    <a class="apg next" href="douban-17737066.html"><i>下一篇</i><b>一部好电影，但是我讨厌mj</b></a>
+    <a class="apg prev" href="04-AI审批与代码检查.html"><i>上一篇</i><b>AI 点下“批准”之前，谁真正检查过代码？</b></a>
+    <a class="apg next" href="02-数字输出与工具调用.html"><i>下一篇</i><b>只会输出几个数字的 AI，怎么替你干活？</b></a>
   </nav>
   <div class="sitebottom">
   <div class="visitbar">

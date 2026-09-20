@@ -3,18 +3,18 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>深大校园网疑云：为什么我连路由器的时候，官方登录应用失败了 · 柯西 Alakazam</title>
+<title>只会输出几个数字的 AI，怎么替你干活？ · 柯西 Alakazam</title>
 <link rel="stylesheet" href="../assets-layers.css">
 <link rel="stylesheet" href="../font.css">
 <link rel="stylesheet" href="../assets/theme.css">
 <!-- SEO -->
-<link rel="canonical" href="https://alakazamc.github.io/posts/深大校园网疑云-为什么我连路由器的时候-官方登录应用失败了.html">
+<link rel="canonical" href="https://alakazamc.github.io/posts/02-数字输出与工具调用.html">
 <link rel="alternate" type="application/rss+xml" title="柯西 Alakazam · RSS" href="https://alakazamc.github.io/rss.xml">
-<meta name="description" content="最近在做SZUDesktop桌面应用，在设置校园网登录功能的时候遇到了 认证失败：acid 用错了（Unknow ac-type）。 的bug。 在排查一番以后，发现不仅是自己连不上，官方的上">
+<meta name="description" content="资料核对：2026 年 9 月 20 日 空调遥控器从来不会说：“考虑到目前室温较高，我建议开启制冷，并将温度调至二十六摄氏度。” 你按一下，它发送一个信号，空调就开始工作。没人要求遥控器先把">
 <meta property="og:type" content="article">
-<meta property="og:title" content="深大校园网疑云：为什么我连路由器的时候，官方登录应用失败了 · 柯西 Alakazam">
-<meta property="og:description" content="最近在做SZUDesktop桌面应用，在设置校园网登录功能的时候遇到了 认证失败：acid 用错了（Unknow ac-type）。 的bug。 在排查一番以后，发现不仅是自己连不上，官方的上">
-<meta property="og:url" content="https://alakazamc.github.io/posts/深大校园网疑云-为什么我连路由器的时候-官方登录应用失败了.html">
+<meta property="og:title" content="只会输出几个数字的 AI，怎么替你干活？ · 柯西 Alakazam">
+<meta property="og:description" content="资料核对：2026 年 9 月 20 日 空调遥控器从来不会说：“考虑到目前室温较高，我建议开启制冷，并将温度调至二十六摄氏度。” 你按一下，它发送一个信号，空调就开始工作。没人要求遥控器先把">
+<meta property="og:url" content="https://alakazamc.github.io/posts/02-数字输出与工具调用.html">
 <meta property="og:image" content="https://alakazamc.github.io/assets/preview.png">
 <meta name="twitter:card" content="summary_large_image">
 <!-- /SEO -->
@@ -30,123 +30,87 @@
   <article class="panel artpage">
     <h2 class="pt"><svg class="ic xs" viewBox="0 0 16 16"><use href="#px-wateringcan"></use></svg>本站<svg class="ic xs" viewBox="0 0 16 16"><use href="#px-wateringcan"></use></svg></h2>
     <span class="cor tl"><svg class="ic sm" viewBox="0 0 16 16"><use href="#px-flower"></use></svg></span><span class="cor tr"><svg class="ic sm" viewBox="0 0 16 16"><use href="#px-flower"></use></svg></span><span class="cor bl"><svg class="ic sm" viewBox="0 0 16 16"><use href="#px-wheat"></use></svg></span><span class="cor br"><svg class="ic sm" viewBox="0 0 16 16"><use href="#px-wheat"></use></svg></span>
-    <h1 class="arttitle">深大校园网疑云：为什么我连路由器的时候，官方登录应用失败了</h1>
-    <p class="artmeta">2026-09-17</p>
+    <h1 class="arttitle">只会输出几个数字的 AI，怎么替你干活？</h1>
+    <p class="artmeta">2026-09-20 · 模型 / AI / 工具调用</p>
     
-    
+    <details class="toc" open>
+    <summary><span class="title">文章目录</span></summary>
+    <nav class="inner" aria-label="文章目录"><ul>
+      <li style="margin-left:0px"><a href="#section-1">真正点下按钮的，是外面的程序</a></li>
+<li style="margin-left:0px"><a href="#section-2">一个有用的循环，应该带回新消息</a></li>
+<li style="margin-left:0px"><a href="#section-3">选择菜单，和发明一道菜，不是同一种本领</a></li>
+<li style="margin-left:0px"><a href="#section-4">一次问一百题，不等于做了一百次检查</a></li>
+<li style="margin-left:0px"><a href="#section-5">不执行测试，就只能瞎猜吗？</a></li>
+<li style="margin-left:0px"><a href="#section-6">按钮能按，还得看谁有权按</a></li>
+<li style="margin-left:0px"><a href="#section-7">能停下来，也是 Agent 的能力</a></li>
+<li style="margin-left:0px"><a href="#section-8">参考资料与说明</a></li>
+    </ul></nav>
+  </details>
     <div class="artbody">
-<p>最近在做SZUDesktop桌面应用，在设置校园网登录功能的时候遇到了</p>
-<p>认证失败：ac_id 用错了（Unknow ac-type）。</p>
-<p>的bug。</p>
-<p>在排查一番以后，发现不仅是自己连不上，官方的上网认证客户端同样连不上！</p>
-<p>必须手动打开一个网页才能登录：</p>
-<p>https://net.szu.edu.cn/srun_portal_success?ac_id=12&amp;theme=proyx</p>
-<p>我们自己的工具在这个网络下同样连不上。这就排除了「客户端软件写错了」的可能——官方和我们一起挂，说明问题在协议参数，不在代码质量。</p>
-<p>那时候最自然的怀疑是：这个线路把 ac_id 换成了 12，而我们的代码还在用 1。</p>
-<p>门户会把你传进去的编号原样回填到页面配置里。而这个 acid 会参与登录时的 chksum 校验和加密串生成——也就是说，编号传错了，算出来的签名就是错的，服务端直接拒绝。</p>
-<p>踩坑：为什么不能从页面上猜</p>
-<p>知道 ac_id 会变之后，第一个念头是「那我把所有可能的编号试一遍，哪个能返回登录页就用哪个」。</p>
-<p>于是我写了段代码，挨个请求 ac_id=1/2/3/4/5/10/12，看哪个能拿到正常页面。</p>
-<p>结果很打击人：</p>
-<p>ac_id=1 → 8333 字节</p>
-<p>ac_id=2 → 8333 字节</p>
-<p>ac_id=3 → 8334 字节</p>
-<p>ac_id=4 → 8333 字节</p>
-<p>ac_id=5 → 8333 字节</p>
-<p>ac_id=10 → 8333 字节</p>
-<p>ac_id=12 → 8333 字节</p>
-<p>全都返回完整登录页，体积几乎一样，差 1 个字节。 页面里翻遍了也找不到任何字段能说明「你现在实际挂在哪个接入点」。</p>
-<p>换句话说：门户页面只能告诉你「这个编号存在」，不能告诉你「你就在这个编号上」。 试一遍全都能用，等于全是瞎猜。</p>
-<p>正解：让网关自己告诉你</p>
-<p>那 ac_id 到底从哪来？</p>
-<p>去过酒店、机场的朋友可能见过「连接 Wi-Fi 后自动弹出登录页」——那个弹窗不是魔法，是网关干的：你请求外网，网关发现你没认证，把你的请求半路拦下来，返回一个 302 跳转到认证页。这个跳转地址里就带着它想让你用的参数，包括 ac_id。</p>
-<p>所以正确做法是：未认证的时候主动去访问一个外网站点，然后读那个 302 跳转里的 ac_id</p>
-<p>func (c *SrunClient) discoverAcIDFromRedirect() string {</p>
-<p>probes := []string{</p>
-<p>	connectivityProbe,                                   // 未认证时必定被拦</p>
-<p>	&quot;http://www.msftconnecttest.com/redirect&quot;,           // Windows 自带探测</p>
-<p>	&quot;http://connectivitycheck.gstatic.com/generate_204&quot;, // 安卓/Chrome</p>
-<p>	&quot;http://captive.apple.com/hotspot-detect.html&quot;,      // 苹果</p>
-<p>}</p>
-<p>for _, p := range probes {</p>
-<p>	resp, err := c.http.Get(p)</p>
-<p>	if err != nil {</p>
-<p>		continue</p>
-<p>	}</p>
-<p>	loc := resp.Header.Get(&quot;Location&quot;)</p>
-<p>	body, _ := io.ReadAll(io.LimitReader(resp.Body, 8192))</p>
-<p>	_ = resp.Body.Close()</p>
-<p>	// 只认 3xx 跳转。200 说明没被拦，那就是正常上网，不是校园网闸门。</p>
-<p>	if resp.StatusCode/100 != 3 {</p>
-<p>		continue</p>
-<p>	}</p>
-<p>	if id := c.acIDFromLocation(p, loc); id != &quot;&quot; {</p>
-<p>		return id</p>
-<p>	}</p>
-<p>	// 有些网关不返回 Location 头，而是塞一个带 meta refresh /</p>
-<p>	// JS 跳转的拦截页。这种也一起捞，否则在那些设备上就彻底瞎了。</p>
-<p>	if id := acIDFromInterceptPage(string(body)); id != &quot;&quot; {</p>
-<p>		return id</p>
-<p>	}</p>
-<p>}</p>
-<p>return &quot;&quot; }</p>
-<p>这段有几个点值得说：</p>
-<p>探针必须是真正的外网站点。我一开始把「认证门户自己」也放进了探针列表，结果门户必然 302 到它自己的登录页，而那个地址里带着默认的ac_id=1。于是已经在线、网关根本没拦的时候，这里也会「成功」读出一个 1，还被当成可信值。这是个极具欺骗性的假信号，我差点就信了。</p>
-<p>只认 3xx。加了resp.StatusCode/100 != 3这一条之后，假信号立刻消失。返回 200 说明你根本没被拦，那就是正常上网状态。</p>
-<p>兼容没有 Location 头的网关。有些设备返回的是个带或 JSlocation.href = ...的拦截页，也一并解析。</p>
-<p>设计：给每个值标上「可信度」</p>
-<p>发现方式有好几种，可靠性差很多。如果都当成一样的值，就会出事。所以我用一个 AcIDSource 把来源显式标出来：</p>
-<p>const (</p>
-<p>// Manual 用户显式指定。最高优先级，也是唯一&quot;绝对可信&quot;的。</p>
-<p>AcIDSourceManual AcIDSource = &quot;manual&quot;</p>
-<p>// Cache 这张网上次认证成功用过的，跟着成功结果来的。</p>
-<p>AcIDSourceCache AcIDSource = &quot;cache&quot;</p>
-<p>// Redirect 未认证时被校园网网关拦下，从跳转地址里读出来的。</p>
-<p>AcIDSourceRedirect AcIDSource = &quot;redirect&quot;</p>
-<p>// Guess 只从门户页面试探出来的，只能说明&quot;这个编号存在&quot;，</p>
-<p>// 不能说明你就在这个接入点上。不该缓存。</p>
-<p>AcIDSourceGuess AcIDSource = &quot;guess&quot; )</p>
-<p>取值优先级从高到低：</p>
-<p>func (c *SrunClient) resolveAcIDWithSource() (string, AcIDSource) {</p>
-<p>if c.AcID != &quot;&quot; {</p>
-<p>	return c.AcID, AcIDSourceManual        // 1. 用户说了算</p>
-<p>}</p>
-<p>if c.lastAcID != &quot;&quot; {</p>
-<p>	return c.lastAcID, AcIDSourceCache     // 2. 这张网上次成功过</p>
-<p>}</p>
-<p>if id := c.discoverAcIDFromRedirect(); id != &quot;&quot; {</p>
-<p>	return id, AcIDSourceRedirect          // 3. 网关跳转，权威</p>
-<p>}</p>
-<p>if id := c.discoverAcIDFromPortal(); id != &quot;&quot; {</p>
-<p>	return id, AcIDSourceGuess             // 4. 挨个试，猜的</p>
-<p>}</p>
-<p>return &quot;1&quot;, AcIDSourceGuess                // 5. 最后兜底，也是猜的 }</p>
-<p>关键规则：只有可信来源的成功结果才写缓存。</p>
-<p>if acIDSource != AcIDSourceGuess {</p>
-<p>c.rememberAcID(acID) }</p>
-<p>这条看着不起眼，但它防止了一个很恶心的情况：如果猜出来的值也被缓存，那第一次猜错之后，以后每次都会用这个错值，而且用户完全不知道为什么——他只会觉得「这软件越来越烂了」。</p>
-<p>宁可每次都重新探测，也不要缓存一个没验证过的猜测。</p>
-<p>缓存按什么键存</p>
-<p>缓存键也得选对。答案是：默认网关优先，出口 IP 兜底。</p>
-<p>为什么用网关而不是 MAC 地址或路由器型号？因为ac_id 跟着物理接入位置走，不跟着设备走：</p>
-<p>// Gateway 跟着&quot;插哪个口&quot;变，正好和 ac_id 的变化同步。</p>
-<p>func Egress() string { return NetKey(Gateway(), LocalIP()) }</p>
-<p>同一台路由器，拔下来插回原来那个墙口→ac_id还是12</p>
-<p>同一台路由器，换个墙口 → 变了</p>
-<p>换一台路由器，插原墙口 →还是 12</p>
-<p>所以这个缓存是绑在「你现在插在哪个网络口上」的，不是绑在设备上的。网关地址正好和这件事同步变化。</p>
-<p>所以「换个路由器会变吗」</p>
-<p>回到最初那个问题。答案是：</p>
-<p>换路由器本身不会变。变的是你插在哪个墙口 / 走哪条线路。</p>
-<p>ac_id 是网管给每个接入点分的编号。你换路由器，只要还是插原来那个口，学校那边看到的还是同一个接入点，编号当然不变。真正会让它变的是换个墙口、换条线路、或者像这次一样——从直接插墙口改成经过路由器。</p>
-<p>至于用户要不要管这件事？不用。 现在这套逻辑会在未认证时自己问网关，问不到就用上次成功的，都拿不到才猜一个。用户唯一需要做的，就是在它猜的时候别太当真——所以界面上标了「⚠️ 猜的，不一定对」。</p>
-<p>小结</p>
-<p>题目不算大，但这几个坑挺典型：一个看起来像「配置常量」的参数，其实是运行时环境信息。 把它写死，就等于假设所有用户都在同一个接入点上——而这在一个有几百个接入点的校园网里，显然不成立。</p>
-<p>题外话</p>
-<p>我最近在做一个SZUDesktop的客户端程序，目前是纯本地项目，之后可能接入校园网内服务器！</p>
-<p>计划是支持windows，macos和linux三端版本。</p>
-<p>还在开发中，目前没有正式版本，欢迎大家之后了解使用！</p>
-<p>https://github.com/Alakazamc/szudesktop.git</p>
+<blockquote><p>资料核对：2026 年 9 月 20 日</p></blockquote>
+<p>空调遥控器从来不会说：“考虑到目前室温较高，我建议开启制冷，并将温度调至二十六摄氏度。”</p>
+<p>你按一下，它发送一个信号，空调就开始工作。没人要求遥控器先把操作理由写清楚，才承认它有用。</p>
+<p>可谈到 AI，我们很容易把“会行动”和“会生成一段工具调用代码”绑在一起。Jev 让这个误会变得显眼：它是 TypeSafe 提供的决策模型，按预设问题返回选项和概率，而不是自由生成回答。[1] 只交几个数字，这样的模型还能组成 Agent，调用工具、反复验证吗？</p>
+<p>能。不过，能接入行动循环，与能独自解决问题，是两件事。</p>
+<h2 id="section-1">真正点下按钮的，是外面的程序</h2>
+<p>先设计一个简单系统。它收到一份登录功能的代码修改，任务是帮助开发者检查问题。</p>
+<p>我们给它准备几个按钮：“读取相关文件”“运行登录测试”“查询执行结果”“转交人工”。模型根据当前材料选一个，程序检查权限和参数，再执行对应操作。执行结束后，程序把真实结果放回输入，让模型判断下一步。</p>
+<p>在这套设计中，模型不必创造工具名称。返回编号 2，就能表示运行登录测试。参数也不一定需要自由生成：测试套件可以来自可信列表，文件路径可以由程序枚举，当前提交号可以直接从仓库取得。</p>
+<p>TypeSafe 的函数调用示例采用了类似思路：把函数名称及闭集参数变成选项，再由分发程序执行。[2] “闭集”就是答案来自事先限定的范围，像选择小杯、中杯或大杯，而不是随便写一个店里从没卖过的规格。</p>
+<p><strong>模型负责选，程序负责做。</strong> 输出 JSON、动作编号或者概率数组，都是传递选择的方式。它们可以影响接口设计，却不决定外部工具能否真正运行。</p>
+<p>当然，选项合法不代表选得正确。遥控器不会发出不存在的频道号，也可能被按到了错误频道。</p>
+<h2 id="section-2">一个有用的循环，应该带回新消息</h2>
+<p>让这套假设系统走一遍。</p>
+<p>开发者说：“这次已经修复了重复登录失败的问题。”模型先选择运行已有测试。程序真的执行，结果全部通过。到这里，系统知道的不是“模型感觉能通过”，而是“这些测试在这个版本上执行通过”。</p>
+<p>随后，模型检查测试内容，提出一个线索：已有用例只覆盖了新账号，没有覆盖登录状态过期后再次登录。开发者补上相应测试，运行后失败。</p>
+<p>这时，先前的乐观判断就该更新了。</p>
+<p>这个循环的价值，不在于模型反复思考时用了多少漂亮术语，而在于它获得了可能推翻先前判断的信息。ReAct 研究所讨论的推理与行动交替，就包括从外部环境获取信息、再调整后续过程的思路。[3]</p>
+<p>这里还有一个很实际的要求：测试结果得原样记录。运行了什么、用了哪个版本、退出状态如何，不能只保留模型总结的一句“看起来都过了”。否则系统明明接上了工具，最后却把工具证据丢掉，只留下第二次猜测。</p>
+<p>就像请人验货，不能货没留下，检验单也没留下，只剩一句转述：“他说挺好的。”</p>
+<h2 id="section-3">选择菜单，和发明一道菜，不是同一种本领</h2>
+<p>这种设计有明确边界。</p>
+<p>从现成测试里选择一个，与写出一个新的测试，是两种工作。后者可能要理解缺陷、组织输入、构造断言，甚至编写辅助程序。没有现成候选时，选择器再优秀，也无法选中一个根本不在菜单上的选项。</p>
+<p>Jev 的官方说明明确写到，它不负责生成代码或自由文本；Jev 1.13 的限制文档也不建议通过串联选择题硬凑文本生成。[1][4]</p>
+<p>这不意味着它不能用于编码工作，而是需要合理分工。可以让生成式模型提出几个补充测试，再由判断组件帮助筛选，最后在隔离环境中执行。也可以把更困难的情况直接交给开发者。</p>
+<p>筛选器的可靠性，还受到候选质量的限制。假设三个测试都绕过了真正出错的路径，选出“最好”的一个，也不能证明已经测到问题。因此，系统需要“当前候选都不合适”这条出口，而不是强迫每次都选冠军。</p>
+<p>参数也是如此。一个需要任意字符串、复杂脚本或开放式路径的工具，不会因为接上 Choice 就自动变成简单选择题。把动作空间收窄，换来的是可控，也可能牺牲灵活性。这笔取舍应当公开，而不是藏在演示后面。</p>
+<h2 id="section-4">一次问一百题，不等于做了一百次检查</h2>
+<p>有些演示很吸引人：同一份材料，模型同时返回许多判断，几乎没有等待。</p>
+<p>这种能力适合并行处理独立问题。但 TypeSafe 文档对其机制的描述是：同批问题针对同一份状态，独立并行评估。[5] 独立评估不等于错误彼此独立，更不等于每题都访问了一次外部世界。</p>
+<p>假设我们同时问：“该运行哪个测试？”“这个测试会通过吗？”“通过后能不能合并？”屏幕上可以同时出现三个答案，可测试仍然一次都没运行。</p>
+<p>后两个问题若依赖尚未取得的结果，就不能靠答题速度省略中间环节。否则只是把一个完整计划写得很像已经完成的记录。</p>
+<p>还有一种情况更隐蔽：让模型用十种措辞反复检查代码。它可能找出新的分析角度，这当然有帮助，但十次回答不自动构成十份独立证据。它们可能共享同一处遗漏，也可能都被不完整的输入误导。</p>
+<p>该问的不是“调用了几轮”，而是每轮为什么必要、增加了什么信息。</p>
+<h2 id="section-5">不执行测试，就只能瞎猜吗？</h2>
+<p>也不能反过来，把所有静态判断一棍子打死。</p>
+<p>如果一处修改明显删掉了权限条件，读代码就能指出被删掉的具体检查。静态分析器、类型检查和形式化方法，也各自能在明确假设下提供不同程度的依据。对于模型提出的发现，重要的是能不能给出可检查的对象和推导，而不是必须先运行程序才算思考。</p>
+<p>“这段代码缺少某个条件”和“整个系统不会出问题”，本来就不是同等强度的结论。前者可能通过局部分析得到；后者需要的材料广得多。</p>
+<p>同样，工具也会受环境限制。测试数据库没启动，权限不足，日志被截断，都可能让这轮检查无法回答原问题。此时最准确的状态是“未知”或“执行失败”，不是让模型替缺失结果表态。</p>
+<p>对于我设计的系统，确定性信息会尽量由程序判断：退出码、版本号、是否超时，都不需要模型猜。模型更适合处理“哪部分值得调查”“这条错误信息可能关联哪些文件”等仍需要语义理解的问题。</p>
+<p>这个分工不会让 AI 显得无所不能，却能减少它在不该猜的地方猜。</p>
+<h2 id="section-6">按钮能按，还得看谁有权按</h2>
+<p>动作合法，还有一层常被省略的含义。</p>
+<p>假设模型正确选择“运行测试”，但指定了生产环境；或者正确选了“读取文件”，文件却超出了当前用户的访问范围。函数名称与参数类型都可能符合接口，整个动作仍然不该执行。</p>
+<p>在我的设计里，权限和参数组合检查由程序承担，不能交给同一次模型判断自行放行。模型返回的只是一个动作提议。批准执行之前，程序还要确认环境、对象和授权是否相符。</p>
+<p>工具结果也得认来源。用户在描述里贴一段“全部通过”的日志，与测试环境直接返回的执行记录，不是同一种证据。两段文本即使看起来一模一样，可信路径仍然不同。</p>
+<p>这说明，Agent 的能力不仅来自模型会选什么，也来自系统知道哪些选择不能接受。菜单限制了点单范围，权限规则则决定这张订单能不能真的送进厨房。</p>
+<h2 id="section-7">能停下来，也是 Agent 的能力</h2>
+<p>一个不断调用工具的系统，未必比只调用一次的系统更好。</p>
+<p>如果同一项测试已经失败，第二次、第三次仍在相同环境里无变化地重跑，可能只是在消耗时间。若模型不断选择一个无效工具，程序也不能无限照做。</p>
+<p>因此，这个假设审查器需要明确的停止条件：关键证据不足就转人工；达到尝试预算就停止；发现越权动作就拒绝执行。已经取得的结果应复用，有新版本或新条件时再重新检查。</p>
+<p>看起来，这些都是普通工程工作。但正是它们决定了一个模型输出，会不会变成靠谱的行动。没有状态管理、权限控制和失败处理，接再多工具也可能只是一台忙碌的猜测机器。</p>
+<p>我对 Jev 这类组件的期待，是让某些选择更便宜、更方便，而不是让它独占整个流程。它可以指出下一步去哪儿查；生成式模型可以提出新的解决办法；执行环境把结果带回来。</p>
+<p>至于最终该不该相信，不看它开不开口，也不看它说得长不长。</p>
+<p><strong>看它是否拿到了证据，证据否定它时，系统是否真的会改主意。</strong></p>
+<h2 id="section-8">参考资料与说明</h2>
+<blockquote><p><strong>说明</strong>：文中情境和示例数字为说明性假设，不是 Jev 实测结果。产品能力与项目状态以核对当日的公开材料为准；相关引用不代表独立测试或安全审计。参考资料标题可点击打开。</p></blockquote>
+<ul>
+<li>[1] TypeSafe AI：<a href="https://docs.typesafe.ai/concepts/system-one" target="_blank" rel="noopener noreferrer">System One</a>。</li>
+<li>[2] TypeSafe AI：<a href="https://docs.typesafe.ai/cookbooks/function_calling" target="_blank" rel="noopener noreferrer">Function calling</a>。</li>
+<li>[3] Yao 等：<a href="https://arxiv.org/abs/2210.03629" target="_blank" rel="noopener noreferrer">ReAct: Synergizing Reasoning and Acting in Language Models</a>。</li>
+<li>[4] TypeSafe AI，适用 Jev 1.13：<a href="https://docs.typesafe.ai/model-jaggedness/jev-1.13" target="_blank" rel="noopener noreferrer">Jev 1.13 jaggedness</a>。</li>
+<li>[5] TypeSafe AI：<a href="https://docs.typesafe.ai/introduction" target="_blank" rel="noopener noreferrer">Introduction</a>。</li>
+</ul>
     </div>
     <footer class="artfoot">
       <span class="artorig quiet">柯西 Alakazam</span>
@@ -167,8 +131,8 @@
   </div>
 </section>
   <nav class="apager">
-    <a class="apg prev" href="01-Jev与BERT.html"><i>上一篇</i><b>Jev 火了：我们是不是把 BERT 又发明了一遍？</b></a>
-    <a class="apg next" href="douban-17737066.html"><i>下一篇</i><b>一部好电影，但是我讨厌mj</b></a>
+    <a class="apg prev" href="03-零幻觉与置信度.html"><i>上一篇</i><b>“零幻觉”的 AI，为什么仍然会批错？</b></a>
+    <a class="apg next" href="01-Jev与BERT.html"><i>下一篇</i><b>Jev 火了：我们是不是把 BERT 又发明了一遍？</b></a>
   </nav>
   <div class="sitebottom">
   <div class="visitbar">

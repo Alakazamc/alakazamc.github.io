@@ -7,6 +7,41 @@
     <language>zh-CN</language>
     <atom:link href="https://alakazamc.github.io/rss.xml" rel="self" type="application/rss+xml" />
     <item>
+      <title>模型快了 100 倍，整件事为什么只快了 3%？</title>
+      <link>https://alakazamc.github.io/posts/05-%E6%A8%A1%E5%9E%8B%E6%8F%90%E9%80%9F%E4%B8%8E%E8%AF%84%E6%B5%8B%E9%99%B7%E9%98%B1.html</link>
+      <pubDate>Sun, 20 Sep 2026 00:00:00 GMT</pubDate>
+      <guid>https://alakazamc.github.io/posts/05-%E6%A8%A1%E5%9E%8B%E6%8F%90%E9%80%9F%E4%B8%8E%E8%AF%84%E6%B5%8B%E9%99%B7%E9%98%B1.html</guid>
+      <description>资料核对：2026 年 9 月 20 日 先算一笔小账。 假设审查一次代码修改，模型判断需要 10 秒，必要测试需要 300 秒，两步顺序执行。总共 310 秒。 换上新模型，判断时间降到 0</description>
+    </item>
+<item>
+      <title>AI 点下“批准”之前，谁真正检查过代码？</title>
+      <link>https://alakazamc.github.io/posts/04-AI%E5%AE%A1%E6%89%B9%E4%B8%8E%E4%BB%A3%E7%A0%81%E6%A3%80%E6%9F%A5.html</link>
+      <pubDate>Sun, 20 Sep 2026 00:00:00 GMT</pubDate>
+      <guid>https://alakazamc.github.io/posts/04-AI%E5%AE%A1%E6%89%B9%E4%B8%8E%E4%BB%A3%E7%A0%81%E6%A3%80%E6%9F%A5.html</guid>
+      <description>资料核对：2026 年 9 月 20 日 设想这样一幕：一个修改文档分享权限的 PR，页面上挂着绿色的“检查通过”。AI 读完代码，觉得问题不大，程序随即批准。 但那个绿色标记，属于昨天的版本</description>
+    </item>
+<item>
+      <title>“零幻觉”的 AI，为什么仍然会批错？</title>
+      <link>https://alakazamc.github.io/posts/03-%E9%9B%B6%E5%B9%BB%E8%A7%89%E4%B8%8E%E7%BD%AE%E4%BF%A1%E5%BA%A6.html</link>
+      <pubDate>Sun, 20 Sep 2026 00:00:00 GMT</pubDate>
+      <guid>https://alakazamc.github.io/posts/03-%E9%9B%B6%E5%B9%BB%E8%A7%89%E4%B8%8E%E7%BD%AE%E4%BF%A1%E5%BA%A6.html</guid>
+      <description>资料核对：2026 年 9 月 20 日 有一种考试机器，永远不会漏涂答题卡，不会把 A 写成奇怪的符号，也不会在只有三个选项时填出第四个。 厂家说：“它不会乱答。” 你追问：“那本来该选 B</description>
+    </item>
+<item>
+      <title>只会输出几个数字的 AI，怎么替你干活？</title>
+      <link>https://alakazamc.github.io/posts/02-%E6%95%B0%E5%AD%97%E8%BE%93%E5%87%BA%E4%B8%8E%E5%B7%A5%E5%85%B7%E8%B0%83%E7%94%A8.html</link>
+      <pubDate>Sun, 20 Sep 2026 00:00:00 GMT</pubDate>
+      <guid>https://alakazamc.github.io/posts/02-%E6%95%B0%E5%AD%97%E8%BE%93%E5%87%BA%E4%B8%8E%E5%B7%A5%E5%85%B7%E8%B0%83%E7%94%A8.html</guid>
+      <description>资料核对：2026 年 9 月 20 日 空调遥控器从来不会说：“考虑到目前室温较高，我建议开启制冷，并将温度调至二十六摄氏度。” 你按一下，它发送一个信号，空调就开始工作。没人要求遥控器先把</description>
+    </item>
+<item>
+      <title>Jev 火了：我们是不是把 BERT 又发明了一遍？</title>
+      <link>https://alakazamc.github.io/posts/01-Jev%E4%B8%8EBERT.html</link>
+      <pubDate>Sun, 20 Sep 2026 00:00:00 GMT</pubDate>
+      <guid>https://alakazamc.github.io/posts/01-Jev%E4%B8%8EBERT.html</guid>
+      <description>资料核对：2026 年 9 月 20 日 有人端来一台新咖啡机，说它不跟你聊天，不介绍咖啡文化，按一下按钮就出杯，特别适合办公室。 你看了半天，忍不住问：“咖啡机本来不就应该这样吗？” 读到 </description>
+    </item>
+<item>
       <title>深大校园网疑云：为什么我连路由器的时候，官方登录应用失败了</title>
       <link>https://alakazamc.github.io/posts/%E6%B7%B1%E5%A4%A7%E6%A0%A1%E5%9B%AD%E7%BD%91%E7%96%91%E4%BA%91-%E4%B8%BA%E4%BB%80%E4%B9%88%E6%88%91%E8%BF%9E%E8%B7%AF%E7%94%B1%E5%99%A8%E7%9A%84%E6%97%B6%E5%80%99-%E5%AE%98%E6%96%B9%E7%99%BB%E5%BD%95%E5%BA%94%E7%94%A8%E5%A4%B1%E8%B4%A5%E4%BA%86.html</link>
       <pubDate>Thu, 17 Sep 2026 00:00:00 GMT</pubDate>
