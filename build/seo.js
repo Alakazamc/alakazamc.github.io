@@ -5,6 +5,7 @@ const {esc} = require('./md.js');
 const {articles} = require('./content.js');
 const {rssXml} = require('./papermod.js');
 const SITE = require('./site.config.js');
+const { ogImagePath } = require('./og.js');
 const ORIGIN = 'https://alakazamc.github.io';
 function apply(root) {
   const list = articles();
@@ -20,7 +21,14 @@ function apply(root) {
     const url=ORIGIN+(rel==='stardew-maximal-v3.html'?'/':'/'+rel.replace(/index\.html$/,''));
     const article=byPage.get(rel);
     const description=esc(article ? article.excerpt : '柯西 Alakazam 的个人主页，记录项目、文章、书影音与照片。');
-    const image=article?.cover ? new URL(article.cover, ORIGIN+'/').href : ORIGIN+'/assets/preview.png';
+    // 选图顺序（og.js 是单一来源）：封面 ≤32KB → 文章专属卡 → 全站默认卡 → 首页截图。
+    // 前两档都没有时退回 preview.png 只是保底，正常情况下文章页不该走到那一档。
+    const imgRel=ogImagePath(root, article) || '/assets/preview.png';
+    const image=ORIGIN+imgRel;
+    // 自家出的卡尺寸是固定的 1200×630，告诉抓取端能省一次探测
+    const dims=imgRel.startsWith('/assets/og/')
+      ? '\n<meta property="og:image:width" content="1200">\n<meta property="og:image:height" content="630">'
+      : '';
     const type=rel.startsWith('posts/')&&!rel.endsWith('index.html')?'article':'website';
     const tags=`<!-- SEO -->
 <link rel="canonical" href="${esc(url)}">
@@ -30,7 +38,7 @@ function apply(root) {
 <meta property="og:title" content="${title}">
 <meta property="og:description" content="${description}">
 <meta property="og:url" content="${esc(url)}">
-<meta property="og:image" content="${esc(image)}">
+<meta property="og:image" content="${esc(image)}">${dims}
 <meta name="twitter:card" content="summary_large_image">
 <!-- /SEO -->
 `;

@@ -379,4 +379,11 @@ html[data-time="night"] .dc-farmyard{filter:brightness(.6)}
 }
 `;
 
-module.exports = { css, scene, pond, panorama, birds, yard, shelf, path, farmyard, posts };
+module.exports = {
+  css, scene, pond, panorama, birds, yard, shelf, path, farmyard, posts,
+  // 原始 SVG 件也一并导出：og.js 的分享卡片要复用同一批像素画（单一来源，
+  // 不在 og.js 里另画一套）。注意它们自带 `style="width:NNNpx;height:auto"`，
+  // 拿去用的时候按需改这个宽度；class 上的动画类（dc-smoke/dc-blade/dc-ripple/
+  // dc-wing/dc-fire）在没有 decor.css 的环境里就是静态的，正合适。
+  HOUSE, MILL, GREEN, TOWER, SILO, POND, WELL, HAY, FIRE, BARREL, BIRD
+};

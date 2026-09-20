@@ -1959,6 +1959,9 @@ try {
   // 从像素农场一脚跨进微软办公室。
   require('./notfound.js').build();
   FARM.build();
+  // 分享卡片（og:image）：必须排在 seo.apply 之前 —— seo.js 要按卡片文件
+  // 是否真的存在来选图（没出图时它自己退回落差值，不会静默指个空）。
+  require('./og.js').render();
   require('./seo.js').apply(path.join(__dirname, '..'));
 } catch (e) {
   console.error('⚠️  子页面生成失败（主页面已正常输出）：' + e.message);
