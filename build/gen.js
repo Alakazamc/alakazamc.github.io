@@ -172,9 +172,10 @@ const rgb2hex = (c) =>
 // 而且横向滚动的一排太长也没人划到底。
 const SHELF_SHOW = 36;
 
-// 时间线一次显示多少条。12 条 ≈ 一屏半，再多就要滚很久才看到下一个面板。
-// 全部都还在 posts/index.html 里，不会丢。
-const TL_SHOW = 12;
+// 主页只放最新几条。2026-09-20 柯西：**时间线独立成页**（posts/index.html
+// 就是完整的那条），主页这块退化成"最新文章"预告 —— 3 条 ≈ 半屏，
+// 再长就把下面的博物馆/相馆顶出第二屏。全部条目都在 posts/index.html 里，不会丢。
+const TL_SHOW = 3;
 
 // 主页展示配置中的三项精选，全部仓库仍在工坊页。
 // 全部仓库在 workshop/index.html（「查看更多」入口点进去）。
@@ -214,9 +215,11 @@ const hang = () => {
 //
 // 原来「最新」「文章」两个按钮分别指向 featured / articles 两个面板；
 // 合并成一条时间线后，这两个按钮也就并成一个「时间线」。
+// 2026-09-20：时间线独立成页（posts/index.html），这个按钮从页内锚点
+// 改成跳转到那一页 —— 它现在指向"完整的那条时间线"。
 const toolbar = () => {
   const items = [
-    ['wateringcan', '时间线', '#timeline'],
+    ['wateringcan', '时间线', 'posts/index.html'],
     ['book', '写作台', 'write/index.html'],
     ['book', '博物馆', '#museum'],
     ['chest', '工坊', '#projects'],
@@ -233,11 +236,16 @@ const toolbar = () => {
     `<a class="tool" href="${h}">${ic(n)}<em>${t}</em></a>`).join('')}</nav><details class="secondary-nav"><summary>更多分区</summary><a href="#calendar">日历</a><a href="#ledger">收获簿</a><a href="#music">唱片机</a><a href="#skills">专精</a><a href="#farm">农场一角</a></details>`;
 };
 
-// ---------- 主体 ----------
-// 一整个时间线，不再分「置顶」和「最新」。
+// ---------- 最新文章（主页上的时间线预告） ----------
+// 历史：这里曾是整条时间线（12 条）。2026-09-20 柯西要求
+// **「把时间线做一个单独的页面（作为博客页），主页只要放三篇最新的文章」**
+// → 完整的时间线搬进 posts/index.html（见 posts.js blogPage），
+// 主页这块只剩 TL_SHOW=3 条预告，标题也从「时间线」改成「最新文章」。
 //
-// 2026-09-15 柯西：**不要做置顶文章和最新文章的区分，按时间线来**。
-// 原先是两个 panel（featured 大卡 + articles 8 行列表），现在合并成一条：
+// 面板 id 仍是 timeline：锚点 #timeline 是老深链，标题换了 id 不能换
+// （check-nav.js 的 PAIR 配对已同步改成「最新文章 ↔ timeline」）。
+//
+// 视觉规则不变（2026-09-15 柯西：**不做置顶/最新之分，按时间线来**）：
 // 一条竖轴串起左手边一排时间戳，右手边是缩略图 + 标题 + 标签。
 // 第一项稍大一点（有 .lead 类），因为它是「最近发生的」，但不叫"置顶"。
 const timeline = () => {
@@ -276,7 +284,7 @@ const timeline = () => {
   const skeleton = [
     'strawberry', 'pumpkin', 'starfruit', 'eggplant', 'melon', 'cherry',
     'corn', 'grape', 'cauliflower', 'potato', 'tomato', 'blueberry'
-  ].map((n, i) => `
+  ].slice(0, TL_SHOW).map((n, i) => `
       <li class="tl-item${i === 0 ? ' lead' : ''}">
         <div class="tl-when">
           <b>${slot('title', '34px', '12px')}</b>
@@ -296,14 +304,14 @@ const timeline = () => {
         </div>
       </li>`).join('');
 
-  return panel('时间线', ['flower', 'tulip', 'wheat', 'mushroom', 'sunflower'], `
+  return panel('最新文章', ['flower', 'tulip', 'wheat', 'mushroom', 'sunflower'], `
   <div class="tlwrap"><span class="tl-line"></span>
     <ul class="tl">${list.length ? list.map(card).join('') : skeleton}</ul>
   </div>
   ${vine('sunflower')}
   <div class="more">${ic('basket')}` +
     (list.length
-      ? `<a href="posts/index.html">进入博客（${ARTICLES.length} 篇）</a>`
+      ? `<a href="posts/index.html">完整时间线（${ARTICLES.length} 篇）</a>`
       : slot('meta', '140px', '11px')) +
     `${ic('basket')}</div>` + DC.shelf(), 'timeline');
 };
@@ -1305,6 +1313,25 @@ details.toc summary{padding:8px 16px;cursor:pointer;font-size:12px}
 .toc ul{list-style:none;margin:0;padding:0}
 .toc a{color:inherit;text-decoration:none}
 .toc a:hover{text-underline-offset:.3rem;text-decoration:underline}
+/* ===== 文章页：目录在左、正文在右（柯西 2026-09-20：「文章内的文章目录能不能放在左边」）=====
+   桌面变成两栏网格：目录栏 200px 固定，正文吃剩下的。目录栏 sticky ——
+   长文章滚到一半，目录还挂在眼前。
+   ⚠️ 别给 .artbody 写死宽度：它在这一栏里由 1fr 决定，写死就跟目录栏打架。
+   ⚠️ 只有真的有目录时 posts.js 才建 .art-cols；没有目录（文章没有小节标题）
+      时正文保持整幅居中，跟改造前一样。 */
+.art-cols{display:grid;grid-template-columns:200px minmax(0,1fr);gap:28px;align-items:start}
+.toc-side{min-width:0;position:sticky;top:20px;max-height:calc(100vh - 40px);overflow:auto}
+.art-cols details.toc{margin:0;max-width:none}
+/* 有目录的文章面板放宽到 1000px —— 这条**必须写在 build/pixel-art.js**（最后一张
+   样式表）：那里有条同特异性的 .is-article .artpage{max-width:860px}，
+   写在本文件会被它覆盖，看着改了其实没生效（2026-09-20 踩过）。 */
+/* 窄屏（≤900px）：目录没地方站了，退回正文上方 —— 就是 2026-09-20 之前的位置。
+   必须显式取消 sticky 和限高，否则目录会变成浮层挡住阅读。 */
+@media (max-width:900px){
+  .art-cols{grid-template-columns:minmax(0,1fr);gap:0}
+  .toc-side{position:static;max-height:none;overflow:visible}
+  .art-cols details.toc{margin:0 auto 24px;max-width:42rem}
+}
 .artbody h2,.artbody h3,.artbody h4{scroll-margin-top:24px}
 .artbody pre{position:relative;padding-top:44px}
 .copy-code{position:absolute;top:6px;right:8px;padding:4px 8px;background:var(--cream-2);color:var(--ink);border:1px solid var(--wood-c);font:12px var(--pix);cursor:pointer}
@@ -1353,40 +1380,10 @@ details.toc summary{padding:8px 16px;cursor:pointer;font-size:12px}
 
 /* ===== 博客列表页（posts/index.html）=====
    柯西 2026-09-16 要「一个正式博客页」—— 光一列标题不叫博客页。
-   结构：最上面一张大卡（最新一篇，带封面），下面紧凑列表（封面小图 + 标题 + 摘要）。
-   来源靠右侧那枚小标签区分，不靠颜色 —— 色觉障碍下也能分清。 */
-.blog-lead{display:flex;gap:14px;text-decoration:none;color:inherit;background:var(--cream-2);
-  border:3px solid var(--ink);box-shadow:0 0 0 3px var(--wood-c),6px 6px 0 rgba(59,36,18,.24);
-  padding:12px;margin:14px 0 18px;transition:transform .12s,box-shadow .12s}
-.blog-lead:hover{transform:translateY(-3px);box-shadow:0 0 0 3px var(--wood-c),6px 9px 0 rgba(59,36,18,.28)}
-.blog-lead-cover{width:88px;height:122px;flex:none;display:flex;align-items:center;justify-content:center;
-  overflow:hidden;background:var(--cream-3);border:2px solid var(--wood-c)}
-.blog-lead-cover img{width:100%;height:100%;object-fit:contain;display:block}
-.blog-lead-body{display:flex;flex-direction:column;gap:5px;min-width:0;justify-content:center}
-.blog-lead-tag{font-style:normal;font-size:12px;opacity:.7}
-.blog-lead-title{font-size:12px;line-height:1.5}
-.blog-lead-exc{font-size:12px;line-height:1.7;opacity:.78}
-.blog-lead-meta{font-size:12px;opacity:.6}
-.bloglist{list-style:none;margin:0;padding:0}
-.blog-row{display:flex;align-items:flex-start;gap:11px;padding:11px 0;
-  border-bottom:2px dotted var(--cream-3)}
-.blog-row-cover{width:52px;height:72px;flex:none;display:flex;align-items:center;justify-content:center;
-  overflow:hidden;background:var(--cream-3);border:2px solid var(--wood-c)}
-.blog-row-cover img{width:100%;height:100%;object-fit:contain;display:block}
-.blog-row-body{display:flex;flex-direction:column;gap:4px;min-width:0;flex:1}
-.blog-row-title{font-size:12px;line-height:1.5;text-decoration:none;color:inherit}
-.blog-row-title:hover{background:var(--gold)}
-.blog-row-exc{font-size:12px;line-height:1.6;opacity:.7;
-  display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
-.blog-row-meta{font-size:12px;opacity:.55}
-.blog-row-src{font-size:12px;opacity:.6;flex:none;background:var(--cream-2);
-  border:1px solid var(--wood-c);padding:1px 6px;align-self:center}
+   2026-09-20：这一页改成**完整时间线**（柯西：把时间线做一个单独的页面），
+   卡片直接复用上面「时间线」那一套 .tl-* 样式 —— 不在这里重复定义。
+   曾经的「大卡 + 紧凑列表」样式（.blog-lead / .blog-row）随之退役。 */
 .blog-note{font-size:12px;line-height:1.9;opacity:.62;margin-top:14px}
-@media (max-width:680px){
-  .blog-lead{flex-direction:column;gap:10px}
-  .blog-lead-cover{width:100%;height:150px}
-  .blog-row-src{display:none}
-}
 
 /* Reading hierarchy: scene stays decorative; paper, frames and links have separate roles. */
 :root{--reading-surface:var(--cream);--reading-muted:var(--cream-2);--frame:var(--wood-c);--link-accent:var(--gold-3)}

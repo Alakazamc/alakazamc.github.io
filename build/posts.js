@@ -120,6 +120,19 @@ function page(a, prev, next) {
     : '';
   const metarow = [a.date, a.meta, a.tags.join(' / ')].filter(Boolean).join(' · ');
 
+  /* 目录在左、正文在右（柯西 2026-09-20：「文章内的文章目录能不能放在左边」）。
+     有目录才建两栏（.art-cols）；没有目录时正文整幅居中，跟改造前一样。 */
+  const body = reading.toc
+    ? `<div class="art-cols">
+      <aside class="toc-side">${reading.toc}</aside>
+      <div class="artbody">
+${reading.body}
+      </div>
+    </div>`
+    : `<div class="artbody">
+${reading.body}
+    </div>`;
+
   return `<!DOCTYPE html>
 <html lang="zh-CN" data-season="spring" data-time="day">
 <head>
@@ -134,20 +147,17 @@ function page(a, prev, next) {
 ${decorate()}
 ${spriteFor(['mailbox', 'book', 'star', 'wateringcan', 'heart', 'flower', 'wheat', 'basket', icon].concat(DECOR_ICONS))}
 <div class="wrap">
-  <nav class="abarnav">
+  <nav class="abarnav${reading.toc ? ' has-toc' : ''}">
     <a class="abtn" href="../${esc(SITE.home)}">${ic('mailbox', 'sm')}回到农场</a>
     <a class="abtn" href="index.html">${ic('basket', 'sm')}博客首页</a>
   </nav>
-  <article class="panel artpage">
+  <article class="panel artpage${reading.toc ? ' has-toc' : ''}">
     <h2 class="pt">${ic(icon, 'xs')}${SRC_LABEL[a.source] || '文章'}${ic(icon, 'xs')}</h2>
     ${corners('flower', 'flower', 'wheat', 'wheat')}
     <h1 class="arttitle">${esc(a.title)}</h1>
     <p class="artmeta">${esc(metarow)}</p>
     ${cover}
-    ${reading.toc}
-    <div class="artbody">
-${reading.body}
-    </div>
+    ${body}
     <footer class="artfoot">
       ${a.link
       ? `<a class="artorig" href="${esc(a.link)}" target="_blank" rel="noopener">原载于豆瓣 ↗</a>`
@@ -168,15 +178,25 @@ ${seasonScript()}
 `;
 }
 
-// ---------- 博客列表页 ----------
+// ---------- 博客列表页（= 完整时间线） ----------
 //
 // 这是「发博客」功能的门面：柯西 2026-09-16 要的是**一个正式的博客页**，
 // 不是命令行工具、也不是代写代发。所以他写 .md 丢进 content/posts/，
 // 这里就长出一页博客来。
 //
-// 三件事决定了它不是"一列标题了事"：
-//   1. **带摘要和封面** —— 一列光秃秃的标题没法让人决定点哪个。
-//   2. **按来源分组标注** —— 本站手写的和豆瓣影评混在一起，但标签要能分清。
+// 2026-09-20 柯西：**「把时间线做一个单独的页面（作为博客页），
+// 主页只要放三篇最新的文章」** → 完整的时间线从主页搬到了这一页。
+// 结构从「大卡 + 紧凑列表」换成**时间线卡片**，与主页「最新文章」面板
+// 逐字节同构（tlwrap / tl-line / tl-item / tl-card），只有两处按子目录调整：
+//   1. 文章链接是同级 `${slug}.html`（不是主页的 `posts/${slug}.html`）；
+//   2. 封面路径要加 `../`（rel()），因为这一页自己在 posts/ 里。
+//
+// ⚠️ 样式不在本文件：.tl-* 的唯一定义在 gen.js 的内联 <style>，
+//    构建时导出成 assets/theme.css，本页 <link> 的就是它。改样式去改 gen.js。
+//
+// 仍然守住 2026-09-16 那三条"真博客页"的底线（只是换了个外形）：
+//   1. **带摘要和封面** —— 一列光秃秃的标题没法让人决定点哪个；
+//   2. **按来源分组标注** —— 本站手写的和豆瓣影评混在一起，但标签要能分清；
 //   3. **有自己的评论区** —— 柯西要求"首页 + 每篇文章"都有评论，博客列表页是
 //      除首页外最该能留言的地方（读者想说"你最近写得好"时，不会去某一篇文章底下说）。
 //      ⚠️ 它用固定 term 'blog' 开独立帖，不能按路径 —— 列表页路径以后可能变，
@@ -184,38 +204,43 @@ ${seasonScript()}
 function blogPage(list) {
   const siteCount = list.filter((x) => x.source === 'site').length;
   const doubanCount = list.filter((x) => x.source === 'douban').length;
-  // 最近一篇做成大卡（有封面就显封面），其余的排成紧凑列表。
-  // ⚠️ 没有封面时**整个封面元素都不要**，不要拿图标/灰块占位（柯西 2026-09-17 要求）。
-  //    曾经的写法是 `<span class="blog-lead-cover blank">${ic(icon)}</span>`，
-  //    等于告诉读者"这里本来该有张图"—— 没有就是没有。
-  //    ⚠️ 两处都是 flex 行，少一个子元素文字会自然铺满，不需要改 CSS。
-  const [lead, ...rest] = list;
 
-  const leadCard = lead ? `
-      <a class="blog-lead" href="${esc(lead.slug)}.html">
-        ${lead.cover
-      ? `<span class="blog-lead-cover"><img src="${esc(rel(lead.cover))}" alt="" loading="lazy"></span>`
-      : ''}
-        <span class="blog-lead-body">
-          <em class="blog-lead-tag">最新 · ${esc(SRC_LABEL[lead.source] || '')}</em>
-          <b class="blog-lead-title">${esc(lead.title)}</b>
-          <span class="blog-lead-exc">${esc((lead.excerpt || '').slice(0, 150))}</span>
-          <span class="blog-lead-meta">${esc([lead.date, lead.tags.slice(0, 3).join(' / ')].filter(Boolean).join(' · '))}</span>
-        </span>
-      </a>` : '';
-
-  const row = (a) => `
-      <li class="blog-row ${a.source}">
-        ${a.cover
-      ? `<span class="blog-row-cover"><img src="${esc(rel(a.cover))}" alt="" loading="lazy"></span>`
-      : ''}
-        <span class="blog-row-body">
-          <a class="blog-row-title" href="${esc(a.slug)}.html">${esc(a.title)}</a>
-          <span class="blog-row-exc">${esc((a.excerpt || '').slice(0, 96))}</span>
-          <span class="blog-row-meta">${esc([a.date, a.meta, a.tags.filter((t) => t !== '豆瓣影评').slice(0, 3).join(' / ')].filter(Boolean).join(' · '))}</span>
-        </span>
-        <span class="blog-row-src">${esc(SRC_LABEL[a.source] || '')}</span>
+  /* 时间线卡片。与 gen.js 主页 timeline() 的 card() 同构 —— 改一边记得改另一边，
+     check-timeline.js 两个页面都会量。 */
+  const card = (a, i) => {
+    const [y, m, d] = String(a.date).split('-');
+    const tags = [a.source === 'douban' ? '豆瓣影评' : '本站']
+      .concat(a.tags.filter((t) => t !== '豆瓣影评'))
+      .slice(0, 3);
+    return `
+      <li class="tl-item${i === 0 ? ' lead' : ''}">
+        <div class="tl-when">
+          <b>${m}.${d}</b>
+          <i>${y}</i>
+        </div>
+        <div class="tl-axis"><span class="tl-dot">${ic(a.icon, 'xs')}</span></div>
+        <a class="tl-card${a.cover ? '' : ' nocover'}" href="${esc(a.slug)}.html">
+          ${a.cover
+        ? `<span class="tl-cover"><img src="${esc(rel(a.cover))}" alt="" loading="lazy"></span>`
+        : ''}
+          <div class="tl-body">
+            <b class="tl-title">${esc(a.title)}</b>
+            <p class="tl-exc">${esc(a.excerpt.slice(0, 110))}</p>
+            <div class="tl-tags">
+              ${tags.map((t) => `<span class="tl-tag">${esc(t)}</span>`).join('')}
+            </div>
+          </div>
+        </a>
       </li>`;
+  };
+
+  // id="timeline" 让 check-timeline.js 用同一段 EXPR 同时量主页和这一页。
+  // 一篇都没有时不画时间线，留一句指向写作台的话（不留空面板）。
+  const timeline = list.length
+    ? `<div class="tlwrap" id="timeline"><span class="tl-line"></span>
+    <ul class="tl">${list.map(card).join('')}</ul>
+  </div>`
+    : '<p class="blog-note">还没有文章。去 <a href="../write/index.html">写作台</a> 写第一篇。</p>';
 
   return `<!DOCTYPE html>
 <html lang="zh-CN" data-season="spring" data-time="day">
@@ -229,7 +254,7 @@ function blogPage(list) {
 </head>
 <body class="is-article">
 ${decorate()}
-${spriteFor(['mailbox', 'basket', 'book', 'wateringcan', 'star', 'wheat', 'flower', 'chest'].concat(DECOR_ICONS))}
+${spriteFor(['mailbox', 'basket', 'book', 'wateringcan', 'star', 'wheat', 'flower', 'chest'].concat(list.map((a) => a.icon)).concat(DECOR_ICONS))}
 <div class="wrap">
   <nav class="abarnav">
     <a class="abtn" href="../${esc(SITE.home)}">${ic('mailbox', 'sm')}回到农场</a>
@@ -239,10 +264,7 @@ ${spriteFor(['mailbox', 'basket', 'book', 'wateringcan', 'star', 'wheat', 'flowe
     ${corners('wheat', 'flower', 'flower', 'wheat')}
     <h1 class="arttitle">一共 ${list.length} 篇</h1>
     <p class="artmeta">本站手写 ${siteCount} 篇 · 豆瓣影评 ${doubanCount} 篇 · 按时间倒序</p>
-    ${leadCard}
-    <ul class="bloglist">
-      ${rest.map(row).join('')}
-    </ul>
+    ${timeline}
     <p class="blog-note">想投稿 / 纠错：首页底部「留言板」，或每篇文章底部的评论区。</p>
   </section>
   ${bottomBlock(commentsBlock(null, { id: 'comments-blog', title: '博客评论', mapping: 'specific', term: 'blog' }), '../')}

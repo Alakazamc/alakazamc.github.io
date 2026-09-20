@@ -115,6 +115,12 @@ body:not(.is-article) .panel>.pt>.ic{width:24px;height:24px}
 .gstrip{gap:16px;justify-content:flex-start}.gstrip .gp{border:4px solid var(--cream-2);outline:1px solid var(--timber-light);box-shadow:3px 3px var(--cream-3);padding-bottom:12px;background:var(--cream-2)}
 .gstrip img{height:120px}.dc-path{margin-top:-10px;margin-bottom:26px;opacity:.65}
 .is-article .artpage,.is-article .cmtpanel{max-width:860px}.is-article .artbody{max-width:42rem;line-height:1.9}
+/* 有目录的文章（柯西 2026-09-20：目录放左边）面板放宽到 1000px：
+   860 - 48(面板内边距) - 200(目录栏) - 28(栏间距) = 584px，比从前的阅读宽度
+   42rem(672px) 还窄；放宽后正文正好拿回 672px。 specificity 必须比上面那条
+   .is-article .artpage 高一级（多个 .has-toc），否则同特异性下还是 860 赢。 */
+.is-article .artpage.has-toc{max-width:1000px}
+.is-article .abarnav.has-toc{max-width:1000px}
 .is-article .abarnav{max-width:860px;margin:0 auto 24px}.abtn{border:2px solid var(--timber-light);box-shadow:0 3px var(--timber);padding:8px 12px}
 .is-article .arttitle{margin-top:12px}.is-article .artcover img{border:0;box-shadow:none}
 .is-article .dc-shelf{margin-top:32px}.is-article .artpage>.pt{font-size:12px}
