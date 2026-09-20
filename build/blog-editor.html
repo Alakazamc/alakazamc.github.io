@@ -881,7 +881,7 @@ async function galleryCloudPublish(){
     await putNewOrSame(GALLERY_ASSET_DIR+'/'+slug+'-t.webp',thumb,'相馆缩图：'+slug);
     var meta=buildGalleryMeta({file:slug+'.webp',thumb:slug+'-t.webp',w:photo.w,h:photo.h,tw:photo.tw,th:photo.th,caption:caption,date:date});
     await putNewOrSame(GALLERY_DIR+'/'+slug+'.json',b64enc(JSON.stringify(meta,null,2)),'相馆元数据：'+slug);
-    log('照片已保存，等待网站自动更新。\nhttps://alakazamc-github-io.vercel.app/gallery/\n',true);
+    log('照片已保存，等待网站自动更新。\nhttps://alakazamc.github.io/gallery/\n',true);
     setStatus('照片已保存，等待网站更新');
     if(galleryState.photo===photo){galleryState.photo=null;elGPrevWrap.style.display='none';}
   }catch(e){

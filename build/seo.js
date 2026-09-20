@@ -5,7 +5,7 @@ const {esc} = require('./md.js');
 const {articles} = require('./content.js');
 const {rssXml} = require('./papermod.js');
 const SITE = require('./site.config.js');
-const ORIGIN = 'https://alakazamc-github-io.vercel.app';
+const ORIGIN = 'https://alakazamc.github.io';
 function apply(root) {
   const list = articles();
   const byPage = new Map(list.map(a => ['posts/'+a.slug+'.html', a]));

@@ -2,64 +2,64 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>柯西 Alakazam</title>
-    <link>https://alakazamc-github-io.vercel.app/</link>
+    <link>https://alakazamc.github.io/</link>
     <description>柯西 Alakazam的文章与影评</description>
     <language>zh-CN</language>
-    <atom:link href="https://alakazamc-github-io.vercel.app/rss.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="https://alakazamc.github.io/rss.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>深大校园网疑云：为什么我连路由器的时候，官方登录应用失败了</title>
-      <link>https://alakazamc-github-io.vercel.app/posts/%E6%B7%B1%E5%A4%A7%E6%A0%A1%E5%9B%AD%E7%BD%91%E7%96%91%E4%BA%91-%E4%B8%BA%E4%BB%80%E4%B9%88%E6%88%91%E8%BF%9E%E8%B7%AF%E7%94%B1%E5%99%A8%E7%9A%84%E6%97%B6%E5%80%99-%E5%AE%98%E6%96%B9%E7%99%BB%E5%BD%95%E5%BA%94%E7%94%A8%E5%A4%B1%E8%B4%A5%E4%BA%86.html</link>
+      <link>https://alakazamc.github.io/posts/%E6%B7%B1%E5%A4%A7%E6%A0%A1%E5%9B%AD%E7%BD%91%E7%96%91%E4%BA%91-%E4%B8%BA%E4%BB%80%E4%B9%88%E6%88%91%E8%BF%9E%E8%B7%AF%E7%94%B1%E5%99%A8%E7%9A%84%E6%97%B6%E5%80%99-%E5%AE%98%E6%96%B9%E7%99%BB%E5%BD%95%E5%BA%94%E7%94%A8%E5%A4%B1%E8%B4%A5%E4%BA%86.html</link>
       <pubDate>Thu, 17 Sep 2026 00:00:00 GMT</pubDate>
-      <guid>https://alakazamc-github-io.vercel.app/posts/%E6%B7%B1%E5%A4%A7%E6%A0%A1%E5%9B%AD%E7%BD%91%E7%96%91%E4%BA%91-%E4%B8%BA%E4%BB%80%E4%B9%88%E6%88%91%E8%BF%9E%E8%B7%AF%E7%94%B1%E5%99%A8%E7%9A%84%E6%97%B6%E5%80%99-%E5%AE%98%E6%96%B9%E7%99%BB%E5%BD%95%E5%BA%94%E7%94%A8%E5%A4%B1%E8%B4%A5%E4%BA%86.html</guid>
+      <guid>https://alakazamc.github.io/posts/%E6%B7%B1%E5%A4%A7%E6%A0%A1%E5%9B%AD%E7%BD%91%E7%96%91%E4%BA%91-%E4%B8%BA%E4%BB%80%E4%B9%88%E6%88%91%E8%BF%9E%E8%B7%AF%E7%94%B1%E5%99%A8%E7%9A%84%E6%97%B6%E5%80%99-%E5%AE%98%E6%96%B9%E7%99%BB%E5%BD%95%E5%BA%94%E7%94%A8%E5%A4%B1%E8%B4%A5%E4%BA%86.html</guid>
       <description>最近在做SZUDesktop桌面应用，在设置校园网登录功能的时候遇到了 认证失败：acid 用错了（Unknow ac-type）。 的bug。 在排查一番以后，发现不仅是自己连不上，官方的上</description>
     </item>
 <item>
       <title>一部好电影，但是我讨厌mj</title>
-      <link>https://alakazamc-github-io.vercel.app/posts/douban-17737066.html</link>
+      <link>https://alakazamc.github.io/posts/douban-17737066.html</link>
       <pubDate>Fri, 31 Jul 2026 00:00:00 GMT</pubDate>
-      <guid>https://alakazamc-github-io.vercel.app/posts/douban-17737066.html</guid>
+      <guid>https://alakazamc.github.io/posts/douban-17737066.html</guid>
       <description>蜘蛛侠：brand new day 有这样的底子在，专注于讲蜘蛛侠本身的故事，就很难成为一部差电影。 前面的动作戏相当有索尼的漫威蜘蛛侠游戏的感觉，让人过瘾。 但是影片的主要基调是很压抑的。 纽约变成的一座灰色的城市。蜘蛛侠在被全世界遗忘后一门心思投入到打击罪犯中，希望借此忘记现实的种种不顺。 但是终归是要接纳和解的，pp是你，蜘蛛侠也是你，无法接纳自己的另外一部分，逃避是不可能长久的。于是就有了蜘蛛侠黑化，无法控制自己的能力。 我很不喜欢mj在电影里的戏份。偏偏mj还是电影里很重要的角色。哪怕你是什么都忘了，pp在你失忆之后还是为你付出了这么多，单相思坚守克制了这么久。你，MJ，（甚至都没人知道是不是MaryJane），你就这样怕被误会，划清界限，片叶不沾身？ 信你也读了，对方这么真挚的感情我知道强加在你身上会有点道德绑架。但是无论如何你得友好表示一下吧？ you love her I am grateful for what you do for her 这样轻飘飘的切割掉自己曾经的一部分人生是什么意思。 你只是失忆了，这些事情可是MJ这个躯体和pp真实经历过的种…</description>
     </item>
 <item>
       <title>该拍，该多拍，嫌太短</title>
-      <link>https://alakazamc-github-io.vercel.app/posts/douban-16905460.html</link>
+      <link>https://alakazamc.github.io/posts/douban-16905460.html</link>
       <pubDate>Fri, 01 Aug 2025 00:00:00 GMT</pubDate>
-      <guid>https://alakazamc-github-io.vercel.app/posts/douban-16905460.html</guid>
+      <guid>https://alakazamc.github.io/posts/douban-16905460.html</guid>
       <description>南京照相馆--血色中的尊严与控诉 先给评分：9/10，希望看完电影的朋友们能再去看看《东京审判》，《西线无战事》等类似题材的片子。 在1937年那个岁末寒冬冰冷的底色上，《南京照相馆》为我们撕开了一角历史沉重的帷幕。影片聚焦于南京城中一家照相馆，在日军进城后的恐怖统治中，凭借洗卷的手艺，主角们想办法生存下去，小心翼翼地保存着生命的尊严，与家人、同胞在无尽的黑暗中寻找着微弱的慰藉与抗争的可能。它是一部关于个体在绝境中坚守人性、用特殊方式抵抗遗忘与毁灭的悲歌，更是一曲对那段人类文明史上至暗时刻的沉痛控诉。 优秀之处--力度饱满的张力与考究的呈现 影片在剧情张力的营造上可圈可点。它将巨大的历史悲剧，具象化地浓缩于小小的照相馆内外。面对日军的威胁、街头的暴行、人性的挣扎，影片节奏张弛有度，既有令人窒息的绝望瞬间，也有同胞互助带来的短暂温暖，形成了强烈的戏剧冲突和情感落差，让观众始终被牵动。 在美术设计上，影片精准还原了三十年代南京古都的韵味与破败废墟的惨烈。照相馆内部陈设的旧物件、老照片、显影药水的气味，…</description>
     </item>
 <item>
       <title>国产文艺片能不能不要虚构编造苦难了</title>
-      <link>https://alakazamc-github-io.vercel.app/posts/douban-15699853.html</link>
+      <link>https://alakazamc.github.io/posts/douban-15699853.html</link>
       <pubDate>Mon, 22 Jan 2024 00:00:00 GMT</pubDate>
-      <guid>https://alakazamc-github-io.vercel.app/posts/douban-15699853.html</guid>
+      <guid>https://alakazamc.github.io/posts/douban-15699853.html</guid>
       <description>今天看了去年很有热度的《隐入尘烟》 2分（满分10分）吧 一部从头到尾虚构，夸大，编造苦难的电影，哪怕让我一个自由派都绷不住了 国产导演经典的描写苦难几件套就上来了。老人一定是子女不孝顺的--家里子女吃大鱼大肉老登只能坐在旁边啃馒头，子女住小独栋老登住泥巴房。老登进城一定是晕车坐不了汽车的。没有意义的空镜头你说渲染气氛也好，为啥这么多啊？看的也折磨，开倍速都要等半天。老光棍一定是没对象被村组织撮合一对，然后互相看不顺眼带着怨气的。槽点数不胜数。 国家给老光棍分配了房子，老光棍说自己住进水泥房了没地方养鸡养猪。有没有可能你可以进工地啊？四肢健全有手有脚能干活吃苦耐劳，非得养鸡养猪养不活自己是吧。 只能说完美迎合了没去过农村的城市小布尔乔亚对体制的质疑逆反心理。但我要问小布尔乔亚，你们身边真有这么苦的吗，农村真有这么苦的吗。别人家都开农机耕地看老光棍家拉驴耕地无动于衷是吧，导演把人性拍的太恶才能对比映衬出自己的高尚悲悯。国产文艺片要都是这样趁早完蛋吧。 导演您对得起自己的良心吗，难怪村民接受采访…</description>
     </item>
 <item>
       <title>又是被哪个关系户送上来摘桃子了</title>
-      <link>https://alakazamc-github-io.vercel.app/posts/douban-15698208.html</link>
+      <link>https://alakazamc.github.io/posts/douban-15698208.html</link>
       <pubDate>Mon, 22 Jan 2024 00:00:00 GMT</pubDate>
-      <guid>https://alakazamc-github-io.vercel.app/posts/douban-15698208.html</guid>
+      <guid>https://alakazamc.github.io/posts/douban-15698208.html</guid>
       <description>what if 第二季一块钱看完了，整了个惊天大烂活，不论中外，总是有能力的人打基础，二代自作聪明嚯嚯前人遗产，这部剧也是，摊上了想摘桃子的平庸导演。 e1：假如星云加入新星军团，说实话这段背景我不太熟，电影里好像也没怎么见过新星军团的故事，只能说平庸之作 e2：假如彼得·奎尔袭击了地球上最强大的英雄。这里就开始整烂活了，同样的套路会出现很多遍。。。获得天神组力量的星爵大战复仇者联盟1988。。。 e3：假如哈皮·霍根拯救了圣诞节。没整烂活但是也没啥惊喜。哈皮注射了绿巨人血清。。之后还会见到绿巨人哈皮的 e4：假如钢铁侠撞上了高天尊。okok这集满分。托尼在复联一核弹炸掉灭霸飞船之后没回到地球，反而来到了高天尊的星球，误打误撞托尼用智慧战胜了高天尊，然后带着卡魔拉直接在复联一的时间点就把灭霸秒了。相当精彩 e5：假如卡特队长与九头蛇践踏者对决。伟光正的自由米国精神大战邪恶苏联的故事。。。美式战狼开心就好 e6：假如卡霍里重塑了世界。这到底是个啥，没见过的女性印第安人超级英雄，永远空间宝石赐予的能力，在美洲大陆击败…</description>
     </item>
 <item>
       <title>给所有的科幻高分电影打的样板房</title>
-      <link>https://alakazamc-github-io.vercel.app/posts/douban-15658778.html</link>
+      <link>https://alakazamc.github.io/posts/douban-15658778.html</link>
       <pubDate>Tue, 02 Jan 2024 00:00:00 GMT</pubDate>
-      <guid>https://alakazamc-github-io.vercel.app/posts/douban-15658778.html</guid>
+      <guid>https://alakazamc.github.io/posts/douban-15658778.html</guid>
       <description>虽然是1985年上映的电影 距今39年之久了，但是里面新奇的时空穿越理论被后世作品一部又一部的模仿，始终未曾完全超越。在我心目中能与之匹敌的时空穿越作品可能只有《命运石之门》了。 如果你能回到父母相爱之前，你会做些什么？ 回到未来讲的就是一个科幻题材下有关人类永恒不变的亲情话题的电影。男主想办法帮父母相爱，和博士合力解决制造时光机的困难，甚至阴差阳错影响了未来的披头士。剧情笑点包袱一点也不尴尬反而恰到好处而且很适合模仿学习。 因此我称之为所有的科幻高分电影打的样板房。 满分！</description>
     </item>
 <item>
       <title>东北摇滚版的堂吉诃德</title>
-      <link>https://alakazamc-github-io.vercel.app/posts/douban-15117833.html</link>
+      <link>https://alakazamc.github.io/posts/douban-15117833.html</link>
       <pubDate>Fri, 21 Apr 2023 00:00:00 GMT</pubDate>
-      <guid>https://alakazamc-github-io.vercel.app/posts/douban-15117833.html</guid>
+      <guid>https://alakazamc.github.io/posts/douban-15117833.html</guid>
       <description>之前是因为«没有理想的人不伤心»这首歌歌名一直挂着缝纫机乐队 ，所以好奇跟着来看了这部电影。 看完了 评价是：东北摇滚版的堂吉诃德 胡亮一个热爱摇滚的大傻子拿出来自己全部积蓄请来职业经理人程宫。在吉安市组建了一个看似很奇葩的乐队“失恋的美女贝斯手”，“台湾来求爱的鼓手”，“小学女生键盘手”，“退休大爷吉他”，以及主场兼吉他手的大傻子胡亮。 这样一个奇葩的队伍，却有堂吉诃德一样的理想。最后战胜了他们的风车“大吉他雕塑”。 电影里各种梗段子让我一直笑的停不下来，配乐也是一等一的好。没有理想的人不伤心那一段出来的时候，乐队正遭受最大的磨难差点被现实打到。 “可是我最恨的那个人，已住进我身体里面”。乐队的众人正因为理想被沉重的现实快要压垮的时候。“我不要在失败孤独中死去，我不要一直活在地下里，物质的骗局，匆匆的蚂蚁，没有理想的人不伤心”。希望的火光重新燃起。吉安，一个曾经的摇滚之城，被堂吉诃德们唤起他的初心。最后观众蜂拥而入，拿起自己的乐器演奏的时候，摇滚是杀不死的，理想的力量是无穷的。 这…</description>
     </item>
 <item>
       <title>令人遗憾的电影</title>
-      <link>https://alakazamc-github-io.vercel.app/posts/douban-15074020.html</link>
+      <link>https://alakazamc.github.io/posts/douban-15074020.html</link>
       <pubDate>Fri, 31 Mar 2023 00:00:00 GMT</pubDate>
-      <guid>https://alakazamc-github-io.vercel.app/posts/douban-15074020.html</guid>
+      <guid>https://alakazamc.github.io/posts/douban-15074020.html</guid>
       <description>看完了《深海》，给个6分吧，总的来说 我觉得“遗憾”是最适合评价这部电影的词。 先说说剧情吧：参宿的救赎。参宿的父母在她很小的时候离婚了，参宿跟的爸爸，而爸爸重组了一个新家庭。在新家庭中，参宿感觉自己缺少家人的关怀，同时还患上了抑郁症，踏上了“找妈妈”的旅途。。。这是前半段发展的脉络。看起来是很正常对吧，可是表现手法让人看得不明所以。参宿和重组家庭的父母坐游轮，遇上了暴雨，参宿决定跳水自杀，这时候参宿陷入了昏迷，剧情是在梦境中用暗喻表现的前面所有的情节。在梦境里，参宿遇上了南河——故事的另外一个主人公。南河救了参宿。而这个南河是什么人呢，现实中扮小丑逗孩子开心摆摊卖漫画的失意青年，在梦境里，则是参宿眼中神通广大的深海大饭店的店长。神通广大的南河拼尽全力带着参宿找到了梦境中的妈妈，同时深海号被漩涡冲的粉碎，失意的南河在现实中一跃而下救起了落水的参宿—自己却因为救人体力不支死掉了。 叙事很凌乱，长篇的意识流镜头是很难让人理解的，同时抑郁症的主题压根就不适合春节档，这是第一大遗憾。 再说说画面…</description>
     </item>
   </channel>
