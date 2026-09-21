@@ -1397,7 +1397,7 @@ body.is-article{background:var(--sky-b);min-height:100vh;padding-top:22px}
   font-kerning:normal}
 .artbody h2,.artbody h3,.artbody h4{font-family:var(--pix);line-height:1.6}
 .artbody p{margin:0 0 1.25em}
-.artbody h2{font-size:24px;margin:26px 0 10px;padding-bottom:5px;border-bottom:3px solid var(--cream-3)}
+.artbody h2{font-size:36px;margin:32px 0 14px;padding-bottom:8px;border-bottom:3px solid var(--cream-3)}
 .artbody h3{font-size:24px;font-weight:700;margin:20px 0 8px}
 .artbody h4{font-size:24px;margin:16px 0 6px;opacity:.8}
 .artbody a{color:var(--wood-b);text-decoration:none;border-bottom:2px solid var(--gold-3)}
@@ -1527,9 +1527,13 @@ button.soc .soc-in{flex-direction:row;gap:6px}
 .rfoot{margin-top:16px}
 .museum-more{margin-top:16px;line-height:24px}
 .artpage{max-width:820px;margin:0 auto 32px}
-.arttitle,.gal-title{font-size:24px;line-height:36px;margin:8px 0 16px}
+/* 页面主标题 36px（2026-09-21）：原来和面板标题、文章 H2、卡片标题同为 24px ——
+   四种重要度挤在一个尺寸里，层级是平的。往上只有 36 这一档可用
+   （像素字体只认 12 的整数倍，18/30 会糊），所以主标题占 36、H2 也占 36，
+   面板/卡片标题留在 24，正文 18（系统字体），辅助小字 12。 */
+.arttitle,.gal-title{font-size:36px;line-height:48px;margin:10px 0 18px}
 .artbody{max-width:64ch;margin-inline:auto;line-height:2}
-.artbody h2{font-size:24px;line-height:36px}
+.artbody h2{font-size:36px;line-height:48px}
 .artbody pre{white-space:pre-wrap;overflow-wrap:anywhere}
 .artbody a{color:var(--tx-link);text-decoration:underline;text-decoration-color:var(--link-accent);text-underline-offset:4px}
 .artmeta,.museum-status,.museum-note{opacity:.85;line-height:24px}
@@ -1556,6 +1560,9 @@ button.soc .soc-in{flex-direction:row;gap:6px}
   .museum-item-title{line-height:24px;min-height:48px}
   .museum-item-meta{line-height:24px;opacity:.85}
   .arttitle{font-size:24px;line-height:36px}
+  /* 小屏主标题回到 24px（36px 在 390px 宽里一行放不下几个字），
+     正文 H2 必须一起降 —— 否则 H2（36）比页面标题（24）还大，层级倒挂。 */
+  .artbody h2{font-size:24px;line-height:36px}
 }
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*::before,*::after{animation:none!important;transition:none!important}}
 .museum-item .museum-item-poster{height:auto;aspect-ratio:auto;display:block;flex:none;border:0;box-shadow:none;background:transparent;overflow:visible}

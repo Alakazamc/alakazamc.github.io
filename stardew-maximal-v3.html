@@ -829,7 +829,7 @@ body.is-article{background:var(--sky-b);min-height:100vh;padding-top:22px}
   font-kerning:normal}
 .artbody h2,.artbody h3,.artbody h4{font-family:var(--pix);line-height:1.6}
 .artbody p{margin:0 0 1.25em}
-.artbody h2{font-size:24px;margin:26px 0 10px;padding-bottom:5px;border-bottom:3px solid var(--cream-3)}
+.artbody h2{font-size:36px;margin:32px 0 14px;padding-bottom:8px;border-bottom:3px solid var(--cream-3)}
 .artbody h3{font-size:24px;font-weight:700;margin:20px 0 8px}
 .artbody h4{font-size:24px;margin:16px 0 6px;opacity:.8}
 .artbody a{color:var(--wood-b);text-decoration:none;border-bottom:2px solid var(--gold-3)}
@@ -959,9 +959,13 @@ button.soc .soc-in{flex-direction:row;gap:6px}
 .rfoot{margin-top:16px}
 .museum-more{margin-top:16px;line-height:24px}
 .artpage{max-width:820px;margin:0 auto 32px}
-.arttitle,.gal-title{font-size:24px;line-height:36px;margin:8px 0 16px}
+/* 页面主标题 36px（2026-09-21）：原来和面板标题、文章 H2、卡片标题同为 24px ——
+   四种重要度挤在一个尺寸里，层级是平的。往上只有 36 这一档可用
+   （像素字体只认 12 的整数倍，18/30 会糊），所以主标题占 36、H2 也占 36，
+   面板/卡片标题留在 24，正文 18（系统字体），辅助小字 12。 */
+.arttitle,.gal-title{font-size:36px;line-height:48px;margin:10px 0 18px}
 .artbody{max-width:64ch;margin-inline:auto;line-height:2}
-.artbody h2{font-size:24px;line-height:36px}
+.artbody h2{font-size:36px;line-height:48px}
 .artbody pre{white-space:pre-wrap;overflow-wrap:anywhere}
 .artbody a{color:var(--tx-link);text-decoration:underline;text-decoration-color:var(--link-accent);text-underline-offset:4px}
 .artmeta,.museum-status,.museum-note{opacity:.85;line-height:24px}
@@ -988,6 +992,9 @@ button.soc .soc-in{flex-direction:row;gap:6px}
   .museum-item-title{line-height:24px;min-height:48px}
   .museum-item-meta{line-height:24px;opacity:.85}
   .arttitle{font-size:24px;line-height:36px}
+  /* 小屏主标题回到 24px（36px 在 390px 宽里一行放不下几个字），
+     正文 H2 必须一起降 —— 否则 H2（36）比页面标题（24）还大，层级倒挂。 */
+  .artbody h2{font-size:24px;line-height:36px}
 }
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*::before,*::after{animation:none!important;transition:none!important}}
 .museum-item .museum-item-poster{height:auto;aspect-ratio:auto;display:block;flex:none;border:0;box-shadow:none;background:transparent;overflow:visible}
@@ -1246,7 +1253,7 @@ body:not(.is-article) .panel>.pt>.ic{width:24px;height:24px}
 .tl-item{padding-bottom:18px}.tl-card{padding:14px;border:0;border-bottom:2px solid var(--cream-3);background:transparent;gap:14px}
 .tl-item.lead .tl-card{background:var(--cream-2);border:2px solid var(--timber-light);box-shadow:inset 4px 0 var(--moss);padding:18px}
 .tl-exc{line-height:24px;color:var(--ink-2);opacity:1}.tl-title{line-height:24px}
-.tl-item.lead .tl-title{font-size:24px;line-height:36px}.tl-item:hover .tl-card{background:var(--cream-2);transform:none}
+.tl-item.lead .tl-title{font-size:36px;line-height:48px}.tl-item:hover .tl-card{background:var(--cream-2);transform:none}
 .tl-tag{border:0;background:var(--cream-3);padding:2px 6px}.tl-line{opacity:.3}
 .tl-cover{border:0;background:none;height:auto}.tl-cover img{height:auto;object-fit:contain}
 .stack li{border:0;background:none;padding:8px 0;flex-wrap:wrap;border-bottom:1px dotted var(--timber-light)}
@@ -1277,7 +1284,13 @@ body:not(.is-article) .panel>.pt>.ic{width:24px;height:24px}
 .is-article .dc-shelf{margin-top:32px}.is-article .artpage>.pt{font-size:12px}
 .sitebottom{margin-top:32px}.site-links{line-height:24px}.dc-farmyard{padding-top:20px}
 @media(max-width:1000px){.board.pixel-entry{grid-template-columns:minmax(0,1fr) 300px;gap:8px}.entry-copy{padding:16px 12px}.board.pixel-entry .bt{font-size:24px;line-height:36px}.entry-counts{gap:12px}.entry-counts b{font-size:12px}.layout{grid-template-columns:minmax(0,1fr) 264px;gap:20px}.rc-h b{font-size:12px;line-height:24px}.rgrid{gap:12px}.rcard{padding:16px 12px}}
-@media(max-width:760px){.wrap{padding:0 16px 32px}.appearance-settings{padding:0 16px}.board.pixel-entry{grid-template-columns:1fr;padding:8px;gap:0}.entry-copy{padding:16px}.entry-view{padding:8px}.pixel-window{height:184px}.pixel-window .dc-house{width:160px!important;left:calc(50% - 110px)}.pixel-window .dc-mill{right:32px;width:80px!important}.entry-caption{padding:6px}.entry-label{margin-bottom:12px}.entry-counts{margin-top:16px;gap:16px}.entry-counts b{font-size:24px}.toolbar{grid-template-columns:repeat(5,minmax(0,1fr));gap:4px;padding:6px}.toolbar .tool{flex-direction:column;padding:8px 2px;gap:4px}.toolbar .tool .ic{width:24px;height:24px}.layout{grid-template-columns:1fr}.panel{padding:20px;margin-bottom:28px}.panel>.pt{margin-bottom:18px}body:not(.is-article) .panel>.pt{font-size:24px}.dc-shelf{margin:20px -18px -18px}.rgrid{grid-template-columns:1fr}.rcard{min-height:0}.rc-h b{font-size:24px;line-height:32px}.rc-d{-webkit-line-clamp:3}.rfoot{display:none}#projects .museum-more{margin-top:20px;justify-content:center}.tl-item{grid-template-columns:40px 18px minmax(0,1fr);gap:8px}.tl-line{left:55px;width:3px}.tl-dot{width:18px;height:18px}.tl-card{padding:10px;grid-template-columns:40px minmax(0,1fr);gap:10px}.tl-cover{width:40px}.tl-item.lead .tl-card{padding:12px}.tl-item.lead .tl-title{font-size:24px;line-height:36px}.layout>aside{display:grid;grid-template-columns:1fr;gap:0}.gstrip img{height:96px}.museum-zone-title{flex-wrap:wrap}.douban-mark-link{margin-left:0}.dc-scene,.dc-pond{display:none}}
+@media(max-width:760px){.wrap{padding:0 16px 32px}.appearance-settings{padding:0 16px}.board.pixel-entry{grid-template-columns:1fr;padding:8px;gap:0}.entry-copy{padding:16px}.entry-view{padding:8px}.pixel-window{height:184px}.pixel-window .dc-house{width:160px!important;left:calc(50% - 110px)}.pixel-window .dc-mill{right:32px;width:80px!important}.entry-caption{padding:6px}.entry-label{margin-bottom:12px}.entry-counts{margin-top:16px;gap:16px}.entry-counts b{font-size:24px}.toolbar{grid-template-columns:repeat(5,minmax(0,1fr));gap:4px;padding:6px}.toolbar .tool{flex-direction:column;padding:8px 2px;gap:4px}.toolbar .tool .ic{width:24px;height:24px}.layout{grid-template-columns:1fr}.panel{padding:20px;margin-bottom:28px}.panel>.pt{margin-bottom:18px}body:not(.is-article) .panel>.pt{font-size:24px}.dc-shelf{margin:20px -18px -18px}.rgrid{grid-template-columns:1fr}.rcard{min-height:0}.rc-h b{font-size:24px;line-height:32px}.rc-d{-webkit-line-clamp:3}.rfoot{display:none}#projects .museum-more{margin-top:20px;justify-content:center}/* ⚠️ 窄屏的 .tl-item 必须是**两列**：日期列（.tl-when）在 1080 以下就被 gen.js
+   display:none 了，而 display:none 的元素**不占网格格位** —— 这里若写回三列，
+   .tl-card 会掉进第 2 列（原来给轴线的那 18px），卡片只剩内边距、内容宽 0，
+   手机上时间线只剩一根空条（2026-09-21 发现，纯静态断言看不出来，得在窄屏量宽度）。
+   轴列 40px 是这里刻意放大的（配 18px 的圆点），轴线中心 = 40/2 → left 19px。
+   卡片内部同理：封面在 820 以下已经隐藏，内部网格留成 1 列。 */
+.tl-item{grid-template-columns:40px minmax(0,1fr);gap:8px}.tl-line{left:19px;width:3px}.tl-dot{width:18px;height:18px}.tl-card{padding:10px;grid-template-columns:minmax(0,1fr);gap:10px}.tl-cover{width:40px}.tl-item.lead .tl-card{padding:12px}.tl-item.lead .tl-title{font-size:24px;line-height:36px}.layout>aside{display:grid;grid-template-columns:1fr;gap:0}.gstrip img{height:96px}.museum-zone-title{flex-wrap:wrap}.douban-mark-link{margin-left:0}.dc-scene,.dc-pond{display:none}}
 /* ===== 窄屏横向溢出的两个源头（2026-09-20 量出来的，别再当"环境问题"） =====
    ⚠️ 这两条**必须留在本文件**：本文件是样式表里最后一份，写进 gen.js 会被上面的
    .shelf-tab / .dc-shelf 覆盖（同特异性、后来者胜），看着改了其实没生效。
