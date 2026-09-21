@@ -129,4 +129,25 @@ function articles() {
     });
 }
 
-module.exports = { articles, loadPosts, loadReviews, parseFrontMatter, POST_DIR };
+// 标签 -> 像素图标（柯西 2026-09-20：「在页面多一点星露谷物语、minecraft 等的图标素材」）。
+// 图标放在标签文字旁边，让时间线/文章页满一点。
+// ⚠️ 只映射**图形上真有关系**的标签，凑数的宁可不放 —— 硬给「代码审查」配把剑
+//    只会显得乱。新标签出现但没有图标时静默跳过（见 tagIcon）。
+const TAG_ICON = {
+  'AI': 'chip',
+  '模型': 'crystal',
+  '电影': 'film',
+  '剧集': 'film',
+  '豆瓣影评': 'star',
+  '评测': 'gem',
+  '自动化': 'gear',
+  '代码审查': 'book',
+  '工具调用': 'wand',
+  'BERT': 'book',
+  '置信度': 'gem'
+};
+
+// 取标签图标名；没有对应图标就返回空串（调用方直接拼，不用判空）。
+const tagIcon = (tag) => TAG_ICON[tag] || '';
+
+module.exports = { articles, loadPosts, loadReviews, parseFrontMatter, POST_DIR, TAG_ICON, tagIcon };

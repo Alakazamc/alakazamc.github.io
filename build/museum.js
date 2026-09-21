@@ -5,6 +5,7 @@ const fs = require('fs');
 const path = require('path');
 const { ICONS, toSymbol } = require('./icons.js');
 const SITE = require('./site.config.js');
+const { GAME_ICON } = require('./game-data.js');
 const { seasonScript, bottomBlock, decorate, dcShelf, DECOR_ICONS } = require('./subpage.js');
 
 const ROOT = path.join(__dirname, '..');
@@ -49,6 +50,9 @@ function normalize() {
     platform: x.platform,
     kind: 'game',
     title: x.name || '(无题)',
+    // 认得出来的游戏在标题旁挂一枚像素图标（映射表在 game-data.js 的 GAME_ICON，
+    // 和主页博物馆面板共用同一份 —— 两处各写一份势必漂移）。
+    icon: require('./game-data.js').gameIcon(x.name),
     meta: [x.platformLabel || x.platform, x.hours != null ? x.hours + ' 小时' : '', x.cleared ? '全成就' : '', x.notOwned ? '非当前拥有' : ''].filter(Boolean).join(' · '),
     detail: '',
     image: x.cover ? '../assets/games/' + x.cover : '',
@@ -60,6 +64,9 @@ function normalize() {
 
 function page(payload) {
   const counts = payload.items.reduce((a, x) => (a[x.kind] = (a[x.kind] || 0) + 1, a), {});
+  // 分类按钮各配一枚图标（柯西 2026-09-20：多一点图标素材）。
+  // 电影用胶片、音乐用音符都是为此新画的；游戏用草方块 —— 馆藏里 Minecraft 系占大头。
+  const TAB_ICON = { all: 'star', book: 'book', movie: 'film', music: 'note', game: 'grass' };
   const tabs = [
     ['all', '全部', payload.items.length], ['book', '书', counts.book || 0],
     ['movie', '影', counts.movie || 0], ['music', '音乐', counts.music || 0],
@@ -82,7 +89,9 @@ function page(payload) {
 <link rel="stylesheet" href="../assets/theme.css">
 </head>
 <body class="is-article is-museum-page">
-${sprite(['mailbox', 'book', 'star', 'crystal', 'basket', 'flower', 'wheat'].concat(DECOR_ICONS))}
+${sprite(['mailbox', 'book', 'star', 'crystal', 'basket', 'flower', 'wheat', 'film', 'note', 'grass']
+  .concat(GAME_ICON.map(([, icon]) => icon))
+  .concat(DECOR_ICONS))}
 ${decorate()}
 <div class="wrap museum-wrap">
   <nav class="abarnav"><a class="abtn" href="../${esc(SITE.home)}#museum">${ic('mailbox', 'sm')}回到农场</a></nav>
@@ -92,7 +101,7 @@ ${decorate()}
     <p class="artmeta"><a class="douban-mark-link" href="https://www.douban.com/people/${esc(String(payload.douban.uid || '211628276'))}/" target="_blank" rel="noopener">去豆瓣打标</a></p>
     <p class="artmeta">豆瓣书影音 ${payload.douban.total || 0} 件 · 网易云收藏专辑 ${payload.albums.items.length} 张 · 小黑盒游戏记录 ${((payload.games.games || []).length)} 条 · 生涯快照 ${summary.gameCount || 0} 款</p>
     <div class="museum-filters" role="tablist" aria-label="馆藏分类">
-      ${tabs.map(([k, label, n], i) => `<button class="museum-filter${i === 0 ? ' on' : ''}" data-kind="${k}" role="tab" aria-selected="${i === 0}">${label}<i>${n}</i></button>`).join('')}
+      ${tabs.map(([k, label, n], i) => `<button class="museum-filter${i === 0 ? ' on' : ''}" data-kind="${k}" role="tab" aria-selected="${i === 0}">${ic(TAB_ICON[k] || 'star', 'xs')}${label}<i>${n}</i></button>`).join('')}
     </div>
     <label class="museum-platform-label" hidden>游戏平台
       <select class="museum-filter museum-platform" aria-label="游戏平台"><option value="all">全部平台</option>${platformOptions.map(x=>`<option value="${x.key}">${esc(x.label)} ${x.count}</option>`).join('')}</select>
@@ -142,7 +151,17 @@ ${decorate()}
       if(x.image){ var img=document.createElement('img'); img.src=x.image; img.alt=x.title; img.loading='lazy'; img.referrerPolicy='no-referrer'; poster.appendChild(img); }
       
       var tx=el('span','museum-item-text');
-      tx.appendChild(el('b','museum-item-title',x.title));
+      var title=el('b','museum-item-title',x.title);
+      // 认得出来的游戏：标题前面插一枚像素图标（GAME_ICON）。
+      // ⚠️ 必须用 createNS 建 SVG/<use>，innerHTML 塞字符串在 XHTML 文档里不解析。
+      if(x.icon){
+        var NS='http://www.w3.org/2000/svg';
+        var svg=document.createElementNS(NS,'svg');
+        svg.setAttribute('class','ic xs');svg.setAttribute('viewBox','0 0 16 16');svg.setAttribute('aria-hidden','true');
+        var use=document.createElementNS(NS,'use');use.setAttribute('href','#px-'+x.icon);
+        svg.appendChild(use);title.insertBefore(svg,title.firstChild);
+      }
+      tx.appendChild(title);
       tx.appendChild(el('i','museum-item-meta',x.meta));
       if(x.detail) tx.appendChild(el('span','museum-item-detail',x.detail));
       tx.appendChild(el('em','museum-item-source',x.source));

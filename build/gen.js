@@ -11,7 +11,7 @@ const PIXEL = require('./pixel-art.js');
 const MUSIC = require('./music.js');
 const ALBUMS = require('./album-data.js').load();
 const md = require('./md.js');
-const { articles } = require('./content.js');
+const { articles, TAG_ICON } = require('./content.js');
 const SITE = require('./site.config.js');
 const FARM = require('./farm-modules.js');
 const galleryData = require('./gallery-data.js');
@@ -43,8 +43,12 @@ try {
 // **保留不删** —— 站内别处还在用作装饰，而且随时可能要还原。
 //
 // 热点是 (0,0)，所以这里必须传 pad=0（见 cursor.js 的 CURSORS 注释）。
-const CUR_A = encode(toCursorSvg('arrow', 0));   // 普通态
-const CUR_B = encode(toCursorSvg('arrow', 0));   // 可点态（同形象，见下方说明）
+// 普通态 = 米白填充；可点态 = 金黄填充（arrow_hot，icons.js 里有说明）。
+// ⚠️ 这两支**必须是不同的图**：2026-09-20 柯西反馈"鼠标有点问题"，
+//    以前这里两支都指向 arrow，等于可点处毫无反馈 —— cursor:url() 加载成功时
+//    pointer 兜底关键字不参与渲染，"靠兜底关键字提示可点"这个说法是错的。
+const CUR_A = encode(toCursorSvg('arrow', 0));     // 普通态
+const CUR_B = encode(toCursorSvg('arrow_hot', 0)); // 可点态（金黄）
 
 const errs = validate();
 if (errs.length) { console.error('图标数据有误:\n' + errs.join('\n')); process.exit(1); }
@@ -133,6 +137,7 @@ const GITHUB = (() => {
 // 生涯汇总来自 data/games.json；公开分平台完整列表来自 data/game-library.json。
 // 生成时只读快照；私有来源适配器逐平台分页校验后才更新快照。
 const GAMES = require('./game-data.js').loadGames();
+const { gameIcon } = require('./game-data.js');
 
 // 小黑盒的 platform 字段 → 中文名 + 平台主色（取自它自己的 platform_infos）
 const PLATFORM = {
@@ -274,7 +279,7 @@ const timeline = () => {
             <b class="tl-title">${md.esc(a.title)}</b>
             <p class="tl-exc">${md.esc(a.excerpt.slice(0, 110))}</p>
             <div class="tl-tags">
-              ${tags.map((t) => `<span class="tl-tag">${md.esc(t)}</span>`).join('')}
+              ${tags.map((t) => `<span class="tl-tag">${TAG_ICON[t] ? ic(TAG_ICON[t], 'xs') : ''}${md.esc(t)}</span>`).join('')}
             </div>
           </div>
         </a>
@@ -425,7 +430,8 @@ const techStack = () => {
 
 const farmPanel = () => panel('农场一角', ['flower', 'flower', 'wheat', 'wheat', 'tree'], `
   <div class="scene">
-    ${['tree', 'scarecrow', 'beehive', 'chicken', 'cow', 'lantern', 'junimo', 'fence']
+    ${['tree', 'scarecrow', 'beehive', 'chicken', 'cow', 'lantern', 'junimo', 'fence',
+      'keg', 'cask', 'slime', 'wand', 'truffle']
       .map((n, i) => `<span style="animation-delay:${(i * 0.24).toFixed(2)}s">${ic(n, 'lg')}</span>`).join('')}
   </div>
   <div class="fencerow">${ic('fence')}${ic('fence')}${ic('fence')}${ic('fence')}${ic('fence')}${ic('fence')}</div>` +
@@ -450,6 +456,9 @@ const museum = () => {
   const albumItems = ALBUMS.items.map(x => ({ ...x, kind: 'music', image: x.cover + '?param=200y200', source: '网易云收藏' }));
   const gameItems = (GAMES.games || []).map(x => ({
     kind: 'game', title: x.name, image: x.cover ? 'assets/games/' + x.cover : '',
+    // 认得出来的游戏在名字旁边挂一枚像素图标（Minecraft→草方块、星露谷→杨桃…）。
+    // 映射表在 game-data.js 的 GAME_ICON，没命中的游戏留空不挂。
+    icon: gameIcon(x.name),
     url: 'museum/index.html?kind=game', source: x.platformLabel || PLATFORM[x.platform]?.cn || x.platform,
     meta: [x.hours != null ? x.hours + ' 小时' : '', x.cleared ? '全成就' : '', x.notOwned ? '非当前拥有' : ''].filter(Boolean).join(' · ')
   }));
@@ -471,7 +480,7 @@ const museum = () => {
         <a href="${md.esc(it.url)}" target="_blank" rel="noopener" title="${md.esc(it.comment || it.title)}">
           ${image ? `<span class="poster" style="--pc:${c}"><img src="${md.esc(image)}" alt="${md.esc(it.title)}" loading="lazy" referrerpolicy="no-referrer"></span>` : ''}
           <span class="tx">
-            <b class="t">${md.esc(it.title)}</b>
+            <b class="t">${it.icon ? ic(it.icon, 'xs') : ''}${md.esc(it.title)}</b>
             <i class="m">${md.esc(it.artist || it.meta || (it.verb ? it.verb + ' · ' + (it.date || '—') : ''))}</i>
             ${it.source ? '<i class="m">' + md.esc(it.source) + '</i>' : ''}
             <span class="st">${stars}</span>
@@ -530,7 +539,8 @@ const footer = () => `
   <div class="fsoil"></div>
   <div class="frow">
     ${['tree', 'mushroom', 'chicken', 'strawberry', 'sunflower', 'cow', 'beehive',
-    'pumpkin', 'scarecrow', 'junimo', 'bee', 'butterfly', 'acorn', 'crystal']
+    'pumpkin', 'scarecrow', 'junimo', 'bee', 'butterfly', 'acorn', 'crystal',
+    'grass', 'creeper', 'diamond', 'tnt', 'torch']
       .map((n, i) => `<span style="animation-delay:${(i * 0.19).toFixed(2)}s">${ic(n, 'lg')}</span>`).join('')}
   </div>
   ${vine('rainbow')}
@@ -576,6 +586,23 @@ const HTML = `<!DOCTYPE html>
   --cream:#FFF8E7; --cream-2:#F2E4C4; --cream-3:#E4D0A4;
   --gold:#FFD23F; --gold-2:#FFB700; --gold-3:#C98A00;
   --pix:'FusionPixel','Zpix','Silkscreen',"Courier New",ui-monospace,monospace;
+  /* ===== 语义化文字色（柯西 2026-09-20「设计多一点文字颜色」）=====
+     以前全文一种棕（--ink），链接、标签、注释、数字全是一个色，页面没有层次。
+     现在按"角色"拆色；春/夏/秋/冬在下面的四季块里各换一套（春粉、夏蓝、
+     秋赭、冬青），夜晚在 night 块里整组翻浅。
+     ⚠️ 白天这一组全是深色（奶油底上对比度 ≥4.5，check-colors.js 会量）；
+     ⚠️ 加新角色时四季 + 夜晚五处都要补，漏了不会报错，只会悄悄用 :root 的值；
+     ⚠️ --tx-link-line 是下划线装饰色，不参与正文对比度，可以浅一档。 */
+  --tx:var(--ink);         /* 正文 */
+  --tx-2:var(--ink-2);     /* 次要说明 */
+  --tx-3:#7A6248;          /* 弱化：日期 / 来源 / 注释 */
+  --tx-link:#1F6FA8;       /* 链接 */
+  --tx-link-line:#7EC8F0;  /* 链接下划线 */
+  --tx-em:#9A5E14;         /* 强调：数字 / 关键词 */
+  --tx-tag:#3E7A44;        /* 标签 */
+  --tx-quote:#6B5A8C;      /* 引用 */
+  --tx-code:#A0522D;       /* 行内代码 */
+  --tx-num:#C1472F;        /* 计数 / 数字 */
 }
 /* ===== 四季色板（高饱和，取法参考 theperiperi 的马里奥原色策略） ===== */
 html[data-season="spring"]{
@@ -585,6 +612,10 @@ html[data-season="spring"]{
   --grass-a:#63C74D; --grass-b:#3E8948; --grass-c:#2A6B33;
   --wood-a:#D89A5C; --wood-b:#A9682F; --wood-c:#6E421C;
   --accent:#FF9EC4; --accent-2:#FF6FA5;
+  /* 春：樱粉强调 + 叶绿链接 */
+  --tx-link:#2E7D4F; --tx-link-line:#8FCB6B;
+  --tx-em:#B03A72; --tx-tag:#2E7D4F; --tx-quote:#7A5CA8;
+  --tx-code:#B3541E; --tx-num:#C1472F; --tx-3:#7A6248;
 }
 html[data-season="summer"]{
   --sky-a:#3FC1F0; --sky-b:#8FE6F5; --sky-c:#CFF3E4;
@@ -593,6 +624,10 @@ html[data-season="summer"]{
   --grass-a:#7FD858; --grass-b:#4CAF50; --grass-c:#2E7D32;
   --wood-a:#E0A868; --wood-b:#B0722F; --wood-c:#75491C;
   --accent:#FFD54A; --accent-2:#FFA726;
+  /* 夏：深海蓝链接 + 焦橙强调 */
+  --tx-link:#155E96; --tx-link-line:#7EC8F0;
+  --tx-em:#B04A0E; --tx-tag:#35703C; --tx-quote:#4A6A8C;
+  --tx-code:#A0522D; --tx-num:#C1472F; --tx-3:#7A6248;
 }
 html[data-season="autumn"]{
   --sky-a:#FFC046; --sky-b:#FFDD8A; --sky-c:#FFEFC6;
@@ -601,6 +636,10 @@ html[data-season="autumn"]{
   --grass-a:#E8A33D; --grass-b:#C97B2B; --grass-c:#8B4513;
   --wood-a:#C98A4B; --wood-b:#9C5C29; --wood-c:#633A16;
   --accent:#E8522F; --accent-2:#B3301C;
+  /* 秋：赭石链接 + 南瓜深色强调 */
+  --tx-link:#A0522D; --tx-link-line:#E8A33D;
+  --tx-em:#8C3B12; --tx-tag:#8C6B12; --tx-quote:#6B4A6B;
+  --tx-code:#8B4513; --tx-num:#B3301C; --tx-3:#7A6248;
 }
 html[data-season="winter"]{
   --sky-a:#9FC9DE; --sky-b:#CFE7F2; --sky-c:#EDF7FB;
@@ -609,6 +648,10 @@ html[data-season="winter"]{
   --grass-a:#E8F4F8; --grass-b:#B8D4DC; --grass-c:#7FA3B0;
   --wood-a:#B4906A; --wood-b:#856A4C; --wood-c:#5A4632;
   --accent:#7EC8F0; --accent-2:#4FA3D1;
+  /* 冬：冰蓝链接 + 石板灰强调 */
+  --tx-link:#3B6E8F; --tx-link-line:#9DBECB;
+  --tx-em:#4A5A68; --tx-tag:#4A6B7A; --tx-quote:#5A6B8C;
+  --tx-code:#5A6B78; --tx-num:#B3301C; --tx-3:#67676F;
 }
 /* ===== 夜间：只改天空/地面/木色，结构不变 ===== */
 html[data-time="night"]{
@@ -619,25 +662,44 @@ html[data-time="night"]{
   --wood-a:#7A5230; --wood-b:#553A20; --wood-c:#392612;
   --cream:#3B2F4A; --cream-2:#332840; --cream-3:#2A2036;
   --ink:#F0E6D2; --ink-2:#C9B896;
+  /* 夜晚整组文字色翻浅。⚠️ 基准面对比色是夜 --cream（#3B2F4A，
+     这是夜里最亮的一面底色；--tx-link-line 是装饰下划线，不参与对比度。
+     check-colors.js 会逐个量，低于 4.5 就红。 */
+  --tx-3:#B3A48D;
+  --tx-link:#9FD9F5; --tx-link-line:#5B8DD9;
+  --tx-em:#FFD54A; --tx-tag:#9FD98F; --tx-quote:#C9B3E8;
+  --tx-code:#F0A890; --tx-num:#FF9E8F;
 }
 *{box-sizing:border-box}
 html{scroll-behavior:smooth}
 body{
   margin:0; font-family:var(--pix); color:var(--ink);
+  /* ⚠️ font-size 必须显式写在 body 上。以前这里是裸的，所有没单独设字号的
+     元素全部落到浏览器默认 16px —— 而这只字体的设计尺寸是 12px，
+     16px = 把 12px 字形放大 1.333 倍（非整数倍），实测颜色种数从 5 飙到 18，
+     边缘全是半透明过渡，像素感糊掉。这就是「字体不是很好」的根源。
+     12 的整数倍（12/24/36…）才是干净的：24px 实测只有 3 种颜色，
+     每个设计像素正好占 2 屏幕像素，零插值。
+     探针实测：补上这一行，主页非 12 倍数的元素从 41 种降到 1 种。 */
+  font-size:12px;
   /* 天空只占顶部；地面交给 .ground 里的分层地形，不再用一条渐变糊到底 */
   background:linear-gradient(180deg,var(--sky-a) 0%,var(--sky-b) 42%,var(--sky-c) 100%);
   background-attachment:fixed; min-height:100vh; overflow-x:hidden;
   transition:background .8s ease, color .8s ease;
   cursor:url("${CUR_A}") 0 0, auto;
 }
-/* 可点处也指向同一支箭头。
-   以前这里换过另一只动物（悬停变奶牛），后来统一成荔宝 ——
-   一是形象本来就该只有一只；二是临时切一张不同的图，浏览器会重新解码，
-   快速划过按钮时看得见一下闪。真正提示"可点"的是 pointer 兜底关键字，
-   不是换形象。现在换成箭头后这条更简单：本来就是同一张。
+/* 可点处用另一支箭头（CUR_B = 箭头 + 高亮描边，见文件顶部）。
+   ⚠️ 历史教训：这里曾经让普通态和可点态**共用同一张图**，理由是
+   "真正提示可点的是 pointer 兜底关键字"—— 那句话是错的。url() 一旦
+   加载成功，兜底关键字 pointer 根本不参与渲染，用户看到的两地完全一样，
+   划上去毫无反馈。柯西 2026-09-20 反馈"鼠标有点问题"就是指这个。
    ⚠️ 热点必须跟上面那条一样是 0 0（箭头尖），否则划过可点区域时
-   指针会突然"跳"一下。 */
-button,a,.fr,.tag,.tool,.cbtn{cursor:url("${CUR_B}") 0 0, pointer}
+   指针会突然"跳"一下。
+   ⚠️ 选择器要列全：.soc / summary / .copy-code 这些**必须在这里出现**，
+   否则它们各自规则里的 cursor:pointer（特异性更高）会把像素光标顶掉，
+   那几处就又变回系统箭头了 —— 本站踩过这个坑。 */
+button,a,.fr,.tag,.tool,.cbtn,.soc,summary,.copy-code,.tl-card,.rcard,.gal-card,
+.sbtn,.share-btn{cursor:url("${CUR_B}") 0 0, pointer}
 
 /* ===== 背景层：天空 / 云 / 星星 / 三层地形 / 地表作物 / 萤火虫 ===== */
 .bg{position:fixed;inset:0;pointer-events:none;z-index:0;overflow:hidden}
@@ -742,6 +804,10 @@ svg.ic.sm{width:12px;height:12px} svg.ic.xs{width:9px;height:9px} svg.ic.lg{widt
   box-shadow:0 0 0 3px var(--wood-c);padding:5px}
 .cbtn{display:flex;flex-direction:column;align-items:center;gap:2px;background:var(--cream-2);
   border:2px solid var(--wood-c);padding:5px 8px;font-family:inherit;color:inherit;
+  /* ⚠️ 必须显式给 .cbtn 写 font-size：<button> 的 UA 默认样式是 13.3333px，
+     只给里面的 em 写 12px 管不住按钮本身。13.3333 实测是全场最糊的一档
+     （36 种颜色）。 */
+  font-size:12px;
   transition:transform .1s steps(2),background .15s}
 .cbtn:hover{background:var(--gold);transform:translateY(-2px)}
 .cbtn.on{background:var(--accent);box-shadow:inset 0 0 0 2px var(--ink)}
@@ -816,7 +882,7 @@ a.soc:focus-visible{outline:3px solid var(--gold);outline-offset:2px}
 a.soc:active{transform:translateY(0)}
 /* 可复制的（邮箱 / 微信）：本质是 <button>，得把浏览器默认样式全部抹掉，
    否则会出现系统灰底和默认字体，跟旁边两枚木牌不是一套皮。 */
-button.soc{cursor:pointer;font:inherit}
+button.soc{font:inherit}
 button.soc .soc-in{display:flex;flex-direction:column;align-items:center;gap:3px}
 button.soc:hover,button.soc:focus-visible{background:var(--gold);border-color:var(--ink);color:var(--ink);
   transform:translateY(-3px)}
@@ -853,7 +919,7 @@ button.soc:active{transform:translateY(0)}
 .tool:focus-visible{outline:3px solid var(--ink);outline-offset:3px}
 .tool em{font-style:normal;font-size:12px;opacity:.8}
 /* 工具栏里的按钮（「邮箱」）：得把浏览器默认按钮样式抹掉才会跟旁边的 <a> 长得一样 */
-button.tool{cursor:pointer;font:inherit;background:var(--cream);appearance:none}
+button.tool{font:inherit;background:var(--cream);appearance:none}
 button.tool::-moz-focus-inner{border:0}
 
 /* 导航落点：面板本身有 4px 边框 + 外发光，直接滚到顶会被顶部切掉一截 */
@@ -886,7 +952,10 @@ html{scroll-behavior:smooth}
 /* 标题牌：从一块纯黑升级成「深色木牌 + 两端铆钉 + 下沿内阴影」。
    不是为了花哨，是为了让它跟外层木框、四角饰件是同一套木材。 */
 .pt{position:absolute;top:-16px;left:18px;
-  background:linear-gradient(180deg,#3B2412 0%,var(--ink) 55%,#1A1108 100%);
+  /* ⚠️ 渐变中间那档以前写的是 var(--ink) —— 白天没问题（--ink 本来就是深棕），
+     但夜晚 --ink 会翻成 #F0E6D2（近白），木牌中间出现一条白带，上面的金色
+     标题文字直接看不见。所以这里钉死深色，不随昼夜变。 */
+  background:linear-gradient(180deg,#3B2412 0%,#241708 55%,#1A1108 100%);
   color:var(--gold);
   border:2px solid var(--wood-c);padding:3px 12px;font-size:12px;letter-spacing:1px;
   display:flex;align-items:center;gap:6px;
@@ -944,8 +1013,8 @@ html{scroll-behavior:smooth}
    原来是占位槽（.slot 自带 12px/9px 的尺寸），换成真实文字之后如果不写 font-size，
    文字会继承到根默认的 16px —— 日期比文章标题还大（2026-09-15 换真数据时暴露的）。
    同一条规则适用于 .tl-tag 和 .more a：凡是"从占位槽换成真文字"的地方都要补字号。 */
-.tl-when b{display:block;font-size:12px;line-height:1.35}
-.tl-when i{font-style:normal;opacity:.62;display:block;font-size:12px;line-height:1.4}
+.tl-when b{display:block;font-size:12px;line-height:1.35;color:var(--tx-em)}
+.tl-when i{font-style:normal;color:var(--tx-3);display:block;font-size:12px;line-height:1.4}
 .tl-axis{display:flex;justify-content:center;padding-top:8px;position:relative;z-index:1}
 .tl-dot{display:flex;align-items:center;justify-content:center;width:22px;height:22px;
   background:var(--cream);border:3px solid var(--wood-c);
@@ -960,6 +1029,8 @@ html{scroll-behavior:smooth}
    （占位槽仍是骨架屏的降级态，见下面 skeleton，那条路不变。） */
 .tl-card.nocover{grid-template-columns:minmax(0,1fr)}
 .tl-item:hover .tl-card{background:var(--gold);transform:translateX(4px)}
+/* 悬停时卡片变金黄，日期（强调色）跟在金底上发糊 —— 此刻翻回正文色 */
+.tl-item:hover .tl-when b{color:var(--ink)}
 .tl-body{display:flex;flex-direction:column;gap:5px;min-width:0}
 /* 真实文章卡的三件套：小封面（可选）、标题、摘要。
    标题和摘要都限两行 —— 时间线上条目高度必须一致，不然轴会被参差的卡片顶歪。 */
@@ -971,8 +1042,10 @@ html{scroll-behavior:smooth}
 .tl-exc{margin:0;font-size:12px;line-height:1.62;opacity:.78;overflow:hidden;
   display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical}
 .tl-tags{display:flex;flex-wrap:wrap;gap:5px}
-.tl-tag{display:inline-flex;align-items:center;background:var(--cream);
-  border:2px solid var(--wood-c);padding:2px 5px;font-size:12px;line-height:1.5}
+/* 标签里嵌像素图标（TAG_ICON，见 content.js）—— inline-flex 的间隙别省，
+   省了图标就贴字。gap 用 3px：再小看不出，再大标签鼓包。 */
+.tl-tag{display:inline-flex;align-items:center;gap:3px;background:var(--cream);
+  border:2px solid var(--wood-c);padding:2px 5px;font-size:12px;line-height:1.5;color:var(--tx-tag)}
 /* 最新一条稍大：它是「最近发生的」，不是「置顶的」，所以只是放大一档、换个底色 */
 .tl-item.lead .tl-card{background:linear-gradient(180deg,#FFF6D6,var(--cream-2));
   border-width:3px;padding:10px 12px}
@@ -1130,7 +1203,7 @@ html{scroll-behavior:smooth}
    ⚠️ 去掉 padding 之后节奏全靠 gap 和固定宽高撑，别再往 a 上加背景色。 */
 .exc{flex:none;width:96px;display:flex;scroll-snap-align:start}
 .exc[hidden]{display:none!important}
-.shelf-status{margin:6px 0;text-align:center;font-size:12px;color:var(--ink-2)}
+.shelf-status{margin:6px 0;text-align:center;font-size:12px;color:var(--tx-3)}
 .exc > a{flex:1;display:flex;flex-direction:column;gap:6px;text-decoration:none;color:inherit;
   transition:transform .12s steps(2)}
 .exc > a:hover{transform:translateY(-4px)}
@@ -1150,9 +1223,14 @@ html{scroll-behavior:smooth}
    而 line-clamp 会把它藏得很好看，看着只是"标题短了一截"。 */
 .exc .t{font-size:12px;line-height:1.32;height:31.7px;display:-webkit-box;
   -webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;word-break:break-all}
+/* 标题里的游戏图标（GAME_ICON，见 game-data.js）必须退回 inline-block：
+   .t 是 -webkit-box + line-clamp，display:block 的子元素会被当成独立的一"行"，
+   把两行 clamp 撑成三行、标题高度炸掉。inline-block 才会跟着文字走。
+   vertical-align -1px 是按 12px 字号配的（图标 9px，视觉上压着基线）。 */
+.exc .t svg.ic{display:inline-block;vertical-align:-1px;margin-right:3px}
 .exc .m{font-style:normal;font-size:12px;opacity:.62}
 /* ★☆ 不是像素字体里的字，要显式退回系统字体，否则出豆腐块 */
-.exc .st{font-family:system-ui,sans-serif;font-size:12px;color:var(--gold-3);
+.exc .st{font-family:system-ui,sans-serif;font-size:12px;color:var(--tx-em);
   letter-spacing:1px;margin-top:auto;min-height:12px}
 .shelf-foot{display:flex;align-items:center;justify-content:center;gap:7px;margin-top:2px;
   font-size:12px;opacity:.66}
@@ -1185,6 +1263,9 @@ a.museum-item-link:hover .museum-item-poster{transform:translateY(-3px);box-shad
 .museum-item-text{display:flex;flex-direction:column;gap:3px;min-width:0}
 .museum-item-title{font-size:12px;line-height:1.4;min-height:33.6px;display:-webkit-box;
   -webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;word-break:break-all}
+/* 同 .exc .t：-webkit-box + line-clamp 里的图标必须 inline-block，
+   否则被当成独立一行，两行 clamp 变三行、min-height 兜不住 */
+.museum-item-title svg.ic{display:inline-block;vertical-align:-1px;margin-right:3px}
 .museum-item-meta,.museum-item-source{font-style:normal;font-size:12px;opacity:.65}
 .museum-item-detail{font-size:12px;line-height:1.45;height:34.8px;display:-webkit-box;
   -webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
@@ -1283,7 +1364,31 @@ body.is-article{background:var(--sky-b);min-height:100vh;padding-top:22px}
 .abtn:hover{background:var(--gold);transform:translateY(-2px)}
 .artpage{max-width:820px;margin:0 auto 26px}
 .arttitle{font-size:24px;line-height:1.5;margin:6px 0 8px;word-break:break-word}
-.artmeta{font-size:12px;opacity:.66;margin:0 0 16px;line-height:1.7}
+.artmeta{font-size:12px;color:var(--tx-3);margin:0 0 16px;line-height:1.7}
+/* 文章 meta 行里的标签图标（TAG_ICON）：SVG 默认 display:block，
+   在 <p> 文本流里会硬换行，必须退回 inline-block 才能贴着字走 */
+.artmeta svg.ic{display:inline-block;vertical-align:-1px;margin-right:2px}
+/* 分享按钮行：左边日期/来源/标签，右边「分享」。
+   柯西 2026-09-20「没有分享键」—— 优先 navigator.share（系统分享面板），
+   浏览器不给就退化成复制链接，逻辑在 posts.js 的 shareScript()。
+   ⚠️ 按钮上别写副标题，一个图标 + 「分享」两个字就够。 */
+.artmeta-row{display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin:0 0 16px}
+.artmeta-row .artmeta{margin:0;flex:1;min-width:0}
+.share-btn{display:inline-flex;align-items:center;gap:5px;flex:0 0 auto;
+  background:var(--cream-2);border:2px solid var(--wood-c);padding:4px 10px;
+  font:12px var(--pix);line-height:24px;color:inherit;
+  box-shadow:0 3px 0 rgba(59,36,18,.25)}
+.share-btn:hover{background:var(--gold);transform:translateY(-2px)}
+.share-btn:active{transform:translateY(1px);box-shadow:none}
+/* 分享结果的小纸条：复制成功/失败都要有回执 —— 不然点了没反应，
+   跟「没有分享键」看起来一模一样。steps(2) 保住像素感，不做平滑渐变。 */
+.share-toast{position:fixed;left:50%;bottom:36px;transform:translate(-50%,8px);z-index:60;
+  background:var(--cream);color:var(--ink);border:3px solid var(--ink);
+  box-shadow:0 0 0 2px var(--wood-c),5px 5px 0 rgba(59,36,18,.3);
+  padding:8px 14px;font-size:12px;line-height:24px;max-width:min(92vw,540px);
+  opacity:0;visibility:hidden;overflow-wrap:anywhere;
+  transition:opacity .18s steps(2),transform .18s steps(2),visibility .18s}
+.share-toast.on{opacity:1;visibility:visible;transform:translate(-50%,0)}
 .artcover{margin:0 0 16px;text-align:center}
 .artcover img{max-width:180px;max-height:250px;border:3px solid var(--ink);
   box-shadow:0 5px 0 rgba(59,36,18,.28);display:inline-block}
@@ -1296,20 +1401,24 @@ body.is-article{background:var(--sky-b);min-height:100vh;padding-top:22px}
 .artbody h3{font-size:24px;font-weight:700;margin:20px 0 8px}
 .artbody h4{font-size:24px;margin:16px 0 6px;opacity:.8}
 .artbody a{color:var(--wood-b);text-decoration:none;border-bottom:2px solid var(--gold-3)}
-.artbody a:hover{background:var(--gold)}
+.artbody a:hover{background:var(--gold);color:var(--ink)}
 .artbody ul,.artbody ol{margin:0 0 14px;padding-left:22px}
 .artbody li{margin:0 0 6px}
 .artbody blockquote{margin:0 0 14px;padding:8px 12px;background:var(--cream-2);
-  border-left:5px solid var(--wood-c)}
+  border-left:5px solid var(--wood-c);color:var(--tx-quote)}
 .artbody blockquote p:last-child{margin:0}
-.artbody code{font-family:ui-monospace,Consolas,"SFMono-Regular",monospace;font-size:15px;background:var(--cream-2);border:1px solid var(--cream-3);padding:0 3px}
+.artbody code{font-family:ui-monospace,Consolas,"SFMono-Regular",monospace;font-size:15px;background:var(--cream-2);border:1px solid var(--cream-3);padding:0 3px;color:var(--tx-code)}
+/* 正文里的加粗 = 作者想强调的地方，用强调色（四季各不同）*/
+.artbody strong{color:var(--tx-em)}
 .artbody pre{margin:0 0 14px;padding:10px 12px;background:#2A2036;color:#FFF8E7;
   border:3px solid var(--ink);overflow-x:auto;line-height:1.75}
 .artbody pre code{background:none;border:0;padding:0;color:inherit}
 /* TOC styles adapted from PaperMod post-single.css (MIT; assets/vendor/papermod-LICENSE.txt). */
 details.toc{max-width:42rem;margin:0 auto 24px;background:var(--cream-2);border:1px solid var(--wood-c)}
-details.toc summary{padding:8px 16px;cursor:pointer;font-size:12px}
-.toc .inner{padding:0 16px 12px;font-family:system-ui,"Microsoft YaHei",sans-serif;font-size:16px;line-height:1.8}
+details.toc summary{padding:8px 16px;cursor:url("${CUR_B}") 0 0, pointer;font-size:12px}
+/* 目录以前是 system-ui 16px —— 既脱节（全站像素风），16px 又正好是发虚档。
+   归位成像素字 12px。 */
+.toc .inner{padding:0 16px 12px;font-family:var(--pix);font-size:12px;line-height:2}
 .toc ul{list-style:none;margin:0;padding:0}
 .toc a{color:inherit;text-decoration:none}
 .toc a:hover{text-underline-offset:.3rem;text-decoration:underline}
@@ -1334,20 +1443,20 @@ details.toc summary{padding:8px 16px;cursor:pointer;font-size:12px}
 }
 .artbody h2,.artbody h3,.artbody h4{scroll-margin-top:24px}
 .artbody pre{position:relative;padding-top:44px}
-.copy-code{position:absolute;top:6px;right:8px;padding:4px 8px;background:var(--cream-2);color:var(--ink);border:1px solid var(--wood-c);font:12px var(--pix);cursor:pointer}
+.copy-code{position:absolute;top:6px;right:8px;padding:4px 8px;background:var(--cream-2);color:var(--ink);border:1px solid var(--wood-c);font:12px var(--pix)}
 .copy-code:hover{background:var(--gold)}
 .site-links{text-align:center;font-size:12px;line-height:2;margin:16px 0}
-.site-links a{color:var(--ink);text-underline-offset:4px}
+.site-links a{color:var(--tx-link);text-underline-offset:4px}
 .artbody img{max-width:100%;height:auto;image-rendering:auto;border:3px solid var(--ink);display:block;margin:0 auto}
 .artbody hr{border:0;height:6px;margin:20px 0;
   background:repeating-linear-gradient(90deg,var(--wood-c) 0 4px,transparent 4px 8px)}
 .artfoot{margin-top:24px;padding-top:12px;border-top:3px solid var(--cream-3);
   display:flex;justify-content:flex-end;font-size:12px}
 .artorig{color:inherit;text-decoration:none;border-bottom:2px solid var(--wood-c)}
-.artorig.quiet{opacity:.6}
+.artorig.quiet{color:var(--tx-3)}
 .cmtpanel{max-width:820px;margin:0 auto 26px}
 .cmtbox{min-height:20px;font-size:12px}
-.cmtnote{font-size:12px;line-height:1.95;opacity:.72;margin:0 0 6px}
+.cmtnote{font-size:12px;line-height:1.95;color:var(--tx-3);margin:0 0 6px}
 .cmtnote code{background:var(--cream-2);border:1px solid var(--cream-3);padding:0 3px}
 
 /* ===== 网站底部：访问量 + 评论区 =====
@@ -1383,13 +1492,14 @@ details.toc summary{padding:8px 16px;cursor:pointer;font-size:12px}
    2026-09-20：这一页改成**完整时间线**（柯西：把时间线做一个单独的页面），
    卡片直接复用上面「时间线」那一套 .tl-* 样式 —— 不在这里重复定义。
    曾经的「大卡 + 紧凑列表」样式（.blog-lead / .blog-row）随之退役。 */
-.blog-note{font-size:12px;line-height:1.9;opacity:.62;margin-top:14px}
+.blog-note{font-size:12px;line-height:1.9;color:var(--tx-3);margin-top:14px}
+.blog-note a{color:var(--tx-link)}
 
 /* Reading hierarchy: scene stays decorative; paper, frames and links have separate roles. */
-:root{--reading-surface:var(--cream);--reading-muted:var(--cream-2);--frame:var(--wood-c);--link-accent:var(--gold-3)}
+:root{--reading-surface:var(--cream);--reading-muted:var(--cream-2);--frame:var(--wood-c);--link-accent:var(--tx-link-line)}
 .bg,.asset-bg{filter:saturate(.65) brightness(.9)}
 .appearance-settings{position:relative;z-index:60;max-width:1180px;margin:12px auto 0;text-align:right;padding:0 12px}
-.appearance-settings>summary,.secondary-nav>summary{cursor:pointer;font-size:12px;line-height:24px}
+.appearance-settings>summary,.secondary-nav>summary{font-size:12px;line-height:24px}
 .appearance-settings>summary{display:inline-block;padding:4px 12px;background:var(--cream);border:1px solid var(--frame)}
 .appearance-settings .controls{position:absolute;top:36px;right:12px;display:flex;flex-wrap:wrap;max-width:calc(100vw - 32px);padding:12px;background:var(--cream);border:2px solid var(--frame);box-shadow:0 4px 0 rgba(43,29,14,.2)}
 .controls .crow,.controls .daynight{border:0;box-shadow:none;padding:0}
@@ -1421,7 +1531,7 @@ button.soc .soc-in{flex-direction:row;gap:6px}
 .artbody{max-width:64ch;margin-inline:auto;line-height:2}
 .artbody h2{font-size:24px;line-height:36px}
 .artbody pre{white-space:pre-wrap;overflow-wrap:anywhere}
-.artbody a{color:var(--ink);text-decoration:underline;text-decoration-color:var(--link-accent);text-underline-offset:4px}
+.artbody a{color:var(--tx-link);text-decoration:underline;text-decoration-color:var(--link-accent);text-underline-offset:4px}
 .artmeta,.museum-status,.museum-note{opacity:.85;line-height:24px}
 .abtn{min-height:44px;align-items:center;box-shadow:none}
 @media(max-width:680px){
@@ -1454,7 +1564,7 @@ button.soc .soc-in{flex-direction:row;gap:6px}
 .exc .poster{height:auto;display:block;border:0;box-shadow:none;background:transparent;overflow:visible}
 .exc .poster img{width:100%;height:auto;max-height:none;display:block}
 .exc > a:hover .poster{box-shadow:none}
-.douban-mark-link{font-size:12px;font-weight:normal;line-height:24px;margin-left:auto;color:var(--ink);text-underline-offset:4px;white-space:nowrap}
+.douban-mark-link{font-size:12px;font-weight:normal;line-height:24px;margin-left:auto;color:var(--tx-link);text-underline-offset:4px;white-space:nowrap}
 ${FARM.css}
 ${DC.css}
 ${PIXEL.css}

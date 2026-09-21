@@ -103,6 +103,12 @@ body {
 .scene .mid { display: flex; gap: 6px; align-items: flex-end }
 .scene .mid .ic { width: 32px; height: 32px }
 .scene .fence { width: 56px; height: 56px }
+/* 迷路掉在地上的装备：剑 / 黑曜石 / 金苹果 / 铱矿 / 酒 / 化石 / 工作台。
+   跟 .mid 同一套 flex 逻辑，只是小一号 —— 图标是"内容"不是占位，
+   所以窄屏直接整排收起，不留下半截。 */
+.scene .loot { display: flex; gap: 6px; align-items: flex-end }
+.scene .loot .ic { width: 20px; height: 20px }
+@media (max-width: 900px) { .scene .loot { display: none } }
 @media (max-width: 640px) {
   .ground { height: 72px }
   .scene { bottom: 68px; padding: 0 4vw }
@@ -135,6 +141,7 @@ ${buildSprite()}
 <div class="scene">
   ${ic('scarecrow', 'scarecrow')}
   <span class="mid">${ic('pumpkin')}${ic('sunflower')}${ic('lantern')}</span>
+  <span class="loot">${ic('sword')}${ic('pickaxe')}${ic('obsidian')}${ic('goldapple')}${ic('iridium')}${ic('wine')}${ic('fossil')}${ic('crafting')}</span>
   ${ic('fence', 'fence')}
 </div>
 <div class="ground"></div>

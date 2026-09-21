@@ -52,9 +52,11 @@
 .lb-cap{font-size:12px;line-height:24px;margin:12px 0 0;text-align:center;max-width:80vw}
 .lb-cap b{font-weight:700}
 .lb-cap i{font-style:normal;opacity:.6;margin-left:8px}
+/* .lb-close / .lb-nav 是 <button>，光标由 theme.css 主规则统一给可点态箭头；
+   ⚠️ 这里不要写 cursor:pointer（特异性更高，会把像素光标顶掉）。 */
 .lb-close,.lb-nav{font-family:inherit;color:var(--ink);background:var(--cream-2);
   border:3px solid var(--ink);box-shadow:0 0 0 2px var(--wood-c);
-  cursor:pointer;display:flex;align-items:center;justify-content:center}
+  display:flex;align-items:center;justify-content:center}
 .lb-close{position:absolute;top:-18px;right:-18px;width:36px;height:36px;font-size:24px;line-height:1}
 .lb-nav{position:absolute;top:50%;transform:translateY(-50%);width:36px;height:48px;font-size:36px;line-height:1}
 .lb-prev{left:-18px}.lb-next{right:-18px}

@@ -23,7 +23,7 @@ function render() {
 const css = `
 #music{scroll-margin-top:24px;font-size:12px;line-height:24px}
 .music-tabs{display:grid;grid-template-columns:repeat(auto-fit,minmax(64px,1fr));gap:8px;margin-bottom:16px}
-#music button{font:inherit;line-height:24px;color:var(--ink);background:var(--cream-2);border:1px solid var(--timber-light);padding:4px 8px;cursor:pointer}
+#music button{font:inherit;line-height:24px;color:var(--ink);background:var(--cream-2);border:1px solid var(--timber-light);padding:4px 8px}
 #music button[aria-pressed="true"]{background:var(--ink);color:var(--cream);border-color:var(--ink)}
 #music button:disabled{opacity:.4;cursor:default}#music button:active:not(:disabled){transform:translateY(2px)}
 #music a:focus-visible,#music button:focus-visible{outline:2px solid var(--moss);outline-offset:3px}

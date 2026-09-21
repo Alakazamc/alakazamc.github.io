@@ -11,7 +11,7 @@
 // 也可以单独跑：node build/posts.js
 const fs = require('fs');
 const path = require('path');
-const { articles } = require('./content.js');
+const { articles, TAG_ICON } = require('./content.js');
 const { ICONS, toSymbol } = require('./icons.js');
 const { seasonScript, bottomBlock, decorate, dcShelf, DECOR_ICONS } = require('./subpage.js');
 const SITE = require('./site.config.js');
@@ -35,6 +35,54 @@ const spriteFor = (names) =>
 
 const esc = (s) => String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
 const rel = (p) => (p ? '../' + p : '');
+
+// ---------- 分享 ----------
+// 柯西 2026-09-20「没有分享键」。文章页和博客页标题下方各放一枚。
+// 图标是 icons.js 的 share（金黄箭头飞出托盘），样式在 gen.js 的
+// .share-btn / .share-toast（构建时同步进 assets/theme.css，本页 <link> 的就是它）。
+// ⚠️ 按钮上不写副标题：一个图标 + 「分享」两个字。
+const shareBtn = () =>
+  `<button type="button" class="share-btn" data-share title="分享这一页">${ic('share', 'sm')}<em>分享</em></button>`;
+
+// 两条路：navigator.share（系统分享面板）优先；浏览器不给就复制链接。
+// ⚠️ 为什么必须自带回执（小纸条）：微信内置浏览器两条路都不给 —— 没有 share、
+//    剪贴板也常被拦。那时唯一能做的就是把链接**显示出来**让人家长按复制。
+//    静默失败的话，用户看到的就是"点了没反应"，跟没有分享键一模一样。
+// ⚠️ 这个字符串里不能出现 </script> 字面量（会被提前闭合）—— 写的时候注意。
+const shareScript = () => `<script>
+(function(){
+  var btns=document.querySelectorAll('[data-share]');
+  if(!btns.length)return;
+  var toast=document.createElement('div');
+  toast.className='share-toast';toast.setAttribute('role','status');
+  document.body.appendChild(toast);
+  var timer=null;
+  function say(msg){
+    toast.textContent=msg;toast.classList.add('on');
+    clearTimeout(timer);timer=setTimeout(function(){toast.classList.remove('on')},4000);
+  }
+  function copy(url){
+    if(navigator.clipboard&&navigator.clipboard.writeText){
+      navigator.clipboard.writeText(url).then(
+        function(){say('链接已复制，粘贴给朋友就行')},
+        function(){say('浏览器不让自动复制，长按这条链接：'+url)});
+    }else{say('浏览器不让自动复制，长按这条链接：'+url)}
+  }
+  btns.forEach(function(b){
+    b.addEventListener('click',function(){
+      // 去掉 hash：分享出去的链接带 #xxx 没有意义
+      var url=location.href.split('#')[0];
+      if(navigator.share){
+        navigator.share({title:document.title,url:url}).catch(function(e){
+          // 用户主动关掉分享面板不算失败，别弹噪声
+          if(e&&e.name==='AbortError')return;
+          copy(url);
+        });
+      }else{copy(url)}
+    });
+  });
+})();
+</script>`;
 
 const SRC_LABEL = { site: '本站', douban: '豆瓣影评' };
 
@@ -118,7 +166,11 @@ function page(a, prev, next) {
   const cover = a.cover
     ? `<p class="artcover"><img src="${esc(rel(a.cover))}" alt="${esc(a.title)}"></p>`
     : '';
-  const metarow = [a.date, a.meta, a.tags.join(' / ')].filter(Boolean).join(' · ');
+  // 标签各配一枚像素图标（映射表 TAG_ICON 在 content.js）；没命中的标签原样出文字。
+  // ⚠️ 图标是 display:block 的 SVG，直接塞进 <p> 的文本流会被当成块级元素换行 ——
+  //    gen.js 里的 .artmeta svg.ic 规则已把它退回 inline-block（theme.css 的唯一来源）。
+  const tagRow = (a.tags || []).map((t) => (TAG_ICON[t] ? ic(TAG_ICON[t], 'xs') : '') + esc(t)).join(' / ');
+  const metarow = [a.date, a.meta, tagRow].filter(Boolean).join(' · ');
 
   /* 目录在左、正文在右（柯西 2026-09-20：「文章内的文章目录能不能放在左边」）。
      有目录才建两栏（.art-cols）；没有目录时正文整幅居中，跟改造前一样。 */
@@ -145,7 +197,8 @@ ${reading.body}
 </head>
 <body class="is-article">
 ${decorate()}
-${spriteFor(['mailbox', 'book', 'star', 'wateringcan', 'heart', 'flower', 'wheat', 'basket', icon].concat(DECOR_ICONS))}
+${spriteFor(['mailbox', 'book', 'star', 'wateringcan', 'heart', 'flower', 'wheat', 'basket', 'share', icon]
+  .concat(Object.values(TAG_ICON)).concat(DECOR_ICONS))}
 <div class="wrap">
   <nav class="abarnav${reading.toc ? ' has-toc' : ''}">
     <a class="abtn" href="../${esc(SITE.home)}">${ic('mailbox', 'sm')}回到农场</a>
@@ -155,7 +208,10 @@ ${spriteFor(['mailbox', 'book', 'star', 'wateringcan', 'heart', 'flower', 'wheat
     <h2 class="pt">${ic(icon, 'xs')}${SRC_LABEL[a.source] || '文章'}${ic(icon, 'xs')}</h2>
     ${corners('flower', 'flower', 'wheat', 'wheat')}
     <h1 class="arttitle">${esc(a.title)}</h1>
-    <p class="artmeta">${esc(metarow)}</p>
+    <div class="artmeta-row">
+      <p class="artmeta">${esc(metarow)}</p>
+      ${shareBtn()}
+    </div>
     ${cover}
     ${body}
     <footer class="artfoot">
@@ -173,6 +229,7 @@ ${spriteFor(['mailbox', 'book', 'star', 'wateringcan', 'heart', 'flower', 'wheat
 </div>
 <script src="../assets/vendor/papermod-reading.js" defer></script>
 ${seasonScript()}
+${shareScript()}
 </body>
 </html>
 `;
@@ -227,7 +284,7 @@ function blogPage(list) {
             <b class="tl-title">${esc(a.title)}</b>
             <p class="tl-exc">${esc(a.excerpt.slice(0, 110))}</p>
             <div class="tl-tags">
-              ${tags.map((t) => `<span class="tl-tag">${esc(t)}</span>`).join('')}
+              ${tags.map((t) => `<span class="tl-tag">${TAG_ICON[t] ? ic(TAG_ICON[t], 'xs') : ''}${esc(t)}</span>`).join('')}
             </div>
           </div>
         </a>
@@ -254,7 +311,10 @@ function blogPage(list) {
 </head>
 <body class="is-article">
 ${decorate()}
-${spriteFor(['mailbox', 'basket', 'book', 'wateringcan', 'star', 'wheat', 'flower', 'chest'].concat(list.map((a) => a.icon)).concat(DECOR_ICONS))}
+${spriteFor(['mailbox', 'basket', 'book', 'wateringcan', 'star', 'wheat', 'flower', 'chest', 'share']
+  .concat(list.map((a) => a.icon))
+  .concat(Object.values(TAG_ICON))
+  .concat(DECOR_ICONS))}
 <div class="wrap">
   <nav class="abarnav">
     <a class="abtn" href="../${esc(SITE.home)}">${ic('mailbox', 'sm')}回到农场</a>
@@ -263,13 +323,17 @@ ${spriteFor(['mailbox', 'basket', 'book', 'wateringcan', 'star', 'wheat', 'flowe
     <h2 class="pt">${ic('basket', 'xs')}博客${ic('basket', 'xs')}</h2>
     ${corners('wheat', 'flower', 'flower', 'wheat')}
     <h1 class="arttitle">一共 ${list.length} 篇</h1>
-    <p class="artmeta">本站手写 ${siteCount} 篇 · 豆瓣影评 ${doubanCount} 篇 · 按时间倒序</p>
+    <div class="artmeta-row">
+      <p class="artmeta">本站手写 ${siteCount} 篇 · 豆瓣影评 ${doubanCount} 篇 · 按时间倒序</p>
+      ${shareBtn()}
+    </div>
     ${timeline}
     <p class="blog-note">想投稿 / 纠错：首页底部「留言板」，或每篇文章底部的评论区。</p>
   </section>
   ${bottomBlock(commentsBlock(null, { id: 'comments-blog', title: '博客评论', mapping: 'specific', term: 'blog' }), '../')}
 </div>
 ${seasonScript()}
+${shareScript()}
 </body>
 </html>
 `;

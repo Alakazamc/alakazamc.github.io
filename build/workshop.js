@@ -85,14 +85,14 @@ function page(payload) {
 <link rel="stylesheet" href="../assets/theme.css">
 </head>
 <body class="is-article is-workshop-page">
-${sprite(['chest', 'gem', 'crystal', 'coin', 'key', 'star', 'wheat', 'flower', 'mailbox'].concat(DECOR_ICONS))}
+${sprite(['chest', 'gem', 'crystal', 'coin', 'key', 'star', 'wheat', 'flower', 'mailbox', 'gear'].concat(DECOR_ICONS))}
 ${decorate()}
 <div class="wrap museum-wrap">
   <nav class="abarnav"><a class="abtn" href="../${esc(SITE.home)}#projects">${ic('mailbox', 'sm')}回到农场</a></nav>
   <section class="panel museum-page">
     <h2 class="pt">${ic('chest', 'xs')}工坊${ic('crystal', 'xs')}</h2>
     <h1 class="arttitle">仓库 ${repos.length} 个</h1>
-    <p class="artmeta">主语言 ${langs.length} 种 · ${tot.languages || '—'} 种语言构成 · @${esc(src.user || 'Alakazamc')}${updated ? ' · 最近同步 ' + esc(updated) : ''}</p>
+    <p class="artmeta">${ic('gear', 'xs')}主语言 ${langs.length} 种 · ${tot.languages || '—'} 种语言构成 · @${esc(src.user || 'Alakazamc')}${updated ? ' · 最近同步 ' + esc(updated) : ''}</p>
     ${repos.length ? `
     <div class="museum-filters" role="tablist" aria-label="按主语言筛选">
       ${tabs.map(([k, label, n], i) => `<button class="museum-filter${i === 0 ? ' on' : ''}" data-lang="${esc(k)}" role="tab" aria-selected="${i === 0}">${esc(label)}<i>${n}</i></button>`).join('')}
