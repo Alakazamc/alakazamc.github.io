@@ -808,6 +808,9 @@ svg.ic.sm{width:12px;height:12px} svg.ic.xs{width:9px;height:9px} svg.ic.lg{widt
      只给里面的 em 写 12px 管不住按钮本身。13.3333 实测是全场最糊的一档
      （36 种颜色）。 */
   font-size:12px;
+  /* min-width：昼夜按钮只有一个图标 +「昼」字（列排），实测只有 12px 宽 ——
+     手指点不中。32px 也让它跟旁边带文字的四季按钮对齐（2026-09-21）。 */
+  min-width:32px;
   transition:transform .1s steps(2),background .15s}
 .cbtn:hover{background:var(--gold);transform:translateY(-2px)}
 .cbtn.on{background:var(--accent);box-shadow:inset 0 0 0 2px var(--ink)}
@@ -917,6 +920,16 @@ button.soc:active{transform:translateY(0)}
   box-shadow:0 0 0 3px var(--wood-c),0 7px 0 0 var(--wood-c)}
 .tool:active{transform:translateY(1px);box-shadow:0 0 0 3px var(--wood-c),0 1px 0 0 var(--wood-c)}
 .tool:focus-visible{outline:3px solid var(--ink);outline-offset:3px}
+
+/* 键盘焦点：全局兜底（2026-09-21）。
+   此前只有 6 条选择器写了品牌化焦点样式（社交图标 / 工具按钮 / 宠物 / 音乐），
+   其余 15 个类名的可点元素 —— 时间线卡片、项目卡、相馆图、配色按钮、返回农场、
+   筛选标签、日历季节按钮 —— 只能吃浏览器默认的蓝框：跟木色像素边框不搭，
+   而且在深浅两种底色上不一定看得清。
+   用 var(--ink)：四季与夜里都定义过，且始终与所在那层底色成对比（check-colors 守着）。
+   ⚠️ 放在这里只是便于集中阅读，CSS 顺序不影响结果 —— 具体选择器（如 .tool:focus-visible）
+   优先级更高，会赢过这条兜底。 */
+:focus-visible{outline:3px solid var(--ink);outline-offset:2px}
 .tool em{font-style:normal;font-size:12px;opacity:.8}
 /* 工具栏里的按钮（「邮箱」）：得把浏览器默认按钮样式抹掉才会跟旁边的 <a> 长得一样 */
 button.tool{font:inherit;background:var(--cream);appearance:none}
