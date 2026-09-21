@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "uid": "32133355",
-  "updatedAt": "2026-09-20T00:12:21.399Z",
+  "updatedAt": "2026-09-21T00:20:34.984Z",
   "platforms": {
     "steam": {
       "complete": true,
@@ -3228,16 +3228,6 @@
       "reportedTotal": 12,
       "games": [
         {
-          "appid": "900168289",
-          "sourceId": "010020101F804000",
-          "name": "Fitness Boxing 3: Your Personal Trainer",
-          "platform": "switchall",
-          "platformLabel": "Switch",
-          "hours": 12,
-          "cleared": false,
-          "cover": "switchall-900168289.jpg"
-        },
-        {
           "appid": "900011199",
           "sourceId": "0100F2C0115B6000",
           "name": "塞尔达传说：王国之泪",
@@ -3246,6 +3236,16 @@
           "hours": 50,
           "cleared": false,
           "cover": "900011199.jpg"
+        },
+        {
+          "appid": "900168289",
+          "sourceId": "010020101F804000",
+          "name": "Fitness Boxing 3: Your Personal Trainer",
+          "platform": "switchall",
+          "platformLabel": "Switch",
+          "hours": 12,
+          "cleared": false,
+          "cover": "switchall-900168289.jpg"
         },
         {
           "appid": "900000069",
