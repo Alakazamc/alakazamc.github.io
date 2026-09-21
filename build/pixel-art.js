@@ -47,7 +47,7 @@ html[data-time="night"] .asset-bg::after{background:#162b2d;opacity:.82}
 .pixel-entry .social .soc{color:var(--ink);background:var(--cream-2);border:1px solid var(--timber-light);box-shadow:0 2px 0 var(--timber-light);padding:8px 10px}
 .pixel-entry .social .soc:hover{background:var(--cream-3);transform:translateY(-2px)}
 .entry-counts{display:flex;gap:20px;flex-wrap:wrap;margin-top:24px;padding-top:16px;border-top:2px dotted var(--cream-3)}
-.entry-counts a{display:flex;align-items:center;gap:6px;color:var(--ink);text-decoration:none;font-size:12px;line-height:24px}
+.entry-counts a{display:flex;align-items:center;gap:8px;color:var(--ink);text-decoration:none;font-size:12px;line-height:24px}
 .entry-counts b{font-size:24px;line-height:24px;color:var(--moss)}
 .entry-counts a:hover span{text-decoration:underline;text-underline-offset:4px}
 .entry-view{display:flex;flex-direction:column;justify-content:center;min-width:0;padding:8px}
@@ -70,16 +70,16 @@ html[data-time="night"] .pixel-window{background:#263c45;box-shadow:inset 0 0 0 
 html[data-time="night"] .window-hills{background:#3e5a56}html[data-time="night"] .window-cloud{opacity:.16}
 html[data-time="night"] .pixel-window::before{background:#f5e2a4;box-shadow:4px 0 #f5e2a4,-4px 0 #f5e2a4,0 4px #f5e2a4,0 -4px #f5e2a4}
 html[data-time="night"] .pixel-window>svg{filter:brightness(.78) saturate(.8)}
-.toolbar{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:8px;padding:10px;background:var(--timber);border:2px solid var(--pixel-shadow);margin:24px 0 0;box-shadow:0 4px 0 var(--timber-light)}
+.toolbar{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:var(--s2);padding:var(--s3);background:var(--timber);border:2px solid var(--pixel-shadow);margin:var(--s6) 0 0;box-shadow:0 4px 0 var(--timber-light)}
 .toolbar .tool{justify-content:center;gap:12px;min-height:52px;border:2px solid var(--timber-light);background:var(--cream);box-shadow:inset 0 -4px 0 var(--cream-3);padding:8px}
 .toolbar .tool .ic{width:24px;height:24px}.toolbar .tool em{opacity:1}
 .toolbar .tool:hover{background:var(--cream-2);box-shadow:inset 0 -4px 0 var(--timber-top);transform:translateY(-2px)}
 .secondary-nav{margin:10px 0 28px;text-align:right}.secondary-nav>summary{color:var(--ink);background:var(--cream-2);display:inline-block;padding:4px 12px;border:1px solid var(--timber)}
 .secondary-nav[open]{background:var(--cream);padding:8px;border:2px solid var(--timber)}
-.layout{grid-template-columns:minmax(0,1fr) 288px;gap:28px}
-.panel{border:3px solid var(--timber);padding:24px;background:var(--cream);box-shadow:4px 4px 0 var(--pixel-shadow),inset 0 0 0 2px var(--cream-3);margin-bottom:32px}
+.layout{grid-template-columns:minmax(0,1fr) 288px;gap:var(--s7)}
+.panel{border:3px solid var(--timber);padding:var(--s6);background:var(--cream);box-shadow:4px 4px 0 var(--pixel-shadow),inset 0 0 0 2px var(--cream-3);margin-bottom:var(--s8)}
 .panel::after{display:none}.panel>.cor{opacity:.7}.panel>.cor .ic{width:12px;height:12px}
-.panel>.pt{position:relative;top:auto;left:auto;width:fit-content;max-width:100%;margin:-2px 0 22px;padding:4px 12px;background:var(--timber);color:#ffedbb;border:2px solid var(--timber-light);box-shadow:2px 2px 0 var(--pixel-shadow);line-height:24px;gap:10px}
+.panel>.pt{position:relative;top:auto;left:auto;width:fit-content;max-width:100%;margin:-2px 0 var(--s6);padding:var(--s1) var(--s3);background:var(--timber);color:#ffedbb;border:2px solid var(--timber-light);box-shadow:2px 2px 0 var(--pixel-shadow);line-height:24px;gap:var(--s3)}
 body:not(.is-article) .panel>.pt{font-size:24px;line-height:32px}
 body:not(.is-article) .panel>.pt>.ic{width:24px;height:24px}
 .pt::before,.pt::after{display:none}
@@ -108,9 +108,9 @@ body:not(.is-article) .panel>.pt>.ic{width:24px;height:24px}
 .harvest-counts{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
 .harvest-counts a{display:flex;flex-direction:column;align-items:flex-start;padding:12px;border:1px solid var(--timber-light);background:var(--cream-2);gap:12px}
 .harvest-counts a b{color:var(--moss)}.harvest-counts a:hover{background:var(--cream-3)}
-.museum-zone-title{margin:8px 0 16px;gap:12px;line-height:24px}.shelf-tabs{gap:8px;margin-bottom:18px}
-.shelf-tab,.museum-filter{padding:6px 10px;border:1px solid var(--timber-light);box-shadow:0 2px var(--cream-3)}
-.shelf{padding-bottom:18px}.shelf-status,.gfoot{line-height:24px}.exc .t{line-height:24px;height:48px}
+.museum-zone-title{margin:8px 0 16px;gap:12px;line-height:24px}.shelf-tabs{gap:8px;margin-bottom:20px}
+.shelf-tab,.museum-filter{padding:8px 12px;border:1px solid var(--timber-light);box-shadow:0 2px var(--cream-3)}
+.shelf{padding-bottom:20px}.shelf-status,.gfoot{line-height:24px}.exc .t{line-height:24px;height:48px}
 .gt{gap:14px}.gt-n{height:auto;line-height:24px}.gt-h{line-height:24px}
 .gstrip{gap:16px;justify-content:flex-start}.gstrip .gp{border:4px solid var(--cream-2);outline:1px solid var(--timber-light);box-shadow:3px 3px var(--cream-3);padding-bottom:12px;background:var(--cream-2)}
 .gstrip img{height:120px}.dc-path{margin-top:-10px;margin-bottom:26px;opacity:.65}
@@ -124,9 +124,9 @@ body:not(.is-article) .panel>.pt>.ic{width:24px;height:24px}
 .is-article .abarnav{max-width:860px;margin:0 auto 24px}.abtn{border:2px solid var(--timber-light);box-shadow:0 3px var(--timber);padding:8px 12px}
 .is-article .arttitle{margin-top:12px}.is-article .artcover img{border:0;box-shadow:none}
 .is-article .dc-shelf{margin-top:32px}.is-article .artpage>.pt{font-size:12px}
-.sitebottom{margin-top:32px}.site-links{line-height:24px}.dc-farmyard{padding-top:20px}
-@media(max-width:1000px){.board.pixel-entry{grid-template-columns:minmax(0,1fr) 300px;gap:8px}.entry-copy{padding:16px 12px}.board.pixel-entry .bt{font-size:24px;line-height:36px}.entry-counts{gap:12px}.entry-counts b{font-size:12px}.layout{grid-template-columns:minmax(0,1fr) 264px;gap:20px}.rc-h b{font-size:12px;line-height:24px}.rgrid{gap:12px}.rcard{padding:16px 12px}}
-@media(max-width:760px){.wrap{padding:0 16px 32px}.appearance-settings{padding:0 16px}.board.pixel-entry{grid-template-columns:1fr;padding:8px;gap:0}.entry-copy{padding:16px}.entry-view{padding:8px}.pixel-window{height:184px}.pixel-window .dc-house{width:160px!important;left:calc(50% - 110px)}.pixel-window .dc-mill{right:32px;width:80px!important}.entry-caption{padding:6px}.entry-label{margin-bottom:12px}.entry-counts{margin-top:16px;gap:16px}.entry-counts b{font-size:24px}.toolbar{grid-template-columns:repeat(5,minmax(0,1fr));gap:4px;padding:6px}.toolbar .tool{flex-direction:column;padding:8px 2px;gap:4px}.toolbar .tool .ic{width:24px;height:24px}.layout{grid-template-columns:1fr}.panel{padding:20px;margin-bottom:28px}.panel>.pt{margin-bottom:18px}body:not(.is-article) .panel>.pt{font-size:24px}.dc-shelf{margin:20px -18px -18px}.rgrid{grid-template-columns:1fr}.rcard{min-height:0}.rc-h b{font-size:24px;line-height:32px}.rc-d{-webkit-line-clamp:3}.rfoot{display:none}#projects .museum-more{margin-top:20px;justify-content:center}/* ⚠️ 窄屏的 .tl-item 必须是**两列**：日期列（.tl-when）在 1080 以下就被 gen.js
+.sitebottom{margin-top:var(--s8)}.site-links{line-height:24px}.dc-farmyard{padding-top:var(--s5)}
+@media(max-width:1000px){.board.pixel-entry{grid-template-columns:minmax(0,1fr) 300px;gap:8px}.entry-copy{padding:16px 12px}.board.pixel-entry .bt{font-size:24px;line-height:36px}.entry-counts{gap:12px}.entry-counts b{font-size:12px}.layout{grid-template-columns:minmax(0,1fr) 264px;gap:var(--s5)}.rc-h b{font-size:12px;line-height:24px}.rgrid{gap:12px}.rcard{padding:16px 12px}}
+@media(max-width:760px){.wrap{padding:0 16px 32px}.appearance-settings{padding:0 16px}.board.pixel-entry{grid-template-columns:1fr;padding:8px;gap:0}.entry-copy{padding:16px}.entry-view{padding:8px}.pixel-window{height:184px}.pixel-window .dc-house{width:160px!important;left:calc(50% - 110px)}.pixel-window .dc-mill{right:32px;width:80px!important}.entry-caption{padding:8px}.entry-label{margin-bottom:12px}.entry-counts{margin-top:16px;gap:16px}.entry-counts b{font-size:24px}.toolbar{grid-template-columns:repeat(5,minmax(0,1fr));gap:4px;padding:8px}.toolbar .tool{flex-direction:column;padding:8px 2px;gap:4px}.toolbar .tool .ic{width:24px;height:24px}.layout{grid-template-columns:1fr}.panel{padding:var(--s5);margin-bottom:var(--s7)}.panel>.pt{margin-bottom:var(--s5)}body:not(.is-article) .panel>.pt{font-size:24px}.dc-shelf{margin:20px -18px -18px}.rgrid{grid-template-columns:1fr}.rcard{min-height:0}.rc-h b{font-size:24px;line-height:32px}.rc-d{-webkit-line-clamp:3}.rfoot{display:none}#projects .museum-more{margin-top:20px;justify-content:center}/* ⚠️ 窄屏的 .tl-item 必须是**两列**：日期列（.tl-when）在 1080 以下就被 gen.js
    display:none 了，而 display:none 的元素**不占网格格位** —— 这里若写回三列，
    .tl-card 会掉进第 2 列（原来给轴线的那 18px），卡片只剩内边距、内容宽 0，
    手机上时间线只剩一根空条（2026-09-21 发现，纯静态断言看不出来，得在窄屏量宽度）。
@@ -145,7 +145,7 @@ body:not(.is-article) .panel>.pt>.ic{width:24px;height:24px}
       ⚠️ 不能用 overflow-x:auto：内容会藏进滚动条后面，DOM 里查得到、屏幕上看不见。 */
 @media(max-width:430px){
   .shelf-bar{flex-wrap:wrap;gap:4px}
-  .shelf-tab{padding:6px 4px}
+  .shelf-tab{padding:8px 4px}
   .shelf-tab i{padding:0 2px}
 }
 /*   2) 装饰层「面板底部作物架」(.dc-shelf，build/decor.js) 本身是 aria-hidden 的纯装饰，

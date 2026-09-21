@@ -26,6 +26,15 @@
   --tx-quote:#6B5A8C;      /* 引用 */
   --tx-code:#A0522D;       /* 行内代码 */
   --tx-num:#C1472F;        /* 计数 / 数字 */
+  /* ===== 间距刻度（2026-09-21 立）=====
+     这站最细的网格是 2px（2px 边框 / 2px 像素阴影 / steps(2) 步进 / 16px 图标），
+     所以规矩分两层：
+       · 布局级（面板、卡片、木牌、工具栏、页脚、栅格、导航）→ **4 的倍数**，用下面这几档；
+       · 组件内部（标签、按钮内边距、图标旁微调）→ 2 的倍数即可，允许刻意的 3px。
+     以前 134 处间距声明里 112 处是奇数（3/5/7/9/11/13），木牌边缘落在半像素上会发虚。
+     ⚠️ 纯几何量，**四季块和 night 块里不要覆盖**；改这些值要同步跑 build/check-spacing.js。 */
+  --s1:4px;  --s2:8px;  --s3:12px; --s4:16px; --s5:20px;
+  --s6:24px; --s7:28px; --s8:32px; --s9:48px;   /* --s9 留给区块级大间距，暂时备用 */
 }
 /* ===== 四季色板（高饱和，取法参考 theperiperi 的马里奥原色策略） ===== */
 html[data-season="spring"]{
@@ -272,11 +281,11 @@ svg.ic.sm{width:12px;height:12px} svg.ic.xs{width:9px;height:9px} svg.ic.lg{widt
     linear-gradient(180deg,var(--wood-a) 0%,var(--wood-b) 58%,var(--wood-c) 100%);
   border:6px solid var(--ink);
   box-shadow:0 0 0 4px var(--wood-c),0 12px 0 -2px rgba(59,36,18,.4),inset 0 5px 0 rgba(255,255,255,.22);
-  padding:26px 24px 22px;transition:background-color .8s}
+  padding:28px 24px 24px;transition:background-color .8s}
 .board::after{content:'';position:absolute;inset:5px;border:2px solid var(--wood-a);pointer-events:none;opacity:.7}
 .tag{position:absolute;top:-16px;left:50%;transform:translateX(-50%);background:var(--ink);
   color:var(--gold);border:2px solid var(--wood-c);padding:3px 16px;font-size:12px;letter-spacing:2px;white-space:nowrap}
-.board .bn{display:flex;justify-content:center;align-items:center;gap:10px;margin:8px 0 10px}
+.board .bn{display:flex;justify-content:center;align-items:center;gap:12px;margin:8px 0 12px}
 /* 站名是 <h1>：浏览器会给它默认 2em 字号和上下外边距，不摁平就会把招牌撑高。
    ⚠️ 摁完必须落在 12px —— 16px 不是 12 的整数倍，像素字体在 16px 下横向会糊，
    check-layout 的那条「字号均为 12 的倍数」就是守这个的（本站写的第五条注释）。 */
@@ -288,7 +297,7 @@ svg.ic.sm{width:12px;height:12px} svg.ic.xs{width:9px;height:9px} svg.ic.lg{widt
    它回答的是访客进站的第一个问题「这是谁」。缺了它，桌面首屏只有项目卡片、
    手机首屏更是全是门面按钮（390px 下内容掉到第二屏），等于把自我介绍藏起来了。
    做成「钉在木牌下的小纸条」，不用旋转不用动效，跟剩下那套像素一套语言。 */
-.board .who{margin:0 0 9px;display:inline-block;background:var(--cream);color:var(--ink);
+.board .who{margin:0 0 8px;display:inline-block;background:var(--cream);color:var(--ink);
   border:2px solid var(--ink);box-shadow:3px 3px 0 rgba(43,29,14,.42);
   padding:4px 12px;font-size:12px;letter-spacing:.6px}
 @media (max-width:640px){
@@ -334,7 +343,7 @@ button.soc:active{transform:translateY(0)}
 .board .deco span{display:flex;gap:4px}
 
 /* ===== 工具栏 ===== */
-.toolbar{display:flex;flex-wrap:wrap;justify-content:center;gap:7px;margin:26px 0 20px}
+.toolbar{display:flex;flex-wrap:wrap;justify-content:center;gap:8px;margin:28px 0 20px}
 .tool{display:flex;flex-direction:column;align-items:center;gap:3px;background:var(--cream);
   border:3px solid var(--ink);box-shadow:0 0 0 3px var(--wood-c),0 4px 0 0 var(--wood-c);
   padding:8px 11px 6px;font-family:inherit;color:inherit;text-decoration:none;
@@ -378,7 +387,7 @@ html{scroll-behavior:smooth}
   background-image:repeating-linear-gradient(180deg,rgba(59,36,18,.03) 0 2px,transparent 2px 4px);
   border:4px solid var(--ink);
   box-shadow:0 0 0 4px var(--wood-c),9px 9px 0 0 rgba(59,36,18,.28);
-  padding:28px 18px 18px;margin-bottom:32px;transform:rotate(0);transition:background-color .8s}
+  padding:28px 20px 20px;margin-bottom:32px;transform:rotate(0);transition:background-color .8s}
 /* 挂钉：面板顶沿左右各一颗小铜钉，坐实「钉在墙上」而不是浮在空气里 */
 .panel::after{content:'';position:absolute;top:-5px;left:0;right:0;height:6px;pointer-events:none;
   background:
@@ -393,8 +402,8 @@ html{scroll-behavior:smooth}
      标题文字直接看不见。所以这里钉死深色，不随昼夜变。 */
   background:linear-gradient(180deg,#3B2412 0%,#241708 55%,#1A1108 100%);
   color:var(--gold);
-  border:2px solid var(--wood-c);padding:3px 12px;font-size:12px;letter-spacing:1px;
-  display:flex;align-items:center;gap:6px;
+  border:2px solid var(--wood-c);padding:4px 12px;font-size:12px;letter-spacing:1px;
+  display:flex;align-items:center;gap:8px;
   box-shadow:inset 0 -2px 0 rgba(0,0,0,.45),2px 2px 0 rgba(43,29,14,.32);
   /* ⚠️ 这里千万不能写 font:inherit 简写（注意别在注释里打反引号，
      这段 CSS 活在一个 JS 模板字符串里，一个反引号就能把整段字符串提前收掉）——
@@ -613,17 +622,17 @@ html{scroll-behavior:smooth}
    横向滚动的一排展品卡。封面是真实图片（2:3 / 方 / 各种比例都有），
    所以统一走 object-fit:contain 一张都别裁；露出来的地方用这条作品自己的主色垫底。
    横向滚动 + scroll-snap 是这里的正确解法 —— 一排 36 张卡塞进网格会把主栏高度撑爆。 */
-.shelf-bar{display:flex;gap:5px;margin-bottom:8px}
+.shelf-bar{display:flex;gap:4px;margin-bottom:8px}
 .shelf-tab{display:flex;align-items:center;gap:4px;font:inherit;
-  background:var(--cream-2);border:2px solid var(--wood-c);padding:3px 7px;color:var(--ink)}
+  background:var(--cream-2);border:2px solid var(--wood-c);padding:4px 8px;color:var(--ink)}
 .shelf-tab em{font-style:normal;font-size:12px}
 .shelf-tab i{font-style:normal;font-size:12px;background:var(--wood-c);color:var(--cream);
-  padding:0 3px}
+  padding:0 4px}
 /* 选中态也去掉了黄色底：改成描边色反白（深底 + 米白字），
    和面板标题牌 .pt 同一套语言。原来选中是金色实底，在一片展品上方又是一块黄。 */
 .shelf-tab.on{background:var(--ink);color:var(--cream);border-color:var(--ink)}
 .shelf-tab.on i{background:var(--cream);color:var(--ink)}
-.shelf{list-style:none;margin:0;padding:2px 2px 10px;display:flex;gap:10px;align-items:stretch;
+.shelf{list-style:none;margin:0;padding:2px 2px 12px;display:flex;gap:12px;align-items:stretch;
   overflow-x:auto;overflow-y:hidden;scroll-snap-type:x proximity;
   scrollbar-width:thin;scrollbar-color:var(--wood-b) var(--cream-3)}
 .shelf::-webkit-scrollbar{height:8px}
@@ -639,7 +648,7 @@ html{scroll-behavior:smooth}
    ⚠️ 去掉 padding 之后节奏全靠 gap 和固定宽高撑，别再往 a 上加背景色。 */
 .exc{flex:none;width:96px;display:flex;scroll-snap-align:start}
 .exc[hidden]{display:none!important}
-.shelf-status{margin:6px 0;text-align:center;font-size:12px;color:var(--tx-3)}
+.shelf-status{margin:8px 0;text-align:center;font-size:12px;color:var(--tx-3)}
 .exc > a{flex:1;display:flex;flex-direction:column;gap:6px;text-decoration:none;color:inherit;
   transition:transform .12s steps(2)}
 .exc > a:hover{transform:translateY(-4px)}
@@ -668,7 +677,7 @@ html{scroll-behavior:smooth}
 /* ★☆ 不是像素字体里的字，要显式退回系统字体，否则出豆腐块 */
 .exc .st{font-family:system-ui,sans-serif;font-size:12px;color:var(--tx-em);
   letter-spacing:1px;margin-top:auto;min-height:12px}
-.shelf-foot{display:flex;align-items:center;justify-content:center;gap:7px;margin-top:2px;
+.shelf-foot{display:flex;align-items:center;justify-content:center;gap:8px;margin-top:2px;
   font-size:12px;opacity:.66}
 .shelf-foot .sfx{letter-spacing:.4px}
 .museum-zone + .museum-zone{margin-top:20px;padding-top:18px;border-top:3px dashed var(--wood-b)}
@@ -742,7 +751,7 @@ a.wcard-link:hover{transform:translateY(-3px);box-shadow:0 6px 0 rgba(59,36,18,.
 }
 
 /* ===== 页脚农场 ===== */
-.farm{position:relative;margin-top:30px}
+.farm{position:relative;margin-top:var(--s8)}
 .fgrass{height:24px;background:var(--grass-a);border-top:4px solid var(--ink);
   box-shadow:0 0 0 4px var(--wood-c);
   background-image:repeating-linear-gradient(90deg,rgba(255,255,255,.18) 0 2px,transparent 2px 8px)}
@@ -940,7 +949,7 @@ details.toc summary{padding:8px 16px;cursor:url("data:image/svg+xml,%3Csvg xmlns
 .appearance-settings .controls{position:absolute;top:36px;right:12px;display:flex;flex-wrap:wrap;max-width:calc(100vw - 32px);padding:12px;background:var(--cream);border:2px solid var(--frame);box-shadow:0 4px 0 rgba(43,29,14,.2)}
 .controls .crow,.controls .daynight{border:0;box-shadow:none;padding:0}
 .controls .cbtn{min-height:44px}
-.board{padding:16px 24px 14px;border-width:3px;box-shadow:0 3px 0 var(--frame)}
+.board{padding:16px 24px 16px;border-width:3px;box-shadow:0 3px 0 var(--frame)}
 .board::after,.board .deco,.hang{display:none}
 .board .bt{font-size:24px;white-space:normal}
 .social .soc{border:1px solid rgba(43,29,14,.4);padding:6px 10px;flex-direction:row;gap:6px}
@@ -976,7 +985,7 @@ button.soc .soc-in{flex-direction:row;gap:6px}
 .abtn{min-height:44px;align-items:center;box-shadow:none}
 @media(max-width:680px){
   .bunting{display:none}
-  .board{margin-top:14px;padding:16px 12px}
+  .board{margin-top:16px;padding:16px 12px}
   .board .bn{gap:4px}
   .board .bn>.ic{display:none}
   .social{gap:6px}
@@ -985,7 +994,7 @@ button.soc .soc-in{flex-direction:row;gap:6px}
   .toolbar{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}
   .tool{justify-content:center}
   .tool{padding:8px;gap:4px}
-  .panel{padding:20px 14px;margin-bottom:24px}
+  .panel{padding:20px 16px;margin-bottom:24px}
   .rgrid .rcard:nth-child(n+3){display:none}
   .rgrid{gap:12px}
   .rcard{padding:12px;gap:6px}
@@ -1209,7 +1218,7 @@ html[data-time="night"] .asset-bg::after{background:#162b2d;opacity:.82}
 .pixel-entry .social .soc{color:var(--ink);background:var(--cream-2);border:1px solid var(--timber-light);box-shadow:0 2px 0 var(--timber-light);padding:8px 10px}
 .pixel-entry .social .soc:hover{background:var(--cream-3);transform:translateY(-2px)}
 .entry-counts{display:flex;gap:20px;flex-wrap:wrap;margin-top:24px;padding-top:16px;border-top:2px dotted var(--cream-3)}
-.entry-counts a{display:flex;align-items:center;gap:6px;color:var(--ink);text-decoration:none;font-size:12px;line-height:24px}
+.entry-counts a{display:flex;align-items:center;gap:8px;color:var(--ink);text-decoration:none;font-size:12px;line-height:24px}
 .entry-counts b{font-size:24px;line-height:24px;color:var(--moss)}
 .entry-counts a:hover span{text-decoration:underline;text-underline-offset:4px}
 .entry-view{display:flex;flex-direction:column;justify-content:center;min-width:0;padding:8px}
@@ -1232,16 +1241,16 @@ html[data-time="night"] .pixel-window{background:#263c45;box-shadow:inset 0 0 0 
 html[data-time="night"] .window-hills{background:#3e5a56}html[data-time="night"] .window-cloud{opacity:.16}
 html[data-time="night"] .pixel-window::before{background:#f5e2a4;box-shadow:4px 0 #f5e2a4,-4px 0 #f5e2a4,0 4px #f5e2a4,0 -4px #f5e2a4}
 html[data-time="night"] .pixel-window>svg{filter:brightness(.78) saturate(.8)}
-.toolbar{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:8px;padding:10px;background:var(--timber);border:2px solid var(--pixel-shadow);margin:24px 0 0;box-shadow:0 4px 0 var(--timber-light)}
+.toolbar{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:var(--s2);padding:var(--s3);background:var(--timber);border:2px solid var(--pixel-shadow);margin:var(--s6) 0 0;box-shadow:0 4px 0 var(--timber-light)}
 .toolbar .tool{justify-content:center;gap:12px;min-height:52px;border:2px solid var(--timber-light);background:var(--cream);box-shadow:inset 0 -4px 0 var(--cream-3);padding:8px}
 .toolbar .tool .ic{width:24px;height:24px}.toolbar .tool em{opacity:1}
 .toolbar .tool:hover{background:var(--cream-2);box-shadow:inset 0 -4px 0 var(--timber-top);transform:translateY(-2px)}
 .secondary-nav{margin:10px 0 28px;text-align:right}.secondary-nav>summary{color:var(--ink);background:var(--cream-2);display:inline-block;padding:4px 12px;border:1px solid var(--timber)}
 .secondary-nav[open]{background:var(--cream);padding:8px;border:2px solid var(--timber)}
-.layout{grid-template-columns:minmax(0,1fr) 288px;gap:28px}
-.panel{border:3px solid var(--timber);padding:24px;background:var(--cream);box-shadow:4px 4px 0 var(--pixel-shadow),inset 0 0 0 2px var(--cream-3);margin-bottom:32px}
+.layout{grid-template-columns:minmax(0,1fr) 288px;gap:var(--s7)}
+.panel{border:3px solid var(--timber);padding:var(--s6);background:var(--cream);box-shadow:4px 4px 0 var(--pixel-shadow),inset 0 0 0 2px var(--cream-3);margin-bottom:var(--s8)}
 .panel::after{display:none}.panel>.cor{opacity:.7}.panel>.cor .ic{width:12px;height:12px}
-.panel>.pt{position:relative;top:auto;left:auto;width:fit-content;max-width:100%;margin:-2px 0 22px;padding:4px 12px;background:var(--timber);color:#ffedbb;border:2px solid var(--timber-light);box-shadow:2px 2px 0 var(--pixel-shadow);line-height:24px;gap:10px}
+.panel>.pt{position:relative;top:auto;left:auto;width:fit-content;max-width:100%;margin:-2px 0 var(--s6);padding:var(--s1) var(--s3);background:var(--timber);color:#ffedbb;border:2px solid var(--timber-light);box-shadow:2px 2px 0 var(--pixel-shadow);line-height:24px;gap:var(--s3)}
 body:not(.is-article) .panel>.pt{font-size:24px;line-height:32px}
 body:not(.is-article) .panel>.pt>.ic{width:24px;height:24px}
 .pt::before,.pt::after{display:none}
@@ -1270,9 +1279,9 @@ body:not(.is-article) .panel>.pt>.ic{width:24px;height:24px}
 .harvest-counts{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
 .harvest-counts a{display:flex;flex-direction:column;align-items:flex-start;padding:12px;border:1px solid var(--timber-light);background:var(--cream-2);gap:12px}
 .harvest-counts a b{color:var(--moss)}.harvest-counts a:hover{background:var(--cream-3)}
-.museum-zone-title{margin:8px 0 16px;gap:12px;line-height:24px}.shelf-tabs{gap:8px;margin-bottom:18px}
-.shelf-tab,.museum-filter{padding:6px 10px;border:1px solid var(--timber-light);box-shadow:0 2px var(--cream-3)}
-.shelf{padding-bottom:18px}.shelf-status,.gfoot{line-height:24px}.exc .t{line-height:24px;height:48px}
+.museum-zone-title{margin:8px 0 16px;gap:12px;line-height:24px}.shelf-tabs{gap:8px;margin-bottom:20px}
+.shelf-tab,.museum-filter{padding:8px 12px;border:1px solid var(--timber-light);box-shadow:0 2px var(--cream-3)}
+.shelf{padding-bottom:20px}.shelf-status,.gfoot{line-height:24px}.exc .t{line-height:24px;height:48px}
 .gt{gap:14px}.gt-n{height:auto;line-height:24px}.gt-h{line-height:24px}
 .gstrip{gap:16px;justify-content:flex-start}.gstrip .gp{border:4px solid var(--cream-2);outline:1px solid var(--timber-light);box-shadow:3px 3px var(--cream-3);padding-bottom:12px;background:var(--cream-2)}
 .gstrip img{height:120px}.dc-path{margin-top:-10px;margin-bottom:26px;opacity:.65}
@@ -1286,9 +1295,9 @@ body:not(.is-article) .panel>.pt>.ic{width:24px;height:24px}
 .is-article .abarnav{max-width:860px;margin:0 auto 24px}.abtn{border:2px solid var(--timber-light);box-shadow:0 3px var(--timber);padding:8px 12px}
 .is-article .arttitle{margin-top:12px}.is-article .artcover img{border:0;box-shadow:none}
 .is-article .dc-shelf{margin-top:32px}.is-article .artpage>.pt{font-size:12px}
-.sitebottom{margin-top:32px}.site-links{line-height:24px}.dc-farmyard{padding-top:20px}
-@media(max-width:1000px){.board.pixel-entry{grid-template-columns:minmax(0,1fr) 300px;gap:8px}.entry-copy{padding:16px 12px}.board.pixel-entry .bt{font-size:24px;line-height:36px}.entry-counts{gap:12px}.entry-counts b{font-size:12px}.layout{grid-template-columns:minmax(0,1fr) 264px;gap:20px}.rc-h b{font-size:12px;line-height:24px}.rgrid{gap:12px}.rcard{padding:16px 12px}}
-@media(max-width:760px){.wrap{padding:0 16px 32px}.appearance-settings{padding:0 16px}.board.pixel-entry{grid-template-columns:1fr;padding:8px;gap:0}.entry-copy{padding:16px}.entry-view{padding:8px}.pixel-window{height:184px}.pixel-window .dc-house{width:160px!important;left:calc(50% - 110px)}.pixel-window .dc-mill{right:32px;width:80px!important}.entry-caption{padding:6px}.entry-label{margin-bottom:12px}.entry-counts{margin-top:16px;gap:16px}.entry-counts b{font-size:24px}.toolbar{grid-template-columns:repeat(5,minmax(0,1fr));gap:4px;padding:6px}.toolbar .tool{flex-direction:column;padding:8px 2px;gap:4px}.toolbar .tool .ic{width:24px;height:24px}.layout{grid-template-columns:1fr}.panel{padding:20px;margin-bottom:28px}.panel>.pt{margin-bottom:18px}body:not(.is-article) .panel>.pt{font-size:24px}.dc-shelf{margin:20px -18px -18px}.rgrid{grid-template-columns:1fr}.rcard{min-height:0}.rc-h b{font-size:24px;line-height:32px}.rc-d{-webkit-line-clamp:3}.rfoot{display:none}#projects .museum-more{margin-top:20px;justify-content:center}/* ⚠️ 窄屏的 .tl-item 必须是**两列**：日期列（.tl-when）在 1080 以下就被 gen.js
+.sitebottom{margin-top:var(--s8)}.site-links{line-height:24px}.dc-farmyard{padding-top:var(--s5)}
+@media(max-width:1000px){.board.pixel-entry{grid-template-columns:minmax(0,1fr) 300px;gap:8px}.entry-copy{padding:16px 12px}.board.pixel-entry .bt{font-size:24px;line-height:36px}.entry-counts{gap:12px}.entry-counts b{font-size:12px}.layout{grid-template-columns:minmax(0,1fr) 264px;gap:var(--s5)}.rc-h b{font-size:12px;line-height:24px}.rgrid{gap:12px}.rcard{padding:16px 12px}}
+@media(max-width:760px){.wrap{padding:0 16px 32px}.appearance-settings{padding:0 16px}.board.pixel-entry{grid-template-columns:1fr;padding:8px;gap:0}.entry-copy{padding:16px}.entry-view{padding:8px}.pixel-window{height:184px}.pixel-window .dc-house{width:160px!important;left:calc(50% - 110px)}.pixel-window .dc-mill{right:32px;width:80px!important}.entry-caption{padding:8px}.entry-label{margin-bottom:12px}.entry-counts{margin-top:16px;gap:16px}.entry-counts b{font-size:24px}.toolbar{grid-template-columns:repeat(5,minmax(0,1fr));gap:4px;padding:8px}.toolbar .tool{flex-direction:column;padding:8px 2px;gap:4px}.toolbar .tool .ic{width:24px;height:24px}.layout{grid-template-columns:1fr}.panel{padding:var(--s5);margin-bottom:var(--s7)}.panel>.pt{margin-bottom:var(--s5)}body:not(.is-article) .panel>.pt{font-size:24px}.dc-shelf{margin:20px -18px -18px}.rgrid{grid-template-columns:1fr}.rcard{min-height:0}.rc-h b{font-size:24px;line-height:32px}.rc-d{-webkit-line-clamp:3}.rfoot{display:none}#projects .museum-more{margin-top:20px;justify-content:center}/* ⚠️ 窄屏的 .tl-item 必须是**两列**：日期列（.tl-when）在 1080 以下就被 gen.js
    display:none 了，而 display:none 的元素**不占网格格位** —— 这里若写回三列，
    .tl-card 会掉进第 2 列（原来给轴线的那 18px），卡片只剩内边距、内容宽 0，
    手机上时间线只剩一根空条（2026-09-21 发现，纯静态断言看不出来，得在窄屏量宽度）。
@@ -1307,7 +1316,7 @@ body:not(.is-article) .panel>.pt>.ic{width:24px;height:24px}
       ⚠️ 不能用 overflow-x:auto：内容会藏进滚动条后面，DOM 里查得到、屏幕上看不见。 */
 @media(max-width:430px){
   .shelf-bar{flex-wrap:wrap;gap:4px}
-  .shelf-tab{padding:6px 4px}
+  .shelf-tab{padding:8px 4px}
   .shelf-tab i{padding:0 2px}
 }
 /*   2) 装饰层「面板底部作物架」(.dc-shelf，build/decor.js) 本身是 aria-hidden 的纯装饰，

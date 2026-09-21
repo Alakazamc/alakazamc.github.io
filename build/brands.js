@@ -79,7 +79,7 @@ if (require.main === module) {
 <style>
 body{margin:0;padding:24px;background:#FFF8E7;font-family:'Segoe UI','Microsoft YaHei',sans-serif;color:#2B1D0E}
 h1{font-size:15px;margin:0 0 14px}
-.grid{display:flex;flex-wrap:wrap;gap:14px}
+.grid{display:flex;flex-wrap:wrap;gap:16px}
 .cell{width:150px;padding:14px;background:#F7E9C8;border:3px solid #2B1D0E;text-align:center}
 .cell.dark{background:#3A2A1A;color:#FFF8E7;border-color:#2B1D0E}
 .bico{width:40px;height:40px;display:block;margin:0 auto 8px}

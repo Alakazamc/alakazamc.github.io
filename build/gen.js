@@ -603,6 +603,15 @@ const HTML = `<!DOCTYPE html>
   --tx-quote:#6B5A8C;      /* 引用 */
   --tx-code:#A0522D;       /* 行内代码 */
   --tx-num:#C1472F;        /* 计数 / 数字 */
+  /* ===== 间距刻度（2026-09-21 立）=====
+     这站最细的网格是 2px（2px 边框 / 2px 像素阴影 / steps(2) 步进 / 16px 图标），
+     所以规矩分两层：
+       · 布局级（面板、卡片、木牌、工具栏、页脚、栅格、导航）→ **4 的倍数**，用下面这几档；
+       · 组件内部（标签、按钮内边距、图标旁微调）→ 2 的倍数即可，允许刻意的 3px。
+     以前 134 处间距声明里 112 处是奇数（3/5/7/9/11/13），木牌边缘落在半像素上会发虚。
+     ⚠️ 纯几何量，**四季块和 night 块里不要覆盖**；改这些值要同步跑 build/check-spacing.js。 */
+  --s1:4px;  --s2:8px;  --s3:12px; --s4:16px; --s5:20px;
+  --s6:24px; --s7:28px; --s8:32px; --s9:48px;   /* --s9 留给区块级大间距，暂时备用 */
 }
 /* ===== 四季色板（高饱和，取法参考 theperiperi 的马里奥原色策略） ===== */
 html[data-season="spring"]{
@@ -849,11 +858,11 @@ svg.ic.sm{width:12px;height:12px} svg.ic.xs{width:9px;height:9px} svg.ic.lg{widt
     linear-gradient(180deg,var(--wood-a) 0%,var(--wood-b) 58%,var(--wood-c) 100%);
   border:6px solid var(--ink);
   box-shadow:0 0 0 4px var(--wood-c),0 12px 0 -2px rgba(59,36,18,.4),inset 0 5px 0 rgba(255,255,255,.22);
-  padding:26px 24px 22px;transition:background-color .8s}
+  padding:28px 24px 24px;transition:background-color .8s}
 .board::after{content:'';position:absolute;inset:5px;border:2px solid var(--wood-a);pointer-events:none;opacity:.7}
 .tag{position:absolute;top:-16px;left:50%;transform:translateX(-50%);background:var(--ink);
   color:var(--gold);border:2px solid var(--wood-c);padding:3px 16px;font-size:12px;letter-spacing:2px;white-space:nowrap}
-.board .bn{display:flex;justify-content:center;align-items:center;gap:10px;margin:8px 0 10px}
+.board .bn{display:flex;justify-content:center;align-items:center;gap:12px;margin:8px 0 12px}
 /* 站名是 <h1>：浏览器会给它默认 2em 字号和上下外边距，不摁平就会把招牌撑高。
    ⚠️ 摁完必须落在 12px —— 16px 不是 12 的整数倍，像素字体在 16px 下横向会糊，
    check-layout 的那条「字号均为 12 的倍数」就是守这个的（本站写的第五条注释）。 */
@@ -865,7 +874,7 @@ svg.ic.sm{width:12px;height:12px} svg.ic.xs{width:9px;height:9px} svg.ic.lg{widt
    它回答的是访客进站的第一个问题「这是谁」。缺了它，桌面首屏只有项目卡片、
    手机首屏更是全是门面按钮（390px 下内容掉到第二屏），等于把自我介绍藏起来了。
    做成「钉在木牌下的小纸条」，不用旋转不用动效，跟剩下那套像素一套语言。 */
-.board .who{margin:0 0 9px;display:inline-block;background:var(--cream);color:var(--ink);
+.board .who{margin:0 0 8px;display:inline-block;background:var(--cream);color:var(--ink);
   border:2px solid var(--ink);box-shadow:3px 3px 0 rgba(43,29,14,.42);
   padding:4px 12px;font-size:12px;letter-spacing:.6px}
 @media (max-width:640px){
@@ -911,7 +920,7 @@ button.soc:active{transform:translateY(0)}
 .board .deco span{display:flex;gap:4px}
 
 /* ===== 工具栏 ===== */
-.toolbar{display:flex;flex-wrap:wrap;justify-content:center;gap:7px;margin:26px 0 20px}
+.toolbar{display:flex;flex-wrap:wrap;justify-content:center;gap:8px;margin:28px 0 20px}
 .tool{display:flex;flex-direction:column;align-items:center;gap:3px;background:var(--cream);
   border:3px solid var(--ink);box-shadow:0 0 0 3px var(--wood-c),0 4px 0 0 var(--wood-c);
   padding:8px 11px 6px;font-family:inherit;color:inherit;text-decoration:none;
@@ -955,7 +964,7 @@ html{scroll-behavior:smooth}
   background-image:repeating-linear-gradient(180deg,rgba(59,36,18,.03) 0 2px,transparent 2px 4px);
   border:4px solid var(--ink);
   box-shadow:0 0 0 4px var(--wood-c),9px 9px 0 0 rgba(59,36,18,.28);
-  padding:28px 18px 18px;margin-bottom:32px;transform:rotate(0);transition:background-color .8s}
+  padding:28px 20px 20px;margin-bottom:32px;transform:rotate(0);transition:background-color .8s}
 /* 挂钉：面板顶沿左右各一颗小铜钉，坐实「钉在墙上」而不是浮在空气里 */
 .panel::after{content:'';position:absolute;top:-5px;left:0;right:0;height:6px;pointer-events:none;
   background:
@@ -970,8 +979,8 @@ html{scroll-behavior:smooth}
      标题文字直接看不见。所以这里钉死深色，不随昼夜变。 */
   background:linear-gradient(180deg,#3B2412 0%,#241708 55%,#1A1108 100%);
   color:var(--gold);
-  border:2px solid var(--wood-c);padding:3px 12px;font-size:12px;letter-spacing:1px;
-  display:flex;align-items:center;gap:6px;
+  border:2px solid var(--wood-c);padding:4px 12px;font-size:12px;letter-spacing:1px;
+  display:flex;align-items:center;gap:8px;
   box-shadow:inset 0 -2px 0 rgba(0,0,0,.45),2px 2px 0 rgba(43,29,14,.32);
   /* ⚠️ 这里千万不能写 font:inherit 简写（注意别在注释里打反引号，
      这段 CSS 活在一个 JS 模板字符串里，一个反引号就能把整段字符串提前收掉）——
@@ -1190,17 +1199,17 @@ html{scroll-behavior:smooth}
    横向滚动的一排展品卡。封面是真实图片（2:3 / 方 / 各种比例都有），
    所以统一走 object-fit:contain 一张都别裁；露出来的地方用这条作品自己的主色垫底。
    横向滚动 + scroll-snap 是这里的正确解法 —— 一排 36 张卡塞进网格会把主栏高度撑爆。 */
-.shelf-bar{display:flex;gap:5px;margin-bottom:8px}
+.shelf-bar{display:flex;gap:4px;margin-bottom:8px}
 .shelf-tab{display:flex;align-items:center;gap:4px;font:inherit;
-  background:var(--cream-2);border:2px solid var(--wood-c);padding:3px 7px;color:var(--ink)}
+  background:var(--cream-2);border:2px solid var(--wood-c);padding:4px 8px;color:var(--ink)}
 .shelf-tab em{font-style:normal;font-size:12px}
 .shelf-tab i{font-style:normal;font-size:12px;background:var(--wood-c);color:var(--cream);
-  padding:0 3px}
+  padding:0 4px}
 /* 选中态也去掉了黄色底：改成描边色反白（深底 + 米白字），
    和面板标题牌 .pt 同一套语言。原来选中是金色实底，在一片展品上方又是一块黄。 */
 .shelf-tab.on{background:var(--ink);color:var(--cream);border-color:var(--ink)}
 .shelf-tab.on i{background:var(--cream);color:var(--ink)}
-.shelf{list-style:none;margin:0;padding:2px 2px 10px;display:flex;gap:10px;align-items:stretch;
+.shelf{list-style:none;margin:0;padding:2px 2px 12px;display:flex;gap:12px;align-items:stretch;
   overflow-x:auto;overflow-y:hidden;scroll-snap-type:x proximity;
   scrollbar-width:thin;scrollbar-color:var(--wood-b) var(--cream-3)}
 .shelf::-webkit-scrollbar{height:8px}
@@ -1216,7 +1225,7 @@ html{scroll-behavior:smooth}
    ⚠️ 去掉 padding 之后节奏全靠 gap 和固定宽高撑，别再往 a 上加背景色。 */
 .exc{flex:none;width:96px;display:flex;scroll-snap-align:start}
 .exc[hidden]{display:none!important}
-.shelf-status{margin:6px 0;text-align:center;font-size:12px;color:var(--tx-3)}
+.shelf-status{margin:8px 0;text-align:center;font-size:12px;color:var(--tx-3)}
 .exc > a{flex:1;display:flex;flex-direction:column;gap:6px;text-decoration:none;color:inherit;
   transition:transform .12s steps(2)}
 .exc > a:hover{transform:translateY(-4px)}
@@ -1245,7 +1254,7 @@ html{scroll-behavior:smooth}
 /* ★☆ 不是像素字体里的字，要显式退回系统字体，否则出豆腐块 */
 .exc .st{font-family:system-ui,sans-serif;font-size:12px;color:var(--tx-em);
   letter-spacing:1px;margin-top:auto;min-height:12px}
-.shelf-foot{display:flex;align-items:center;justify-content:center;gap:7px;margin-top:2px;
+.shelf-foot{display:flex;align-items:center;justify-content:center;gap:8px;margin-top:2px;
   font-size:12px;opacity:.66}
 .shelf-foot .sfx{letter-spacing:.4px}
 .museum-zone + .museum-zone{margin-top:20px;padding-top:18px;border-top:3px dashed var(--wood-b)}
@@ -1319,7 +1328,7 @@ a.wcard-link:hover{transform:translateY(-3px);box-shadow:0 6px 0 rgba(59,36,18,.
 }
 
 /* ===== 页脚农场 ===== */
-.farm{position:relative;margin-top:30px}
+.farm{position:relative;margin-top:var(--s8)}
 .fgrass{height:24px;background:var(--grass-a);border-top:4px solid var(--ink);
   box-shadow:0 0 0 4px var(--wood-c);
   background-image:repeating-linear-gradient(90deg,rgba(255,255,255,.18) 0 2px,transparent 2px 8px)}
@@ -1517,7 +1526,7 @@ details.toc summary{padding:8px 16px;cursor:url("${CUR_B}") 0 0, pointer;font-si
 .appearance-settings .controls{position:absolute;top:36px;right:12px;display:flex;flex-wrap:wrap;max-width:calc(100vw - 32px);padding:12px;background:var(--cream);border:2px solid var(--frame);box-shadow:0 4px 0 rgba(43,29,14,.2)}
 .controls .crow,.controls .daynight{border:0;box-shadow:none;padding:0}
 .controls .cbtn{min-height:44px}
-.board{padding:16px 24px 14px;border-width:3px;box-shadow:0 3px 0 var(--frame)}
+.board{padding:16px 24px 16px;border-width:3px;box-shadow:0 3px 0 var(--frame)}
 .board::after,.board .deco,.hang{display:none}
 .board .bt{font-size:24px;white-space:normal}
 .social .soc{border:1px solid rgba(43,29,14,.4);padding:6px 10px;flex-direction:row;gap:6px}
@@ -1553,7 +1562,7 @@ button.soc .soc-in{flex-direction:row;gap:6px}
 .abtn{min-height:44px;align-items:center;box-shadow:none}
 @media(max-width:680px){
   .bunting{display:none}
-  .board{margin-top:14px;padding:16px 12px}
+  .board{margin-top:16px;padding:16px 12px}
   .board .bn{gap:4px}
   .board .bn>.ic{display:none}
   .social{gap:6px}
@@ -1562,7 +1571,7 @@ button.soc .soc-in{flex-direction:row;gap:6px}
   .toolbar{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}
   .tool{justify-content:center}
   .tool{padding:8px;gap:4px}
-  .panel{padding:20px 14px;margin-bottom:24px}
+  .panel{padding:20px 16px;margin-bottom:24px}
   .rgrid .rcard:nth-child(n+3){display:none}
   .rgrid{gap:12px}
   .rcard{padding:12px;gap:6px}
