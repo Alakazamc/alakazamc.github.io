@@ -403,6 +403,85 @@ function gh(pathOrUrl, opts){
     });
 }
 
+/* ---------- 读列表 / 读正文：留一条不占 GitHub 配额的路 ----------
+   ⚠️ 背景（2026-09-21「打开已有文章报错」的根因）：GitHub **匿名**接口每个出口 IP
+      一小时只有 60 次。浏览器通常走公司网络或代理这种**共享出口**，配额随时被别人
+      用完 —— 表现就是点「打开已有文章」直接报 `API rate limit exceeded`。
+      所以目录和正文各留一条不占配额的退路：
+        · 目录 → jsDelivr 的公开 CDN（能用温带注释里说的刚发布延迟）
+        · 正文 → raw.githubusercontent.com（公开仓库免登录、免配额）
+      发布（写）仍然必须走 GitHub 接口 + token，这一步省不掉。 */
+var RAW_BASE = 'https://raw.githubusercontent.com/'+REPO+'/'+BRANCH+'/';
+var CDN_LIST = 'https://data.jsdelivr.com/v1/packages/gh/'+REPO+'@'+BRANCH+'?structure=flat';
+
+function bytesToB64(bytes){
+  var bin='', CH=20000;   /* 分片拼：长文章别一次性 apply 出个超大参数列表 */
+  for(var i=0;i<bytes.length;i+=CH){
+    bin += String.fromCharCode.apply(null, Array.prototype.slice.call(bytes, i, i+CH));
+  }
+  return btoa(bin);
+}
+/* fetch 自己不带超时。国内直连 raw.githubusercontent.com 常常是不通也不报错、
+   一直挂着（走代理才秒回）——没有超时就只能看着转圈，下面的退路也用不上。 */
+async function fetchWithin(url, ms){
+  var ac = (typeof AbortController==='function') ? new AbortController() : null;
+  var timer = ac ? setTimeout(function(){ ac.abort(); }, ms) : null;
+  try{
+    return await fetch(url, {cache:'no-store', signal:ac?ac.signal:undefined});
+  }catch(e){
+    if(e && (e.name==='AbortError'||e.name==='TimeoutError')){
+      throw Object.assign(new Error('读取超时（'+ms+'ms）'),{status:0,timeout:true});
+    }
+    throw e;
+  }finally{ if(timer) clearTimeout(timer); }
+}
+/* 目录兜底：CDN 列仓库，返回 [{file,title}] */
+async function cdnPostList(){
+  var r = await fetchWithin(CDN_LIST, 15000);
+  if(!r.ok) throw Object.assign(new Error('CDN 目录也读不到（'+r.status+'）'), {status:r.status});
+  var d = await r.json(), pre = '/'+POSTS_DIR+'/';
+  return (d.files||[])
+    .filter(function(f){
+      return f.name.startsWith(pre) && /\.md$/.test(f.name) &&
+             !f.name.slice(pre.length).startsWith('_');
+    })
+    .map(function(f){
+      var n=f.name.slice(pre.length);
+      return {file:n, title:n.replace(/\.md$/,'')};
+    });
+}
+/* 正文：raw 优先，失败再退回 contents 接口。
+   两条路都给出同一个 sha —— 更新文章时的版本冲突检查靠它。 */
+async function readPostText(file){
+  try{
+    var r = await fetchWithin(RAW_BASE + encPath(POSTS_DIR+'/'+file), 12000);
+    if(!r.ok) throw Object.assign(new Error('raw 取不到 '+r.status), {status:r.status});
+    var bytes = new Uint8Array(await r.arrayBuffer());
+    var b64 = bytesToB64(bytes);
+    /* sha 由**原始字节**算出，跟 contents 接口给的 blob sha 是同一个东西 */
+    return {raw:new TextDecoder().decode(bytes), sha:await blobSha(b64)};
+  }catch(e){
+    var f = await gh('/repos/'+REPO+'/contents/'+encPath(POSTS_DIR+'/'+file)+'?ref='+BRANCH);
+    return {raw:b64dec(f.content), sha:f.sha};
+  }
+}
+/* 云端读失败怎么说人话：直接把 GitHub 的英文原文弹给用户等于没说。 */
+function cloudError(e){
+  var st=(e&&e.status)||0;
+  if(st===401){
+    setToken(''); showLogin(true);
+    alert('GitHub 说这个 token 无效（Bad credentials）。请重新粘贴一个 token。'); return;
+  }
+  if(st===403){
+    if(getToken()){ setToken(''); showLogin(true);
+      alert('这个 token 没有读写本仓库的权限，或者已经过期。请换一个有 Contents 读写权限的 token。'); }
+    else alert('GitHub 匿名接口的额度用完了 —— 同一个出口 IP 一小时只有 60 次，\n'+
+               '共享网络里很容易被别人用光。填一个 token 就不用抢这个额度了。');
+    return;
+  }
+  alert('读取失败：'+(e&&e.message||e));
+}
+
 /* ---------- 文件名清洗 ----------
    ⚠️ 必须与 blog-server.js 的 safeSlug **逐字一致**：同一篇文章不管从
    哪种模式发出去，落到硬盘/仓库上的文件名都得一样，否则"本机发过、
@@ -1137,24 +1216,31 @@ $('btnPub').onclick=async ()=>{
 $('btnOpen').onclick=async()=>{
   const box=$('postsList');
   if(box.classList.contains('on')){ box.classList.remove('on'); return; }
-  let posts;
+  let posts, notice='';
   try{
     if(CLOUD){
-      /* ⚠️ GitHub 的 contents 接口列目录时**不返回文件正文**，
-         所以这里只能拿文件名当标题 —— 为了显示标题去逐个下载全文太慢了。 */
-      const list = await gh('/repos/'+REPO+'/contents/'+POSTS_DIR+'?ref='+BRANCH);
-      posts = (list||[])
-        .filter(x => x.type==='file' && /\.md$/.test(x.name) && !x.name.startsWith('_'))
-        .map(x => ({ file:x.name, title:x.name.replace(/\.md$/,'') }));
+      try{
+        /* GitHub 的 contents 接口列目录时**不返回文件正文**，
+           所以这里只能拿文件名当标题 —— 为了显示标题去逐个下载全文太慢了。 */
+        const list = await gh('/repos/'+REPO+'/contents/'+POSTS_DIR+'?ref='+BRANCH);
+        posts = (list||[])
+          .filter(x => x.type==='file' && /\.md$/.test(x.name) && !x.name.startsWith('_'))
+          .map(x => ({ file:x.name, title:x.name.replace(/\.md$/,'') }));
+      }catch(apiErr){
+        /* 接口被限流（403）或没配额时，退到 CDN 目录 —— 不占 GitHub 配额 */
+        posts = await cdnPostList();
+        notice = '目录读的是 CDN 缓存，刚发布的文章可能要等几分钟才出现';
+      }
     }else{
       const r=await fetch('/api/posts');
       const j=await r.json();
       posts = j.posts;
     }
-  }catch(e){ alert('读取失败：'+e.message); return; }
-  if(!posts.length){ box.innerHTML='<div style="opacity:.6">还没有文章</div>'; }
+  }catch(e){ cloudError(e); return; }
+  const note = notice ? '<div style="opacity:.6;padding:4px 8px">'+notice+'</div>' : '';
+  if(!posts.length){ box.innerHTML=note+'<div style="opacity:.6">还没有文章</div>'; }
   else{
-    box.innerHTML=posts.map(p=>
+    box.innerHTML=note+posts.map(p=>
       '<div data-f="'+esc(p.file)+'" data-draft="'+(p.draft?'1':'0')+'">'+(p.draft?'[草稿] ':'')+esc(p.title)+' <small>'+esc(p.file)+'</small></div>').join('');
   }
   box.classList.add('on');
@@ -1165,18 +1251,18 @@ $('postsList').onclick=async(e)=>{
   let raw;
   try{
     if(CLOUD){
-      /* 云端取正文，返回的是 base64 编码的 content */
-      const f = await gh('/repos/'+REPO+'/contents/'
-                       + encPath(POSTS_DIR + '/' + row.dataset.f) + '?ref=' + BRANCH);
-      raw = b64dec(f.content);
-      loadedPost = {file: POSTS_DIR + '/' + row.dataset.f, sha:f.sha};
+      /* 正文优先走 raw CDN（不占 GitHub 配额、不用登录），取不到再退回接口。
+         sha 由原始字节算出，跟接口给的一致 —— 更新时的冲突检查照样管用。 */
+      const got = await readPostText(row.dataset.f);
+      raw = got.raw;
+      loadedPost = {file: POSTS_DIR + '/' + row.dataset.f, sha:got.sha};
     }else{
       const r=await fetch('/api/post?file='+encodeURIComponent(row.dataset.f.replace(/\.md$/,''))+'&draft='+row.dataset.draft);
       const j=await r.json();
       if(!j.ok){ alert(j.error); return; }
       raw=j.raw;
     }
-  }catch(e2){ alert('读取失败：'+e2.message); return; }
+  }catch(e2){ cloudError(e2); return; }
   const fm=/^---\r?\n([\s\S]*?)\r?\n---\r?\n?/.exec(raw);
   const get=k=>{ const m=new RegExp('^'+k+':\\s*(.*)$','m').exec(fm?fm[1]:''); return m?m[1].trim():''; };
   elTitle.value=get('title');
