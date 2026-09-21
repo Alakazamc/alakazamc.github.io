@@ -714,7 +714,7 @@ body{
    否则它们各自规则里的 cursor:pointer（特异性更高）会把像素光标顶掉，
    那几处就又变回系统箭头了 —— 本站踩过这个坑。 */
 button,a,.fr,.tag,.tool,.cbtn,.soc,summary,.copy-code,.tl-card,.rcard,.gal-card,
-.sbtn,.share-btn{cursor:url("${CUR_B}") 0 0, pointer}
+.sbtn,.share-btn,.music-seek{cursor:url("${CUR_B}") 0 0, pointer}
 
 /* ===== 背景层：天空 / 云 / 星星 / 三层地形 / 地表作物 / 萤火虫 ===== */
 .bg{position:fixed;inset:0;pointer-events:none;z-index:0;overflow:hidden}

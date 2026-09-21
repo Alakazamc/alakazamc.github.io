@@ -18,6 +18,7 @@ function render() {
   const first = data.week[0];
   return `<div class="music-tabs" role="group" aria-label="音乐收藏与排行">${Object.entries(labels).map(([key, label]) => `<button type="button" data-music-period="${key}" aria-pressed="${key === 'week'}">${label}</button>`).join('')}</div>
   <div class="record-player" aria-hidden="true"><div class="record-deck"><div class="record-disc"><img class="record-label" ${first ? 'src="' + esc(first.cover + '?param=96y96') + '"' : ''} width="48" height="48" alt="" referrerpolicy="no-referrer" ${first ? '' : 'hidden'}></div><i class="record-arm"></i><i class="record-light"></i></div><div class="record-speaker"></div></div>
+  <div class="music-bar" role="group" aria-label="试听控制"><button type="button" class="music-transport" data-music-toggle aria-label="播放${first ? ' ' + esc(first.title) : ''}"><svg class="ic music-ic music-ic-play" viewBox="0 0 16 16" aria-hidden="true"><use href="#px-play"></use></svg><svg class="ic music-ic music-ic-pause" viewBox="0 0 16 16" aria-hidden="true"><use href="#px-pause"></use></svg></button><span class="music-seek" data-music-seek aria-hidden="true"><span class="music-seek-fill" data-music-fill></span></span><span class="music-time" data-music-time>0:00 / 0:00</span></div>
   <p class="music-now" role="status" aria-live="polite">点歌曲左边的方块就能试听</p>
   <p class="music-selection"><span data-music-heading>本周听歌排行</span><a class="music-listen" href="${first ? esc(first.url) : 'https://music.163.com/#/user/home?id=' + data.uid}" target="_blank" rel="noopener noreferrer">去网易云听 ↗</a></p>
   <ol class="music-list">${rows(data.week.slice(0, 5))}</ol><p class="music-empty" ${data.week.length ? 'hidden' : ''}>这段时间还没有听歌记录。</p>
@@ -55,8 +56,21 @@ html[data-time="night"] .record-light{background:#efca6a;box-shadow:0 0 8px #efc
    所以这里 reset 必须自己写全，一个都不能省。 */
 #music button[data-music-play]{position:relative;width:24px;height:24px;display:grid;place-items:center;padding:0;border:0;background:none;font:inherit;line-height:12px;color:var(--moss)}
 /* 两个手绘像素图标（icons.js 的 play/pause），默认藏着，按状态亮。
-   ⚠️ 悬停的三角只给**没在放**的行 —— 否则播放中一悬停会同时亮两个图标。 */
-#music .music-ic{display:none;width:12px;height:12px}
+   行里那枚 16px（跟序号一格），播控条上那枚 24px —— 主控制要够大才点得爽。 */
+#music .music-ic{display:none}
+#music .music-play .music-ic{width:16px;height:16px}
+#music .music-transport .music-ic{width:24px;height:24px}
+/* 播控条：大按钮 + 进度条 + 时间。⚠️ 唱片机那层是 aria-hidden 的装饰，
+   这行必须放在它**外面**，否则键盘和无障碍用户摸不到播放键。 */
+.music-bar{display:grid;grid-template-columns:auto minmax(0,1fr) auto;align-items:center;gap:8px;margin-top:8px}
+#music .music-transport{display:grid;place-items:center;padding:4px}
+#music .music-transport .music-ic-play{display:inline-block}
+#music[data-playing="1"] .music-transport .music-ic-play{display:none}
+#music[data-playing="1"] .music-transport .music-ic-pause{display:inline-block}
+/* 进度条：8px 高的木框槽 + 实心填充，点/拖都能跳（cursor 见 gen.js 的可点光标名单） */
+.music-seek{display:block;height:8px;background:var(--cream-3);border:2px solid var(--timber)}
+.music-seek-fill{display:block;height:100%;width:0;background:var(--moss)}
+.music-time{font-size:12px;line-height:24px;color:var(--ink-2);font-variant-numeric:tabular-nums;white-space:nowrap}
 #music .music-row:not([data-state="playing"]):not([data-state="paused"]) .music-play:hover .music-ic-play{display:inline-block}
 #music .music-row[data-state="paused"] .music-ic-play{display:inline-block}
 #music .music-row[data-state="playing"] .music-ic-pause{display:inline-block}
@@ -81,6 +95,7 @@ const script = `(function(){
 const root=document.getElementById('music'), data=JSON.parse(document.getElementById('music-data').textContent);
 const list=root.querySelector('.music-list'), previous=root.querySelector('[data-music-prev]'), next=root.querySelector('[data-music-next]');
 const now=root.querySelector('.music-now'), deck=root.querySelector('.record-deck'), cover=root.querySelector('.record-label');
+const toggle=root.querySelector('[data-music-toggle]'), seek=root.querySelector('[data-music-seek]'), fill=root.querySelector('[data-music-fill]'), timeEl=root.querySelector('[data-music-time]');
 if(new URLSearchParams(location.search).get('music')==='albums'){location.replace('museum/index.html?kind=music');return;}
 let period='week',page=0;
 
@@ -92,6 +107,16 @@ const audio=new Audio(); audio.preload='none';
 let currentId=null, currentTrack=null, mode='';   // mode: '' | loading | playing | paused | failed
 
 function urlOf(track){ return 'https://music.163.com/song/media/outer/url?id='+track.id+'.mp3'; }
+function mmss(s){
+ if(!isFinite(s)||s<0)s=0; s=Math.floor(s);
+ return Math.floor(s/60)+':'+String(s%60).padStart(2,'0');
+}
+function paintTime(){
+ var d=audio.duration, t=audio.currentTime;
+ if(!isFinite(d)||!d){ fill.style.width='0%'; timeEl.textContent='0:00 / 0:00'; return; }
+ fill.style.width=Math.round((t||0)/d*100)+'%';
+ timeEl.textContent=mmss(t)+' / '+mmss(d);
+}
 function paint(){
  list.querySelectorAll('.music-row').forEach(row=>{
   const btn=row.querySelector('[data-music-play]'); if(!btn) return;
@@ -99,7 +124,11 @@ function paint(){
   row.dataset.state=mine?mode:'';
   btn.setAttribute('aria-label',(mine&&mode==='playing'?'暂停 ':'试听 ')+btn.dataset.trackTitle);
  });
+ const on=mode==='playing'||mode==='loading';
  deck.classList.toggle('playing',mode==='playing');
+ root.dataset.playing=on?'1':'';
+ toggle.setAttribute('aria-label',(mode==='playing'?'暂停 ':'播放 ')+(currentTrack?currentTrack.title:''));
+ paintTime();
  if(currentTrack&&(mode==='playing'||mode==='paused')){
   cover.src=currentTrack.cover+'?param=96y96';cover.hidden=false;
   now.textContent=(mode==='playing'?'正在放 · ':'暂停 · ')+currentTrack.title+' — '+currentTrack.artist;
@@ -121,6 +150,27 @@ function play(track){
 audio.addEventListener('playing',function(){if(currentTrack){mode='playing';paint();}});
 audio.addEventListener('pause',function(){if(currentTrack&&mode==='playing'){mode='paused';paint();}});
 audio.addEventListener('error',fail);
+audio.addEventListener('timeupdate',paintTime);
+audio.addEventListener('loadedmetadata',paintTime);
+/* 进度条：按下/拖动都能跳。⚠️ 用 pointer 事件：一套代码覆盖鼠标和触屏 */
+function seekTo(clientX){
+ var d=audio.duration; if(!isFinite(d)||!d) return;
+ var box=seek.getBoundingClientRect();
+ if(!box.width) return;
+ audio.currentTime=Math.min(1,Math.max(0,(clientX-box.left)/box.width))*d;
+ paintTime();
+}
+seek.addEventListener('pointerdown',function(e){
+ if(seek.setPointerCapture)try{seek.setPointerCapture(e.pointerId)}catch(err){}
+ seekTo(e.clientX);
+});
+seek.addEventListener('pointermove',function(e){ if(e.buttons===1) seekTo(e.clientX); });
+/* 播控条那颗大按钮：没选过就播当前页第一首，否则播/暂停当前这首 */
+toggle.addEventListener('click',function(){
+ if(!currentTrack){ play(data[period][page*5]||data[period][0]); return; }
+ if(mode==='playing'){audio.pause();mode='paused';paint();return;}
+ play(currentTrack);
+});
 audio.addEventListener('ended',function(){
  const tracks=data[period];if(!currentTrack)return;
  const at=tracks.indexOf(currentTrack), following=tracks[at+1];
