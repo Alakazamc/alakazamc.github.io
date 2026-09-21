@@ -1194,7 +1194,10 @@ html[data-time="night"] .dc-farmyard{filter:brightness(.6)}
   --frame:var(--timber);--reading-surface:var(--cream);--reading-muted:var(--cream-2)}
 html[data-time="night"]{--cream:#30382f;--cream-2:#263027;--cream-3:#45503d;--ink:#f3e8ce;--ink-2:#c6bea5;
   --timber:#1a2621;--timber-light:#617059;--timber-top:#819075;--moss:#a0b575;--pixel-shadow:#101b19;--gold:#ddbc70;--gold-3:#ddbc70}
-.wrap{max-width:1200px;padding:0 24px 40px}
+/* 容器上限随视口缓涨：1200 ▸ 1560（1920 屏留白从 360 收到 180）。
+   ⚠️ 写成 min/max 表达式而不是加 @media —— 断点档位有棘轮预算，能不新增就不新增。
+   1440 屏及以下 max() 兜住 1200，与改动前**逐像素一致**。 */
+.wrap{max-width:min(1560px,max(1200px,100% - 240px));padding:0 24px 40px}
 .asset-bg{filter:saturate(.5) brightness(.8)}
 .asset-bg::after{content:'';position:absolute;inset:0;background:var(--sky-b);opacity:.64}
 html[data-time="night"] .asset-bg::after{background:#162b2d;opacity:.82}
@@ -1245,7 +1248,13 @@ html[data-time="night"] .pixel-window>svg{filter:brightness(.78) saturate(.8)}
 .toolbar .tool:hover{background:var(--cream-2);box-shadow:inset 0 -4px 0 var(--timber-top);transform:translateY(-2px)}
 .secondary-nav{margin:10px 0 28px;text-align:right}.secondary-nav>summary{color:var(--ink);background:var(--cream-2);display:inline-block;padding:4px 12px;border:1px solid var(--timber)}
 .secondary-nav[open]{background:var(--cream);padding:8px;border:2px solid var(--timber)}
-.layout{grid-template-columns:minmax(0,1fr) 288px;gap:var(--s7)}
+/* 左栏封顶 880px，宽屏多出来的宽度全给右栏（侧栏从 288 涨到 ~604）。
+   为什么封顶而不是两边等比涨：主栏是时间线卡片，堆到 1100+ 行长就散了；
+   而侧栏窄是它一直显得局促的原因。
+   ⚠️ 880 这个数不是随手取的：容器 1512 时右栏 = 1512-28-880 = 604，
+      刚好够两列（见下面 .layout>aside 的 auto-fit）留出余量。
+   ⚠️ 容器 ≤1152（1440 屏及以下）时 main 拿不满 880，实际仍是 836 —— 与改动前一致。 */
+.layout{grid-template-columns:minmax(0,880px) minmax(288px,1fr);gap:var(--s7)}
 .panel{border:3px solid var(--timber);padding:var(--s6);background:var(--cream);box-shadow:4px 4px 0 var(--pixel-shadow),inset 0 0 0 2px var(--cream-3);margin-bottom:var(--s8)}
 .panel::after{display:none}.panel>.cor{opacity:.7}.panel>.cor .ic{width:12px;height:12px}
 .panel>.pt{position:relative;top:auto;left:auto;width:fit-content;max-width:100%;margin:-2px 0 var(--s6);padding:var(--s1) var(--s3);background:var(--timber);color:#ffedbb;border:2px solid var(--timber-light);box-shadow:2px 2px 0 var(--pixel-shadow);line-height:24px;gap:var(--s3)}

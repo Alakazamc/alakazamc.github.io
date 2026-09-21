@@ -1660,11 +1660,17 @@ ${controls()}
       ${museum()}
       ${DC.path()}
       ${galleryPanel()}
+      ${DC.path()}
+      <!-- 「专精」面板原本挂在 <aside> 里（2026-09-21 搬到主栏）。
+           原因：侧栏当时塞了 5 块、主栏只有 3 块，侧栏比主栏整整高出 917px，
+           主栏底部悬着一大片空白；而 .layout 是 align-items:start，
+           grid 不会替短的那栏补高。搬到主栏后两栏差降到 45px 以内。
+           放主栏也顺理成章 —— 6 行进度条本来就该宽着排，挤在 288px 里反而局促。 -->
+      ${techStack()}
     </main>
     <aside>
       ${seasonPanel()}
       ${panel('唱片机', ['star', 'flower', 'star', 'flower', 'star'], MUSIC.render() + DC.shelf(), 'music')}
-      ${techStack()}
       ${moneyPanel()}
       ${farmPanel()}
     </aside>
