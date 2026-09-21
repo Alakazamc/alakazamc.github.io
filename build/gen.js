@@ -804,10 +804,10 @@ svg.ic.sm{width:12px;height:12px} svg.ic.xs{width:9px;height:9px} svg.ic.lg{widt
 .controls{position:fixed;top:12px;right:12px;z-index:60;display:flex;gap:8px;align-items:flex-start}
 @media (max-width:900px){
   .controls{gap:5px;top:8px;right:8px}
-  .crow{gap:3px;padding:3px}
-  .cbtn{padding:3px 5px}
-  .cbtn em{font-size:12px}
-  .cbtn.bgmode{padding:3px 5px}
+  
+  
+  
+  
 }
 .crow{display:flex;gap:5px;background:var(--cream);border:3px solid var(--ink);
   box-shadow:0 0 0 3px var(--wood-c);padding:5px}
@@ -877,9 +877,7 @@ svg.ic.sm{width:12px;height:12px} svg.ic.xs{width:9px;height:9px} svg.ic.lg{widt
 .board .who{margin:0 0 8px;display:inline-block;background:var(--cream);color:var(--ink);
   border:2px solid var(--ink);box-shadow:3px 3px 0 rgba(43,29,14,.42);
   padding:4px 12px;font-size:12px;letter-spacing:.6px}
-@media (max-width:640px){
-  .board .bt{font-size:24px;text-shadow:2px 2px 0 var(--ink)}
-}
+
 /* 平台导航：一排木质小牌，图标是 16×16 像素画 */
 .social{display:flex;justify-content:center;gap:8px;flex-wrap:wrap;margin-top:2px}
 .soc{display:flex;flex-direction:column;align-items:center;gap:3px;text-decoration:none;
@@ -1083,7 +1081,7 @@ html{scroll-behavior:smooth}
   .tl-when{display:none}
 }
 @media (max-width:820px){
-  .tl-card{grid-template-columns:minmax(0,1fr)}
+  
   .tl-card > .slot.cover,.tl-cover{display:none}
 }
 .more{display:flex;align-items:center;justify-content:center;gap:8px}
@@ -1095,8 +1093,8 @@ html{scroll-behavior:smooth}
 /* 工坊固定展示六项：桌面三列两行，中屏两列，手机单列。
    仓库名保留标识符，完整内容选择与手机精简留给下一轮设计。 */
 .rgrid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
-@media(max-width:800px){.rgrid{grid-template-columns:1fr}}
-@media(max-width:600px){.rgrid{grid-template-columns:1fr}}
+
+
 .rcard{display:flex;flex-direction:column;gap:5px;padding:9px 10px;text-decoration:none;color:inherit;
   background:var(--cream-2);border:2px solid var(--wood-c);box-shadow:0 3px 0 rgba(59,36,18,.22);
   transition:transform .12s,box-shadow .12s}
@@ -1264,7 +1262,7 @@ html{scroll-behavior:smooth}
 .museum-more a:hover{background:var(--gold)}
 
 /* 博物馆详情页：390 件馆藏按 24 件一页渲染，避免一次加载几百张封面。 */
-.museum-wrap{max-width:1180px}
+
 .museum-page{max-width:none;margin:0 auto 32px}
 .museum-filters{display:flex;flex-wrap:wrap;gap:6px;margin:12px 0}
 .museum-filter{display:flex;align-items:center;gap:5px;font:inherit;font-size:12px;color:var(--ink);
@@ -1300,7 +1298,7 @@ a.museum-item-link:hover .museum-item-poster{transform:translateY(-3px);box-shad
 .museum-page-info{font-size:12px;min-width:72px;text-align:center}
 @media (max-width:680px){
   .museum-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:11px}
-  .museum-item-poster{height:198px}
+  
 }
 
 /* 工坊详情页：全部仓库。沿用博物馆详情页的筛选/翻页控件（一个站点只用一套交互），
@@ -1365,7 +1363,7 @@ a.wcard-link:hover{transform:translateY(-3px);box-shadow:0 6px 0 rgba(59,36,18,.
   #fall,#fireflies{display:none}
 }
 @media (max-width:940px){
-  .layout{grid-template-columns:1fr}
+  
   .hero{grid-template-columns:1fr}
   .hero-cov{max-width:230px}
   .pgrid{grid-template-columns:1fr}
@@ -1562,21 +1560,21 @@ button.soc .soc-in{flex-direction:row;gap:6px}
 .abtn{min-height:44px;align-items:center;box-shadow:none}
 @media(max-width:680px){
   .bunting{display:none}
-  .board{margin-top:16px;padding:16px 12px}
+  
   .board .bn{gap:4px}
   .board .bn>.ic{display:none}
-  .social{gap:6px}
-  .social .soc{padding:6px 8px}
+  
+  
   .social .pico{width:16px;height:16px}
-  .toolbar{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}
-  .tool{justify-content:center}
+  
+  
   .tool{padding:8px;gap:4px}
-  .panel{padding:20px 16px;margin-bottom:24px}
+  
   .rgrid .rcard:nth-child(n+3){display:none}
-  .rgrid{gap:12px}
-  .rcard{padding:12px;gap:6px}
+  
+  
   .rc-d{display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
-  .rfoot{display:none}
+  
   .museum-item-detail,.museum-item-source{display:none}
   .museum-item-poster{height:180px;border-width:1px;box-shadow:none}
   .museum-item-title{line-height:24px;min-height:48px}

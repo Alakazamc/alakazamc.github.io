@@ -343,7 +343,7 @@ html:not([data-season]) .dc-shelf .dc-season.spring{display:flex}
 /* ---- 页脚农场：农舍 + 水井 + 干草堆 + 篝火 + 木桶 ---- */
 .dc-farmyard{display:flex;justify-content:center;align-items:flex-end;gap:26px;margin:6px 0 0;flex-wrap:wrap}
 .dc-fy{display:block;animation:dc-bob 4s ease-in-out infinite}
-.dc-fy.house{animation:none}
+
 .dc-fy.house svg{width:150px}
 .dc-fy.hay svg{width:52px}.dc-fy.well svg{width:48px}
 .dc-fy.fire svg{width:38px}.dc-fy.barrel svg{width:32px}
@@ -370,7 +370,7 @@ html[data-time="night"] .dc-farmyard{filter:brightness(.6)}
   border:3px solid var(--ink);box-shadow:0 0 0 3px var(--wood-c)}
 .dc-post svg{filter:drop-shadow(1px 1px 0 rgba(43,29,14,.35))}
 .dc-post.l{left:-58px}.dc-post.r{right:-58px}
-@media(min-width:1400px){.dc-post{display:flex}}
+
 .dc-post .ic:first-child{animation:dc-bob 3.2s ease-in-out infinite}
 
 @media(prefers-reduced-motion:reduce){

@@ -64,7 +64,7 @@ html[data-season="spring"] .season-plants.spring,html[data-season="summer"] .sea
 .farm-pet button:active{transform:translateY(3px)}.farm-pet button:focus-visible{outline:2px solid var(--wood-c);outline-offset:2px}
 html[data-farm-pet="off"] .farm-pet,html[data-farm-scenery="off"] .season-scenery{display:none}
 @media(min-width:1400px){.farm-edge-area{height:0;margin:0}.edge-plot{position:fixed;bottom:30px;z-index:3;width:70px;flex-wrap:wrap;gap:0}.edge-plot.left{left:10px}.edge-plot.right{right:10px}.edge-lantern{margin-bottom:8px}.farm-pet{position:fixed;left:15px;bottom:140px;z-index:3}}
-@media(max-width:600px){.edge-plot .ic{width:24px;height:24px}.edge-plot{gap:0}.edge-plot.right .edge-lantern{display:none}.calendar-date time{font-size:24px}.harvest-heading{flex-wrap:wrap}}
+@media(max-width:600px){.edge-plot .ic{width:24px;height:24px}.edge-plot{gap:0}.edge-plot.right .edge-lantern{display:none}.harvest-heading{flex-wrap:wrap}}
 @media(prefers-reduced-motion:reduce){.farm-pet button{transition:none;animation:none}}
 `;
 const homeScript=`(function(){

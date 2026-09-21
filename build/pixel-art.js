@@ -86,7 +86,7 @@ body:not(.is-article) .panel>.pt>.ic{width:24px;height:24px}
 .dc-shelf{margin:24px -22px -22px;padding:8px 12px 4px;min-height:32px;border-top:3px solid var(--timber);background:repeating-linear-gradient(0deg,var(--timber-light) 0 4px,var(--timber) 4px 6px,var(--timber-light) 6px 16px);box-shadow:inset 0 2px var(--timber-top)}
 .dc-shelf .dc-season{gap:16px}.dc-shelf svg{width:24px;height:24px}.dc-shelf i,.dc-fy,.dc-stone{animation:none}
 .rgrid{gap:16px}.rcard{position:relative;min-height:184px;padding:20px 16px 16px;border:2px solid var(--timber-light);background:var(--cream-2);box-shadow:inset 0 4px var(--cream-3);gap:14px}
-.rc-h{gap:10px;align-items:center}.rc-h>.ic{width:32px;height:32px}.rc-h b{font-size:24px;line-height:32px;overflow-wrap:anywhere}
+.rc-h{gap:10px;align-items:center}.rc-h b{font-size:24px;line-height:32px;overflow-wrap:anywhere}
 .rc-d{font-size:12px;line-height:24px;opacity:1;color:var(--ink-2)}
 .rc-f{padding-top:10px;border-top:1px dashed var(--timber-light)}
 .rcard:hover{background:var(--cream);box-shadow:4px 4px 0 var(--timber-light);transform:translate(-2px,-2px)}
