@@ -1353,7 +1353,7 @@ body:not(.is-article) .panel>.pt>.ic{width:24px;height:24px}
 .record-disc{position:absolute;left:calc(50% - 70px);top:9px;width:128px;height:128px;background:#252d2b;clip-path:polygon(25% 0,75% 0,75% 6%,87% 6%,87% 13%,94% 13%,94% 25%,100% 25%,100% 75%,94% 75%,94% 87%,87% 87%,87% 94%,75% 94%,75% 100%,25% 100%,25% 94%,13% 94%,13% 87%,6% 87%,6% 75%,0 75%,0 25%,6% 25%,6% 13%,13% 13%,13% 6%,25% 6%)}
 .record-disc::before{content:'';position:absolute;inset:14px;border:4px solid #46504a;box-shadow:inset 0 0 0 6px #252d2b,inset 0 0 0 8px #46504a;clip-path:polygon(20% 0,80% 0,80% 8%,92% 8%,92% 20%,100% 20%,100% 80%,92% 80%,92% 92%,80% 92%,80% 100%,20% 100%,20% 92%,8% 92%,8% 80%,0 80%,0 20%,8% 20%,8% 8%,20% 8%)}
 .record-label{position:absolute;left:40px;top:40px;width:48px;height:48px;object-fit:contain;border:4px solid #d8b16c;image-rendering:auto}
-.record-arm{position:absolute;right:16px;top:14px;width:10px;height:74px;background:#ddd3aa;border:2px solid #695d48;transform:rotate(25deg);transform-origin:top center;box-shadow:2px 2px #333c31}
+.record-arm{position:absolute;right:16px;top:14px;width:10px;height:74px;background:#ddd3aa;border:2px solid #695d48;transform:rotate(8deg);transform-origin:top center;box-shadow:2px 2px #333c31;transition:transform .6s steps(5,end)}
 .record-arm::after{content:'';position:absolute;bottom:-8px;left:-4px;width:14px;height:18px;background:#9a6344;border:2px solid #45372b}
 .record-light{position:absolute;right:12px;bottom:10px;width:8px;height:8px;background:#64824c;box-shadow:2px 2px #3e5032}
 html[data-time="night"] .record-light{background:#efca6a;box-shadow:0 0 8px #efca6a}
@@ -1364,20 +1364,28 @@ html[data-time="night"] .record-light{background:#efca6a;box-shadow:0 0 8px #efc
 .music-row a{display:block;padding:9px 0;text-decoration:none;color:var(--ink)}
 .music-rank{color:var(--moss)}.music-track{min-width:0}.music-track b{display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;font-weight:normal}.music-track small{display:block;font-size:12px;line-height:24px;color:var(--ink-2);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 /* ---- 序号格 = 试听键 ----
-   ⚠️ 上面那条木牌按钮已经用 :not([data-music-play]) 排除了它，
-   这里就不必重复写 background/border/padding 去抵销 —— 那种「重复声明」
-   会吃穿 CSS 预算，本项目另有一套中和法（见 TECH-NOTES 二十四）。 */
-#music button[data-music-play]{position:relative;width:24px;height:24px;display:grid;place-items:center;color:var(--moss)}
-.music-glyph{display:none}
-.music-row[data-state="playing"] .music-rank,.music-row[data-state="failed"] .music-rank{visibility:hidden}
-.music-row[data-state="playing"] .music-glyph{display:block;width:8px;height:12px;border-left:3px solid var(--ink);border-right:3px solid var(--ink)}
-.music-row[data-state="failed"] .music-glyph{display:block;width:12px;height:3px;background:var(--ink-2)}
+   ⚠️⚠️ 上面那条木牌按钮用 :not([data-music-play]) 排除了它 —— 但排除之后
+   **浏览器默认的按钮样式**（灰底、2px outset 黑边、13.33px 字号）会顶上来，
+   实测量出来的（第一版只排不管，柯西：「放歌 UI 不好看」的元凶之一）。
+   所以这里 reset 必须自己写全，一个都不能省。 */
+#music button[data-music-play]{position:relative;width:24px;height:24px;display:grid;place-items:center;padding:0;border:0;background:none;font:inherit;line-height:12px;color:var(--moss)}
+/* 两个手绘像素图标（icons.js 的 play/pause），默认藏着，按状态亮。
+   ⚠️ 悬停的三角只给**没在放**的行 —— 否则播放中一悬停会同时亮两个图标。 */
+#music .music-ic{display:none;width:12px;height:12px}
+#music .music-row:not([data-state="playing"]):not([data-state="paused"]) .music-play:hover .music-ic-play{display:inline-block}
+#music .music-row[data-state="paused"] .music-ic-play{display:inline-block}
+#music .music-row[data-state="playing"] .music-ic-pause{display:inline-block}
+#music .music-row[data-state="playing"] .music-rank,#music .music-row[data-state="paused"] .music-rank,#music .music-play:hover .music-rank{visibility:hidden}
 .music-row[data-state="failed"] .music-play{opacity:.5}
-.music-play:hover .music-rank{visibility:hidden}
-.music-play:hover .music-glyph{display:block;width:0;height:0;border-left:9px solid var(--ink);border-top:6px solid transparent;border-bottom:6px solid transparent}
-/* 唱片在放歌时转起来（6 秒一圈，转速照老唱片的量级） */
-@keyframes mu-spin{to{transform:rotate(360deg)}}
-.record-deck.playing .record-disc{animation:mu-spin 6s linear infinite}
+/* 播放反馈：唱臂从右边摆到唱片上 + 指示灯闪。
+   ⚠️ 别让唱片本体转 —— 它是 clip-path 的八角形，一转就成了斜着的方块
+   （第一版实测截图很难看）。摆臂 + 闪灯才是唱片机的母语。
+   ⚠️ 角度方向：正角把臂尖往**左**推（CSS 屏幕坐标），唱臂在唱片右侧，
+   所以「停=8°（收在右边）→ 播=25°（摆上唱片）」。第一版写成 4° 是反的，
+   臂立到唱片外面去了 —— 截图量出来的。 */
+.record-deck.playing .record-arm{transform:rotate(25deg)}
+@keyframes mu-blink{50%{opacity:.15}}
+.record-deck.playing .record-light{animation:mu-blink 1s steps(2,end) infinite}
 .music-now{margin:8px 0 0;color:var(--ink-2)}
 .music-pager{display:flex;align-items:center;justify-content:space-between;gap:4px;margin-top:16px}.music-pager [data-music-page]{white-space:nowrap;font-variant-numeric:tabular-nums}
 .music-source{display:flex;flex-direction:column;gap:4px;margin:16px 0 0;color:var(--ink-2)}.music-source a{color:var(--ink);text-underline-offset:3px}.music-empty{margin:20px 0;color:var(--ink-2)}
