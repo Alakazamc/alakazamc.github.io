@@ -821,8 +821,10 @@ body.is-article{background:var(--sky-b);min-height:100vh;padding-top:22px}
    在 <p> 文本流里会硬换行，必须退回 inline-block 才能贴着字走 */
 .artmeta svg.ic{display:inline-block;vertical-align:-1px;margin-right:2px}
 /* 分享按钮行：左边日期/来源/标签，右边「分享」。
-   柯西 2026-09-20「没有分享键」—— 优先 navigator.share（系统分享面板），
-   浏览器不给就退化成复制链接，逻辑在 posts.js 的 shareScript()。
+   柯西 2026-09-20「没有分享键」→ 2026-09-21「分享功能没做好」：分享键已铺到全站
+   （文章页/博客页在标题下、首页在工具栏、四个子页在顶导航），按钮/脚本共用
+   subpage.js 的 shareBtn/shareScript；点击分支（触屏走原生面板、桌面直接复制链接）
+   和三条复制降级写在那边，这里只管样式。
    ⚠️ 按钮上别写副标题，一个图标 + 「分享」两个字就够。 */
 .artmeta-row{display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin:0 0 16px}
 .artmeta-row .artmeta{margin:0;flex:1;min-width:0}
@@ -833,12 +835,15 @@ body.is-article{background:var(--sky-b);min-height:100vh;padding-top:22px}
 .share-btn:hover{background:var(--gold);transform:translateY(-2px)}
 .share-btn:active{transform:translateY(1px);box-shadow:none}
 /* 分享结果的小纸条：复制成功/失败都要有回执 —— 不然点了没反应，
-   跟「没有分享键」看起来一模一样。steps(2) 保住像素感，不做平滑渐变。 */
+   跟「没有分享键」看起来一模一样。steps(2) 保住像素感，不做平滑渐变。
+   user-select：最后那条降级是把链接显示在纸条上让人家长按选中，
+   iOS 的 webview 里不显式开文本选择，长按是选不中的。 */
 .share-toast{position:fixed;left:50%;bottom:36px;transform:translate(-50%,8px);z-index:60;
   background:var(--cream);color:var(--ink);border:3px solid var(--ink);
   box-shadow:0 0 0 2px var(--wood-c),5px 5px 0 rgba(59,36,18,.3);
   padding:8px 14px;font-size:12px;line-height:24px;max-width:min(92vw,540px);
   opacity:0;visibility:hidden;overflow-wrap:anywhere;
+  -webkit-user-select:text;user-select:text;
   transition:opacity .18s steps(2),transform .18s steps(2),visibility .18s}
 .share-toast.on{opacity:1;visibility:visible;transform:translate(-50%,0)}
 .artcover{margin:0 0 16px;text-align:center}
@@ -1458,7 +1463,7 @@ html[data-time="night"] .record-light{background:#efca6a;box-shadow:0 0 8px #efc
   </header>
 
   <div class="hang"><span style="animation-delay:0.00s"><svg class="ic" viewBox="0 0 16 16"><use href="#px-strawberry"></use></svg></span><span style="animation-delay:0.30s"><svg class="ic" viewBox="0 0 16 16"><use href="#px-cherry"></use></svg></span><span style="animation-delay:0.60s"><svg class="ic" viewBox="0 0 16 16"><use href="#px-grape"></use></svg></span><span style="animation-delay:0.90s"><svg class="ic" viewBox="0 0 16 16"><use href="#px-blueberry"></use></svg></span><span style="animation-delay:1.20s"><svg class="ic" viewBox="0 0 16 16"><use href="#px-starfruit"></use></svg></span><span style="animation-delay:1.50s"><svg class="ic" viewBox="0 0 16 16"><use href="#px-mushroom"></use></svg></span><span style="animation-delay:1.80s"><svg class="ic" viewBox="0 0 16 16"><use href="#px-pepper"></use></svg></span><span style="animation-delay:2.10s"><svg class="ic" viewBox="0 0 16 16"><use href="#px-tomato"></use></svg></span><span style="animation-delay:2.40s"><svg class="ic" viewBox="0 0 16 16"><use href="#px-acorn"></use></svg></span></div>
-  <nav class="toolbar" aria-label="主页导航"><a class="tool" href="posts/index.html"><svg class="ic" viewBox="0 0 16 16"><use href="#px-wateringcan"></use></svg><em>时间线</em></a><a class="tool" href="write/index.html"><svg class="ic" viewBox="0 0 16 16"><use href="#px-book"></use></svg><em>写作台</em></a><a class="tool" href="#museum"><svg class="ic" viewBox="0 0 16 16"><use href="#px-book"></use></svg><em>博物馆</em></a><a class="tool" href="#projects"><svg class="ic" viewBox="0 0 16 16"><use href="#px-chest"></use></svg><em>工坊</em></a><a class="tool" href="#gallery"><svg class="ic" viewBox="0 0 16 16"><use href="#px-scythe"></use></svg><em>相馆</em></a></nav><details class="secondary-nav"><summary>更多分区</summary><a href="#calendar">日历</a><a href="#ledger">收获簿</a><a href="#music">唱片机</a><a href="#skills">专精</a><a href="#farm">农场一角</a></details>
+  <nav class="toolbar" aria-label="主页导航"><a class="tool" href="posts/index.html"><svg class="ic" viewBox="0 0 16 16"><use href="#px-wateringcan"></use></svg><em>时间线</em></a><a class="tool" href="write/index.html"><svg class="ic" viewBox="0 0 16 16"><use href="#px-book"></use></svg><em>写作台</em></a><a class="tool" href="#museum"><svg class="ic" viewBox="0 0 16 16"><use href="#px-book"></use></svg><em>博物馆</em></a><a class="tool" href="#projects"><svg class="ic" viewBox="0 0 16 16"><use href="#px-chest"></use></svg><em>工坊</em></a><a class="tool" href="#gallery"><svg class="ic" viewBox="0 0 16 16"><use href="#px-scythe"></use></svg><em>相馆</em></a><button type="button" class="tool" data-share title="分享这一页"><svg class="ic" viewBox="0 0 16 16"><use href="#px-share"></use></svg><em>分享</em></button></nav><details class="secondary-nav"><summary>更多分区</summary><a href="#calendar">日历</a><a href="#ledger">收获簿</a><a href="#music">唱片机</a><a href="#skills">专精</a><a href="#farm">农场一角</a></details>
 
   <!-- 工坊单独放在两栏之外，占满整行 —— 柯西要求「把代码仓库放在最上面」，
        放在 main 里的话它会跟右栏的侧栏面板并排，视觉上就不是「最上面」了。 -->
@@ -3717,5 +3722,61 @@ function show(){
 root.querySelectorAll('[data-music-period]').forEach(button=>button.addEventListener('click',()=>{period=button.dataset.musicPeriod;page=0;show();}));
 previous.addEventListener('click',()=>{page--;show();});next.addEventListener('click',()=>{page++;show();});show();
 })();</script>
+<script>
+(function(){
+  var btns=document.querySelectorAll('[data-share]');
+  if(!btns.length)return;
+  var toast=document.createElement('div');
+  toast.className='share-toast';toast.setAttribute('role','status');
+  document.body.appendChild(toast);
+  var timer=null;
+  function say(msg){
+    toast.textContent=msg;toast.classList.add('on');
+    clearTimeout(timer);timer=setTimeout(function(){toast.classList.remove('on')},4000);
+  }
+  // 老办法：临时 textarea + execCommand。API 已废弃，但微信内置浏览器
+  // （尤其 iOS）经常既没有 navigator.share 也不给 navigator.clipboard，
+  // 而这招多数时候还能把链接写进剪贴板。
+  function legacyCopy(url){
+    try{
+      var ta=document.createElement('textarea');
+      ta.value=url;ta.setAttribute('readonly','');
+      ta.style.position='fixed';ta.style.left='-9999px';ta.style.top='0';
+      document.body.appendChild(ta);
+      ta.select();ta.setSelectionRange(0,url.length);
+      var ok=document.execCommand('copy');
+      document.body.removeChild(ta);
+      return ok===true;
+    }catch(e){return false}
+  }
+  function copy(url){
+    // 不管哪条路走通，都必须给用户一句回执 —— 静默成功比失败更糟
+    // （toast 还留着上一次的旧文案，用户以为没反应）。
+    function sayCopy(ok){ say(ok?'链接已复制，粘贴给朋友就行':'浏览器不让自动复制，长按这条链接：'+url) }
+    if(navigator.clipboard&&navigator.clipboard.writeText){
+      navigator.clipboard.writeText(url).then(
+        function(){say('链接已复制，粘贴给朋友就行')},
+        function(){sayCopy(legacyCopy(url))});
+    }else{sayCopy(legacyCopy(url))}
+  }
+  // 每次点击现问指针类型 —— 二合一设备（触屏笔记本接鼠标）按当下输入方式走。
+  function touchPrimary(){
+    return typeof matchMedia==='function'&&matchMedia('(pointer:coarse)').matches;
+  }
+  btns.forEach(function(b){
+    b.addEventListener('click',function(){
+      // 去掉 hash：分享出去的链接带 #xxx 没有意义
+      var url=location.href.split('#')[0];
+      if(navigator.share&&touchPrimary()){
+        navigator.share({title:document.title,url:url}).catch(function(e){
+          // 用户主动关掉分享面板不算失败，别弹噪声
+          if(e&&e.name==='AbortError')return;
+          copy(url);
+        });
+      }else{copy(url)}
+    });
+  });
+})();
+</script>
 </body>
 </html>

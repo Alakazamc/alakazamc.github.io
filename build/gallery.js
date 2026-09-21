@@ -12,7 +12,7 @@ const fs = require('fs');
 const path = require('path');
 const { ICONS, toSymbol } = require('./icons.js');
 const SITE = require('./site.config.js');
-const { seasonScript, bottomBlock, decorate, dcShelf, DECOR_ICONS } = require('./subpage.js');
+const { seasonScript, bottomBlock, decorate, dcShelf, DECOR_ICONS, shareBtn, shareScript } = require('./subpage.js');
 
 const ROOT = path.join(__dirname, '..');
 const DATA_FILE = path.join(__dirname, 'data', 'gallery.json');
@@ -192,9 +192,9 @@ function page(data) {
 </head>
 <body class="is-article is-gallery-page">
 ${decorate()}
-${sprite(['mailbox', 'star'].concat(DECOR_ICONS))}
+${sprite(['mailbox', 'star', 'share'].concat(DECOR_ICONS))}
 <div class="artpage">
-  <nav class="abarnav"><a class="abtn" href="../${esc(SITE.home)}#gallery">${ic('mailbox', 'sm')}回到农场</a></nav>
+  <nav class="abarnav"><a class="abtn" href="../${esc(SITE.home)}#gallery">${ic('mailbox', 'sm')}回到农场</a>${shareBtn('sm')}</nav>
   <div class="gal-card">
     <h1 class="gal-title">相馆</h1>
     <p class="gal-note">${items.length ? ('共 ' + items.length + ' 张作品' + (items.some(it => it.generated) ? '（含 ' + items.filter(it => it.generated).length + ' 张生成插画）' : '') + (upd ? ' · 更新于 ' + upd : '')) : ''}</p>
@@ -295,6 +295,7 @@ ${sprite(['mailbox', 'star'].concat(DECOR_ICONS))}
 })();
 </script>
 ${seasonScript()}
+${shareScript()}
 </body>
 </html>`;
 }

@@ -1,6 +1,7 @@
-﻿// 子页面（文章页 / 博物馆 / 工坊 / 博客）共用的两件事：
+﻿// 子页面（文章页 / 博物馆 / 工坊 / 博客）共用的几件事：
 //   1. 季节与昼夜自动判定 —— 主页面 gen.js 里那套逻辑的等价实现
 //   2. 底部区块 —— 访问量统计 + 评论区
+//   3. 分享键 + 分享脚本 —— 全站每一页都挂一枚（2026-09-21 补齐覆盖）
 //
 // 为什么要抽出来：这四个页面以前都写死 `data-season="spring"`，
 // 于是「首页会自动换季、点进文章又变回春天」——比不换季更怪。
@@ -31,6 +32,89 @@ function seasonScript() {
 })();
 </script>`;
 }
+
+// ---------- 分享（全站共用） ----------
+//
+// 柯西 2026-09-20「没有分享键」→ 先在文章页/博客页放了（当时在 posts.js 里）。
+// 柯西 2026-09-21「分享功能没做好」→ 两件事一起补：
+//   1. **覆盖全站**：文章页 / 博客页 / 首页工具栏 / 博物馆 / 工坊 / 相馆 / 收获簿，
+//      每页一枚（样式 .share-btn 在 gen.js 内联 <style>，构建时同步进 theme.css）。
+//   2. **点击后的分支按设备分**：
+//      · 触屏（pointer:coarse，手机/平板）→ navigator.share 原生面板，
+//        微信/QQ/复制链接都在里面，这是手机上唯一正确的路；
+//      · 桌面 → **直接复制链接**。Windows 的 navigator.share 弹出的是系统分享面板，
+//        里面没有微信（桌面版微信不注册共享目标），关掉还是静默无回执 ——
+//        实测 Edge 桌面 canShare 返回 true，走那条路对"粘到微信给朋友"零价值。
+//
+// ⚠️ 复制降级是三条路（微信内置浏览器两条前路常断）：
+//   clipboard API → document.execCommand('copy')（老招，微信里多数还能写进去）
+//   → 都不行才把链接显示在纸条上，让人家长按选中（.share-toast 已设 user-select）。
+// ⚠️ 按钮上不写副标题：一个图标 + 「分享」两个字。
+// ⚠️ 脚本字符串里不能出现 </script> 字面量（会被提前闭合）。
+const ic = (n, cls) =>
+  `<svg class="ic${cls ? ' ' + cls : ''}" viewBox="0 0 16 16"><use href="#px-${n}"></use></svg>`;
+
+// iconCls：图标尺寸（'sm'=12px 配横排按钮，不传=16px 配首页 .tool 竖排工具）
+// btnCls：按钮类名（默认 .share-btn；首页传 'tool' 与工具栏其余工具同款）
+const shareBtn = (iconCls, btnCls) =>
+  `<button type="button" class="${btnCls || 'share-btn'}" data-share title="分享这一页">${ic('share', iconCls)}<em>分享</em></button>`;
+
+const shareScript = () => `<script>
+(function(){
+  var btns=document.querySelectorAll('[data-share]');
+  if(!btns.length)return;
+  var toast=document.createElement('div');
+  toast.className='share-toast';toast.setAttribute('role','status');
+  document.body.appendChild(toast);
+  var timer=null;
+  function say(msg){
+    toast.textContent=msg;toast.classList.add('on');
+    clearTimeout(timer);timer=setTimeout(function(){toast.classList.remove('on')},4000);
+  }
+  // 老办法：临时 textarea + execCommand。API 已废弃，但微信内置浏览器
+  // （尤其 iOS）经常既没有 navigator.share 也不给 navigator.clipboard，
+  // 而这招多数时候还能把链接写进剪贴板。
+  function legacyCopy(url){
+    try{
+      var ta=document.createElement('textarea');
+      ta.value=url;ta.setAttribute('readonly','');
+      ta.style.position='fixed';ta.style.left='-9999px';ta.style.top='0';
+      document.body.appendChild(ta);
+      ta.select();ta.setSelectionRange(0,url.length);
+      var ok=document.execCommand('copy');
+      document.body.removeChild(ta);
+      return ok===true;
+    }catch(e){return false}
+  }
+  function copy(url){
+    // 不管哪条路走通，都必须给用户一句回执 —— 静默成功比失败更糟
+    // （toast 还留着上一次的旧文案，用户以为没反应）。
+    function sayCopy(ok){ say(ok?'链接已复制，粘贴给朋友就行':'浏览器不让自动复制，长按这条链接：'+url) }
+    if(navigator.clipboard&&navigator.clipboard.writeText){
+      navigator.clipboard.writeText(url).then(
+        function(){say('链接已复制，粘贴给朋友就行')},
+        function(){sayCopy(legacyCopy(url))});
+    }else{sayCopy(legacyCopy(url))}
+  }
+  // 每次点击现问指针类型 —— 二合一设备（触屏笔记本接鼠标）按当下输入方式走。
+  function touchPrimary(){
+    return typeof matchMedia==='function'&&matchMedia('(pointer:coarse)').matches;
+  }
+  btns.forEach(function(b){
+    b.addEventListener('click',function(){
+      // 去掉 hash：分享出去的链接带 #xxx 没有意义
+      var url=location.href.split('#')[0];
+      if(navigator.share&&touchPrimary()){
+        navigator.share({title:document.title,url:url}).catch(function(e){
+          // 用户主动关掉分享面板不算失败，别弹噪声
+          if(e&&e.name==='AbortError')return;
+          copy(url);
+        });
+      }else{copy(url)}
+    });
+  });
+})();
+</script>`;
 
 // ---------- 子页面共用的星露谷素材装饰 ----------
 // 2026-09-19 柯西要求「大量堆积星露谷素材」——首页那套装饰（decor.js）
@@ -94,5 +178,6 @@ function bottomBlock(inner, prefix) {
 
 module.exports = {
   seasonScript, visitsBar, bottomBlock, SEASON_NAMES,
-  decorate, dcShelf, DECOR_ICONS
+  decorate, dcShelf, DECOR_ICONS,
+  shareBtn, shareScript
 };

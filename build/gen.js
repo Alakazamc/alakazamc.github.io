@@ -14,6 +14,7 @@ const md = require('./md.js');
 const { articles, TAG_ICON } = require('./content.js');
 const SITE = require('./site.config.js');
 const FARM = require('./farm-modules.js');
+const { shareBtn, shareScript } = require('./subpage.js');
 const galleryData = require('./gallery-data.js');
 
 // 相馆元数据是用户在写作页上传后新增的，构建前必须先刷新数据快照。
@@ -237,8 +238,13 @@ const toolbar = () => {
   // 「邮箱」，因为点下去得到的是号码，不是联系方式的选择。
   const mail = ACCOUNTS.find((a) => a.k === 'mail');
   const mailBtn = `<button type="button" class="tool copyable" data-copy="${md.esc(mail.copy)}" title="点击显示邮箱">${ic('mailbox')}<em>邮箱</em></button>`;
+  // 2026-09-21「分享功能没做好」→ 首页也有一枚分享键（.tool 竖排款式，
+  // 与旁边五个导航工具同款；点击逻辑和复制降级在 subpage.js 的 shareScript）。
+  // ⚠️ check-nav 的「死按钮」检查数 <button class="tool"> —— 分享键带
+  //    data-share 不是死按钮，那条检查已相应排除（见 check-nav.js）。
+  const shareTool = shareBtn(null, 'tool');
   return `<nav class="toolbar" aria-label="主页导航">${items.map(([n, t, h]) =>
-    `<a class="tool" href="${h}">${ic(n)}<em>${t}</em></a>`).join('')}</nav><details class="secondary-nav"><summary>更多分区</summary><a href="#calendar">日历</a><a href="#ledger">收获簿</a><a href="#music">唱片机</a><a href="#skills">专精</a><a href="#farm">农场一角</a></details>`;
+    `<a class="tool" href="${h}">${ic(n)}<em>${t}</em></a>`).join('')}${shareTool}</nav><details class="secondary-nav"><summary>更多分区</summary><a href="#calendar">日历</a><a href="#ledger">收获簿</a><a href="#music">唱片机</a><a href="#skills">专精</a><a href="#farm">农场一角</a></details>`;
 };
 
 // ---------- 最新文章（主页上的时间线预告） ----------
@@ -1389,8 +1395,10 @@ body.is-article{background:var(--sky-b);min-height:100vh;padding-top:22px}
    在 <p> 文本流里会硬换行，必须退回 inline-block 才能贴着字走 */
 .artmeta svg.ic{display:inline-block;vertical-align:-1px;margin-right:2px}
 /* 分享按钮行：左边日期/来源/标签，右边「分享」。
-   柯西 2026-09-20「没有分享键」—— 优先 navigator.share（系统分享面板），
-   浏览器不给就退化成复制链接，逻辑在 posts.js 的 shareScript()。
+   柯西 2026-09-20「没有分享键」→ 2026-09-21「分享功能没做好」：分享键已铺到全站
+   （文章页/博客页在标题下、首页在工具栏、四个子页在顶导航），按钮/脚本共用
+   subpage.js 的 shareBtn/shareScript；点击分支（触屏走原生面板、桌面直接复制链接）
+   和三条复制降级写在那边，这里只管样式。
    ⚠️ 按钮上别写副标题，一个图标 + 「分享」两个字就够。 */
 .artmeta-row{display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin:0 0 16px}
 .artmeta-row .artmeta{margin:0;flex:1;min-width:0}
@@ -1401,12 +1409,15 @@ body.is-article{background:var(--sky-b);min-height:100vh;padding-top:22px}
 .share-btn:hover{background:var(--gold);transform:translateY(-2px)}
 .share-btn:active{transform:translateY(1px);box-shadow:none}
 /* 分享结果的小纸条：复制成功/失败都要有回执 —— 不然点了没反应，
-   跟「没有分享键」看起来一模一样。steps(2) 保住像素感，不做平滑渐变。 */
+   跟「没有分享键」看起来一模一样。steps(2) 保住像素感，不做平滑渐变。
+   user-select：最后那条降级是把链接显示在纸条上让人家长按选中，
+   iOS 的 webview 里不显式开文本选择，长按是选不中的。 */
 .share-toast{position:fixed;left:50%;bottom:36px;transform:translate(-50%,8px);z-index:60;
   background:var(--cream);color:var(--ink);border:3px solid var(--ink);
   box-shadow:0 0 0 2px var(--wood-c),5px 5px 0 rgba(59,36,18,.3);
   padding:8px 14px;font-size:12px;line-height:24px;max-width:min(92vw,540px);
   opacity:0;visibility:hidden;overflow-wrap:anywhere;
+  -webkit-user-select:text;user-select:text;
   transition:opacity .18s steps(2),transform .18s steps(2),visibility .18s}
 .share-toast.on{opacity:1;visibility:visible;transform:translate(-50%,0)}
 .artcover{margin:0 0 16px;text-align:center}
@@ -2067,6 +2078,7 @@ ${buildSprite()}
 </script>
 <script>${FARM.homeScript}</script>
 <script>${MUSIC.script}</script>
+${shareScript()}
 </body>
 </html>`;
 

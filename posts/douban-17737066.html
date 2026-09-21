@@ -123,18 +123,40 @@
     toast.textContent=msg;toast.classList.add('on');
     clearTimeout(timer);timer=setTimeout(function(){toast.classList.remove('on')},4000);
   }
+  // 老办法：临时 textarea + execCommand。API 已废弃，但微信内置浏览器
+  // （尤其 iOS）经常既没有 navigator.share 也不给 navigator.clipboard，
+  // 而这招多数时候还能把链接写进剪贴板。
+  function legacyCopy(url){
+    try{
+      var ta=document.createElement('textarea');
+      ta.value=url;ta.setAttribute('readonly','');
+      ta.style.position='fixed';ta.style.left='-9999px';ta.style.top='0';
+      document.body.appendChild(ta);
+      ta.select();ta.setSelectionRange(0,url.length);
+      var ok=document.execCommand('copy');
+      document.body.removeChild(ta);
+      return ok===true;
+    }catch(e){return false}
+  }
   function copy(url){
+    // 不管哪条路走通，都必须给用户一句回执 —— 静默成功比失败更糟
+    // （toast 还留着上一次的旧文案，用户以为没反应）。
+    function sayCopy(ok){ say(ok?'链接已复制，粘贴给朋友就行':'浏览器不让自动复制，长按这条链接：'+url) }
     if(navigator.clipboard&&navigator.clipboard.writeText){
       navigator.clipboard.writeText(url).then(
         function(){say('链接已复制，粘贴给朋友就行')},
-        function(){say('浏览器不让自动复制，长按这条链接：'+url)});
-    }else{say('浏览器不让自动复制，长按这条链接：'+url)}
+        function(){sayCopy(legacyCopy(url))});
+    }else{sayCopy(legacyCopy(url))}
+  }
+  // 每次点击现问指针类型 —— 二合一设备（触屏笔记本接鼠标）按当下输入方式走。
+  function touchPrimary(){
+    return typeof matchMedia==='function'&&matchMedia('(pointer:coarse)').matches;
   }
   btns.forEach(function(b){
     b.addEventListener('click',function(){
       // 去掉 hash：分享出去的链接带 #xxx 没有意义
       var url=location.href.split('#')[0];
-      if(navigator.share){
+      if(navigator.share&&touchPrimary()){
         navigator.share({title:document.title,url:url}).catch(function(e){
           // 用户主动关掉分享面板不算失败，别弹噪声
           if(e&&e.name==='AbortError')return;

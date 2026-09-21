@@ -6,7 +6,7 @@ const path = require('path');
 const { ICONS, toSymbol } = require('./icons.js');
 const SITE = require('./site.config.js');
 const { GAME_ICON } = require('./game-data.js');
-const { seasonScript, bottomBlock, decorate, dcShelf, DECOR_ICONS } = require('./subpage.js');
+const { seasonScript, bottomBlock, decorate, dcShelf, DECOR_ICONS, shareBtn, shareScript } = require('./subpage.js');
 
 const ROOT = path.join(__dirname, '..');
 const OUT = path.join(ROOT, 'museum', 'index.html');
@@ -89,12 +89,12 @@ function page(payload) {
 <link rel="stylesheet" href="../assets/theme.css">
 </head>
 <body class="is-article is-museum-page">
-${sprite(['mailbox', 'book', 'star', 'crystal', 'basket', 'flower', 'wheat', 'film', 'note', 'grass']
+${sprite(['mailbox', 'book', 'star', 'crystal', 'basket', 'flower', 'wheat', 'film', 'note', 'grass', 'share']
   .concat(GAME_ICON.map(([, icon]) => icon))
   .concat(DECOR_ICONS))}
 ${decorate()}
 <div class="wrap museum-wrap">
-  <nav class="abarnav"><a class="abtn" href="../${esc(SITE.home)}#museum">${ic('mailbox', 'sm')}回到农场</a></nav>
+  <nav class="abarnav"><a class="abtn" href="../${esc(SITE.home)}#museum">${ic('mailbox', 'sm')}回到农场</a>${shareBtn('sm')}</nav>
   <section class="panel museum-page">
     <h2 class="pt">${ic('book', 'xs')}博物馆${ic('crystal', 'xs')}</h2>
     <h1 class="arttitle">馆藏 ${payload.items.length} 件</h1>
@@ -184,6 +184,7 @@ ${decorate()}
 })();
 </script>
 ${seasonScript()}
+${shareScript()}
 </body>
 </html>`;
 }

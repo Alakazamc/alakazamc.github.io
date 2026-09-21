@@ -13,7 +13,7 @@ const fs = require('fs');
 const path = require('path');
 const { articles, TAG_ICON } = require('./content.js');
 const { ICONS, toSymbol } = require('./icons.js');
-const { seasonScript, bottomBlock, decorate, dcShelf, DECOR_ICONS } = require('./subpage.js');
+const { seasonScript, bottomBlock, decorate, dcShelf, DECOR_ICONS, shareBtn, shareScript } = require('./subpage.js');
 const SITE = require('./site.config.js');
 const {tableOfContents} = require('./papermod.js');
 
@@ -38,51 +38,11 @@ const rel = (p) => (p ? '../' + p : '');
 
 // ---------- 分享 ----------
 // 柯西 2026-09-20「没有分享键」。文章页和博客页标题下方各放一枚。
-// 图标是 icons.js 的 share（金黄箭头飞出托盘），样式在 gen.js 的
-// .share-btn / .share-toast（构建时同步进 assets/theme.css，本页 <link> 的就是它）。
+// 2026-09-21「分享功能没做好」→ 分享键/脚本已挪到 subpage.js 全站共用
+// （首页工具栏、四个子页也各有一枚），图标是 icons.js 的 share（金黄箭头飞出托盘），
+// 样式在 gen.js 的 .share-btn / .share-toast（构建时同步进 assets/theme.css，
+// 本页 <link> 的就是它）。点击分支与复制降级见 subpage.js 里的长注释。
 // ⚠️ 按钮上不写副标题：一个图标 + 「分享」两个字。
-const shareBtn = () =>
-  `<button type="button" class="share-btn" data-share title="分享这一页">${ic('share', 'sm')}<em>分享</em></button>`;
-
-// 两条路：navigator.share（系统分享面板）优先；浏览器不给就复制链接。
-// ⚠️ 为什么必须自带回执（小纸条）：微信内置浏览器两条路都不给 —— 没有 share、
-//    剪贴板也常被拦。那时唯一能做的就是把链接**显示出来**让人家长按复制。
-//    静默失败的话，用户看到的就是"点了没反应"，跟没有分享键一模一样。
-// ⚠️ 这个字符串里不能出现 </script> 字面量（会被提前闭合）—— 写的时候注意。
-const shareScript = () => `<script>
-(function(){
-  var btns=document.querySelectorAll('[data-share]');
-  if(!btns.length)return;
-  var toast=document.createElement('div');
-  toast.className='share-toast';toast.setAttribute('role','status');
-  document.body.appendChild(toast);
-  var timer=null;
-  function say(msg){
-    toast.textContent=msg;toast.classList.add('on');
-    clearTimeout(timer);timer=setTimeout(function(){toast.classList.remove('on')},4000);
-  }
-  function copy(url){
-    if(navigator.clipboard&&navigator.clipboard.writeText){
-      navigator.clipboard.writeText(url).then(
-        function(){say('链接已复制，粘贴给朋友就行')},
-        function(){say('浏览器不让自动复制，长按这条链接：'+url)});
-    }else{say('浏览器不让自动复制，长按这条链接：'+url)}
-  }
-  btns.forEach(function(b){
-    b.addEventListener('click',function(){
-      // 去掉 hash：分享出去的链接带 #xxx 没有意义
-      var url=location.href.split('#')[0];
-      if(navigator.share){
-        navigator.share({title:document.title,url:url}).catch(function(e){
-          // 用户主动关掉分享面板不算失败，别弹噪声
-          if(e&&e.name==='AbortError')return;
-          copy(url);
-        });
-      }else{copy(url)}
-    });
-  });
-})();
-</script>`;
 
 const SRC_LABEL = { site: '本站', douban: '豆瓣影评' };
 
@@ -210,7 +170,7 @@ ${spriteFor(['mailbox', 'book', 'star', 'wateringcan', 'heart', 'flower', 'wheat
     <h1 class="arttitle">${esc(a.title)}</h1>
     <div class="artmeta-row">
       <p class="artmeta">${esc(metarow)}</p>
-      ${shareBtn()}
+      ${shareBtn('sm')}
     </div>
     ${cover}
     ${body}
@@ -325,7 +285,7 @@ ${spriteFor(['mailbox', 'basket', 'book', 'wateringcan', 'star', 'wheat', 'flowe
     <h1 class="arttitle">一共 ${list.length} 篇</h1>
     <div class="artmeta-row">
       <p class="artmeta">本站手写 ${siteCount} 篇 · 豆瓣影评 ${doubanCount} 篇 · 按时间倒序</p>
-      ${shareBtn()}
+      ${shareBtn('sm')}
     </div>
     ${timeline}
     <p class="blog-note">想投稿 / 纠错：首页底部「留言板」，或每篇文章底部的评论区。</p>
