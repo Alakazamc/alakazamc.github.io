@@ -85,8 +85,11 @@
     page = Math.max(1, Math.min(page, pages));
     var shown = list.slice((page - 1) * PAGE_SIZE, page * PAGE_SIZE);
     grid.textContent = '';
-    shown.forEach(function(x){
+    shown.forEach(function(x, i){
       var li = el('li','museum-item');li.dataset.kind=x.kind;
+      /* 卡片入场的错开序号（pixel-art.js 的 @keyframes px-card-in）：
+         一页最多 24 件，延迟由 CSS 的 min() 封顶在 480ms，翻页时整页波浪式入场。 */
+      li.style.setProperty('--i', i);
       var box = x.url ? el('a','museum-item-link') : el('div','museum-item-link');
       if(x.url){ box.href=x.url; box.target='_blank'; box.rel='noopener'; }
       var poster = el('span','museum-item-poster');

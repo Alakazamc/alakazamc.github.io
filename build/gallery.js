@@ -103,7 +103,7 @@ function page(data) {
   const rows = justifyRows(items);
 
   const rowsHtml = rows.map((row) => {
-    const cells = row.items.map((it) => {
+    const cells = row.items.map((it, i) => {
       // 每个缩图都是 <a> 包 <img>：即使 JS 死掉，点 <a> 也能直接打开大图（href 指向大图）。
       // 内联 width/height/flex-basis 由 justify 算法算好，保证等高且不裁切。
       const href = `../assets/gallery/${esc(it.file)}`;
@@ -112,7 +112,8 @@ function page(data) {
       const date = esc(it.date || '');
       return `<a class="gal-item" id="photo-${esc(it.file)}" href="${href}" data-w="${it.w}" data-h="${it.h}" ` +
         `data-caption="${caption}" data-date="${date}" ` +
-        `style="width:${it.outW}px;height:${it.outH}px;flex:0 0 ${it.outW}px">` +
+        // --i 是卡片入场的错开序号（pixel-art.js 的 @keyframes px-card-in），按行内位置从左到右错开
+        `style="--i:${i};width:${it.outW}px;height:${it.outH}px;flex:0 0 ${it.outW}px">` +
         `<img src="${src}" width="${it.tw}" height="${it.th}" loading="lazy" alt="${caption}"><span class="gal-caption">${caption}</span></a>`;
     }).join('');
     return `<div class="gal-row">${cells}</div>`;

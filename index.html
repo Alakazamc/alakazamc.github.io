@@ -1368,8 +1368,8 @@ body:not(.is-article) .panel>.pt>.ic{width:24px;height:24px}
       用 position:relative + top 偏移。
    ⚠️ 同位移值的合并成一条选择器列表：规则总数有 1900 的棘轮预算
       （check-css-budget），一个控件一条 :active 放不下。 */
-.toolbar .tool:active,.pixel-entry .social .soc:active,.cbtn:active,.pcard:active,
-.gstrip .gp:active,.exc > a:active,.apg:active,.museum-page-btn:active:not(:disabled),
+.toolbar .tool:active,.pixel-entry .social .soc:active,.cbtn:active,.gal-item:active,
+.museum-item a:active,.gstrip .gp:active,.exc > a:active,.apg:active,.museum-page-btn:active:not(:disabled),
 .shelf-tab:active,.museum-filter:active,.copy-code:active{transform:translateY(1px)}
 .rcard:active,.wcard-link:active{transform:translate(0,1px);box-shadow:inset 0 4px var(--cream-3)}
 .fr:active{transform:translateY(1px) scale(1.02)}
@@ -1382,10 +1382,33 @@ body:not(.is-article) .panel>.pt>.ic{width:24px;height:24px}
    ⚠️ 同样必须写在本文件：.toolbar .tool:hover / .rcard:hover 的生效层在这里。 */
 @media (hover:none){
   .toolbar .tool:hover,.pixel-entry .social .soc:hover,.cbtn:hover,.rcard:hover,
-  .wcard-link:hover,.pcard:hover,.gstrip .gp:hover,.fr:hover,.exc > a:hover,
+  .wcard-link:hover,.gal-item:hover,.gstrip .gp:hover,.fr:hover,.exc > a:hover,
   .abtn:hover,.apg:hover,.tool:hover,.tool:focus-visible,.soc:hover,.soc:focus-visible,
   .share-btn:hover{transform:none}
 }
+/* ===== 卡片入场：steps(8) 逐格（2026-09-22，对标 pixel-portfolio 的 pixelCardFadeIn）=====
+   参考实现是这么写的：
+     @keyframes pixelCardFadeIn{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+     .pixel-card-animate{opacity:0;animation:pixelCardFadeIn .3s steps(8) forwards}
+   —— 两处**刻意不照抄**，因为照抄会带出两个真问题：
+   1) 用 backwards 而不是 forwards：forwards 会把末帧的 transform **永久钉住**，
+      卡片自己的 :hover 上浮（.rcard:hover 是 translateY(-3px)、.pcard:hover
+      translateY(-4px)、.gstrip .gp:hover translateY(-3px)）和刚补的 :active 按压
+      会被一起压死 —— 参考项目正是 forwards 配 hover:-translate-y-2 同用，
+      它那个 hover 位移其实一直是失效的。backwards 只在动画期间生效，
+      播完把 transform 交还给普通级联，三态手感原样保留。
+   2) 基类**不写 opacity:0**，只放进关键帧的 from：动画一旦不跑
+      （gen.js 里有 prefers-reduced-motion 的全局刹车 *{animation:none!important}、
+       浏览器太老、用户关了动画），卡片是**直接可见**的，不会留一片空白。
+      参考项目把 opacity:0 写在类上，动画不跑就永远看不见 —— 那是
+      「装饰性动画拖累内容」的典型，本站不让装饰影响内容可达。
+   交错：由元素上的 --i 变量驱动（生成器/渲染函数按序号写），60ms 一档、封顶 480ms；
+   没有 --i 的元素延迟为 0（照样播，只是不参与错开）。
+   ⚠️ 不支持 min() 的浏览器会让整条 animation-delay 失效 → 退化成无错开，
+      动画本身照常播，属于可接受的降级。
+   ⚠️ 本文件是最后加载的样式表层，动画也必须写在这里才不会被上面的规则截胡。 */
+@keyframes px-card-in{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:none}}
+.rcard,.tl-card,.gstrip .gp,.exc,.gal-item,.museum-item,.wcard{animation:px-card-in .3s steps(8) backwards;animation-delay:min(calc(var(--i,0)*60ms),480ms)}
 
 
 #music{scroll-margin-top:24px;font-size:12px;line-height:24px}
@@ -1547,7 +1570,7 @@ html[data-time="night"] .record-light{background:#efca6a;box-shadow:0 0 8px #efc
   <h2 class="pt"><svg class="ic xs" viewBox="0 0 16 16"><use href="#px-chest"></use></svg>工坊<svg class="ic xs" viewBox="0 0 16 16"><use href="#px-chest"></use></svg></h2>
   <span class="cor tl"><svg class="ic sm" viewBox="0 0 16 16"><use href="#px-chest"></use></svg></span><span class="cor tr"><svg class="ic sm" viewBox="0 0 16 16"><use href="#px-gem"></use></svg></span><span class="cor bl"><svg class="ic sm" viewBox="0 0 16 16"><use href="#px-crystal"></use></svg></span><span class="cor br"><svg class="ic sm" viewBox="0 0 16 16"><use href="#px-coin"></use></svg></span>
   <div class="rgrid">
-      <a class="rcard" href="https://github.com/SzuDesktopTeam/szudesktop" target="_blank" rel="noopener">
+      <a class="rcard" style="--i:0" href="https://github.com/SzuDesktopTeam/szudesktop" target="_blank" rel="noopener">
         <span class="rc-h"><svg class="ic sm" viewBox="0 0 16 16"><use href="#px-chest"></use></svg><b>szudesktop</b></span>
         <span class="rc-d">深圳大学校园网客户端：像素风桌面应用 + 命令行 + 校内 VPN（Go 单文件，Windows/macOS/Linux）</span>
         <span class="rc-f">
@@ -1555,7 +1578,7 @@ html[data-time="night"] .record-light{background:#efca6a;box-shadow:0 0 8px #efc
           <span class="rc-t">09.22</span>
         </span>
       </a>
-      <a class="rcard" href="https://github.com/Alakazamc/pskit-2.0" target="_blank" rel="noopener">
+      <a class="rcard" style="--i:1" href="https://github.com/Alakazamc/pskit-2.0" target="_blank" rel="noopener">
         <span class="rc-h"><svg class="ic sm" viewBox="0 0 16 16"><use href="#px-chest"></use></svg><b>pskit-2.0</b></span>
         <span class="rc-d">🧪 BioAI Agent 工作台：LangGraph 编排 + 20+ 生信工具 + Qdrant RAG + Vue 3 SPA</span>
         <span class="rc-f">
@@ -1563,7 +1586,7 @@ html[data-time="night"] .record-light{background:#efca6a;box-shadow:0 0 8px #efc
           <span class="rc-t">08.30</span>
         </span>
       </a>
-      <a class="rcard" href="https://github.com/Alakazamc/ProteinAgent" target="_blank" rel="noopener">
+      <a class="rcard" style="--i:2" href="https://github.com/Alakazamc/ProteinAgent" target="_blank" rel="noopener">
         <span class="rc-h"><svg class="ic sm" viewBox="0 0 16 16"><use href="#px-chest"></use></svg><b>ProteinAgent</b></span>
         <span class="rc-d">🧬 垂直领域异步 AI Agent 编排系统：FastAPI + Celery + Redis + Router LLM + 蛋白领域 RAG（多肽生成 / 适配体生成 / 蛋白预测）</span>
         <span class="rc-f">
@@ -1589,7 +1612,7 @@ html[data-time="night"] .record-light{background:#efca6a;box-shadow:0 0 8px #efc
           <i>2026</i>
         </div>
         <div class="tl-axis"><span class="tl-dot"><svg class="ic xs" viewBox="0 0 16 16"><use href="#px-wateringcan"></use></svg></span></div>
-        <a class="tl-card nocover" href="posts/05-模型提速与评测陷阱.html">
+        <a class="tl-card nocover" style="--i:0" href="posts/05-模型提速与评测陷阱.html">
           
           <div class="tl-body">
             <b class="tl-title">模型快了 100 倍，整件事为什么只快了 3%？</b>
@@ -1606,7 +1629,7 @@ html[data-time="night"] .record-light{background:#efca6a;box-shadow:0 0 8px #efc
           <i>2026</i>
         </div>
         <div class="tl-axis"><span class="tl-dot"><svg class="ic xs" viewBox="0 0 16 16"><use href="#px-wateringcan"></use></svg></span></div>
-        <a class="tl-card nocover" href="posts/04-AI审批与代码检查.html">
+        <a class="tl-card nocover" style="--i:1" href="posts/04-AI审批与代码检查.html">
           
           <div class="tl-body">
             <b class="tl-title">AI 点下“批准”之前，谁真正检查过代码？</b>
@@ -1623,7 +1646,7 @@ html[data-time="night"] .record-light{background:#efca6a;box-shadow:0 0 8px #efc
           <i>2026</i>
         </div>
         <div class="tl-axis"><span class="tl-dot"><svg class="ic xs" viewBox="0 0 16 16"><use href="#px-wateringcan"></use></svg></span></div>
-        <a class="tl-card nocover" href="posts/03-零幻觉与置信度.html">
+        <a class="tl-card nocover" style="--i:2" href="posts/03-零幻觉与置信度.html">
           
           <div class="tl-body">
             <b class="tl-title">“零幻觉”的 AI，为什么仍然会批错？</b>
@@ -1647,7 +1670,7 @@ html[data-time="night"] .record-light{background:#efca6a;box-shadow:0 0 8px #efc
          <h3 class="museum-zone-title"><svg class="ic sm" viewBox="0 0 16 16"><use href="#px-book"></use></svg>收藏展览<a class="douban-mark-link" href="https://www.douban.com/people/211628276/" target="_blank" rel="noopener">去豆瓣打标</a></h3>
          <div class="shelf-bar"><button class="shelf-tab on" data-filter-kind="all" aria-pressed="true"><em>全部</em><i>1200</i></button><button class="shelf-tab" data-filter-kind="movie" aria-pressed="false"><em>影</em><i>287</i></button><button class="shelf-tab" data-filter-kind="book" aria-pressed="false"><em>书</em><i>44</i></button><button class="shelf-tab" data-filter-kind="music" aria-pressed="false"><em>音乐</em><i>573</i></button><button class="shelf-tab" data-filter-kind="game" aria-pressed="false"><em>游戏</em><i>296</i></button></div>
          <ul class="shelf">
-      <li class="exc" data-kind="music">
+      <li class="exc" style="--i:0" data-kind="music">
         <a href="https://music.163.com/#/album?id=397430271" target="_blank" rel="noopener" title="蛋专">
           <span class="poster" style="--pc:#b78457"><img src="https://p4.music.126.net/zHRzldNmi5I8_2O9m1wBPw==/109951173951926165.jpg?param=200y200" alt="蛋专" loading="lazy" referrerpolicy="no-referrer"></span>
           <span class="tx">
@@ -1658,7 +1681,7 @@ html[data-time="night"] .record-light{background:#efca6a;box-shadow:0 0 8px #efc
           </span>
         </a>
       </li>
-      <li class="exc" data-kind="music">
+      <li class="exc" style="--i:1" data-kind="music">
         <a href="https://music.163.com/#/album?id=397199509" target="_blank" rel="noopener" title="Candytape2">
           <span class="poster" style="--pc:#b78457"><img src="https://p4.music.126.net/viXsa1c1QBS7-IRyjUJEOw==/109951173904657350.jpg?param=200y200" alt="Candytape2" loading="lazy" referrerpolicy="no-referrer"></span>
           <span class="tx">
@@ -1669,7 +1692,7 @@ html[data-time="night"] .record-light{background:#efca6a;box-shadow:0 0 8px #efc
           </span>
         </a>
       </li>
-      <li class="exc" data-kind="music">
+      <li class="exc" style="--i:2" data-kind="music">
         <a href="https://music.163.com/#/album?id=385475828" target="_blank" rel="noopener" title="快乐的人在路上走">
           <span class="poster" style="--pc:#b78457"><img src="https://p4.music.126.net/F4CSe0sJ1-EA9py4rhva-Q==/109951173513736056.jpg?param=200y200" alt="快乐的人在路上走" loading="lazy" referrerpolicy="no-referrer"></span>
           <span class="tx">
@@ -1680,7 +1703,7 @@ html[data-time="night"] .record-light{background:#efca6a;box-shadow:0 0 8px #efc
           </span>
         </a>
       </li>
-      <li class="exc" data-kind="music">
+      <li class="exc" style="--i:3" data-kind="music">
         <a href="https://music.163.com/#/album?id=397063161" target="_blank" rel="noopener" title="这对我是种折磨，我们不在一起">
           <span class="poster" style="--pc:#b78457"><img src="https://p3.music.126.net/qQjJ9nUakEh8bC8KZHLkTA==/109951173899875437.jpg?param=200y200" alt="这对我是种折磨，我们不在一起" loading="lazy" referrerpolicy="no-referrer"></span>
           <span class="tx">
@@ -1691,7 +1714,7 @@ html[data-time="night"] .record-light{background:#efca6a;box-shadow:0 0 8px #efc
           </span>
         </a>
       </li>
-      <li class="exc" data-kind="music">
+      <li class="exc" style="--i:4" data-kind="music">
         <a href="https://music.163.com/#/album?id=392468494" target="_blank" rel="noopener" title="《邱氏正骨》">
           <span class="poster" style="--pc:#b78457"><img src="https://p3.music.126.net/g869Fcsjwo_5_C_PNq7WSw==/109951173752990581.jpg?param=200y200" alt="《邱氏正骨》" loading="lazy" referrerpolicy="no-referrer"></span>
           <span class="tx">
@@ -1702,7 +1725,7 @@ html[data-time="night"] .record-light{background:#efca6a;box-shadow:0 0 8px #efc
           </span>
         </a>
       </li>
-      <li class="exc" data-kind="music">
+      <li class="exc" style="--i:5" data-kind="music">
         <a href="https://music.163.com/#/album?id=392217046" target="_blank" rel="noopener" title="驭城 Run the city">
           <span class="poster" style="--pc:#b78457"><img src="https://p4.music.126.net/ZG9WeeuUX5r3sRtAZQ_COg==/109951173740862159.jpg?param=200y200" alt="驭城 Run the city" loading="lazy" referrerpolicy="no-referrer"></span>
           <span class="tx">
@@ -1713,7 +1736,7 @@ html[data-time="night"] .record-light{background:#efca6a;box-shadow:0 0 8px #efc
           </span>
         </a>
       </li>
-      <li class="exc" data-kind="music">
+      <li class="exc" style="--i:6" data-kind="music">
         <a href="https://music.163.com/#/album?id=251011194" target="_blank" rel="noopener" title="蓝图4">
           <span class="poster" style="--pc:#b78457"><img src="https://p3.music.126.net/8HY5HY_bVsiWWMFxZqLG7Q==/109951170050817922.jpg?param=200y200" alt="蓝图4" loading="lazy" referrerpolicy="no-referrer"></span>
           <span class="tx">
@@ -1724,7 +1747,7 @@ html[data-time="night"] .record-light{background:#efca6a;box-shadow:0 0 8px #efc
           </span>
         </a>
       </li>
-      <li class="exc" data-kind="music">
+      <li class="exc" style="--i:7" data-kind="music">
         <a href="https://music.163.com/#/album?id=394639312" target="_blank" rel="noopener" title="佛哦佛404">
           <span class="poster" style="--pc:#b78457"><img src="https://p3.music.126.net/_OJ35GGy3OfvnHnvcmBwGw==/109951173826342124.jpg?param=200y200" alt="佛哦佛404" loading="lazy" referrerpolicy="no-referrer"></span>
           <span class="tx">
@@ -1735,7 +1758,7 @@ html[data-time="night"] .record-light{background:#efca6a;box-shadow:0 0 8px #efc
           </span>
         </a>
       </li>
-      <li class="exc" data-kind="music">
+      <li class="exc" style="--i:8" data-kind="music">
         <a href="https://music.163.com/#/album?id=394446483" target="_blank" rel="noopener" title="冷都女">
           <span class="poster" style="--pc:#b78457"><img src="https://p4.music.126.net/VbeVVLrJTLvdxVz_QOfa9w==/109951173820542696.jpg?param=200y200" alt="冷都女" loading="lazy" referrerpolicy="no-referrer"></span>
           <span class="tx">
@@ -1746,7 +1769,7 @@ html[data-time="night"] .record-light{background:#efca6a;box-shadow:0 0 8px #efc
           </span>
         </a>
       </li>
-      <li class="exc" data-kind="music">
+      <li class="exc" style="--i:9" data-kind="music">
         <a href="https://music.163.com/#/album?id=36790855" target="_blank" rel="noopener" title="京都武斗会">
           <span class="poster" style="--pc:#b78457"><img src="https://p3.music.126.net/nNGgrPskadg5hda0jXKyJg==/109951163063856652.jpg?param=200y200" alt="京都武斗会" loading="lazy" referrerpolicy="no-referrer"></span>
           <span class="tx">
@@ -1757,7 +1780,7 @@ html[data-time="night"] .record-light{background:#efca6a;box-shadow:0 0 8px #efc
           </span>
         </a>
       </li>
-      <li class="exc" data-kind="music">
+      <li class="exc" style="--i:10" data-kind="music">
         <a href="https://music.163.com/#/album?id=34829067" target="_blank" rel="noopener" title="丙申歌合战">
           <span class="poster" style="--pc:#b78457"><img src="https://p3.music.126.net/XcgQX2dCc7gYyUOpRQa5hg==/16578436324297995.jpg?param=200y200" alt="丙申歌合战" loading="lazy" referrerpolicy="no-referrer"></span>
           <span class="tx">
@@ -1768,7 +1791,7 @@ html[data-time="night"] .record-light{background:#efca6a;box-shadow:0 0 8px #efc
           </span>
         </a>
       </li>
-      <li class="exc" data-kind="music">
+      <li class="exc" style="--i:11" data-kind="music">
         <a href="https://music.163.com/#/album?id=38990" target="_blank" rel="noopener" title="天启">
           <span class="poster" style="--pc:#b78457"><img src="https://p4.music.126.net/acBj4tGTncSYRdQZnh4agg==/5981343255293644.jpg?param=200y200" alt="天启" loading="lazy" referrerpolicy="no-referrer"></span>
           <span class="tx">
@@ -1779,7 +1802,7 @@ html[data-time="night"] .record-light{background:#efca6a;box-shadow:0 0 8px #efc
           </span>
         </a>
       </li>
-      <li class="exc" data-kind="music">
+      <li class="exc" style="--i:12" data-kind="music">
         <a href="https://music.163.com/#/album?id=390094926" target="_blank" rel="noopener" title="DLC">
           <span class="poster" style="--pc:#b78457"><img src="https://p4.music.126.net/M1ymYle2IiY2Ad07MlosXw==/109951173671432890.jpg?param=200y200" alt="DLC" loading="lazy" referrerpolicy="no-referrer"></span>
           <span class="tx">
@@ -1790,7 +1813,7 @@ html[data-time="night"] .record-light{background:#efca6a;box-shadow:0 0 8px #efc
           </span>
         </a>
       </li>
-      <li class="exc" data-kind="music">
+      <li class="exc" style="--i:13" data-kind="music">
         <a href="https://music.163.com/#/album?id=250634787" target="_blank" rel="noopener" title="再生笔记">
           <span class="poster" style="--pc:#b78457"><img src="https://p3.music.126.net/KZriF_p0LfO3ZK__KmSeRQ==/109951170042782568.jpg?param=200y200" alt="再生笔记" loading="lazy" referrerpolicy="no-referrer"></span>
           <span class="tx">
@@ -1801,7 +1824,7 @@ html[data-time="night"] .record-light{background:#efca6a;box-shadow:0 0 8px #efc
           </span>
         </a>
       </li>
-      <li class="exc" data-kind="music">
+      <li class="exc" style="--i:14" data-kind="music">
         <a href="https://music.163.com/#/album?id=38197" target="_blank" rel="noopener" title="IV">
           <span class="poster" style="--pc:#b78457"><img src="https://p4.music.126.net/hN7UvOsqSBe_uiQh6b6RuQ==/109951170118039993.jpg?param=200y200" alt="IV" loading="lazy" referrerpolicy="no-referrer"></span>
           <span class="tx">
@@ -1812,7 +1835,7 @@ html[data-time="night"] .record-light{background:#efca6a;box-shadow:0 0 8px #efc
           </span>
         </a>
       </li>
-      <li class="exc" data-kind="music">
+      <li class="exc" style="--i:15" data-kind="music">
         <a href="https://music.163.com/#/album?id=38188" target="_blank" rel="noopener" title="0.7">
           <span class="poster" style="--pc:#b78457"><img src="https://p3.music.126.net/sxirRZ5jyMXXApyam3GGMA==/109951170074961839.jpg?param=200y200" alt="0.7" loading="lazy" referrerpolicy="no-referrer"></span>
           <span class="tx">
@@ -1823,7 +1846,7 @@ html[data-time="night"] .record-light{background:#efca6a;box-shadow:0 0 8px #efc
           </span>
         </a>
       </li>
-      <li class="exc" data-kind="music">
+      <li class="exc" style="--i:16" data-kind="music">
         <a href="https://music.163.com/#/album?id=38202" target="_blank" rel="noopener" title="二十八天失眠日记">
           <span class="poster" style="--pc:#b78457"><img src="https://p3.music.126.net/k7F7psZA3OZ9AkMLmDxwug==/109951170118045764.jpg?param=200y200" alt="二十八天失眠日记" loading="lazy" referrerpolicy="no-referrer"></span>
           <span class="tx">
@@ -1834,7 +1857,7 @@ html[data-time="night"] .record-light{background:#efca6a;box-shadow:0 0 8px #efc
           </span>
         </a>
       </li>
-      <li class="exc" data-kind="music">
+      <li class="exc" style="--i:17" data-kind="music">
         <a href="https://music.163.com/#/album?id=38206" target="_blank" rel="noopener" title="凌水河">
           <span class="poster" style="--pc:#b78457"><img src="https://p3.music.126.net/PbRYdHmqE731F7i8Duo2Lg==/36283883730940.jpg?param=200y200" alt="凌水河" loading="lazy" referrerpolicy="no-referrer"></span>
           <span class="tx">
@@ -1845,7 +1868,7 @@ html[data-time="night"] .record-light{background:#efca6a;box-shadow:0 0 8px #efc
           </span>
         </a>
       </li>
-      <li class="exc" data-kind="music">
+      <li class="exc" style="--i:18" data-kind="music">
         <a href="https://music.163.com/#/album?id=2519181" target="_blank" rel="noopener" title="Split">
           <span class="poster" style="--pc:#b78457"><img src="https://p3.music.126.net/v7CHTTWPyfhJMJ5LZOr8tw==/2316670999787142.jpg?param=200y200" alt="Split" loading="lazy" referrerpolicy="no-referrer"></span>
           <span class="tx">
@@ -1856,7 +1879,7 @@ html[data-time="night"] .record-light{background:#efca6a;box-shadow:0 0 8px #efc
           </span>
         </a>
       </li>
-      <li class="exc" data-kind="music">
+      <li class="exc" style="--i:19" data-kind="music">
         <a href="https://music.163.com/#/album?id=2857065" target="_blank" rel="noopener" title="八匹马">
           <span class="poster" style="--pc:#b78457"><img src="https://p4.music.126.net/6s71mrCfxNHQg6_JgxbT0g==/109951170026887539.jpg?param=200y200" alt="八匹马" loading="lazy" referrerpolicy="no-referrer"></span>
           <span class="tx">
@@ -1867,7 +1890,7 @@ html[data-time="night"] .record-light{background:#efca6a;box-shadow:0 0 8px #efc
           </span>
         </a>
       </li>
-      <li class="exc" data-kind="music">
+      <li class="exc" style="--i:20" data-kind="music">
         <a href="https://music.163.com/#/album?id=34611473" target="_blank" rel="noopener" title="岁月鸿沟">
           <span class="poster" style="--pc:#b78457"><img src="https://p4.music.126.net/MKhdoZYzgTAbwFz1C3n3iA==/1368891983077821.jpg?param=200y200" alt="岁月鸿沟" loading="lazy" referrerpolicy="no-referrer"></span>
           <span class="tx">
@@ -1878,7 +1901,7 @@ html[data-time="night"] .record-light{background:#efca6a;box-shadow:0 0 8px #efc
           </span>
         </a>
       </li>
-      <li class="exc" data-kind="music">
+      <li class="exc" style="--i:21" data-kind="music">
         <a href="https://music.163.com/#/album?id=36082328" target="_blank" rel="noopener" title="奇迹寻踪">
           <span class="poster" style="--pc:#b78457"><img src="https://p4.music.126.net/2kMl2i1GM7ag6vPCpkJipg==/109951163015533790.jpg?param=200y200" alt="奇迹寻踪" loading="lazy" referrerpolicy="no-referrer"></span>
           <span class="tx">
@@ -1889,7 +1912,7 @@ html[data-time="night"] .record-light{background:#efca6a;box-shadow:0 0 8px #efc
           </span>
         </a>
       </li>
-      <li class="exc" data-kind="music">
+      <li class="exc" style="--i:22" data-kind="music">
         <a href="https://music.163.com/#/album?id=152929741" target="_blank" rel="noopener" title="辛丑｜壬寅">
           <span class="poster" style="--pc:#b78457"><img src="https://p4.music.126.net/RepDL-zK5S6P9B93Zp_3mQ==/109951167951402494.jpg?param=200y200" alt="辛丑｜壬寅" loading="lazy" referrerpolicy="no-referrer"></span>
           <span class="tx">
@@ -1900,7 +1923,7 @@ html[data-time="night"] .record-light{background:#efca6a;box-shadow:0 0 8px #efc
           </span>
         </a>
       </li>
-      <li class="exc" data-kind="music">
+      <li class="exc" style="--i:23" data-kind="music">
         <a href="https://music.163.com/#/album?id=95839945" target="_blank" rel="noopener" title="十万个为什么">
           <span class="poster" style="--pc:#b78457"><img src="https://p3.music.126.net/gWD7B96u2Ydlc3e_hxwl-A==/109951165338873784.jpg?param=200y200" alt="十万个为什么" loading="lazy" referrerpolicy="no-referrer"></span>
           <span class="tx">
@@ -1911,7 +1934,7 @@ html[data-time="night"] .record-light{background:#efca6a;box-shadow:0 0 8px #efc
           </span>
         </a>
       </li>
-      <li class="exc" data-kind="music">
+      <li class="exc" style="--i:24" data-kind="music">
         <a href="https://music.163.com/#/album?id=71612875" target="_blank" rel="noopener" title="看不见的城市">
           <span class="poster" style="--pc:#b78457"><img src="https://p4.music.126.net/atHAfoVwgRIhN3k5tokzbw==/109951163381887104.jpg?param=200y200" alt="看不见的城市" loading="lazy" referrerpolicy="no-referrer"></span>
           <span class="tx">
@@ -1922,7 +1945,7 @@ html[data-time="night"] .record-light{background:#efca6a;box-shadow:0 0 8px #efc
           </span>
         </a>
       </li>
-      <li class="exc" data-kind="music">
+      <li class="exc" style="--i:25" data-kind="music">
         <a href="https://music.163.com/#/album?id=245165857" target="_blank" rel="noopener" title="沧浪之水">
           <span class="poster" style="--pc:#b78457"><img src="https://p4.music.126.net/n8VnXfqkSn_m4DqN24YN2Q==/109951169875415669.jpg?param=200y200" alt="沧浪之水" loading="lazy" referrerpolicy="no-referrer"></span>
           <span class="tx">
@@ -1933,7 +1956,7 @@ html[data-time="night"] .record-light{background:#efca6a;box-shadow:0 0 8px #efc
           </span>
         </a>
       </li>
-      <li class="exc" data-kind="music">
+      <li class="exc" style="--i:26" data-kind="music">
         <a href="https://music.163.com/#/album?id=390737389" target="_blank" rel="noopener" title="Trap Boi Mixtape">
           <span class="poster" style="--pc:#b78457"><img src="https://p3.music.126.net/9WK6dYMLSvau9vLUd0i7zg==/109951173693880657.jpg?param=200y200" alt="Trap Boi Mixtape" loading="lazy" referrerpolicy="no-referrer"></span>
           <span class="tx">
@@ -1944,7 +1967,7 @@ html[data-time="night"] .record-light{background:#efca6a;box-shadow:0 0 8px #efc
           </span>
         </a>
       </li>
-      <li class="exc" data-kind="music">
+      <li class="exc" style="--i:27" data-kind="music">
         <a href="https://music.163.com/#/album?id=160346694" target="_blank" rel="noopener" title="无限">
           <span class="poster" style="--pc:#b78457"><img src="https://p4.music.126.net/HYI1lrng-LoQZMdgG1BeIw==/109951168320820503.jpg?param=200y200" alt="无限" loading="lazy" referrerpolicy="no-referrer"></span>
           <span class="tx">
@@ -1955,7 +1978,7 @@ html[data-time="night"] .record-light{background:#efca6a;box-shadow:0 0 8px #efc
           </span>
         </a>
       </li>
-      <li class="exc" data-kind="music">
+      <li class="exc" style="--i:28" data-kind="music">
         <a href="https://music.163.com/#/album?id=253645196" target="_blank" rel="noopener" title="my demos">
           <span class="poster" style="--pc:#b78457"><img src="https://p4.music.126.net/z64A57Ip35WtHWVI7QZbGw==/109951170147204997.jpg?param=200y200" alt="my demos" loading="lazy" referrerpolicy="no-referrer"></span>
           <span class="tx">
@@ -1966,7 +1989,7 @@ html[data-time="night"] .record-light{background:#efca6a;box-shadow:0 0 8px #efc
           </span>
         </a>
       </li>
-      <li class="exc" data-kind="music">
+      <li class="exc" style="--i:29" data-kind="music">
         <a href="https://music.163.com/#/album?id=268401203" target="_blank" rel="noopener" title="i felt like a sketch">
           <span class="poster" style="--pc:#b78457"><img src="https://p3.music.126.net/Sen5nUSHax-7Bv2jTQz2JQ==/109951170711309112.jpg?param=200y200" alt="i felt like a sketch" loading="lazy" referrerpolicy="no-referrer"></span>
           <span class="tx">
@@ -1977,7 +2000,7 @@ html[data-time="night"] .record-light{background:#efca6a;box-shadow:0 0 8px #efc
           </span>
         </a>
       </li>
-      <li class="exc" data-kind="music">
+      <li class="exc" style="--i:30" data-kind="music">
         <a href="https://music.163.com/#/album?id=352031956" target="_blank" rel="noopener" title="M.C.S.A.">
           <span class="poster" style="--pc:#b78457"><img src="https://p3.music.126.net/d7xyxo0Sm8-60SBJBXLSnQ==/109951172346326577.jpg?param=200y200" alt="M.C.S.A." loading="lazy" referrerpolicy="no-referrer"></span>
           <span class="tx">
@@ -1988,7 +2011,7 @@ html[data-time="night"] .record-light{background:#efca6a;box-shadow:0 0 8px #efc
           </span>
         </a>
       </li>
-      <li class="exc" data-kind="music">
+      <li class="exc" style="--i:31" data-kind="music">
         <a href="https://music.163.com/#/album?id=121309558" target="_blank" rel="noopener" title="2020 wasted">
           <span class="poster" style="--pc:#b78457"><img src="https://p4.music.126.net/MNjaLfJ76BWABCjWTa4pfw==/109951173955367377.jpg?param=200y200" alt="2020 wasted" loading="lazy" referrerpolicy="no-referrer"></span>
           <span class="tx">
@@ -1999,7 +2022,7 @@ html[data-time="night"] .record-light{background:#efca6a;box-shadow:0 0 8px #efc
           </span>
         </a>
       </li>
-      <li class="exc" data-kind="music">
+      <li class="exc" style="--i:32" data-kind="music">
         <a href="https://music.163.com/#/album?id=390942349" target="_blank" rel="noopener" title="BALDNESS">
           <span class="poster" style="--pc:#b78457"><img src="https://p4.music.126.net/Ta8-Unle3sQKOj0YyOn62g==/109951173699155483.jpg?param=200y200" alt="BALDNESS" loading="lazy" referrerpolicy="no-referrer"></span>
           <span class="tx">
@@ -2010,7 +2033,7 @@ html[data-time="night"] .record-light{background:#efca6a;box-shadow:0 0 8px #efc
           </span>
         </a>
       </li>
-      <li class="exc" data-kind="music">
+      <li class="exc" style="--i:33" data-kind="music">
         <a href="https://music.163.com/#/album?id=98912120" target="_blank" rel="noopener" title="7 7 7 WAR BABII">
           <span class="poster" style="--pc:#b78457"><img src="https://p3.music.126.net/D6iWL6fKCvBEtT3_jW0iGQ==/109951165512089391.jpg?param=200y200" alt="7 7 7 WAR BABII" loading="lazy" referrerpolicy="no-referrer"></span>
           <span class="tx">
@@ -2021,7 +2044,7 @@ html[data-time="night"] .record-light{background:#efca6a;box-shadow:0 0 8px #efc
           </span>
         </a>
       </li>
-      <li class="exc" data-kind="music">
+      <li class="exc" style="--i:34" data-kind="music">
         <a href="https://music.163.com/#/album?id=252286614" target="_blank" rel="noopener" title="王中王">
           <span class="poster" style="--pc:#b78457"><img src="https://p3.music.126.net/QnQmVpkz6RHd6mdB0PsisA==/109951170682532652.jpg?param=200y200" alt="王中王" loading="lazy" referrerpolicy="no-referrer"></span>
           <span class="tx">
@@ -2032,7 +2055,7 @@ html[data-time="night"] .record-light{background:#efca6a;box-shadow:0 0 8px #efc
           </span>
         </a>
       </li>
-      <li class="exc" data-kind="music">
+      <li class="exc" style="--i:35" data-kind="music">
         <a href="https://music.163.com/#/album?id=382159655" target="_blank" rel="noopener" title="神农尝百草·卷二">
           <span class="poster" style="--pc:#b78457"><img src="https://p4.music.126.net/baY_btc4SqfPO7PeFdzNxg==/109951173406179425.jpg?param=200y200" alt="神农尝百草·卷二" loading="lazy" referrerpolicy="no-referrer"></span>
           <span class="tx">
@@ -2043,7 +2066,7 @@ html[data-time="night"] .record-light{background:#efca6a;box-shadow:0 0 8px #efc
           </span>
         </a>
       </li>
-      <li class="exc" data-kind="game" hidden>
+      <li class="exc" style="--i:36" data-kind="game" hidden>
         <a href="museum/index.html?kind=game" target="_blank" rel="noopener" title="绝地求生">
           <span class="poster" style="--pc:#b78457"><img src="assets/games/578080.jpg" alt="绝地求生" loading="lazy" referrerpolicy="no-referrer"></span>
           <span class="tx">
@@ -2054,7 +2077,7 @@ html[data-time="night"] .record-light{background:#efca6a;box-shadow:0 0 8px #efc
           </span>
         </a>
       </li>
-      <li class="exc" data-kind="game" hidden>
+      <li class="exc" style="--i:37" data-kind="game" hidden>
         <a href="museum/index.html?kind=game" target="_blank" rel="noopener" title="虚拟桌宠模拟器">
           <span class="poster" style="--pc:#b78457"><img src="assets/games/1920960.jpg" alt="虚拟桌宠模拟器" loading="lazy" referrerpolicy="no-referrer"></span>
           <span class="tx">
@@ -2065,7 +2088,7 @@ html[data-time="night"] .record-light{background:#efca6a;box-shadow:0 0 8px #efc
           </span>
         </a>
       </li>
-      <li class="exc" data-kind="game" hidden>
+      <li class="exc" style="--i:38" data-kind="game" hidden>
         <a href="museum/index.html?kind=game" target="_blank" rel="noopener" title="杀戮尖塔">
           <span class="poster" style="--pc:#b78457"><img src="assets/games/646570.jpg" alt="杀戮尖塔" loading="lazy" referrerpolicy="no-referrer"></span>
           <span class="tx">
@@ -2076,7 +2099,7 @@ html[data-time="night"] .record-light{background:#efca6a;box-shadow:0 0 8px #efc
           </span>
         </a>
       </li>
-      <li class="exc" data-kind="game" hidden>
+      <li class="exc" style="--i:39" data-kind="game" hidden>
         <a href="museum/index.html?kind=game" target="_blank" rel="noopener" title="赛博朋克2077">
           <span class="poster" style="--pc:#b78457"><img src="assets/games/1091500.jpg" alt="赛博朋克2077" loading="lazy" referrerpolicy="no-referrer"></span>
           <span class="tx">
@@ -2087,7 +2110,7 @@ html[data-time="night"] .record-light{background:#efca6a;box-shadow:0 0 8px #efc
           </span>
         </a>
       </li>
-      <li class="exc" data-kind="game" hidden>
+      <li class="exc" style="--i:40" data-kind="game" hidden>
         <a href="museum/index.html?kind=game" target="_blank" rel="noopener" title="守望先锋">
           <span class="poster" style="--pc:#b78457"><img src="assets/games/2357570.jpg" alt="守望先锋" loading="lazy" referrerpolicy="no-referrer"></span>
           <span class="tx">
@@ -2098,7 +2121,7 @@ html[data-time="night"] .record-light{background:#efca6a;box-shadow:0 0 8px #efc
           </span>
         </a>
       </li>
-      <li class="exc" data-kind="game" hidden>
+      <li class="exc" style="--i:41" data-kind="game" hidden>
         <a href="museum/index.html?kind=game" target="_blank" rel="noopener" title="荒野大镖客：救赎2">
           <span class="poster" style="--pc:#b78457"><img src="assets/games/1174180.jpg" alt="荒野大镖客：救赎2" loading="lazy" referrerpolicy="no-referrer"></span>
           <span class="tx">
@@ -2109,7 +2132,7 @@ html[data-time="night"] .record-light{background:#efca6a;box-shadow:0 0 8px #efc
           </span>
         </a>
       </li>
-      <li class="exc" data-kind="game" hidden>
+      <li class="exc" style="--i:42" data-kind="game" hidden>
         <a href="museum/index.html?kind=game" target="_blank" rel="noopener" title="杀戮尖塔2">
           <span class="poster" style="--pc:#b78457"><img src="assets/games/2868840.jpg" alt="杀戮尖塔2" loading="lazy" referrerpolicy="no-referrer"></span>
           <span class="tx">
@@ -2120,7 +2143,7 @@ html[data-time="night"] .record-light{background:#efca6a;box-shadow:0 0 8px #efc
           </span>
         </a>
       </li>
-      <li class="exc" data-kind="game" hidden>
+      <li class="exc" style="--i:43" data-kind="game" hidden>
         <a href="museum/index.html?kind=game" target="_blank" rel="noopener" title="以撒的结合：重生">
           <span class="poster" style="--pc:#b78457"><img src="assets/games/250900.jpg" alt="以撒的结合：重生" loading="lazy" referrerpolicy="no-referrer"></span>
           <span class="tx">
@@ -2131,7 +2154,7 @@ html[data-time="night"] .record-light{background:#efca6a;box-shadow:0 0 8px #efc
           </span>
         </a>
       </li>
-      <li class="exc" data-kind="game" hidden>
+      <li class="exc" style="--i:44" data-kind="game" hidden>
         <a href="museum/index.html?kind=game" target="_blank" rel="noopener" title="艾尔登法环">
           <span class="poster" style="--pc:#b78457"><img src="assets/games/1245620.jpg" alt="艾尔登法环" loading="lazy" referrerpolicy="no-referrer"></span>
           <span class="tx">
@@ -2142,7 +2165,7 @@ html[data-time="night"] .record-light{background:#efca6a;box-shadow:0 0 8px #efc
           </span>
         </a>
       </li>
-      <li class="exc" data-kind="game" hidden>
+      <li class="exc" style="--i:45" data-kind="game" hidden>
         <a href="museum/index.html?kind=game" target="_blank" rel="noopener" title="只狼：影逝二度">
           <span class="poster" style="--pc:#b78457"><img src="assets/games/814380.jpg" alt="只狼：影逝二度" loading="lazy" referrerpolicy="no-referrer"></span>
           <span class="tx">
@@ -2153,7 +2176,7 @@ html[data-time="night"] .record-light{background:#efca6a;box-shadow:0 0 8px #efc
           </span>
         </a>
       </li>
-      <li class="exc" data-kind="game" hidden>
+      <li class="exc" style="--i:46" data-kind="game" hidden>
         <a href="museum/index.html?kind=game" target="_blank" rel="noopener" title="黑神话：悟空">
           <span class="poster" style="--pc:#b78457"><img src="assets/games/2358720.jpg" alt="黑神话：悟空" loading="lazy" referrerpolicy="no-referrer"></span>
           <span class="tx">
@@ -2164,7 +2187,7 @@ html[data-time="night"] .record-light{background:#efca6a;box-shadow:0 0 8px #efc
           </span>
         </a>
       </li>
-      <li class="exc" data-kind="game" hidden>
+      <li class="exc" style="--i:47" data-kind="game" hidden>
         <a href="museum/index.html?kind=game" target="_blank" rel="noopener" title="文明6">
           <span class="poster" style="--pc:#b78457"><img src="assets/games/289070.jpg" alt="文明6" loading="lazy" referrerpolicy="no-referrer"></span>
           <span class="tx">
@@ -2175,7 +2198,7 @@ html[data-time="night"] .record-light{background:#efca6a;box-shadow:0 0 8px #efc
           </span>
         </a>
       </li>
-      <li class="exc" data-kind="game" hidden>
+      <li class="exc" style="--i:48" data-kind="game" hidden>
         <a href="museum/index.html?kind=game" target="_blank" rel="noopener" title="暗喻幻想：ReFantazio">
           <span class="poster" style="--pc:#b78457"><img src="assets/games/2679460.jpg" alt="暗喻幻想：ReFantazio" loading="lazy" referrerpolicy="no-referrer"></span>
           <span class="tx">
@@ -2186,7 +2209,7 @@ html[data-time="night"] .record-light{background:#efca6a;box-shadow:0 0 8px #efc
           </span>
         </a>
       </li>
-      <li class="exc" data-kind="game" hidden>
+      <li class="exc" style="--i:49" data-kind="game" hidden>
         <a href="museum/index.html?kind=game" target="_blank" rel="noopener" title="哈迪斯">
           <span class="poster" style="--pc:#b78457"><img src="assets/games/1145360.jpg" alt="哈迪斯" loading="lazy" referrerpolicy="no-referrer"></span>
           <span class="tx">
@@ -2197,7 +2220,7 @@ html[data-time="night"] .record-light{background:#efca6a;box-shadow:0 0 8px #efc
           </span>
         </a>
       </li>
-      <li class="exc" data-kind="game" hidden>
+      <li class="exc" style="--i:50" data-kind="game" hidden>
         <a href="museum/index.html?kind=game" target="_blank" rel="noopener" title="女神异闻录５ 皇家版">
           <span class="poster" style="--pc:#b78457"><img src="assets/games/900035768.jpg" alt="女神异闻录５ 皇家版" loading="lazy" referrerpolicy="no-referrer"></span>
           <span class="tx">
@@ -2208,7 +2231,7 @@ html[data-time="night"] .record-light{background:#efca6a;box-shadow:0 0 8px #efc
           </span>
         </a>
       </li>
-      <li class="exc" data-kind="game" hidden>
+      <li class="exc" style="--i:51" data-kind="game" hidden>
         <a href="museum/index.html?kind=game" target="_blank" rel="noopener" title="人中之龙８">
           <span class="poster" style="--pc:#b78457"><img src="assets/games/2072450.jpg" alt="人中之龙８" loading="lazy" referrerpolicy="no-referrer"></span>
           <span class="tx">
@@ -2219,7 +2242,7 @@ html[data-time="night"] .record-light{background:#efca6a;box-shadow:0 0 8px #efc
           </span>
         </a>
       </li>
-      <li class="exc" data-kind="game" hidden>
+      <li class="exc" style="--i:52" data-kind="game" hidden>
         <a href="museum/index.html?kind=game" target="_blank" rel="noopener" title="战神：诸神黄昏">
           <span class="poster" style="--pc:#b78457"><img src="assets/games/900032622.jpg" alt="战神：诸神黄昏" loading="lazy" referrerpolicy="no-referrer"></span>
           <span class="tx">
@@ -2230,7 +2253,7 @@ html[data-time="night"] .record-light{background:#efca6a;box-shadow:0 0 8px #efc
           </span>
         </a>
       </li>
-      <li class="exc" data-kind="game" hidden>
+      <li class="exc" style="--i:53" data-kind="game" hidden>
         <a href="museum/index.html?kind=game" target="_blank" rel="noopener" title="塞尔达传说：王国之泪">
           <span class="poster" style="--pc:#b78457"><img src="assets/games/900011199.jpg" alt="塞尔达传说：王国之泪" loading="lazy" referrerpolicy="no-referrer"></span>
           <span class="tx">
@@ -2241,7 +2264,7 @@ html[data-time="night"] .record-light{background:#efca6a;box-shadow:0 0 8px #efc
           </span>
         </a>
       </li>
-      <li class="exc" data-kind="game" hidden>
+      <li class="exc" style="--i:54" data-kind="game" hidden>
         <a href="museum/index.html?kind=game" target="_blank" rel="noopener" title="女神异闻录３ Reload">
           <span class="poster" style="--pc:#b78457"><img src="assets/games/900135010.jpg" alt="女神异闻录３ Reload" loading="lazy" referrerpolicy="no-referrer"></span>
           <span class="tx">
@@ -2252,7 +2275,7 @@ html[data-time="night"] .record-light{background:#efca6a;box-shadow:0 0 8px #efc
           </span>
         </a>
       </li>
-      <li class="exc" data-kind="game" hidden>
+      <li class="exc" style="--i:55" data-kind="game" hidden>
         <a href="museum/index.html?kind=game" target="_blank" rel="noopener" title="Wallpaper Engine">
           <span class="poster" style="--pc:#b78457"><img src="assets/games/431960.jpg" alt="Wallpaper Engine" loading="lazy" referrerpolicy="no-referrer"></span>
           <span class="tx">
@@ -2263,7 +2286,7 @@ html[data-time="night"] .record-light{background:#efca6a;box-shadow:0 0 8px #efc
           </span>
         </a>
       </li>
-      <li class="exc" data-kind="game" hidden>
+      <li class="exc" style="--i:56" data-kind="game" hidden>
         <a href="museum/index.html?kind=game" target="_blank" rel="noopener" title="对马岛之魂：导演剪辑版">
           <span class="poster" style="--pc:#b78457"><img src="assets/games/psn-900015383.jpg" alt="对马岛之魂：导演剪辑版" loading="lazy" referrerpolicy="no-referrer"></span>
           <span class="tx">
@@ -2274,7 +2297,7 @@ html[data-time="night"] .record-light{background:#efca6a;box-shadow:0 0 8px #efc
           </span>
         </a>
       </li>
-      <li class="exc" data-kind="game" hidden>
+      <li class="exc" style="--i:57" data-kind="game" hidden>
         <a href="museum/index.html?kind=game" target="_blank" rel="noopener" title="Minecraft for Windows">
           <span class="poster" style="--pc:#b78457"><img src="assets/games/xbox_v2-900147560.jpg" alt="Minecraft for Windows" loading="lazy" referrerpolicy="no-referrer"></span>
           <span class="tx">
@@ -2285,7 +2308,7 @@ html[data-time="night"] .record-light{background:#efca6a;box-shadow:0 0 8px #efc
           </span>
         </a>
       </li>
-      <li class="exc" data-kind="game" hidden>
+      <li class="exc" style="--i:58" data-kind="game" hidden>
         <a href="museum/index.html?kind=game" target="_blank" rel="noopener" title="人中之龙 维新！ 极">
           <span class="poster" style="--pc:#b78457"><img src="assets/games/psn-900126311.jpg" alt="人中之龙 维新！ 极" loading="lazy" referrerpolicy="no-referrer"></span>
           <span class="tx">
@@ -2296,7 +2319,7 @@ html[data-time="night"] .record-light{background:#efca6a;box-shadow:0 0 8px #efc
           </span>
         </a>
       </li>
-      <li class="exc" data-kind="game" hidden>
+      <li class="exc" style="--i:59" data-kind="game" hidden>
         <a href="museum/index.html?kind=game" target="_blank" rel="noopener" title="女神异闻录4 黄金版">
           <span class="poster" style="--pc:#b78457"><img src="assets/games/steam-1113000.jpg" alt="女神异闻录4 黄金版" loading="lazy" referrerpolicy="no-referrer"></span>
           <span class="tx">
@@ -2307,7 +2330,7 @@ html[data-time="night"] .record-light{background:#efca6a;box-shadow:0 0 8px #efc
           </span>
         </a>
       </li>
-      <li class="exc" data-kind="game" hidden>
+      <li class="exc" style="--i:60" data-kind="game" hidden>
         <a href="museum/index.html?kind=game" target="_blank" rel="noopener" title="最终幻想7 重制版">
           <span class="poster" style="--pc:#b78457"><img src="assets/games/psn-900023392.jpg" alt="最终幻想7 重制版" loading="lazy" referrerpolicy="no-referrer"></span>
           <span class="tx">
@@ -2318,7 +2341,7 @@ html[data-time="night"] .record-light{background:#efca6a;box-shadow:0 0 8px #efc
           </span>
         </a>
       </li>
-      <li class="exc" data-kind="game" hidden>
+      <li class="exc" style="--i:61" data-kind="game" hidden>
         <a href="museum/index.html?kind=game" target="_blank" rel="noopener" title="饥荒联机版">
           <span class="poster" style="--pc:#b78457"><img src="assets/games/steam-322330.jpg" alt="饥荒联机版" loading="lazy" referrerpolicy="no-referrer"></span>
           <span class="tx">
@@ -2329,7 +2352,7 @@ html[data-time="night"] .record-light{background:#efca6a;box-shadow:0 0 8px #efc
           </span>
         </a>
       </li>
-      <li class="exc" data-kind="game" hidden>
+      <li class="exc" style="--i:62" data-kind="game" hidden>
         <a href="museum/index.html?kind=game" target="_blank" rel="noopener" title="塞尔达传说：旷野之息">
           <span class="poster" style="--pc:#b78457"><img src="assets/games/switchall-900000069.jpg" alt="塞尔达传说：旷野之息" loading="lazy" referrerpolicy="no-referrer"></span>
           <span class="tx">
@@ -2340,7 +2363,7 @@ html[data-time="night"] .record-light{background:#efca6a;box-shadow:0 0 8px #efc
           </span>
         </a>
       </li>
-      <li class="exc" data-kind="game" hidden>
+      <li class="exc" style="--i:63" data-kind="game" hidden>
         <a href="museum/index.html?kind=game" target="_blank" rel="noopener" title="小丑牌">
           <span class="poster" style="--pc:#b78457"><img src="assets/games/steam-2379780.jpg" alt="小丑牌" loading="lazy" referrerpolicy="no-referrer"></span>
           <span class="tx">
@@ -2351,7 +2374,7 @@ html[data-time="night"] .record-light{background:#efca6a;box-shadow:0 0 8px #efc
           </span>
         </a>
       </li>
-      <li class="exc" data-kind="game" hidden>
+      <li class="exc" style="--i:64" data-kind="game" hidden>
         <a href="museum/index.html?kind=game" target="_blank" rel="noopener" title="夺宝奇兵：古老之圈">
           <span class="poster" style="--pc:#b78457"><img src="assets/games/xbox_v2-900164630.jpg" alt="夺宝奇兵：古老之圈" loading="lazy" referrerpolicy="no-referrer"></span>
           <span class="tx">
@@ -2362,7 +2385,7 @@ html[data-time="night"] .record-light{background:#efca6a;box-shadow:0 0 8px #efc
           </span>
         </a>
       </li>
-      <li class="exc" data-kind="game" hidden>
+      <li class="exc" style="--i:65" data-kind="game" hidden>
         <a href="museum/index.html?kind=game" target="_blank" rel="noopener" title="宇宙机器人">
           <span class="poster" style="--pc:#b78457"><img src="assets/games/psn-900152633.jpg" alt="宇宙机器人" loading="lazy" referrerpolicy="no-referrer"></span>
           <span class="tx">
@@ -2373,7 +2396,7 @@ html[data-time="night"] .record-light{background:#efca6a;box-shadow:0 0 8px #efc
           </span>
         </a>
       </li>
-      <li class="exc" data-kind="game" hidden>
+      <li class="exc" style="--i:66" data-kind="game" hidden>
         <a href="museum/index.html?kind=game" target="_blank" rel="noopener" title="人中之龙7 光与暗的去向 国际版">
           <span class="poster" style="--pc:#b78457"><img src="assets/games/xbox_v2-900011716.jpg" alt="人中之龙7 光与暗的去向 国际版" loading="lazy" referrerpolicy="no-referrer"></span>
           <span class="tx">
@@ -2384,7 +2407,7 @@ html[data-time="night"] .record-light{background:#efca6a;box-shadow:0 0 8px #efc
           </span>
         </a>
       </li>
-      <li class="exc" data-kind="game" hidden>
+      <li class="exc" style="--i:67" data-kind="game" hidden>
         <a href="museum/index.html?kind=game" target="_blank" rel="noopener" title="潜水员戴夫">
           <span class="poster" style="--pc:#b78457"><img src="assets/games/steam-1868140.jpg" alt="潜水员戴夫" loading="lazy" referrerpolicy="no-referrer"></span>
           <span class="tx">
@@ -2395,7 +2418,7 @@ html[data-time="night"] .record-light{background:#efca6a;box-shadow:0 0 8px #efc
           </span>
         </a>
       </li>
-      <li class="exc" data-kind="game" hidden>
+      <li class="exc" style="--i:68" data-kind="game" hidden>
         <a href="museum/index.html?kind=game" target="_blank" rel="noopener" title="女神异闻录5 乱战：魅影攻手">
           <span class="poster" style="--pc:#b78457"><img src="assets/games/steam-1382330.jpg" alt="女神异闻录5 乱战：魅影攻手" loading="lazy" referrerpolicy="no-referrer"></span>
           <span class="tx">
@@ -2406,7 +2429,7 @@ html[data-time="night"] .record-light{background:#efca6a;box-shadow:0 0 8px #efc
           </span>
         </a>
       </li>
-      <li class="exc" data-kind="game" hidden>
+      <li class="exc" style="--i:69" data-kind="game" hidden>
         <a href="museum/index.html?kind=game" target="_blank" rel="noopener" title="光与影：33号远征队">
           <span class="poster" style="--pc:#b78457"><img src="assets/games/xbox_v2-900154001.jpg" alt="光与影：33号远征队" loading="lazy" referrerpolicy="no-referrer"></span>
           <span class="tx">
@@ -2417,7 +2440,7 @@ html[data-time="night"] .record-light{background:#efca6a;box-shadow:0 0 8px #efc
           </span>
         </a>
       </li>
-      <li class="exc" data-kind="game" hidden>
+      <li class="exc" style="--i:70" data-kind="game" hidden>
         <a href="museum/index.html?kind=game" target="_blank" rel="noopener" title="神秘海域:盗贼传奇合辑">
           <span class="poster" style="--pc:#b78457"><img src="assets/games/psn-900017399.jpg" alt="神秘海域:盗贼传奇合辑" loading="lazy" referrerpolicy="no-referrer"></span>
           <span class="tx">
@@ -2428,7 +2451,7 @@ html[data-time="night"] .record-light{background:#efca6a;box-shadow:0 0 8px #efc
           </span>
         </a>
       </li>
-      <li class="exc" data-kind="game" hidden>
+      <li class="exc" style="--i:71" data-kind="game" hidden>
         <a href="museum/index.html?kind=game" target="_blank" rel="noopener" title="战神">
           <span class="poster" style="--pc:#b78457"><img src="assets/games/steam-1593500.jpg" alt="战神" loading="lazy" referrerpolicy="no-referrer"></span>
           <span class="tx">
@@ -2439,7 +2462,7 @@ html[data-time="night"] .record-light{background:#efca6a;box-shadow:0 0 8px #efc
           </span>
         </a>
       </li>
-      <li class="exc" data-kind="movie" hidden>
+      <li class="exc" style="--i:72" data-kind="movie" hidden>
         <a href="https://movie.douban.com/subject/35811064/" target="_blank" rel="noopener" title="欢迎来龙餐馆">
           <span class="poster" style="--pc:#57ff57"><img src="assets/covers/35811064.jpg" alt="欢迎来龙餐馆" loading="lazy" referrerpolicy="no-referrer"></span>
           <span class="tx">
@@ -2450,7 +2473,7 @@ html[data-time="night"] .record-light{background:#efca6a;box-shadow:0 0 8px #efc
           </span>
         </a>
       </li>
-      <li class="exc" data-kind="movie" hidden>
+      <li class="exc" style="--i:73" data-kind="movie" hidden>
         <a href="https://movie.douban.com/subject/36246195/" target="_blank" rel="noopener" title="蜘蛛侠：崭新之日">
           <span class="poster" style="--pc:#ff5757"><img src="assets/covers/36246195.jpg" alt="蜘蛛侠：崭新之日" loading="lazy" referrerpolicy="no-referrer"></span>
           <span class="tx">
@@ -2461,7 +2484,7 @@ html[data-time="night"] .record-light{background:#efca6a;box-shadow:0 0 8px #efc
           </span>
         </a>
       </li>
-      <li class="exc" data-kind="movie" hidden>
+      <li class="exc" style="--i:74" data-kind="movie" hidden>
         <a href="https://movie.douban.com/subject/36723035/" target="_blank" rel="noopener" title="星球大战：曼达洛人与古古">
           <span class="poster" style="--pc:#d65757"><img src="assets/covers/36723035.jpg" alt="星球大战：曼达洛人与古古" loading="lazy" referrerpolicy="no-referrer"></span>
           <span class="tx">
@@ -2472,7 +2495,7 @@ html[data-time="night"] .record-light{background:#efca6a;box-shadow:0 0 8px #efc
           </span>
         </a>
       </li>
-      <li class="exc" data-kind="movie" hidden>
+      <li class="exc" style="--i:75" data-kind="movie" hidden>
         <a href="https://movie.douban.com/subject/37116446/" target="_blank" rel="noopener" title="看哭了">
           <span class="poster" style="--pc:#96c074"><img src="assets/covers/37116446.jpg" alt="给阿嬷的情书" loading="lazy" referrerpolicy="no-referrer"></span>
           <span class="tx">
@@ -2483,7 +2506,7 @@ html[data-time="night"] .record-light{background:#efca6a;box-shadow:0 0 8px #efc
           </span>
         </a>
       </li>
-      <li class="exc" data-kind="movie" hidden>
+      <li class="exc" style="--i:76" data-kind="movie" hidden>
         <a href="https://movie.douban.com/subject/37825206/" target="_blank" rel="noopener" title="超时空辉夜姬！">
           <span class="poster" style="--pc:#5757ff"><img src="assets/covers/37825206.jpg" alt="超时空辉夜姬！" loading="lazy" referrerpolicy="no-referrer"></span>
           <span class="tx">
@@ -2494,7 +2517,7 @@ html[data-time="night"] .record-light{background:#efca6a;box-shadow:0 0 8px #efc
           </span>
         </a>
       </li>
-      <li class="exc" data-kind="movie" hidden>
+      <li class="exc" style="--i:77" data-kind="movie" hidden>
         <a href="https://movie.douban.com/subject/35517408/" target="_blank" rel="noopener" title="没出狱的时候就开始拍洗白电影了。我不知道我们的劳动改造制度到底改造了什么东西出来">
           <span class="poster" style="--pc:#f957ff"><img src="assets/covers/35517408.jpg" alt="监狱来的妈妈" loading="lazy" referrerpolicy="no-referrer"></span>
           <span class="tx">
@@ -2505,7 +2528,7 @@ html[data-time="night"] .record-light{background:#efca6a;box-shadow:0 0 8px #efc
           </span>
         </a>
       </li>
-      <li class="exc" data-kind="movie" hidden>
+      <li class="exc" style="--i:78" data-kind="movie" hidden>
         <a href="https://movie.douban.com/subject/35948919/" target="_blank" rel="noopener" title="迈克尔·杰克逊：巨星之路">
           <span class="poster" style="--pc:#5757ff"><img src="assets/covers/35948919.jpg" alt="迈克尔·杰克逊：巨星之路" loading="lazy" referrerpolicy="no-referrer"></span>
           <span class="tx">
@@ -2516,7 +2539,7 @@ html[data-time="night"] .record-light{background:#efca6a;box-shadow:0 0 8px #efc
           </span>
         </a>
       </li>
-      <li class="exc" data-kind="movie" hidden>
+      <li class="exc" style="--i:79" data-kind="movie" hidden>
         <a href="https://movie.douban.com/subject/36806351/" target="_blank" rel="noopener" title="超级马力欧银河大电影">
           <span class="poster" style="--pc:#d95786"><img src="assets/covers/36806351.jpg" alt="超级马力欧银河大电影" loading="lazy" referrerpolicy="no-referrer"></span>
           <span class="tx">
@@ -2527,7 +2550,7 @@ html[data-time="night"] .record-light{background:#efca6a;box-shadow:0 0 8px #efc
           </span>
         </a>
       </li>
-      <li class="exc" data-kind="movie" hidden>
+      <li class="exc" style="--i:80" data-kind="movie" hidden>
         <a href="https://movie.douban.com/subject/36474027/" target="_blank" rel="noopener" title="镖人：风起大漠">
           <span class="poster" style="--pc:#57ffa8"><img src="assets/covers/36474027.jpg" alt="镖人：风起大漠" loading="lazy" referrerpolicy="no-referrer"></span>
           <span class="tx">
@@ -2538,7 +2561,7 @@ html[data-time="night"] .record-light{background:#efca6a;box-shadow:0 0 8px #efc
           </span>
         </a>
       </li>
-      <li class="exc" data-kind="movie" hidden>
+      <li class="exc" style="--i:81" data-kind="movie" hidden>
         <a href="https://movie.douban.com/subject/37311135/" target="_blank" rel="noopener" title="韩寒看完f1火急火燎拍的">
           <span class="poster" style="--pc:#ff6557"><img src="assets/covers/37311135.jpg" alt="飞驰人生3" loading="lazy" referrerpolicy="no-referrer"></span>
           <span class="tx">
@@ -2549,7 +2572,7 @@ html[data-time="night"] .record-light{background:#efca6a;box-shadow:0 0 8px #efc
           </span>
         </a>
       </li>
-      <li class="exc" data-kind="movie" hidden>
+      <li class="exc" style="--i:82" data-kind="movie" hidden>
         <a href="https://movie.douban.com/subject/35391124/" target="_blank" rel="noopener" title="又烂又尬，看的脚趾抓地。">
           <span class="poster" style="--pc:#bcc6bd"><img src="assets/covers/35391124.jpg" alt="K-POP：猎魔女团" loading="lazy" referrerpolicy="no-referrer"></span>
           <span class="tx">
@@ -2560,7 +2583,7 @@ html[data-time="night"] .record-light{background:#efca6a;box-shadow:0 0 8px #efc
           </span>
         </a>
       </li>
-      <li class="exc" data-kind="movie" hidden>
+      <li class="exc" style="--i:83" data-kind="movie" hidden>
         <a href="https://movie.douban.com/subject/26817136/" target="_blank" rel="noopener" title="疯狂动物城2">
           <span class="poster" style="--pc:#5767af"><img src="assets/covers/26817136.jpg" alt="疯狂动物城2" loading="lazy" referrerpolicy="no-referrer"></span>
           <span class="tx">
@@ -2571,7 +2594,7 @@ html[data-time="night"] .record-light{background:#efca6a;box-shadow:0 0 8px #efc
           </span>
         </a>
       </li>
-      <li class="exc" data-kind="movie" hidden>
+      <li class="exc" style="--i:84" data-kind="movie" hidden>
         <a href="https://movie.douban.com/subject/26149750/" target="_blank" rel="noopener" title="我的世界大电影">
           <span class="poster" style="--pc:#577457"><img src="assets/covers/26149750.jpg" alt="我的世界大电影" loading="lazy" referrerpolicy="no-referrer"></span>
           <span class="tx">
@@ -2582,7 +2605,7 @@ html[data-time="night"] .record-light{background:#efca6a;box-shadow:0 0 8px #efc
           </span>
         </a>
       </li>
-      <li class="exc" data-kind="movie" hidden>
+      <li class="exc" style="--i:85" data-kind="movie" hidden>
         <a href="https://movie.douban.com/subject/30181250/" target="_blank" rel="noopener" title="赤石来了">
           <span class="poster" style="--pc:#57ffd3"><img src="assets/covers/30181250.jpg" alt="封神第二部：战火西岐" loading="lazy" referrerpolicy="no-referrer"></span>
           <span class="tx">
@@ -2593,7 +2616,7 @@ html[data-time="night"] .record-light{background:#efca6a;box-shadow:0 0 8px #efc
           </span>
         </a>
       </li>
-      <li class="exc" data-kind="movie" hidden>
+      <li class="exc" style="--i:86" data-kind="movie" hidden>
         <a href="https://movie.douban.com/subject/30160393/" target="_blank" rel="noopener" title="猛禽小队和哈莉·奎茵">
           <span class="poster" style="--pc:#576259"><img src="assets/covers/30160393.jpg" alt="猛禽小队和哈莉·奎茵" loading="lazy" referrerpolicy="no-referrer"></span>
           <span class="tx">
@@ -2604,7 +2627,7 @@ html[data-time="night"] .record-light{background:#efca6a;box-shadow:0 0 8px #efc
           </span>
         </a>
       </li>
-      <li class="exc" data-kind="movie" hidden>
+      <li class="exc" style="--i:87" data-kind="movie" hidden>
         <a href="https://movie.douban.com/subject/34909341/" target="_blank" rel="noopener" title="小丑2：双重妄想">
           <span class="poster" style="--pc:#7e57ff"><img src="assets/covers/34909341.jpg" alt="小丑2：双重妄想" loading="lazy" referrerpolicy="no-referrer"></span>
           <span class="tx">
@@ -2615,7 +2638,7 @@ html[data-time="night"] .record-light{background:#efca6a;box-shadow:0 0 8px #efc
           </span>
         </a>
       </li>
-      <li class="exc" data-kind="movie" hidden>
+      <li class="exc" style="--i:88" data-kind="movie" hidden>
         <a href="https://movie.douban.com/subject/36809864/" target="_blank" rel="noopener" title="南京照相馆">
           <span class="poster" style="--pc:#e05757"><img src="assets/covers/36809864.jpg" alt="南京照相馆" loading="lazy" referrerpolicy="no-referrer"></span>
           <span class="tx">
@@ -2626,7 +2649,7 @@ html[data-time="night"] .record-light{background:#efca6a;box-shadow:0 0 8px #efc
           </span>
         </a>
       </li>
-      <li class="exc" data-kind="movie" hidden>
+      <li class="exc" style="--i:89" data-kind="movie" hidden>
         <a href="https://movie.douban.com/subject/34825559/" target="_blank" rel="noopener" title="神奇4侠：初露锋芒">
           <span class="poster" style="--pc:#aa9c91"><img src="assets/covers/34825559.jpg" alt="神奇4侠：初露锋芒" loading="lazy" referrerpolicy="no-referrer"></span>
           <span class="tx">
@@ -2637,7 +2660,7 @@ html[data-time="night"] .record-light{background:#efca6a;box-shadow:0 0 8px #efc
           </span>
         </a>
       </li>
-      <li class="exc" data-kind="movie" hidden>
+      <li class="exc" style="--i:90" data-kind="movie" hidden>
         <a href="https://movie.douban.com/subject/36767956/" target="_blank" rel="noopener" title="你行！你上！">
           <span class="poster" style="--pc:#5757ff"><img src="assets/covers/36767956.jpg" alt="你行！你上！" loading="lazy" referrerpolicy="no-referrer"></span>
           <span class="tx">
@@ -2648,7 +2671,7 @@ html[data-time="night"] .record-light{background:#efca6a;box-shadow:0 0 8px #efc
           </span>
         </a>
       </li>
-      <li class="exc" data-kind="movie" hidden>
+      <li class="exc" style="--i:91" data-kind="movie" hidden>
         <a href="https://movie.douban.com/subject/35453251/" target="_blank" rel="noopener" title="哥斯拉大战金刚2：帝国崛起">
           <span class="poster" style="--pc:#57a4ff"><img src="assets/covers/35453251.jpg" alt="哥斯拉大战金刚2：帝国崛起" loading="lazy" referrerpolicy="no-referrer"></span>
           <span class="tx">
@@ -2659,7 +2682,7 @@ html[data-time="night"] .record-light{background:#efca6a;box-shadow:0 0 8px #efc
           </span>
         </a>
       </li>
-      <li class="exc" data-kind="movie" hidden>
+      <li class="exc" style="--i:92" data-kind="movie" hidden>
         <a href="https://movie.douban.com/subject/35284237/" target="_blank" rel="noopener" title="银河护卫队：假日特辑">
           <span class="poster" style="--pc:#57ff57"><img src="assets/covers/35284237.jpg" alt="银河护卫队：假日特辑" loading="lazy" referrerpolicy="no-referrer"></span>
           <span class="tx">
@@ -2670,7 +2693,7 @@ html[data-time="night"] .record-light{background:#efca6a;box-shadow:0 0 8px #efc
           </span>
         </a>
       </li>
-      <li class="exc" data-kind="movie" hidden>
+      <li class="exc" style="--i:93" data-kind="movie" hidden>
         <a href="https://movie.douban.com/subject/36188176/" target="_blank" rel="noopener" title="詹姆斯 古恩对剧情节奏的把控使他已经成为了当代最优秀的商业电影导演">
           <span class="poster" style="--pc:#5757ff"><img src="assets/covers/36188176.jpg" alt="超人" loading="lazy" referrerpolicy="no-referrer"></span>
           <span class="tx">
@@ -2681,7 +2704,7 @@ html[data-time="night"] .record-light{background:#efca6a;box-shadow:0 0 8px #efc
           </span>
         </a>
       </li>
-      <li class="exc" data-kind="movie" hidden>
+      <li class="exc" style="--i:94" data-kind="movie" hidden>
         <a href="https://movie.douban.com/subject/1849031/" target="_blank" rel="noopener" title="当幸福来敲门">
           <span class="poster" style="--pc:#57ec57"><img src="assets/covers/1849031.jpg" alt="当幸福来敲门" loading="lazy" referrerpolicy="no-referrer"></span>
           <span class="tx">
@@ -2692,7 +2715,7 @@ html[data-time="night"] .record-light{background:#efca6a;box-shadow:0 0 8px #efc
           </span>
         </a>
       </li>
-      <li class="exc" data-kind="movie" hidden>
+      <li class="exc" style="--i:95" data-kind="movie" hidden>
         <a href="https://movie.douban.com/subject/35689244/" target="_blank" rel="noopener" title="F1：狂飙飞车">
           <span class="poster" style="--pc:#57c157"><img src="assets/covers/35689244.jpg" alt="F1：狂飙飞车" loading="lazy" referrerpolicy="no-referrer"></span>
           <span class="tx">
@@ -2703,7 +2726,7 @@ html[data-time="night"] .record-light{background:#efca6a;box-shadow:0 0 8px #efc
           </span>
         </a>
       </li>
-      <li class="exc" data-kind="movie" hidden>
+      <li class="exc" style="--i:96" data-kind="movie" hidden>
         <a href="https://movie.douban.com/subject/2997076/" target="_blank" rel="noopener" title="华尔街之狼">
           <span class="poster" style="--pc:#57b1ff"><img src="assets/covers/2997076.jpg" alt="华尔街之狼" loading="lazy" referrerpolicy="no-referrer"></span>
           <span class="tx">
@@ -2714,7 +2737,7 @@ html[data-time="night"] .record-light{background:#efca6a;box-shadow:0 0 8px #efc
           </span>
         </a>
       </li>
-      <li class="exc" data-kind="movie" hidden>
+      <li class="exc" style="--i:97" data-kind="movie" hidden>
         <a href="https://movie.douban.com/subject/1949812/" target="_blank" rel="noopener" title="东京审判">
           <span class="poster" style="--pc:#579157"><img src="assets/covers/1949812.jpg" alt="东京审判" loading="lazy" referrerpolicy="no-referrer"></span>
           <span class="tx">
@@ -2725,7 +2748,7 @@ html[data-time="night"] .record-light{background:#efca6a;box-shadow:0 0 8px #efc
           </span>
         </a>
       </li>
-      <li class="exc" data-kind="movie" hidden>
+      <li class="exc" style="--i:98" data-kind="movie" hidden>
         <a href="https://movie.douban.com/subject/1297359/" target="_blank" rel="noopener" title="幽灵公主">
           <span class="poster" style="--pc:#a9576b"><img src="assets/covers/1297359.jpg" alt="幽灵公主" loading="lazy" referrerpolicy="no-referrer"></span>
           <span class="tx">
@@ -2736,7 +2759,7 @@ html[data-time="night"] .record-light{background:#efca6a;box-shadow:0 0 8px #efc
           </span>
         </a>
       </li>
-      <li class="exc" data-kind="movie" hidden>
+      <li class="exc" style="--i:99" data-kind="movie" hidden>
         <a href="https://movie.douban.com/subject/34444648/" target="_blank" rel="noopener" title="三体">
           <span class="poster" style="--pc:#575757"><img src="assets/covers/34444648.jpg" alt="三体" loading="lazy" referrerpolicy="no-referrer"></span>
           <span class="tx">
@@ -2747,7 +2770,7 @@ html[data-time="night"] .record-light{background:#efca6a;box-shadow:0 0 8px #efc
           </span>
         </a>
       </li>
-      <li class="exc" data-kind="movie" hidden>
+      <li class="exc" style="--i:100" data-kind="movie" hidden>
         <a href="https://movie.douban.com/subject/36056894/" target="_blank" rel="noopener" title="爱，死亡和机器人 第四季">
           <span class="poster" style="--pc:#d3d557"><img src="assets/covers/36056894.jpg" alt="爱，死亡和机器人 第四季" loading="lazy" referrerpolicy="no-referrer"></span>
           <span class="tx">
@@ -2758,7 +2781,7 @@ html[data-time="night"] .record-light{background:#efca6a;box-shadow:0 0 8px #efc
           </span>
         </a>
       </li>
-      <li class="exc" data-kind="movie" hidden>
+      <li class="exc" style="--i:101" data-kind="movie" hidden>
         <a href="https://movie.douban.com/subject/3569910/" target="_blank" rel="noopener" title="自杀小队">
           <span class="poster" style="--pc:#5757ff"><img src="assets/covers/3569910.jpg" alt="自杀小队" loading="lazy" referrerpolicy="no-referrer"></span>
           <span class="tx">
@@ -2769,7 +2792,7 @@ html[data-time="night"] .record-light{background:#efca6a;box-shadow:0 0 8px #efc
           </span>
         </a>
       </li>
-      <li class="exc" data-kind="movie" hidden>
+      <li class="exc" style="--i:102" data-kind="movie" hidden>
         <a href="https://movie.douban.com/subject/11526817/" target="_blank" rel="noopener" title="刺客信条">
           <span class="poster" style="--pc:#5757ff"><img src="assets/covers/11526817.jpg" alt="刺客信条" loading="lazy" referrerpolicy="no-referrer"></span>
           <span class="tx">
@@ -2780,7 +2803,7 @@ html[data-time="night"] .record-light{background:#efca6a;box-shadow:0 0 8px #efc
           </span>
         </a>
       </li>
-      <li class="exc" data-kind="movie" hidden>
+      <li class="exc" style="--i:103" data-kind="movie" hidden>
         <a href="https://movie.douban.com/subject/25848328/" target="_blank" rel="noopener" title="最后生还者 第一季">
           <span class="poster" style="--pc:#845757"><img src="assets/covers/25848328.jpg" alt="最后生还者 第一季" loading="lazy" referrerpolicy="no-referrer"></span>
           <span class="tx">
@@ -2791,7 +2814,7 @@ html[data-time="night"] .record-light{background:#efca6a;box-shadow:0 0 8px #efc
           </span>
         </a>
       </li>
-      <li class="exc" data-kind="movie" hidden>
+      <li class="exc" style="--i:104" data-kind="movie" hidden>
         <a href="https://movie.douban.com/subject/35750081/" target="_blank" rel="noopener" title="美国内战">
           <span class="poster" style="--pc:#a5a957"><img src="assets/covers/35750081.jpg" alt="美国内战" loading="lazy" referrerpolicy="no-referrer"></span>
           <span class="tx">
@@ -2802,7 +2825,7 @@ html[data-time="night"] .record-light{background:#efca6a;box-shadow:0 0 8px #efc
           </span>
         </a>
       </li>
-      <li class="exc" data-kind="movie" hidden>
+      <li class="exc" style="--i:105" data-kind="movie" hidden>
         <a href="https://movie.douban.com/subject/34941536/" target="_blank" rel="noopener" title="宇宙探索编辑部">
           <span class="poster" style="--pc:#c2eb57"><img src="assets/covers/34941536.jpg" alt="宇宙探索编辑部" loading="lazy" referrerpolicy="no-referrer"></span>
           <span class="tx">
@@ -2813,7 +2836,7 @@ html[data-time="night"] .record-light{background:#efca6a;box-shadow:0 0 8px #efc
           </span>
         </a>
       </li>
-      <li class="exc" data-kind="movie" hidden>
+      <li class="exc" style="--i:106" data-kind="movie" hidden>
         <a href="https://movie.douban.com/subject/26816104/" target="_blank" rel="noopener" title="从21世纪安全撤离">
           <span class="poster" style="--pc:#575e57"><img src="assets/covers/26816104.jpg" alt="从21世纪安全撤离" loading="lazy" referrerpolicy="no-referrer"></span>
           <span class="tx">
@@ -2824,7 +2847,7 @@ html[data-time="night"] .record-light{background:#efca6a;box-shadow:0 0 8px #efc
           </span>
         </a>
       </li>
-      <li class="exc" data-kind="movie" hidden>
+      <li class="exc" style="--i:107" data-kind="movie" hidden>
         <a href="https://movie.douban.com/subject/35927475/" target="_blank" rel="noopener" title="雷霆特攻队*">
           <span class="poster" style="--pc:#635c57"><img src="assets/covers/35927475.jpg" alt="雷霆特攻队*" loading="lazy" referrerpolicy="no-referrer"></span>
           <span class="tx">
@@ -2835,7 +2858,7 @@ html[data-time="night"] .record-light{background:#efca6a;box-shadow:0 0 8px #efc
           </span>
         </a>
       </li>
-      <li class="exc" data-kind="book" hidden>
+      <li class="exc" style="--i:108" data-kind="book" hidden>
         <a href="https://book.douban.com/subject/26171466/" target="_blank" rel="noopener" title="惊为天人">
           <span class="poster" style="--pc:#5757ff"><img src="assets/covers/26171466.jpg" alt="筚路维艰" loading="lazy" referrerpolicy="no-referrer"></span>
           <span class="tx">
@@ -2846,7 +2869,7 @@ html[data-time="night"] .record-light{background:#efca6a;box-shadow:0 0 8px #efc
           </span>
         </a>
       </li>
-      <li class="exc" data-kind="book" hidden>
+      <li class="exc" style="--i:109" data-kind="book" hidden>
         <a href="https://book.douban.com/subject/1829226/" target="_blank" rel="noopener" title="肖申克的救赎">
           <span class="poster" style="--pc:#ff5757"><img src="assets/covers/1829226.jpg" alt="肖申克的救赎" loading="lazy" referrerpolicy="no-referrer"></span>
           <span class="tx">
@@ -2857,7 +2880,7 @@ html[data-time="night"] .record-light{background:#efca6a;box-shadow:0 0 8px #efc
           </span>
         </a>
       </li>
-      <li class="exc" data-kind="book" hidden>
+      <li class="exc" style="--i:110" data-kind="book" hidden>
         <a href="https://book.douban.com/subject/25985021/" target="_blank" rel="noopener" title="人类简史">
           <span class="poster" style="--pc:#5757ff"><img src="assets/covers/25985021.jpg" alt="人类简史" loading="lazy" referrerpolicy="no-referrer"></span>
           <span class="tx">
@@ -2868,7 +2891,7 @@ html[data-time="night"] .record-light{background:#efca6a;box-shadow:0 0 8px #efc
           </span>
         </a>
       </li>
-      <li class="exc" data-kind="book" hidden>
+      <li class="exc" style="--i:111" data-kind="book" hidden>
         <a href="https://book.douban.com/subject/1060068/" target="_blank" rel="noopener" title="撒哈拉的故事">
           <span class="poster" style="--pc:#5757ff"><img src="assets/covers/1060068.jpg" alt="撒哈拉的故事" loading="lazy" referrerpolicy="no-referrer"></span>
           <span class="tx">
@@ -2879,7 +2902,7 @@ html[data-time="night"] .record-light{background:#efca6a;box-shadow:0 0 8px #efc
           </span>
         </a>
       </li>
-      <li class="exc" data-kind="book" hidden>
+      <li class="exc" style="--i:112" data-kind="book" hidden>
         <a href="https://book.douban.com/subject/1040211/" target="_blank" rel="noopener" title="福尔摩斯探案全集">
           <span class="poster" style="--pc:#e857be"><img src="assets/covers/1040211.jpg" alt="福尔摩斯探案全集" loading="lazy" referrerpolicy="no-referrer"></span>
           <span class="tx">
@@ -2890,7 +2913,7 @@ html[data-time="night"] .record-light{background:#efca6a;box-shadow:0 0 8px #efc
           </span>
         </a>
       </li>
-      <li class="exc" data-kind="book" hidden>
+      <li class="exc" style="--i:113" data-kind="book" hidden>
         <a href="https://book.douban.com/subject/6518605/" target="_blank" rel="noopener" title="三体全集">
           <span class="poster" style="--pc:#ff5757"><img src="assets/covers/6518605.jpg" alt="三体全集" loading="lazy" referrerpolicy="no-referrer"></span>
           <span class="tx">
@@ -2901,7 +2924,7 @@ html[data-time="night"] .record-light{background:#efca6a;box-shadow:0 0 8px #efc
           </span>
         </a>
       </li>
-      <li class="exc" data-kind="book" hidden>
+      <li class="exc" style="--i:114" data-kind="book" hidden>
         <a href="https://book.douban.com/subject/4820710/" target="_blank" rel="noopener" title="1984">
           <span class="poster" style="--pc:#ca577f"><img src="assets/covers/4820710.jpg" alt="1984" loading="lazy" referrerpolicy="no-referrer"></span>
           <span class="tx">
@@ -2912,7 +2935,7 @@ html[data-time="night"] .record-light{background:#efca6a;box-shadow:0 0 8px #efc
           </span>
         </a>
       </li>
-      <li class="exc" data-kind="book" hidden>
+      <li class="exc" style="--i:115" data-kind="book" hidden>
         <a href="https://book.douban.com/subject/6082808/" target="_blank" rel="noopener" title="百年孤独">
           <span class="poster" style="--pc:#578d57"><img src="assets/covers/6082808.jpg" alt="百年孤独" loading="lazy" referrerpolicy="no-referrer"></span>
           <span class="tx">
@@ -2923,7 +2946,7 @@ html[data-time="night"] .record-light{background:#efca6a;box-shadow:0 0 8px #efc
           </span>
         </a>
       </li>
-      <li class="exc" data-kind="book" hidden>
+      <li class="exc" style="--i:116" data-kind="book" hidden>
         <a href="https://book.douban.com/subject/1841531/" target="_blank" rel="noopener" title="鲁滨孙漂流记">
           <span class="poster" style="--pc:#5757ab"><img src="assets/covers/1841531.jpg" alt="鲁滨孙漂流记" loading="lazy" referrerpolicy="no-referrer"></span>
           <span class="tx">
@@ -2934,7 +2957,7 @@ html[data-time="night"] .record-light{background:#efca6a;box-shadow:0 0 8px #efc
           </span>
         </a>
       </li>
-      <li class="exc" data-kind="book" hidden>
+      <li class="exc" style="--i:117" data-kind="book" hidden>
         <a href="https://book.douban.com/subject/24934182/" target="_blank" rel="noopener" title="一个人的朝圣">
           <span class="poster" style="--pc:#5757ff"><img src="assets/covers/24934182.jpg" alt="一个人的朝圣" loading="lazy" referrerpolicy="no-referrer"></span>
           <span class="tx">
@@ -2945,7 +2968,7 @@ html[data-time="night"] .record-light{background:#efca6a;box-shadow:0 0 8px #efc
           </span>
         </a>
       </li>
-      <li class="exc" data-kind="book" hidden>
+      <li class="exc" style="--i:118" data-kind="book" hidden>
         <a href="https://book.douban.com/subject/1020459/" target="_blank" rel="noopener" title="此间的少年">
           <span class="poster" style="--pc:#5757ff"><img src="assets/covers/1020459.jpg" alt="此间的少年" loading="lazy" referrerpolicy="no-referrer"></span>
           <span class="tx">
@@ -2956,7 +2979,7 @@ html[data-time="night"] .record-light{background:#efca6a;box-shadow:0 0 8px #efc
           </span>
         </a>
       </li>
-      <li class="exc" data-kind="book" hidden>
+      <li class="exc" style="--i:119" data-kind="book" hidden>
         <a href="https://book.douban.com/subject/1089243/" target="_blank" rel="noopener" title="黄金时代">
           <span class="poster" style="--pc:#5773ff"><img src="assets/covers/1089243.jpg" alt="黄金时代" loading="lazy" referrerpolicy="no-referrer"></span>
           <span class="tx">
@@ -2967,7 +2990,7 @@ html[data-time="night"] .record-light{background:#efca6a;box-shadow:0 0 8px #efc
           </span>
         </a>
       </li>
-      <li class="exc" data-kind="book" hidden>
+      <li class="exc" style="--i:120" data-kind="book" hidden>
         <a href="https://book.douban.com/subject/1077778/" target="_blank" rel="noopener" title="爱的教育">
           <span class="poster" style="--pc:#57ffff"><img src="assets/covers/1077778.jpg" alt="爱的教育" loading="lazy" referrerpolicy="no-referrer"></span>
           <span class="tx">
@@ -2978,7 +3001,7 @@ html[data-time="night"] .record-light{background:#efca6a;box-shadow:0 0 8px #efc
           </span>
         </a>
       </li>
-      <li class="exc" data-kind="book" hidden>
+      <li class="exc" style="--i:121" data-kind="book" hidden>
         <a href="https://book.douban.com/subject/1122914/" target="_blank" rel="noopener" title="鲁滨逊漂流记">
           <span class="poster" style="--pc:#91aaf7"><img src="assets/covers/1122914.jpg" alt="鲁滨逊漂流记" loading="lazy" referrerpolicy="no-referrer"></span>
           <span class="tx">
@@ -2989,7 +3012,7 @@ html[data-time="night"] .record-light{background:#efca6a;box-shadow:0 0 8px #efc
           </span>
         </a>
       </li>
-      <li class="exc" data-kind="book" hidden>
+      <li class="exc" style="--i:122" data-kind="book" hidden>
         <a href="https://book.douban.com/subject/1894744/" target="_blank" rel="noopener" title="钢铁是怎样炼成的">
           <span class="poster" style="--pc:#57d6ff"><img src="assets/covers/1894744.jpg" alt="钢铁是怎样炼成的" loading="lazy" referrerpolicy="no-referrer"></span>
           <span class="tx">
@@ -3000,7 +3023,7 @@ html[data-time="night"] .record-light{background:#efca6a;box-shadow:0 0 8px #efc
           </span>
         </a>
       </li>
-      <li class="exc" data-kind="book" hidden>
+      <li class="exc" style="--i:123" data-kind="book" hidden>
         <a href="https://book.douban.com/subject/1201620/" target="_blank" rel="noopener" title="人类群星闪耀时">
           <span class="poster" style="--pc:#57ffff"><img src="assets/covers/1201620.jpg" alt="人类群星闪耀时" loading="lazy" referrerpolicy="no-referrer"></span>
           <span class="tx">
@@ -3011,7 +3034,7 @@ html[data-time="night"] .record-light{background:#efca6a;box-shadow:0 0 8px #efc
           </span>
         </a>
       </li>
-      <li class="exc" data-kind="book" hidden>
+      <li class="exc" style="--i:124" data-kind="book" hidden>
         <a href="https://book.douban.com/subject/1070759/" target="_blank" rel="noopener" title="高老头">
           <span class="poster" style="--pc:#579e9d"><img src="assets/covers/1070759.jpg" alt="高老头" loading="lazy" referrerpolicy="no-referrer"></span>
           <span class="tx">
@@ -3022,7 +3045,7 @@ html[data-time="night"] .record-light{background:#efca6a;box-shadow:0 0 8px #efc
           </span>
         </a>
       </li>
-      <li class="exc" data-kind="book" hidden>
+      <li class="exc" style="--i:125" data-kind="book" hidden>
         <a href="https://book.douban.com/subject/25897657/" target="_blank" rel="noopener" title="悲惨世界">
           <span class="poster" style="--pc:#ff578b"><img src="assets/covers/25897657.jpg" alt="悲惨世界" loading="lazy" referrerpolicy="no-referrer"></span>
           <span class="tx">
@@ -3033,7 +3056,7 @@ html[data-time="night"] .record-light{background:#efca6a;box-shadow:0 0 8px #efc
           </span>
         </a>
       </li>
-      <li class="exc" data-kind="book" hidden>
+      <li class="exc" style="--i:126" data-kind="book" hidden>
         <a href="https://book.douban.com/subject/4760224/" target="_blank" rel="noopener" title="许三观卖血记">
           <span class="poster" style="--pc:#8c5757"><img src="assets/covers/4760224.jpg" alt="许三观卖血记" loading="lazy" referrerpolicy="no-referrer"></span>
           <span class="tx">
@@ -3044,7 +3067,7 @@ html[data-time="night"] .record-light{background:#efca6a;box-shadow:0 0 8px #efc
           </span>
         </a>
       </li>
-      <li class="exc" data-kind="book" hidden>
+      <li class="exc" style="--i:127" data-kind="book" hidden>
         <a href="https://book.douban.com/subject/6313496/" target="_blank" rel="noopener" title="卡拉马佐夫兄弟">
           <span class="poster" style="--pc:#57ffff"><img src="assets/covers/6313496.jpg" alt="卡拉马佐夫兄弟" loading="lazy" referrerpolicy="no-referrer"></span>
           <span class="tx">
@@ -3055,7 +3078,7 @@ html[data-time="night"] .record-light{background:#efca6a;box-shadow:0 0 8px #efc
           </span>
         </a>
       </li>
-      <li class="exc" data-kind="book" hidden>
+      <li class="exc" style="--i:128" data-kind="book" hidden>
         <a href="https://book.douban.com/subject/4242172/" target="_blank" rel="noopener" title="天才在左 疯子在右">
           <span class="poster" style="--pc:#577f8f"><img src="assets/covers/4242172.jpg" alt="天才在左 疯子在右" loading="lazy" referrerpolicy="no-referrer"></span>
           <span class="tx">
@@ -3066,7 +3089,7 @@ html[data-time="night"] .record-light{background:#efca6a;box-shadow:0 0 8px #efc
           </span>
         </a>
       </li>
-      <li class="exc" data-kind="book" hidden>
+      <li class="exc" style="--i:129" data-kind="book" hidden>
         <a href="https://book.douban.com/subject/4913064/" target="_blank" rel="noopener" title="活着">
           <span class="poster" style="--pc:#575757"><img src="assets/covers/4913064.jpg" alt="活着" loading="lazy" referrerpolicy="no-referrer"></span>
           <span class="tx">
@@ -3077,7 +3100,7 @@ html[data-time="night"] .record-light{background:#efca6a;box-shadow:0 0 8px #efc
           </span>
         </a>
       </li>
-      <li class="exc" data-kind="book" hidden>
+      <li class="exc" style="--i:130" data-kind="book" hidden>
         <a href="https://book.douban.com/subject/1873231/" target="_blank" rel="noopener" title="明朝那些事儿（壹）">
           <span class="poster" style="--pc:#5757ff"><img src="assets/covers/1873231.jpg" alt="明朝那些事儿（壹）" loading="lazy" referrerpolicy="no-referrer"></span>
           <span class="tx">
@@ -3088,7 +3111,7 @@ html[data-time="night"] .record-light{background:#efca6a;box-shadow:0 0 8px #efc
           </span>
         </a>
       </li>
-      <li class="exc" data-kind="book" hidden>
+      <li class="exc" style="--i:131" data-kind="book" hidden>
         <a href="https://book.douban.com/subject/1043815/" target="_blank" rel="noopener" title="骆驼祥子">
           <span class="poster" style="--pc:#5757ff"><img src="assets/covers/1043815.jpg" alt="骆驼祥子" loading="lazy" referrerpolicy="no-referrer"></span>
           <span class="tx">
@@ -3099,7 +3122,7 @@ html[data-time="night"] .record-light{background:#efca6a;box-shadow:0 0 8px #efc
           </span>
         </a>
       </li>
-      <li class="exc" data-kind="book" hidden>
+      <li class="exc" style="--i:132" data-kind="book" hidden>
         <a href="https://book.douban.com/subject/6746289/" target="_blank" rel="noopener" title="新参者">
           <span class="poster" style="--pc:#5757ff"><img src="assets/covers/6746289.jpg" alt="新参者" loading="lazy" referrerpolicy="no-referrer"></span>
           <span class="tx">
@@ -3110,7 +3133,7 @@ html[data-time="night"] .record-light{background:#efca6a;box-shadow:0 0 8px #efc
           </span>
         </a>
       </li>
-      <li class="exc" data-kind="book" hidden>
+      <li class="exc" style="--i:133" data-kind="book" hidden>
         <a href="https://book.douban.com/subject/1321017/" target="_blank" rel="noopener" title="九州·缥缈录">
           <span class="poster" style="--pc:#ffcebb"><img src="assets/covers/1321017.jpg" alt="九州·缥缈录" loading="lazy" referrerpolicy="no-referrer"></span>
           <span class="tx">
@@ -3121,7 +3144,7 @@ html[data-time="night"] .record-light{background:#efca6a;box-shadow:0 0 8px #efc
           </span>
         </a>
       </li>
-      <li class="exc" data-kind="book" hidden>
+      <li class="exc" style="--i:134" data-kind="book" hidden>
         <a href="https://book.douban.com/subject/1029791/" target="_blank" rel="noopener" title="许三观卖血记">
           <span class="poster" style="--pc:#5757ff"><img src="assets/covers/1029791.jpg" alt="许三观卖血记" loading="lazy" referrerpolicy="no-referrer"></span>
           <span class="tx">
@@ -3132,7 +3155,7 @@ html[data-time="night"] .record-light{background:#efca6a;box-shadow:0 0 8px #efc
           </span>
         </a>
       </li>
-      <li class="exc" data-kind="book" hidden>
+      <li class="exc" style="--i:135" data-kind="book" hidden>
         <a href="https://book.douban.com/subject/1012489/" target="_blank" rel="noopener" title="童年 在人间 我的大学">
           <span class="poster" style="--pc:#5757f4"><img src="assets/covers/1012489.jpg" alt="童年 在人间 我的大学" loading="lazy" referrerpolicy="no-referrer"></span>
           <span class="tx">
@@ -3143,7 +3166,7 @@ html[data-time="night"] .record-light{background:#efca6a;box-shadow:0 0 8px #efc
           </span>
         </a>
       </li>
-      <li class="exc" data-kind="book" hidden>
+      <li class="exc" style="--i:136" data-kind="book" hidden>
         <a href="https://book.douban.com/subject/1449351/" target="_blank" rel="noopener" title="呐喊">
           <span class="poster" style="--pc:#5757ff"><img src="assets/covers/1449351.jpg" alt="呐喊" loading="lazy" referrerpolicy="no-referrer"></span>
           <span class="tx">
@@ -3154,7 +3177,7 @@ html[data-time="night"] .record-light{background:#efca6a;box-shadow:0 0 8px #efc
           </span>
         </a>
       </li>
-      <li class="exc" data-kind="book" hidden>
+      <li class="exc" style="--i:137" data-kind="book" hidden>
         <a href="https://book.douban.com/subject/26371317/" target="_blank" rel="noopener" title="24个比利">
           <span class="poster" style="--pc:#5757ce"><img src="assets/covers/26371317.jpg" alt="24个比利" loading="lazy" referrerpolicy="no-referrer"></span>
           <span class="tx">
@@ -3165,7 +3188,7 @@ html[data-time="night"] .record-light{background:#efca6a;box-shadow:0 0 8px #efc
           </span>
         </a>
       </li>
-      <li class="exc" data-kind="book" hidden>
+      <li class="exc" style="--i:138" data-kind="book" hidden>
         <a href="https://book.douban.com/subject/25733470/" target="_blank" rel="noopener" title="没有色彩的多崎作和他的巡礼之年">
           <span class="poster" style="--pc:#87fe57"><img src="assets/covers/25733470.jpg" alt="没有色彩的多崎作和他的巡礼之年" loading="lazy" referrerpolicy="no-referrer"></span>
           <span class="tx">
@@ -3176,7 +3199,7 @@ html[data-time="night"] .record-light{background:#efca6a;box-shadow:0 0 8px #efc
           </span>
         </a>
       </li>
-      <li class="exc" data-kind="book" hidden>
+      <li class="exc" style="--i:139" data-kind="book" hidden>
         <a href="https://book.douban.com/subject/1321789/" target="_blank" rel="noopener" title="美丽新世界">
           <span class="poster" style="--pc:#5757ff"><img src="assets/covers/1321789.jpg" alt="美丽新世界" loading="lazy" referrerpolicy="no-referrer"></span>
           <span class="tx">
@@ -3187,7 +3210,7 @@ html[data-time="night"] .record-light{background:#efca6a;box-shadow:0 0 8px #efc
           </span>
         </a>
       </li>
-      <li class="exc" data-kind="book" hidden>
+      <li class="exc" style="--i:140" data-kind="book" hidden>
         <a href="https://book.douban.com/subject/1041482/" target="_blank" rel="noopener" title="万历十五年">
           <span class="poster" style="--pc:#5757ff"><img src="assets/covers/1041482.jpg" alt="万历十五年" loading="lazy" referrerpolicy="no-referrer"></span>
           <span class="tx">
@@ -3198,7 +3221,7 @@ html[data-time="night"] .record-light{background:#efca6a;box-shadow:0 0 8px #efc
           </span>
         </a>
       </li>
-      <li class="exc" data-kind="book" hidden>
+      <li class="exc" style="--i:141" data-kind="book" hidden>
         <a href="https://book.douban.com/subject/1011754/" target="_blank" rel="noopener" title="海子的诗">
           <span class="poster" style="--pc:#c657ff"><img src="assets/covers/1011754.jpg" alt="海子的诗" loading="lazy" referrerpolicy="no-referrer"></span>
           <span class="tx">
@@ -3209,7 +3232,7 @@ html[data-time="night"] .record-light{background:#efca6a;box-shadow:0 0 8px #efc
           </span>
         </a>
       </li>
-      <li class="exc" data-kind="book" hidden>
+      <li class="exc" style="--i:142" data-kind="book" hidden>
         <a href="https://book.douban.com/subject/2253413/" target="_blank" rel="noopener" title="巴黎圣母院">
           <span class="poster" style="--pc:#d4c857"><img src="assets/covers/2253413.jpg" alt="巴黎圣母院" loading="lazy" referrerpolicy="no-referrer"></span>
           <span class="tx">
@@ -3220,7 +3243,7 @@ html[data-time="night"] .record-light{background:#efca6a;box-shadow:0 0 8px #efc
           </span>
         </a>
       </li>
-      <li class="exc" data-kind="book" hidden>
+      <li class="exc" style="--i:143" data-kind="book" hidden>
         <a href="https://book.douban.com/subject/1082522/" target="_blank" rel="noopener" title="家">
           <span class="poster" style="--pc:#5776d1"><img src="assets/covers/1082522.jpg" alt="家" loading="lazy" referrerpolicy="no-referrer"></span>
           <span class="tx">
@@ -3243,16 +3266,16 @@ html[data-time="night"] .record-light{background:#efca6a;box-shadow:0 0 8px #efc
   <span class="cor tl"><svg class="ic sm" viewBox="0 0 16 16"><use href="#px-star"></use></svg></span><span class="cor tr"><svg class="ic sm" viewBox="0 0 16 16"><use href="#px-heart"></use></svg></span><span class="cor bl"><svg class="ic sm" viewBox="0 0 16 16"><use href="#px-heart"></use></svg></span><span class="cor br"><svg class="ic sm" viewBox="0 0 16 16"><use href="#px-star"></use></svg></span>
   
   <div class="gstrip">
-    <a class="gp" href="gallery/index.html" title="插画 · 黄昏时的矿区入口">
+    <a class="gp" style="--i:0" href="gallery/index.html" title="插画 · 黄昏时的矿区入口">
       <img src="assets/gallery/dusk-mine-t.webp" alt="插画 · 黄昏时的矿区入口" width="640" height="427" loading="lazy">
     </a>
-    <a class="gp" href="gallery/index.html" title="插画 · 星夜的湖畔">
+    <a class="gp" style="--i:1" href="gallery/index.html" title="插画 · 星夜的湖畔">
       <img src="assets/gallery/night-lake-t.webp" alt="插画 · 星夜的湖畔" width="640" height="640" loading="lazy">
     </a>
-    <a class="gp" href="gallery/index.html" title="插画 · 夏天的海岸，光很足">
+    <a class="gp" style="--i:2" href="gallery/index.html" title="插画 · 夏天的海岸，光很足">
       <img src="assets/gallery/summer-coast-t.webp" alt="插画 · 夏天的海岸，光很足" width="640" height="360" loading="lazy">
     </a>
-    <a class="gp" href="gallery/index.html" title="插画 · 春天的农场，作物刚下地">
+    <a class="gp" style="--i:3" href="gallery/index.html" title="插画 · 春天的农场，作物刚下地">
       <img src="assets/gallery/spring-farm-t.webp" alt="插画 · 春天的农场，作物刚下地" width="640" height="427" loading="lazy">
     </a></div>
   <div class="museum-more"><svg class="ic sm" viewBox="0 0 16 16"><use href="#px-star"></use></svg><a href="gallery/index.html">相馆 · 全部 6 张</a><svg class="ic sm" viewBox="0 0 16 16"><use href="#px-heart"></use></svg></div><div class="dc-shelf" aria-hidden="true"><span class="dc-season spring"><i style="animation-delay:0.00s"><svg class="ic" viewBox="0 0 16 16"><use href="#px-tulip"></use></svg></i><i style="animation-delay:0.27s"><svg class="ic" viewBox="0 0 16 16"><use href="#px-flower"></use></svg></i><i style="animation-delay:0.54s"><svg class="ic" viewBox="0 0 16 16"><use href="#px-strawberry"></use></svg></i><i style="animation-delay:0.81s"><svg class="ic" viewBox="0 0 16 16"><use href="#px-leaf2"></use></svg></i><i style="animation-delay:1.08s"><svg class="ic" viewBox="0 0 16 16"><use href="#px-sunflower"></use></svg></i><i style="animation-delay:1.35s"><svg class="ic" viewBox="0 0 16 16"><use href="#px-bee"></use></svg></i><i style="animation-delay:1.62s"><svg class="ic" viewBox="0 0 16 16"><use href="#px-mushroom"></use></svg></i><i style="animation-delay:1.89s"><svg class="ic" viewBox="0 0 16 16"><use href="#px-grape"></use></svg></i></span><span class="dc-season summer"><i style="animation-delay:0.00s"><svg class="ic" viewBox="0 0 16 16"><use href="#px-sunflower"></use></svg></i><i style="animation-delay:0.27s"><svg class="ic" viewBox="0 0 16 16"><use href="#px-melon"></use></svg></i><i style="animation-delay:0.54s"><svg class="ic" viewBox="0 0 16 16"><use href="#px-tomato"></use></svg></i><i style="animation-delay:0.81s"><svg class="ic" viewBox="0 0 16 16"><use href="#px-corn"></use></svg></i><i style="animation-delay:1.08s"><svg class="ic" viewBox="0 0 16 16"><use href="#px-pepper"></use></svg></i><i style="animation-delay:1.35s"><svg class="ic" viewBox="0 0 16 16"><use href="#px-beehive"></use></svg></i><i style="animation-delay:1.62s"><svg class="ic" viewBox="0 0 16 16"><use href="#px-flower"></use></svg></i><i style="animation-delay:1.89s"><svg class="ic" viewBox="0 0 16 16"><use href="#px-honey"></use></svg></i></span><span class="dc-season autumn"><i style="animation-delay:0.00s"><svg class="ic" viewBox="0 0 16 16"><use href="#px-pumpkin"></use></svg></i><i style="animation-delay:0.27s"><svg class="ic" viewBox="0 0 16 16"><use href="#px-eggplant"></use></svg></i><i style="animation-delay:0.54s"><svg class="ic" viewBox="0 0 16 16"><use href="#px-grape"></use></svg></i><i style="animation-delay:0.81s"><svg class="ic" viewBox="0 0 16 16"><use href="#px-mushroom"></use></svg></i><i style="animation-delay:1.08s"><svg class="ic" viewBox="0 0 16 16"><use href="#px-corn"></use></svg></i><i style="animation-delay:1.35s"><svg class="ic" viewBox="0 0 16 16"><use href="#px-acorn"></use></svg></i><i style="animation-delay:1.62s"><svg class="ic" viewBox="0 0 16 16"><use href="#px-wheat"></use></svg></i><i style="animation-delay:1.89s"><svg class="ic" viewBox="0 0 16 16"><use href="#px-ancientfruit"></use></svg></i></span><span class="dc-season winter"><i style="animation-delay:0.00s"><svg class="ic" viewBox="0 0 16 16"><use href="#px-crystal"></use></svg></i><i style="animation-delay:0.27s"><svg class="ic" viewBox="0 0 16 16"><use href="#px-snowman"></use></svg></i><i style="animation-delay:0.54s"><svg class="ic" viewBox="0 0 16 16"><use href="#px-ore"></use></svg></i><i style="animation-delay:0.81s"><svg class="ic" viewBox="0 0 16 16"><use href="#px-gem"></use></svg></i><i style="animation-delay:1.08s"><svg class="ic" viewBox="0 0 16 16"><use href="#px-acorn"></use></svg></i><i style="animation-delay:1.35s"><svg class="ic" viewBox="0 0 16 16"><use href="#px-mushroom"></use></svg></i><i style="animation-delay:1.62s"><svg class="ic" viewBox="0 0 16 16"><use href="#px-pot"></use></svg></i><i style="animation-delay:1.89s"><svg class="ic" viewBox="0 0 16 16"><use href="#px-lantern"></use></svg></i></span></div>

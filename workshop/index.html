@@ -77,8 +77,11 @@
     page = Math.max(1, Math.min(page, pages));
     var shown = list.slice((page - 1) * PAGE_SIZE, page * PAGE_SIZE);
     grid.textContent = '';
-    shown.forEach(function(r){
+    shown.forEach(function(r, i){
       var li = el('li','wcard');
+      /* 卡片入场的错开序号：见 pixel-art.js 的 @keyframes px-card-in。
+         翻页/筛选后重新渲染 = 重新拿到 0..N 的序号，动画也跟着重播一遍。 */
+      li.style.setProperty('--i', i);
       var box = r.url ? el('a','wcard-link') : el('div','wcard-link');
       if(r.url){ box.href = r.url; box.target = '_blank'; box.rel = 'noopener'; }
       var head = el('span','wcard-head');

@@ -1359,8 +1359,8 @@ body:not(.is-article) .panel>.pt>.ic{width:24px;height:24px}
       用 position:relative + top 偏移。
    ⚠️ 同位移值的合并成一条选择器列表：规则总数有 1900 的棘轮预算
       （check-css-budget），一个控件一条 :active 放不下。 */
-.toolbar .tool:active,.pixel-entry .social .soc:active,.cbtn:active,.pcard:active,
-.gstrip .gp:active,.exc > a:active,.apg:active,.museum-page-btn:active:not(:disabled),
+.toolbar .tool:active,.pixel-entry .social .soc:active,.cbtn:active,.gal-item:active,
+.museum-item a:active,.gstrip .gp:active,.exc > a:active,.apg:active,.museum-page-btn:active:not(:disabled),
 .shelf-tab:active,.museum-filter:active,.copy-code:active{transform:translateY(1px)}
 .rcard:active,.wcard-link:active{transform:translate(0,1px);box-shadow:inset 0 4px var(--cream-3)}
 .fr:active{transform:translateY(1px) scale(1.02)}
@@ -1373,10 +1373,33 @@ body:not(.is-article) .panel>.pt>.ic{width:24px;height:24px}
    ⚠️ 同样必须写在本文件：.toolbar .tool:hover / .rcard:hover 的生效层在这里。 */
 @media (hover:none){
   .toolbar .tool:hover,.pixel-entry .social .soc:hover,.cbtn:hover,.rcard:hover,
-  .wcard-link:hover,.pcard:hover,.gstrip .gp:hover,.fr:hover,.exc > a:hover,
+  .wcard-link:hover,.gal-item:hover,.gstrip .gp:hover,.fr:hover,.exc > a:hover,
   .abtn:hover,.apg:hover,.tool:hover,.tool:focus-visible,.soc:hover,.soc:focus-visible,
   .share-btn:hover{transform:none}
 }
+/* ===== 卡片入场：steps(8) 逐格（2026-09-22，对标 pixel-portfolio 的 pixelCardFadeIn）=====
+   参考实现是这么写的：
+     @keyframes pixelCardFadeIn{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+     .pixel-card-animate{opacity:0;animation:pixelCardFadeIn .3s steps(8) forwards}
+   —— 两处**刻意不照抄**，因为照抄会带出两个真问题：
+   1) 用 backwards 而不是 forwards：forwards 会把末帧的 transform **永久钉住**，
+      卡片自己的 :hover 上浮（.rcard:hover 是 translateY(-3px)、.pcard:hover
+      translateY(-4px)、.gstrip .gp:hover translateY(-3px)）和刚补的 :active 按压
+      会被一起压死 —— 参考项目正是 forwards 配 hover:-translate-y-2 同用，
+      它那个 hover 位移其实一直是失效的。backwards 只在动画期间生效，
+      播完把 transform 交还给普通级联，三态手感原样保留。
+   2) 基类**不写 opacity:0**，只放进关键帧的 from：动画一旦不跑
+      （gen.js 里有 prefers-reduced-motion 的全局刹车 *{animation:none!important}、
+       浏览器太老、用户关了动画），卡片是**直接可见**的，不会留一片空白。
+      参考项目把 opacity:0 写在类上，动画不跑就永远看不见 —— 那是
+      「装饰性动画拖累内容」的典型，本站不让装饰影响内容可达。
+   交错：由元素上的 --i 变量驱动（生成器/渲染函数按序号写），60ms 一档、封顶 480ms；
+   没有 --i 的元素延迟为 0（照样播，只是不参与错开）。
+   ⚠️ 不支持 min() 的浏览器会让整条 animation-delay 失效 → 退化成无错开，
+      动画本身照常播，属于可接受的降级。
+   ⚠️ 本文件是最后加载的样式表层，动画也必须写在这里才不会被上面的规则截胡。 */
+@keyframes px-card-in{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:none}}
+.rcard,.tl-card,.gstrip .gp,.exc,.gal-item,.museum-item,.wcard{animation:px-card-in .3s steps(8) backwards;animation-delay:min(calc(var(--i,0)*60ms),480ms)}
 
 
 #music{scroll-margin-top:24px;font-size:12px;line-height:24px}

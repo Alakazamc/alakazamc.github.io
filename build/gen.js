@@ -277,7 +277,7 @@ const timeline = () => {
           <i>${y}</i>
         </div>
         <div class="tl-axis"><span class="tl-dot">${ic(a.icon, 'xs')}</span></div>
-        <a class="tl-card${a.cover ? '' : ' nocover'}" href="posts/${a.slug}.html">
+        <a class="tl-card${a.cover ? '' : ' nocover'}" style="--i:${i}" href="posts/${a.slug}.html">
           ${a.cover
         ? `<span class="tl-cover"><img src="${a.cover}" alt="" loading="lazy"></span>`
         : ''}
@@ -344,8 +344,8 @@ const repos = () => {
   const chosen = (SITE.featuredRepos || []).map(name => all.find(r => r.name === name)).filter(Boolean);
   const list = (chosen.length ? chosen : all).slice(0, REPO_SHOW);
 
-  const card = (r) => `
-      <a class="rcard" href="${r.url}" target="_blank" rel="noopener">
+  const card = (r, i) => `
+      <a class="rcard" style="--i:${i}" href="${r.url}" target="_blank" rel="noopener">
         <span class="rc-h">${ic('chest', 'sm')}<b>${md.esc(r.name)}</b></span>
         <span class="rc-d">${md.esc(r.description || '（还没写简介）')}</span>
         <span class="rc-f">
@@ -386,8 +386,8 @@ const repos = () => {
 const galleryPanel = () => {
   const items = (GALLERY.items || []).slice(0, 4);
   if (!items.length) return '';   // 一张照片都没有：整个面板不渲染，不留灰块
-  const cell = (it) => `
-    <a class="gp" href="gallery/index.html" title="${md.esc((it.generated ? '插画 · ' : '') + it.caption)}">
+  const cell = (it, i) => `
+    <a class="gp" style="--i:${i}" href="gallery/index.html" title="${md.esc((it.generated ? '插画 · ' : '') + it.caption)}">
       <img src="assets/gallery/${it.thumb}" alt="${md.esc((it.generated ? '插画 · ' : '') + it.caption)}" width="${it.tw}" height="${it.th}" loading="lazy">
     </a>`;
   return panel('相馆', ['star', 'heart', 'heart', 'star', 'star'], `
@@ -476,13 +476,13 @@ const museum = () => {
   const items = allItems.filter(x => chosen.has(x));
   const initiallyVisible = new Set(allItems.slice(0, SHELF_SHOW));
 
-  const card = (it) => {
+  const card = (it, i) => {
     const image = it.image || (it.cover ? 'assets/covers/' + it.cover : '');
     const c = rgb2hex(vivid(it.color || [0.55, 0.45, 0.35]));
     const stars = it.myRating
       ? '★'.repeat(it.myRating) + '☆'.repeat(5 - it.myRating) : '';
     return `
-      <li class="exc" data-kind="${it.kind}"${initiallyVisible.has(it) ? '' : ' hidden'}>
+      <li class="exc" style="--i:${i}" data-kind="${it.kind}"${initiallyVisible.has(it) ? '' : ' hidden'}>
         <a href="${md.esc(it.url)}" target="_blank" rel="noopener" title="${md.esc(it.comment || it.title)}">
           ${image ? `<span class="poster" style="--pc:${c}"><img src="${md.esc(image)}" alt="${md.esc(it.title)}" loading="lazy" referrerpolicy="no-referrer"></span>` : ''}
           <span class="tx">
