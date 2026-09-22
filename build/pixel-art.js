@@ -166,6 +166,37 @@ body:not(.is-article) .panel>.pt>.ic{width:24px;height:24px}
 @media(max-width:360px){
   .dc-shelf .dc-season{gap:8px}
 }
+/* ===== 按压反馈（2026-09-22，对标 jonbrown66/pixel-portfolio 的 .pixel-button）=====
+   像素按钮的三态手感：hover 上浮 ▸ active 下沉 + 落影收缩，"按得下去"。
+   gen.js 里 .tool/.soc/.share-btn 各写过 :active，但全部被本文件同特异性、
+   后加载的 hover 规则压住（.toolbar .tool:hover 是 0,3,0，.tool:active 只有
+   0,2,0）—— 首页工具栏和社交牌其实一直按不下去；项目卡、相馆图、侧栏果实、
+   翻页按钮等其余可点元素则一个 :active 都没有，点下去毫无回馈。
+   ⚠️ :active 必须写在本文件：这里是样式表最后一份，写 gen.js 会被上面的
+      hover 压掉，看着改了其实不生效（同特异性、后来者胜）。
+   ⚠️ .tool 的生效层在 .toolbar .tool:hover（0,3,0），active 也要带上前缀；
+      文字链（.more a / .museum-more a）是 inline，transform 不生效，
+      用 position:relative + top 偏移。
+   ⚠️ 同位移值的合并成一条选择器列表：规则总数有 1900 的棘轮预算
+      （check-css-budget），一个控件一条 :active 放不下。 */
+.toolbar .tool:active,.pixel-entry .social .soc:active,.cbtn:active,.pcard:active,
+.gstrip .gp:active,.exc > a:active,.apg:active,.museum-page-btn:active:not(:disabled),
+.shelf-tab:active,.museum-filter:active,.copy-code:active{transform:translateY(1px)}
+.rcard:active,.wcard-link:active{transform:translate(0,1px);box-shadow:inset 0 4px var(--cream-3)}
+.fr:active{transform:translateY(1px) scale(1.02)}
+.abtn:active{transform:translateY(1px);box-shadow:0 1px var(--timber)}
+.more a:active,.museum-more a:active{position:relative;top:1px}
+/* 触屏没有"悬停"：tap 之后 :hover 会粘在元素上（卡片一直浮着、一直黄底），
+   桌面看不出、手机必现。参照项目用 @media (hover:hover) 正向包 hover；
+   本站 hover 横跨 gen.js 与本文件两份样式表，改用中和法：一个块把位移类
+   hover 在触屏上一律摁平（背景色粘滞比位移轻，留着不动）。
+   ⚠️ 同样必须写在本文件：.toolbar .tool:hover / .rcard:hover 的生效层在这里。 */
+@media (hover:none){
+  .toolbar .tool:hover,.pixel-entry .social .soc:hover,.cbtn:hover,.rcard:hover,
+  .wcard-link:hover,.pcard:hover,.gstrip .gp:hover,.fr:hover,.exc > a:hover,
+  .abtn:hover,.apg:hover,.tool:hover,.tool:focus-visible,.soc:hover,.soc:focus-visible,
+  .share-btn:hover{transform:none}
+}
 `;
 
 module.exports = {hero, css};

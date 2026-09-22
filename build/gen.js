@@ -950,7 +950,13 @@ button.tool::-moz-focus-inner{border:0}
 
 /* 导航落点：面板本身有 4px 边框 + 外发光，直接滚到顶会被顶部切掉一截 */
 #timeline,#projects,#gallery,#calendar,#skills,#ledger,#farm{scroll-margin-top:24px}
-html{scroll-behavior:smooth}
+/* 全局滚动条也像素化（2026-09-22，对标 pixel-portfolio 的 16px 木轨条）。
+   此前只有 .shelf 有，页面主滚动条是系统默认灰条，跟木色界面脱节。
+   ⚠️ .shelf::-webkit-scrollbar{height:8px} 特异性更高，不受影响。 */
+html{scroll-behavior:smooth;scrollbar-width:thin;scrollbar-color:var(--wood-b) var(--cream-3)}
+::-webkit-scrollbar{width:16px;height:16px}
+::-webkit-scrollbar-track{background:var(--cream-3)}
+::-webkit-scrollbar-thumb{background:var(--wood-b);border:3px solid var(--ink)}
 @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
 
 /* ===== 面板 ===== */
