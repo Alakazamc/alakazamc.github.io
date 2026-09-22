@@ -1,7 +1,54 @@
 {
  "user": "Alakazamc",
- "updatedAt": "2026-09-22T00:55:48.619Z",
+ "updatedAt": "2026-09-22T12:21:21.126Z",
  "repos": [
+  {
+   "name": "szudesktop",
+   "description": "深圳大学校园网客户端：像素风桌面应用 + 命令行 + 校内 VPN（Go 单文件，Windows/macOS/Linux）",
+   "url": "https://github.com/SzuDesktopTeam/szudesktop",
+   "stars": 5,
+   "pushedAt": "2026-09-22",
+   "language": "Go",
+   "color": "#00ADD8",
+   "topics": [],
+   "langs": [
+    {
+     "name": "Go",
+     "color": "#00ADD8",
+     "size": 444309
+    },
+    {
+     "name": "JavaScript",
+     "color": "#f1e05a",
+     "size": 159341
+    },
+    {
+     "name": "Python",
+     "color": "#3572A5",
+     "size": 78386
+    },
+    {
+     "name": "CSS",
+     "color": "#663399",
+     "size": 33630
+    },
+    {
+     "name": "HTML",
+     "color": "#e34c26",
+     "size": 30649
+    },
+    {
+     "name": "PowerShell",
+     "color": "#012456",
+     "size": 2146
+    },
+    {
+     "name": "Makefile",
+     "color": "#427819",
+     "size": 1115
+    }
+   ]
+  },
   {
    "name": "shaqing",
    "description": "🎬 杀青 · 人生短剧模拟器 — 每条命都是一部戏 | A life-as-a-movie text roguelike. 1300+ events, 10 hidden storylines, zero deps, zero ads.",
@@ -315,85 +362,97 @@
   {
    "name": "Python",
    "color": "#3572A5",
-   "size": 1447954,
-   "percent": 0.3071063007573974
+   "size": 1526340,
+   "percent": 0.27932404729809607
   },
   {
    "name": "JavaScript",
    "color": "#f1e05a",
-   "size": 1107723,
-   "percent": 0.2349444200533211
+   "size": 1267064,
+   "percent": 0.23187588916343332
   },
   {
    "name": "Vue",
    "color": "#41b883",
    "size": 971056,
-   "percent": 0.20595779699374103
+   "percent": 0.1777056829232674
   },
   {
    "name": "Java",
    "color": "#b07219",
    "size": 737013,
-   "percent": 0.15631804328045762
+   "percent": 0.13487522706036117
+  },
+  {
+   "name": "Go",
+   "color": "#00ADD8",
+   "size": 444309,
+   "percent": 0.08130966110497646
   },
   {
    "name": "CSS",
    "color": "#663399",
-   "size": 220827,
-   "percent": 0.046836683401098235
+   "size": 254457,
+   "percent": 0.04656626905101854
   },
   {
    "name": "HTML",
    "color": "#e34c26",
-   "size": 97642,
-   "percent": 0.02070954838244433
+   "size": 128291,
+   "percent": 0.023477574689728397
   },
   {
    "name": "TypeScript",
    "color": "#3178c6",
    "size": 92243,
-   "percent": 0.019564438166381398
+   "percent": 0.0168807002993555
   },
   {
    "name": "SCSS",
    "color": "#c6538c",
    "size": 20888,
-   "percent": 0.004430276383241814
+   "percent": 0.003822556376667473
   },
   {
    "name": "Dockerfile",
    "color": "#384d54",
    "size": 9926,
-   "percent": 0.002105272088283141
+   "percent": 0.0018164828894485512
   },
   {
    "name": "Shell",
    "color": "#89e051",
    "size": 6391,
-   "percent": 0.0013555101668564933
+   "percent": 0.0011695690254347865
+  },
+  {
+   "name": "PowerShell",
+   "color": "#012456",
+   "size": 3055,
+   "percent": 0.000559072660413593
   },
   {
    "name": "Lua",
    "color": "#000080",
    "size": 1678,
-   "percent": 0.00035589830386249344
+   "percent": 0.00030707820758560036
   },
   {
-   "name": "PowerShell",
-   "color": "#012456",
-   "size": 909,
-   "percent": 0.00019279592265256646
+   "name": "Makefile",
+   "color": "#427819",
+   "size": 1115,
+   "percent": 0.00020404779586289892
   },
   {
    "name": "Mako",
    "color": "#7e858d",
    "size": 580,
-   "percent": 0.00012301610026236364
+   "percent": 0.00010614145435020751
   }
  ],
  "totals": {
-  "repos": 8,
-  "stars": 0,
-  "languages": 13
+  "repos": 9,
+  "stars": 5,
+  "languages": 15
  }
 }

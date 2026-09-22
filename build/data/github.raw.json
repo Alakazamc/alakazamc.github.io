@@ -1,12 +1,79 @@
 {
  "user": {
   "repositories": {
+   "pageInfo": {
+    "hasNextPage": false
+   },
    "nodes": [
     {
+     "isPrivate": true,
+     "isFork": false,
+     "name": "kxsite",
+     "description": "柯西主页（星露谷像素农场风）的源码仓：gen.js 构建器 + 内容源 + 本机工具；产物在 Alakazamc/alakazamc.github.io",
+     "stargazerCount": 0,
+     "pushedAt": "2026-09-22T04:47:16Z",
+     "url": "https://github.com/Alakazamc/kxsite",
+     "primaryLanguage": {
+      "name": "JavaScript",
+      "color": "#f1e05a"
+     },
+     "repositoryTopics": {
+      "nodes": []
+     },
+     "languages": {
+      "edges": [
+       {
+        "size": 921663,
+        "node": {
+         "name": "JavaScript",
+         "color": "#f1e05a"
+        }
+       },
+       {
+        "size": 516519,
+        "node": {
+         "name": "HTML",
+         "color": "#e34c26"
+        }
+       },
+       {
+        "size": 164497,
+        "node": {
+         "name": "CSS",
+         "color": "#663399"
+        }
+       },
+       {
+        "size": 37322,
+        "node": {
+         "name": "Python",
+         "color": "#3572A5"
+        }
+       },
+       {
+        "size": 1866,
+        "node": {
+         "name": "PowerShell",
+         "color": "#012456"
+        }
+       },
+       {
+        "size": 876,
+        "node": {
+         "name": "Batchfile",
+         "color": "#C1F12E"
+        }
+       }
+      ]
+     }
+    },
+    {
+     "isPrivate": false,
+     "isFork": false,
      "name": "alakazamc.github.io",
      "description": "柯西的主页 · 星露谷像素农场风",
-     "stargazerCount": 0,
-     "pushedAt": "2026-09-16T04:17:03Z",
+     "stargazerCount": 1,
+     "pushedAt": "2026-09-22T04:46:47Z",
      "url": "https://github.com/Alakazamc/alakazamc.github.io",
      "primaryLanguage": {
       "name": "HTML",
@@ -18,80 +85,36 @@
      "languages": {
       "edges": [
        {
-        "size": 619696,
+        "size": 3450606,
         "node": {
          "name": "HTML",
          "color": "#e34c26"
         }
        },
        {
-        "size": 60458,
-        "node": {
-         "name": "CSS",
-         "color": "#663399"
-        }
-       },
-       {
-        "size": 8186,
+        "size": 379483,
         "node": {
          "name": "JavaScript",
          "color": "#f1e05a"
         }
-       }
-      ]
-     }
-    },
-    {
-     "name": "szudesktop",
-     "description": "深圳大学校园网客户端：像素风桌面应用 + 命令行 + 校内 VPN（Go 单文件，Windows/macOS/Linux）",
-     "stargazerCount": 0,
-     "pushedAt": "2026-09-16T04:05:39Z",
-     "url": "https://github.com/Alakazamc/szudesktop",
-     "primaryLanguage": {
-      "name": "HTML",
-      "color": "#e34c26"
-     },
-     "repositoryTopics": {
-      "nodes": []
-     },
-     "languages": {
-      "edges": [
-       {
-        "size": 308457,
-        "node": {
-         "name": "HTML",
-         "color": "#e34c26"
-        }
        },
        {
-        "size": 124378,
+        "size": 131729,
         "node": {
-         "name": "Python",
-         "color": "#3572A5"
-        }
-       },
-       {
-        "size": 122689,
-        "node": {
-         "name": "Go",
-         "color": "#00ADD8"
-        }
-       },
-       {
-        "size": 1115,
-        "node": {
-         "name": "Makefile",
-         "color": "#427819"
+         "name": "CSS",
+         "color": "#663399"
         }
        }
       ]
      }
     },
     {
+     "isPrivate": false,
+     "isFork": false,
      "name": "Alakazamc",
      "description": "✨ My GitHub profile — fake it til you make it",
      "stargazerCount": 0,
-     "pushedAt": "2026-09-16T03:45:26Z",
+     "pushedAt": "2026-09-22T01:58:56Z",
      "url": "https://github.com/Alakazamc/Alakazamc",
      "primaryLanguage": null,
      "repositoryTopics": {
@@ -102,6 +125,8 @@
      }
     },
     {
+     "isPrivate": false,
+     "isFork": false,
      "name": "shaqing",
      "description": "🎬 杀青 · 人生短剧模拟器 — 每条命都是一部戏 | A life-as-a-movie text roguelike. 1300+ events, 10 hidden storylines, zero deps, zero ads.",
      "stargazerCount": 0,
@@ -141,6 +166,8 @@
      }
     },
     {
+     "isPrivate": false,
+     "isFork": false,
      "name": "pskit-2.0",
      "description": "🧪 BioAI Agent 工作台：LangGraph 编排 + 20+ 生信工具 + Qdrant RAG + Vue 3 SPA",
      "stargazerCount": 0,
@@ -239,6 +266,8 @@
      }
     },
     {
+     "isPrivate": false,
+     "isFork": false,
      "name": "countryMarkeyforMiniApp",
      "description": "汉寿助农商城 — Java 微服务 + Vue3 管理后台 + uni-app 移动商城（交易闭环已通，AI/乡镇功能规划中）",
      "stargazerCount": 0,
@@ -348,6 +377,8 @@
      }
     },
     {
+     "isPrivate": false,
+     "isFork": false,
      "name": "weather_MCP_server",
      "description": "Minimal MCP weather server (wttr.in) — HelloAgents course exercise",
      "stargazerCount": 0,
@@ -391,6 +422,8 @@
      }
     },
     {
+     "isPrivate": false,
+     "isFork": false,
      "name": "ProteinAgent",
      "description": "🧬 垂直领域异步 AI Agent 编排系统：FastAPI + Celery + Redis + Router LLM + 蛋白领域 RAG（多肽生成 / 适配体生成 / 蛋白预测）",
      "stargazerCount": 0,
@@ -475,6 +508,8 @@
      }
     },
     {
+     "isPrivate": false,
+     "isFork": false,
      "name": "mojuane",
      "description": "📖 墨卷 — 沉浸式电子书阅读器：React 19 + Vite，TXT/EPUB 双引擎、Gutenberg 在线书库、AI 阅读洞察",
      "stargazerCount": 0,
@@ -540,6 +575,8 @@
      }
     },
     {
+     "isPrivate": false,
+     "isFork": false,
      "name": "restaurant-ai-manager",
      "description": "🍜 餐饮 AI 店长：LangGraph 多智能体 + Agentic RAG 的门店经营决策支持系统（日报 / 对话 / 排班）",
      "stargazerCount": 0,
@@ -633,6 +670,8 @@
      }
     },
     {
+     "isPrivate": false,
+     "isFork": false,
      "name": "-skillFoTabbit",
      "description": null,
      "stargazerCount": 0,
@@ -644,6 +683,75 @@
      },
      "languages": {
       "edges": []
+     }
+    }
+   ]
+  }
+ },
+ "extra0": {
+  "isPrivate": false,
+  "isFork": false,
+  "name": "szudesktop",
+  "description": "深圳大学校园网客户端：像素风桌面应用 + 命令行 + 校内 VPN（Go 单文件，Windows/macOS/Linux）",
+  "stargazerCount": 5,
+  "pushedAt": "2026-09-22T04:14:21Z",
+  "url": "https://github.com/SzuDesktopTeam/szudesktop",
+  "primaryLanguage": {
+   "name": "Go",
+   "color": "#00ADD8"
+  },
+  "repositoryTopics": {
+   "nodes": []
+  },
+  "languages": {
+   "edges": [
+    {
+     "size": 444309,
+     "node": {
+      "name": "Go",
+      "color": "#00ADD8"
+     }
+    },
+    {
+     "size": 159341,
+     "node": {
+      "name": "JavaScript",
+      "color": "#f1e05a"
+     }
+    },
+    {
+     "size": 78386,
+     "node": {
+      "name": "Python",
+      "color": "#3572A5"
+     }
+    },
+    {
+     "size": 33630,
+     "node": {
+      "name": "CSS",
+      "color": "#663399"
+     }
+    },
+    {
+     "size": 30649,
+     "node": {
+      "name": "HTML",
+      "color": "#e34c26"
+     }
+    },
+    {
+     "size": 2146,
+     "node": {
+      "name": "PowerShell",
+      "color": "#012456"
+     }
+    },
+    {
+     "size": 1115,
+     "node": {
+      "name": "Makefile",
+      "color": "#427819"
      }
     }
    ]
