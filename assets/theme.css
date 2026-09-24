@@ -366,7 +366,7 @@ button.tool{font:inherit;background:var(--cream);appearance:none}
 button.tool::-moz-focus-inner{border:0}
 
 /* 导航落点：面板本身有 4px 边框 + 外发光，直接滚到顶会被顶部切掉一截 */
-#timeline,#projects,#gallery,#calendar,#skills,#ledger,#farm{scroll-margin-top:24px}
+#timeline,#projects,#gallery,#calendar,#skills,#ledger,#farm,#friends{scroll-margin-top:24px}
 /* 全局滚动条也像素化（2026-09-22，对标 pixel-portfolio 的 16px 木轨条）。
    此前只有 .shelf 有，页面主滚动条是系统默认灰条，跟木色界面脱节。
    ⚠️ .shelf::-webkit-scrollbar{height:8px} 特异性更高，不受影响。 */
@@ -522,6 +522,8 @@ html{scroll-behavior:smooth;scrollbar-width:thin;scrollbar-color:var(--wood-b) v
 /* 工坊固定展示六项：桌面三列两行，中屏两列，手机单列。
    仓库名保留标识符，完整内容选择与手机精简留给下一轮设计。 */
 .rgrid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
+/* 友情站网格：友链卡没有语言色点和日期，两列比工坊的三列透气 */
+.fgrid{grid-template-columns:repeat(2,minmax(0,1fr))}
 
 
 .rcard{display:flex;flex-direction:column;gap:5px;padding:9px 10px;text-decoration:none;color:inherit;
@@ -1004,7 +1006,12 @@ button.soc .soc-in{flex-direction:row;gap:6px}
   
   .tool{padding:8px;gap:4px}
   
-  .rgrid .rcard:nth-child(n+3){display:none}
+  /* 工坊的「手机只露两张」截断：友情站不参与（:not(.fgrid) 挡开）——
+     友链卡没有「查看全部」子页可去，截了就是真没了。友情站改单列铺开（见下）。 */
+  .rgrid:not(.fgrid) .rcard:nth-child(n+3){display:none}
+
+  /* 友情站手机端单列：所有站都看得见 */
+  .fgrid{grid-template-columns:1fr}
   
   
   .rc-d{display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}

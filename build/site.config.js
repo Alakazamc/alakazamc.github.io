@@ -23,6 +23,26 @@ const SITE = {
   // Provisional selection from existing public projects; descriptions remain source-backed.
   featuredRepos: ['szudesktop', 'pskit-2.0', 'ProteinAgent'],
 
+  // ===== 友情站（主页「友情站」面板的数据）=====
+  //
+  // 一行一个站：name = 站名（≤ 30 字，超长卡片会换行难看）、
+  // url = 完整网址（**必须 https**，http 会被守门 check-friends.js 拦下）、
+  // descr = 一句话介绍（≤ 60 字，手机上两行截断）。
+  // 域名（example.com）会自动从 url 里剥出来显示在卡片底部，不用手写。
+  //
+  // ⚠️ 空数组 = 整个面板不渲染（「没有内容就不留占位」），
+  //    导航里的「友情站」入口也会一起消失 —— 不会留下点了没反应的链接。
+  //
+  // 例：
+  // friendSites: [
+  //   { name: '示例小站', url: 'https://example.com/', descr: '一个示例' }
+  // ]
+  friendSites: [
+    { name: '奥特曼 Sam Altman', url: 'https://blog.samaltman.com/', descr: 'OpenAI 首席执行官，前 Y Combinator 总裁' },
+    { name: '达里奥 Dario Amodei', url: 'https://www.darioamodei.com/', descr: 'Anthropic 联合创始人兼 CEO，《Machines of Loving Grace》作者' },
+    { name: '李新野', url: 'https://sinyalee.com/', descr: '清华姚班出身，量化交易公司 Alpha Star Research 创始人' }
+  ],
+
   comments: {
     provider: 'giscus',           // '' | 'giscus' | 'twikoo'  —— 2026-09-16 柯西选了 giscus
 

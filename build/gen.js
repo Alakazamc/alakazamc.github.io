@@ -243,8 +243,14 @@ const toolbar = () => {
   // ⚠️ check-nav 的「死按钮」检查数 <button class="tool"> —— 分享键带
   //    data-share 不是死按钮，那条检查已相应排除（见 check-nav.js）。
   const shareTool = shareBtn(null, 'tool');
+  // 「友情站」入口跟着数据走：没有友链时整个面板不渲染，入口也不能留
+  // （留一个点了没反应的链接比没有入口更糟）。次级导航是详情折叠里的
+  // 一行 <a>，加进来不挤占工具栏那排主入口。
+  const friendNav = (SITE.friendSites || []).length
+    ? '<a href="#friends">友情站</a>'
+    : '';
   return `<nav class="toolbar" aria-label="主页导航">${items.map(([n, t, h]) =>
-    `<a class="tool" href="${h}">${ic(n)}<em>${t}</em></a>`).join('')}${shareTool}</nav><details class="secondary-nav"><summary>更多分区</summary><a href="#calendar">日历</a><a href="#ledger">收获簿</a><a href="#music">唱片机</a><a href="#skills">专精</a><a href="#farm">农场一角</a></details>`;
+    `<a class="tool" href="${h}">${ic(n)}<em>${t}</em></a>`).join('')}${shareTool}</nav><details class="secondary-nav"><summary>更多分区</summary><a href="#calendar">日历</a><a href="#ledger">收获簿</a><a href="#music">唱片机</a><a href="#skills">专精</a><a href="#farm">农场一角</a>${friendNav}</details>`;
 };
 
 // ---------- 最新文章（主页上的时间线预告） ----------
@@ -432,6 +438,39 @@ const techStack = () => {
     : `<ul class="stack">${blank(5)}</ul>`;
 
   return panel('专精', ['gem', 'ore', 'crystal', 'star', 'gem'], inner + DC.shelf(), 'skills');
+};
+
+// ---------- 友情站 ----------
+// 数据在 build/site.config.js 的 friendSites（一行一个站：name / url / descr）。
+// 2026-09-24 柯西问「可不可以加一个友情站链接的版面」→ 能，而且零新样式：
+// 直接复用工坊的 .rgrid/.rcard 卡片体系（悬停上浮、按压下沉、入场错峰动画、
+// 响应式全都是现成的，check-press / check-card-anim 已经守着它们）。
+//
+// ⚠️ 两条与工坊的刻意的不同：
+//   1. 网格挂 .fgrid —— 友链卡没有语言色点和日期，两列比三列透气；
+//      手机端 .fgrid 单列铺开且**不参与**工坊那个「只露两张」的截断规则
+//      （截断规则已加 :not(.fgrid) 挡开，不然第 3 个起的站手机上直接消失）。
+//   2. 卡片底部显示域名而不是语言/日期 —— 外站链接，域名就是「这是什么站」的注脚。
+//
+// 空数组 = 整个面板不渲染（柯西的规矩：没有内容就不留占位），
+// 导航入口也一起消失（见 toolbar() 里那段条件渲染）。
+const friendsPanel = () => {
+  const list = (SITE.friendSites || []).filter((f) => f && f.name && f.url);
+  if (!list.length) return '';
+
+  const card = (f, i) => {
+    let host = '';
+    try { host = new URL(f.url).host; } catch (e) { host = ''; }
+    return `
+      <a class="rcard" style="--i:${i}" href="${md.esc(f.url)}" target="_blank" rel="noopener">
+        <span class="rc-h">${ic('fence', 'sm')}<b>${md.esc(f.name)}</b></span>
+        <span class="rc-d">${md.esc(f.descr || '')}</span>
+        <span class="rc-f"><em>${md.esc(host)}</em></span>
+      </a>`;
+  };
+
+  return panel('友情站', ['fence', 'mailbox', 'heart', 'flower', 'fence'],
+    `<div class="rgrid fgrid">${list.map(card).join('')}</div>` + DC.shelf(), 'friends');
 };
 
 const farmPanel = () => panel('农场一角', ['flower', 'flower', 'wheat', 'wheat', 'tree'], `
@@ -949,7 +988,7 @@ button.tool{font:inherit;background:var(--cream);appearance:none}
 button.tool::-moz-focus-inner{border:0}
 
 /* 导航落点：面板本身有 4px 边框 + 外发光，直接滚到顶会被顶部切掉一截 */
-#timeline,#projects,#gallery,#calendar,#skills,#ledger,#farm{scroll-margin-top:24px}
+#timeline,#projects,#gallery,#calendar,#skills,#ledger,#farm,#friends{scroll-margin-top:24px}
 /* 全局滚动条也像素化（2026-09-22，对标 pixel-portfolio 的 16px 木轨条）。
    此前只有 .shelf 有，页面主滚动条是系统默认灰条，跟木色界面脱节。
    ⚠️ .shelf::-webkit-scrollbar{height:8px} 特异性更高，不受影响。 */
@@ -1105,6 +1144,8 @@ html{scroll-behavior:smooth;scrollbar-width:thin;scrollbar-color:var(--wood-b) v
 /* 工坊固定展示六项：桌面三列两行，中屏两列，手机单列。
    仓库名保留标识符，完整内容选择与手机精简留给下一轮设计。 */
 .rgrid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
+/* 友情站网格：友链卡没有语言色点和日期，两列比工坊的三列透气 */
+.fgrid{grid-template-columns:repeat(2,minmax(0,1fr))}
 
 
 .rcard{display:flex;flex-direction:column;gap:5px;padding:9px 10px;text-decoration:none;color:inherit;
@@ -1587,7 +1628,12 @@ button.soc .soc-in{flex-direction:row;gap:6px}
   
   .tool{padding:8px;gap:4px}
   
-  .rgrid .rcard:nth-child(n+3){display:none}
+  /* 工坊的「手机只露两张」截断：友情站不参与（:not(.fgrid) 挡开）——
+     友链卡没有「查看全部」子页可去，截了就是真没了。友情站改单列铺开（见下）。 */
+  .rgrid:not(.fgrid) .rcard:nth-child(n+3){display:none}
+
+  /* 友情站手机端单列：所有站都看得见 */
+  .fgrid{grid-template-columns:1fr}
   
   
   .rc-d{display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
@@ -1684,6 +1730,8 @@ ${controls()}
            grid 不会替短的那栏补高。搬到主栏后两栏差降到 45px 以内。
            放主栏也顺理成章 —— 6 行进度条本来就该宽着排，挤在 288px 里反而局促。 -->
       ${techStack()}
+      ${DC.path()}
+      ${friendsPanel()}
     </main>
     <aside>
       ${seasonPanel()}
