@@ -15,6 +15,9 @@ const { articles, TAG_ICON } = require('./content.js');
 const SITE = require('./site.config.js');
 const FARM = require('./farm-modules.js');
 const { shareBtn, shareScript } = require('./subpage.js');
+// 首屏仪表盘（一张主卡 + 状态栏）：dash() 出结构，dashScript() 出交互。
+// 2026-09-25 实施，取代首屏的「工具条 + 双栏面板墙」。
+const { dash, dashScript } = require('./dash.js');
 const galleryData = require('./gallery-data.js');
 
 // 相馆元数据是用户在写作页上传后新增的，构建前必须先刷新数据快照。
@@ -223,35 +226,6 @@ const hang = () => {
 // 合并成一条时间线后，这两个按钮也就并成一个「时间线」。
 // 2026-09-20：时间线独立成页（posts/index.html），这个按钮从页内锚点
 // 改成跳转到那一页 —— 它现在指向"完整的那条时间线"。
-const toolbar = () => {
-  const items = [
-    ['wateringcan', '时间线', 'posts/index.html'],
-    ['book', '写作台', 'write/index.html'],
-    ['book', '博物馆', '#museum'],
-    ['chest', '工坊', '#projects'],
-    ['scythe', '相馆', '#gallery'],
-
-  ];
-  // ⚠️ 「联系」不能再写成 mailto: —— 柯西 2026-09-16 明确要求邮箱点击是**显示号码**
-  // 而不是拉起邮件客户端（没装邮件客户端的机器上点 mailto 毫无反应）。
-  // 所以它跟招牌下那排账号一样，走 data-copy 弹提示；标签也从「联系」改成
-  // 「邮箱」，因为点下去得到的是号码，不是联系方式的选择。
-  const mail = ACCOUNTS.find((a) => a.k === 'mail');
-  const mailBtn = `<button type="button" class="tool copyable" data-copy="${md.esc(mail.copy)}" title="点击显示邮箱">${ic('mailbox')}<em>邮箱</em></button>`;
-  // 2026-09-21「分享功能没做好」→ 首页也有一枚分享键（.tool 竖排款式，
-  // 与旁边五个导航工具同款；点击逻辑和复制降级在 subpage.js 的 shareScript）。
-  // ⚠️ check-nav 的「死按钮」检查数 <button class="tool"> —— 分享键带
-  //    data-share 不是死按钮，那条检查已相应排除（见 check-nav.js）。
-  const shareTool = shareBtn(null, 'tool');
-  // 「友情站」入口跟着数据走：没有友链时整个面板不渲染，入口也不能留
-  // （留一个点了没反应的链接比没有入口更糟）。次级导航是详情折叠里的
-  // 一行 <a>，加进来不挤占工具栏那排主入口。
-  const friendNav = (SITE.friendSites || []).length
-    ? '<a href="#friends">友情站</a>'
-    : '';
-  return `<nav class="toolbar" aria-label="主页导航">${items.map(([n, t, h]) =>
-    `<a class="tool" href="${h}">${ic(n)}<em>${t}</em></a>`).join('')}${shareTool}</nav><details class="secondary-nav"><summary>更多分区</summary><a href="#calendar">日历</a><a href="#ledger">收获簿</a><a href="#music">唱片机</a><a href="#skills">专精</a><a href="#farm">农场一角</a>${friendNav}</details>`;
-};
 
 // ---------- 最新文章（主页上的时间线预告） ----------
 // 历史：这里曾是整条时间线（12 条）。2026-09-20 柯西要求
@@ -611,6 +585,26 @@ const bottom = () => require('./subpage.js').bottomBlock(
   })
 );
 
+// 状态栏第一块：实时时钟 + 打字机问候 + 日期/季节/昼夜 + 分享 + 邮箱。
+// 时钟跑数、问候打字、深链与女孩行走都由 dash.js 的 dashScript 负责，这里只出结构
+// （样式走 pixel-art.js 的 .clock / .greet / .side-acts）。
+// ⚠️ 邮箱**必须走 data-copy 弹提示**、不能 mailto: —— 柯西 2026-09-16 的规矩
+//    （没装邮件客户端的机器上点 mailto 毫无反应），见上面 toolbar 那段注释。
+const statusPanel = () => {
+  const m = ACCOUNTS.find((a) => a.k === 'mail');
+  // ⚠️ deco 是面板**四角**的装饰图标，必须给满 4 个 —— 给 3 个的话第四角会渲染成
+  //    href="#px-undefined"，图标引用完整性检查（check.js 第 1 条）直接红。
+  return panel('状态', ['sun', 'moon', 'star', 'flower'],
+    '<div class="clock" id="dash-clock">--<b>:</b>--<b>:</b>--</div>' +
+    '<p class="greet" id="dash-greet"></p>' +
+    '<p class="greet" id="dash-meta"></p>' +
+    '<div class="side-acts">' +
+    `<a class="abtn" href="write/index.html">${ic('book')}<span>写作台</span></a>` +
+    shareBtn(null, 'share-btn') +
+    `<button type="button" class="cbtn copyable" data-copy="${md.esc(m.copy)}" title="点击显示邮箱">${ic('mailbox')}<em>邮箱</em></button>` +
+    '</div>', 'status');
+};
+
 const HTML = `<!DOCTYPE html>
 <html lang="zh-CN" data-season="spring" data-time="day">
 <head>
@@ -962,17 +956,6 @@ button.soc:active{transform:translateY(0)}
 .board .deco{position:absolute;left:12px;right:12px;bottom:-16px;display:flex;justify-content:space-between}
 .board .deco span{display:flex;gap:4px}
 
-/* ===== 工具栏 ===== */
-.toolbar{display:flex;flex-wrap:wrap;justify-content:center;gap:8px;margin:28px 0 20px}
-.tool{display:flex;flex-direction:column;align-items:center;gap:3px;background:var(--cream);
-  border:3px solid var(--ink);box-shadow:0 0 0 3px var(--wood-c),0 4px 0 0 var(--wood-c);
-  padding:8px 11px 6px;font-family:inherit;color:inherit;text-decoration:none;
-  transition:transform .1s steps(2),background .15s,box-shadow .1s}
-.tool:hover,.tool:focus-visible{background:var(--gold);transform:translateY(-3px);
-  box-shadow:0 0 0 3px var(--wood-c),0 7px 0 0 var(--wood-c)}
-.tool:active{transform:translateY(1px);box-shadow:0 0 0 3px var(--wood-c),0 1px 0 0 var(--wood-c)}
-.tool:focus-visible{outline:3px solid var(--ink);outline-offset:3px}
-
 /* 键盘焦点：全局兜底（2026-09-21）。
    此前只有 6 条选择器写了品牌化焦点样式（社交图标 / 工具按钮 / 宠物 / 音乐），
    其余 15 个类名的可点元素 —— 时间线卡片、项目卡、相馆图、配色按钮、返回农场、
@@ -982,10 +965,6 @@ button.soc:active{transform:translateY(0)}
    ⚠️ 放在这里只是便于集中阅读，CSS 顺序不影响结果 —— 具体选择器（如 .tool:focus-visible）
    优先级更高，会赢过这条兜底。 */
 :focus-visible{outline:3px solid var(--ink);outline-offset:2px}
-.tool em{font-style:normal;font-size:12px;opacity:.8}
-/* 工具栏里的按钮（「邮箱」）：得把浏览器默认按钮样式抹掉才会跟旁边的 <a> 长得一样 */
-button.tool{font:inherit;background:var(--cream);appearance:none}
-button.tool::-moz-focus-inner{border:0}
 
 /* 导航落点：面板本身有 4px 边框 + 外发光，直接滚到顶会被顶部切掉一截 */
 #timeline,#projects,#gallery,#calendar,#skills,#ledger,#farm,#friends{scroll-margin-top:24px}
@@ -1593,8 +1572,6 @@ button.soc .soc-in{flex-direction:row;gap:6px}
 .toolbar{margin:20px 0 8px;gap:12px}
 .tool{flex-direction:row;min-height:44px;padding:8px 12px;gap:8px;border:2px solid var(--frame);box-shadow:0 3px 0 var(--frame)}
 .tool:hover,.tool:focus-visible{box-shadow:0 3px 0 var(--frame);transform:translateY(-1px)}
-.secondary-nav{text-align:center;margin:0 0 24px;font-size:12px}
-.secondary-nav a{display:inline-block;color:inherit;padding:10px 12px;text-underline-offset:4px}
 .panel{border:2px solid var(--frame);box-shadow:0 4px 0 rgba(43,29,14,.15);padding:24px;background:var(--reading-surface);margin-bottom:28px}
 .panel::before{display:none}
 .pt{letter-spacing:0}
@@ -1706,41 +1683,23 @@ ${MUSIC.css}
 ${controls()}
 
 <div class="wrap">
-  ${PIXEL.hero(DC.panorama(), social(), {articles:ARTICLES.length,collection:(DOUBAN.items || []).length + (GAMES.games || []).length + ALBUMS.items.length,photos:GALLERY.count || 0}, ic)}
+  ${dash([
+    { label: '概览',   html: PIXEL.hero(DC.panorama(), social(), {articles:ARTICLES.length,collection:(DOUBAN.items || []).length + (GAMES.games || []).length + ALBUMS.items.length,photos:GALLERY.count || 0}, ic) + hang() },
+    { label: '工坊',   html: repos() },
+    { label: '文章',   html: timeline() },
+    { label: '博物馆', html: museum() },
+    { label: '相馆',   html: galleryPanel() },
+    { label: '专精',   html: techStack() },
+    { label: '友链',   html: friendsPanel() },
+    { label: '日历',   html: seasonPanel() },
+    { label: '农场',   html: farmPanel() }
+  ].filter(function(p){ return p.html; }), [
+    statusPanel(),
+    panel('唱片机', ['star', 'flower', 'star', 'flower', 'star'], MUSIC.render() + DC.shelf(), 'music'),
+    moneyPanel()
+  ])}
 
-  ${hang()}
-  ${toolbar()}
-
-  <!-- 工坊单独放在两栏之外，占满整行 —— 柯西要求「把代码仓库放在最上面」，
-       放在 main 里的话它会跟右栏的侧栏面板并排，视觉上就不是「最上面」了。 -->
-  ${repos()}
-
-  <div class="layout">
-    ${DC.posts()}
-    <main>
-      ${timeline()}
-      ${DC.path()}
-      ${museum()}
-      ${DC.path()}
-      ${galleryPanel()}
-      ${DC.path()}
-      <!-- 「专精」面板原本挂在 <aside> 里（2026-09-21 搬到主栏）。
-           原因：侧栏当时塞了 5 块、主栏只有 3 块，侧栏比主栏整整高出 917px，
-           主栏底部悬着一大片空白；而 .layout 是 align-items:start，
-           grid 不会替短的那栏补高。搬到主栏后两栏差降到 45px 以内。
-           放主栏也顺理成章 —— 6 行进度条本来就该宽着排，挤在 288px 里反而局促。 -->
-      ${techStack()}
-      ${DC.path()}
-      ${friendsPanel()}
-    </main>
-    <aside>
-      ${seasonPanel()}
-      ${panel('唱片机', ['star', 'flower', 'star', 'flower', 'star'], MUSIC.render() + DC.shelf(), 'music')}
-      ${moneyPanel()}
-      ${farmPanel()}
-    </aside>
-  </div>
-
+  ${DC.posts()}
   ${DC.farmyard()}
   ${FARM.scenery()}
   ${footer()}
@@ -1751,6 +1710,7 @@ ${controls()}
 <div id="contact-tip" class="contact-tip" role="status" aria-live="polite"></div>
 
 ${buildSprite()}
+${dashScript()}
 
 <script src="assets-layers.js"></script>
 <script>
@@ -1862,10 +1822,11 @@ ${buildSprite()}
       if (shelf) shelf.scrollLeft = 0;
     });
   });
-  if (location.hash === '#basket') {
-    document.querySelector('[data-filter-kind="game"]').click();
-    document.getElementById('museum').scrollIntoView();
+  function legacyGameLink(){
+    if (location.hash === '#basket') document.querySelector('[data-filter-kind="game"]').click();
   }
+  legacyGameLink();
+  window.addEventListener('hashchange', legacyGameLink);
   var dn = document.querySelector('[data-toggle-time]');
   dn.addEventListener('click',function(){manualTime=true;applyTime(root.dataset.time==='night'?'day':'night');updateCalendar();});
 

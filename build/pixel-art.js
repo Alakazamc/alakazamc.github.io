@@ -73,19 +73,36 @@ html[data-time="night"] .pixel-window{background:#263c45;box-shadow:inset 0 0 0 
 html[data-time="night"] .window-hills{background:#3e5a56}html[data-time="night"] .window-cloud{opacity:.16}
 html[data-time="night"] .pixel-window::before{background:#f5e2a4;box-shadow:4px 0 #f5e2a4,-4px 0 #f5e2a4,0 4px #f5e2a4,0 -4px #f5e2a4}
 html[data-time="night"] .pixel-window>svg{filter:brightness(.78) saturate(.8)}
-.toolbar{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:var(--s2);padding:var(--s3);background:var(--timber);border:2px solid var(--pixel-shadow);margin:var(--s6) 0 0;box-shadow:0 4px 0 var(--timber-light)}
-.toolbar .tool{justify-content:center;gap:12px;min-height:52px;border:2px solid var(--timber-light);background:var(--cream);box-shadow:inset 0 -4px 0 var(--cream-3);padding:8px}
-.toolbar .tool .ic{width:24px;height:24px}.toolbar .tool em{opacity:1}
-.toolbar .tool:hover{background:var(--cream-2);box-shadow:inset 0 -4px 0 var(--timber-top);transform:translateY(-2px)}
-.secondary-nav{margin:10px 0 28px;text-align:right}.secondary-nav>summary{color:var(--ink);background:var(--cream-2);display:inline-block;padding:4px 12px;border:1px solid var(--timber)}
-.secondary-nav[open]{background:var(--cream);padding:8px;border:2px solid var(--timber)}
-/* 左栏封顶 880px，宽屏多出来的宽度全给右栏（侧栏从 288 涨到 ~604）。
-   为什么封顶而不是两边等比涨：主栏是时间线卡片，堆到 1100+ 行长就散了；
-   而侧栏窄是它一直显得局促的原因。
-   ⚠️ 880 这个数不是随手取的：容器 1512 时右栏 = 1512-28-880 = 604，
-      刚好够两列（见下面 .layout>aside 的 auto-fit）留出余量。
-   ⚠️ 容器 ≤1152（1440 屏及以下）时 main 拿不满 880，实际仍是 836 —— 与改动前一致。 */
-.layout{grid-template-columns:minmax(0,880px) minmax(288px,1fr);gap:var(--s7)}
+/* ===== 首屏仪表盘：一张主卡（tab 切换）+ 右侧状态栏（2026-09-25 实施）=====
+   工具条（.toolbar）与次级导航（.secondary-nav）在这里退役 —— 它们的入口
+   全部搬进 tab 栏 / 状态栏，**功能一个不丢，只是位置变了**。
+   ⚠️ 规则数有棘轮（check-css-budget 上限 1920），新样式能合并就合并：
+     · 时钟冒号与打字机光标**共用一条** .clock b,.cur；
+     · 状态栏不写容器规则（默认 block），间距靠 .panel 自带的 margin-bottom；
+     · 日期行复用 .greet 的类，不单开一条；
+     · 激活态不用 ::after（背景 + 内阴影已经够读）。 */
+.dash{position:relative;display:grid;grid-template-columns:minmax(0,1fr) 288px;gap:var(--s6);align-items:start}
+.dash-tabs{display:flex;gap:4px;padding:8px;background:var(--timber);border:2px solid var(--pixel-shadow);box-shadow:0 4px 0 var(--timber-light)}
+.dash-tab{flex:1;min-width:0;height:44px;display:flex;align-items:center;justify-content:center;background:var(--cream);border:2px solid var(--timber-light);box-shadow:inset 0 -4px 0 var(--cream-3);color:var(--ink);font:inherit;font-size:12px;line-height:24px;text-decoration:none;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;transition:background .18s ease,color .18s ease,transform .16s ease-out,box-shadow .16s ease-out}
+.dash-tab[aria-selected="true"]{background:var(--cream-3);color:var(--ink);box-shadow:inset 0 -4px 0 var(--moss);border-color:var(--moss)}
+.dash-tab:hover{background:var(--cream-2);transform:translateY(-2px)}
+.dash-track{position:relative;height:48px;background:linear-gradient(var(--timber-light),var(--timber-light)) left bottom / 100% 2px no-repeat;margin:0 8px}
+.dash-walk{position:absolute;left:0;bottom:0;width:40px;height:40px;pointer-events:none;transform:translateX(var(--x,0));image-rendering:pixelated}
+.dash-walk .art{display:block;width:40px;height:40px;transform-origin:center bottom;animation:hop 280ms steps(2) infinite;animation-play-state:paused}
+.dash-walk.walking .art{animation-play-state:running}
+.dash-body{min-height:480px;padding:var(--s6);border:3px solid var(--timber);background:var(--cream);box-shadow:4px 4px 0 var(--pixel-shadow),inset 0 0 0 2px var(--cream-3)}
+.tabpane:not(.on){display:none}
+.tabpane.on{animation:px-pane-in .22s cubic-bezier(.22,1,.36,1) backwards}
+.tabpane>.panel,.tabpane>.board{border:0;box-shadow:none;margin-bottom:0;padding:0}
+.clock{font-size:24px;line-height:32px;color:var(--ink);font-variant-numeric:tabular-nums}
+.clock b{font-weight:normal;color:var(--ink-2)}
+.greet{min-height:24px;line-height:24px;margin:8px 0;color:var(--ink-2)}
+.side-acts{display:flex;flex-wrap:wrap;gap:8px;margin-top:16px}
+.side-acts .abtn{display:flex;align-items:center;justify-content:center;gap:8px;flex-basis:100%;background:var(--cream-3);color:var(--ink);text-decoration:none;margin-bottom:4px}
+@keyframes hop{0%,100%{transform:translateY(0)}50%{transform:translateY(-2px)}}
+@keyframes px-pane-in{from{opacity:.35;transform:translateY(6px)}to{opacity:1;transform:none}}
+/* 首屏的双栏容器（.layout）已换成仪表盘 **.dash**（规则见上方 "首屏仪表盘" 一节）：
+   主栏 1fr + 状态栏 288px。下滑区（farmyard / scenery / footer / 留言板）仍是整行，不走两栏。 */
 .panel{border:3px solid var(--timber);padding:var(--s6);background:var(--cream);box-shadow:4px 4px 0 var(--pixel-shadow),inset 0 0 0 2px var(--cream-3);margin-bottom:var(--s8)}
 .panel::after{display:none}.panel>.cor{opacity:.7}.panel>.cor .ic{width:12px;height:12px}
 .panel>.pt{position:relative;top:auto;left:auto;width:fit-content;max-width:100%;margin:-2px 0 var(--s6);padding:var(--s1) var(--s3);background:var(--timber);color:#ffedbb;border:2px solid var(--timber-light);box-shadow:2px 2px 0 var(--pixel-shadow);line-height:24px;gap:var(--s3)}
@@ -134,14 +151,14 @@ body:not(.is-article) .panel>.pt>.ic{width:24px;height:24px}
 .is-article .arttitle{margin-top:12px}.is-article .artcover img{border:0;box-shadow:none}
 .is-article .dc-shelf{margin-top:32px}.is-article .artpage>.pt{font-size:12px}
 .sitebottom{margin-top:var(--s8)}.site-links{line-height:24px}.dc-farmyard{padding-top:var(--s5)}
-@media(max-width:1000px){.board.pixel-entry{grid-template-columns:minmax(0,1fr) 300px;gap:8px}.entry-copy{padding:16px 12px}.board.pixel-entry .bt{font-size:24px;line-height:36px}.entry-counts{gap:12px}.entry-counts b{font-size:12px}.layout{grid-template-columns:minmax(0,1fr) 264px;gap:var(--s5)}.rc-h b{font-size:12px;line-height:24px}.rgrid{gap:12px}.rcard{padding:16px 12px}}
-@media(max-width:760px){.wrap{padding:0 16px 32px}.appearance-settings{padding:0 16px}.board.pixel-entry{grid-template-columns:1fr;padding:8px;gap:0}.entry-copy{padding:16px}.entry-view{padding:8px}.pixel-window{height:184px}.pixel-window .dc-house{width:160px!important;left:calc(50% - 110px)}.pixel-window .dc-mill{right:32px;width:80px!important}.entry-caption{padding:8px}.entry-label{margin-bottom:12px}.entry-counts{margin-top:16px;gap:16px}.entry-counts b{font-size:24px}.toolbar{grid-template-columns:repeat(5,minmax(0,1fr));gap:4px;padding:8px}.toolbar .tool{flex-direction:column;padding:8px 2px;gap:4px}.toolbar .tool .ic{width:24px;height:24px}.layout{grid-template-columns:1fr}.panel{padding:var(--s5);margin-bottom:var(--s7)}.panel>.pt{margin-bottom:var(--s5)}body:not(.is-article) .panel>.pt{font-size:24px}.dc-shelf{margin:20px -18px -18px}.rgrid{grid-template-columns:1fr}.rcard{min-height:0}.rc-h b{font-size:24px;line-height:32px}.rc-d{-webkit-line-clamp:3}.rfoot{display:none}#projects .museum-more{margin-top:20px;justify-content:center}/* ⚠️ 窄屏的 .tl-item 必须是**两列**：日期列（.tl-when）在 1080 以下就被 gen.js
+@media(max-width:1000px){.board.pixel-entry{grid-template-columns:minmax(0,1fr) 300px;gap:8px}.entry-copy{padding:16px 12px}.board.pixel-entry .bt{font-size:24px;line-height:36px}.entry-counts{gap:12px}.entry-counts b{font-size:12px}.dash{grid-template-columns:minmax(0,1fr) 264px;gap:var(--s6)}.rc-h b{font-size:12px;line-height:24px}.rgrid{gap:12px}.rcard{padding:16px 12px}}
+@media(max-width:760px){.wrap{padding:0 16px 32px}.appearance-settings{padding:0 16px}.board.pixel-entry{grid-template-columns:1fr;padding:8px;gap:0}.entry-copy{padding:16px}.entry-view{padding:8px}.pixel-window{height:184px}.pixel-window .dc-house{width:160px!important;left:calc(50% - 110px)}.pixel-window .dc-mill{right:32px;width:80px!important}.entry-caption{padding:8px}.entry-label{margin-bottom:12px}.entry-counts{margin-top:16px;gap:16px}.entry-counts b{font-size:24px}.dash{grid-template-columns:1fr;gap:var(--s5)}.dash-tabs{flex-wrap:wrap}.dash-tab{flex:0 0 calc(33.333% - 4px)}.dash-body{min-height:360px;padding:var(--s5)}.panel{padding:var(--s5);margin-bottom:var(--s7)}.panel>.pt{margin-bottom:var(--s5)}body:not(.is-article) .panel>.pt{font-size:24px}.dc-shelf{margin:20px -18px -18px}.rgrid{grid-template-columns:1fr}.rcard{min-height:0}.rc-h b{font-size:24px;line-height:32px}.rc-d{-webkit-line-clamp:3}.rfoot{display:none}#projects .museum-more{margin-top:20px;justify-content:center}/* ⚠️ 窄屏的 .tl-item 必须是**两列**：日期列（.tl-when）在 1080 以下就被 gen.js
    display:none 了，而 display:none 的元素**不占网格格位** —— 这里若写回三列，
    .tl-card 会掉进第 2 列（原来给轴线的那 18px），卡片只剩内边距、内容宽 0，
    手机上时间线只剩一根空条（2026-09-21 发现，纯静态断言看不出来，得在窄屏量宽度）。
    轴列 40px 是这里刻意放大的（配 18px 的圆点），轴线中心 = 40/2 → left 19px。
    卡片内部同理：封面在 820 以下已经隐藏，内部网格留成 1 列。 */
-.tl-item{grid-template-columns:40px minmax(0,1fr);gap:8px}.tl-line{left:19px;width:3px}.tl-dot{width:18px;height:18px}.tl-card{padding:10px;grid-template-columns:minmax(0,1fr);gap:10px}.tl-cover{width:40px}.tl-item.lead .tl-card{padding:12px}.tl-item.lead .tl-title{font-size:24px;line-height:36px}.layout>aside{display:grid;grid-template-columns:1fr;gap:0}.gstrip img{height:96px}.museum-zone-title{flex-wrap:wrap}.douban-mark-link{margin-left:0}.dc-scene,.dc-pond{display:none}}
+.tl-item{grid-template-columns:40px minmax(0,1fr);gap:8px}.tl-line{left:19px;width:3px}.tl-dot{width:18px;height:18px}.tl-card{padding:10px;grid-template-columns:minmax(0,1fr);gap:10px}.tl-cover{width:40px}.tl-item.lead .tl-card{padding:12px}.tl-item.lead .tl-title{font-size:24px;line-height:36px}.gstrip img{height:96px}.museum-zone-title{flex-wrap:wrap}.douban-mark-link{margin-left:0}.dc-scene,.dc-pond{display:none}}
 /* ===== 窄屏横向溢出的两个源头（2026-09-20 量出来的，别再当"环境问题"） =====
    ⚠️ 这两条**必须留在本文件**：本文件是样式表里最后一份，写进 gen.js 会被上面的
    .shelf-tab / .dc-shelf 覆盖（同特异性、后来者胜），看着改了其实没生效。
@@ -179,7 +196,7 @@ body:not(.is-article) .panel>.pt>.ic{width:24px;height:24px}
       用 position:relative + top 偏移。
    ⚠️ 同位移值的合并成一条选择器列表：规则总数有 1900 的棘轮预算
       （check-css-budget），一个控件一条 :active 放不下。 */
-.toolbar .tool:active,.pixel-entry .social .soc:active,.cbtn:active,.gal-item:active,
+.dash-tab:active,.pixel-entry .social .soc:active,.cbtn:active,.gal-item:active,
 .museum-item a:active,.gstrip .gp:active,.exc > a:active,.apg:active,.museum-page-btn:active:not(:disabled),
 .shelf-tab:active,.museum-filter:active,.copy-code:active{transform:translateY(1px)}
 .rcard:active,.wcard-link:active{transform:translate(0,1px);box-shadow:inset 0 4px var(--cream-3)}
@@ -192,34 +209,15 @@ body:not(.is-article) .panel>.pt>.ic{width:24px;height:24px}
    hover 在触屏上一律摁平（背景色粘滞比位移轻，留着不动）。
    ⚠️ 同样必须写在本文件：.toolbar .tool:hover / .rcard:hover 的生效层在这里。 */
 @media (hover:none){
-  .toolbar .tool:hover,.pixel-entry .social .soc:hover,.cbtn:hover,.rcard:hover,
+  .dash-tab:hover,.pixel-entry .social .soc:hover,.cbtn:hover,.rcard:hover,
   .wcard-link:hover,.gal-item:hover,.gstrip .gp:hover,.fr:hover,.exc > a:hover,
   .abtn:hover,.apg:hover,.tool:hover,.tool:focus-visible,.soc:hover,.soc:focus-visible,
   .share-btn:hover{transform:none}
 }
-/* ===== 卡片入场：steps(8) 逐格（2026-09-22，对标 pixel-portfolio 的 pixelCardFadeIn）=====
-   参考实现是这么写的：
-     @keyframes pixelCardFadeIn{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
-     .pixel-card-animate{opacity:0;animation:pixelCardFadeIn .3s steps(8) forwards}
-   —— 两处**刻意不照抄**，因为照抄会带出两个真问题：
-   1) 用 backwards 而不是 forwards：forwards 会把末帧的 transform **永久钉住**，
-      卡片自己的 :hover 上浮（.rcard:hover 是 translateY(-3px)、.pcard:hover
-      translateY(-4px)、.gstrip .gp:hover translateY(-3px)）和刚补的 :active 按压
-      会被一起压死 —— 参考项目正是 forwards 配 hover:-translate-y-2 同用，
-      它那个 hover 位移其实一直是失效的。backwards 只在动画期间生效，
-      播完把 transform 交还给普通级联，三态手感原样保留。
-   2) 基类**不写 opacity:0**，只放进关键帧的 from：动画一旦不跑
-      （gen.js 里有 prefers-reduced-motion 的全局刹车 *{animation:none!important}、
-       浏览器太老、用户关了动画），卡片是**直接可见**的，不会留一片空白。
-      参考项目把 opacity:0 写在类上，动画不跑就永远看不见 —— 那是
-      「装饰性动画拖累内容」的典型，本站不让装饰影响内容可达。
-   交错：由元素上的 --i 变量驱动（生成器/渲染函数按序号写），60ms 一档、封顶 480ms；
-   没有 --i 的元素延迟为 0（照样播，只是不参与错开）。
-   ⚠️ 不支持 min() 的浏览器会让整条 animation-delay 失效 → 退化成无错开，
-      动画本身照常播，属于可接受的降级。
-   ⚠️ 本文件是最后加载的样式表层，动画也必须写在这里才不会被上面的规则截胡。 */
-@keyframes px-card-in{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:none}}
-.rcard,.tl-card,.gstrip .gp,.exc,.gal-item,.museum-item,.wcard{animation:px-card-in .3s steps(8) backwards;animation-delay:min(calc(var(--i,0)*60ms),480ms)}
+/* 卡片轻微上移并渐显：280ms，35ms 交错且最多等待 175ms。
+   backwards 只管理入场，不占住 hover/active；减少动效时内容保持可见。 */
+@keyframes px-card-in{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+.rcard,.tl-card,.gstrip .gp,.exc,.gal-item,.museum-item,.wcard{animation:px-card-in .28s cubic-bezier(.22,1,.36,1) backwards;animation-delay:min(calc(var(--i,0)*35ms),175ms)}
 `;
 
 module.exports = {hero, css};
