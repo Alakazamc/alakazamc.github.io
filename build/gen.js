@@ -447,14 +447,8 @@ const friendsPanel = () => {
     `<div class="rgrid fgrid">${list.map(card).join('')}</div>` + DC.shelf(), 'friends');
 };
 
-const farmPanel = () => panel('农场一角', ['flower', 'flower', 'wheat', 'wheat', 'tree'], `
-  <div class="scene">
-    ${['tree', 'scarecrow', 'beehive', 'chicken', 'cow', 'lantern', 'junimo', 'fence',
-      'keg', 'cask', 'slime', 'wand', 'truffle']
-      .map((n, i) => `<span style="animation-delay:${(i * 0.24).toFixed(2)}s">${ic(n, 'lg')}</span>`).join('')}
-  </div>
-  <div class="fencerow">${ic('fence')}${ic('fence')}${ic('fence')}${ic('fence')}${ic('fence')}${ic('fence')}</div>` +
-    DC.shelf(), 'farm');
+const farmPanel = () => panel('收获农场', ['flower', 'flower', 'wheat', 'wheat', 'tree'],
+  FARM.harvest(FARM.load()) + DC.shelf(), 'farm');
 
 // ---------- 博物馆（豆瓣书影音） ----------
 //
@@ -549,7 +543,6 @@ const museum = () => {
   return panel('博物馆', ['book', 'gem', 'crystal', 'star', 'gift'], inner + DC.shelf(), 'museum');
 };
 
-const moneyPanel = () => panel('收获簿', ['basket', 'wheat', 'flower', 'book', 'star'], FARM.harvest(FARM.load()) + DC.shelf(), 'ledger');
 
 // ---------- 页脚 ----------
 const footer = () => `
@@ -1170,17 +1163,6 @@ html{scroll-behavior:smooth;scrollbar-width:thin;scrollbar-color:var(--wood-b) v
 .tbar b{display:block;height:100%}
 .stack u{text-decoration:none;font-size:12px;min-width:40px;text-align:right;font-variant-numeric:tabular-nums}
 
-.pgrid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}
-.pcard{display:flex;flex-direction:column;align-items:flex-start;gap:6px;padding:10px 9px;
-  background:var(--cream-2);border:3px solid var(--ink);box-shadow:0 0 0 2px var(--wood-c);
-  transition:transform .12s steps(2)}
-.pcard:hover{transform:translateY(-4px)}
-.pcard.gold{background:linear-gradient(180deg,#FFF1B8,#FFD98A)}
-.pcard.green{background:linear-gradient(180deg,#D6F5C0,#A8E08A)}
-.pcard.blue{background:linear-gradient(180deg,#CFEAFA,#9FCDEA)}
-.pcard.purple{background:linear-gradient(180deg,#E8D6FA,#C6A8EE)}
-.pcard-ic{filter:drop-shadow(0 3px 0 rgba(59,36,18,.3))}
-.pcard-foot{display:flex;gap:3px;margin-top:2px}
 
 /* ===== 相馆 ===== */
 /* 等高一条排：主页只做缩略陈列（高 96px = 12 的倍数，宽按原始比例），
@@ -1398,7 +1380,7 @@ a.wcard-link:hover{transform:translateY(-3px);box-shadow:0 6px 0 rgba(59,36,18,.
   
   .hero{grid-template-columns:1fr}
   .hero-cov{max-width:230px}
-  .pgrid{grid-template-columns:1fr}
+
   .controls{top:6px;right:6px;transform:scale(.86);transform-origin:top right}
 }
 
@@ -1684,7 +1666,7 @@ ${controls()}
 
 <div class="wrap">
   ${dash([
-    { label: '概览',   html: PIXEL.hero(DC.panorama(), social(), {articles:ARTICLES.length,collection:(DOUBAN.items || []).length + (GAMES.games || []).length + ALBUMS.items.length,photos:GALLERY.count || 0}, ic) + hang() },
+    { label: '概览',   html: PIXEL.hero(DC.panorama(), social(), {articles:ARTICLES.length,collection:(DOUBAN.items || []).length + (GAMES.games || []).length + ALBUMS.items.length,photos:GALLERY.count || 0}, ic, ARTICLES.slice(0,2)) + hang() },
     { label: '工坊',   html: repos() },
     { label: '文章',   html: timeline() },
     { label: '博物馆', html: museum() },
@@ -1695,8 +1677,7 @@ ${controls()}
     { label: '农场',   html: farmPanel() }
   ].filter(function(p){ return p.html; }), [
     statusPanel(),
-    panel('唱片机', ['star', 'flower', 'star', 'flower', 'star'], MUSIC.render() + DC.shelf(), 'music'),
-    moneyPanel()
+    panel('唱片机', ['star', 'flower', 'star', 'flower', 'star'], MUSIC.render(), 'music')
   ])}
 
   ${DC.posts()}

@@ -1,6 +1,7 @@
 // Shared visual treatment: pixel timber, paper, and a small farm diorama.
 // Existing farm artwork and the current content model stay in use.
-function hero(scene, social, counts, icon) {
+const { esc } = require('./md.js');
+function hero(scene, social, counts, icon, recent = []) {
   return `<header class="board pixel-entry" id="board">
     <div class="entry-copy">
       <p class="entry-label">${icon('book', 'sm')}代码 · 阅读 · 生活</p>
@@ -15,6 +16,7 @@ function hero(scene, social, counts, icon) {
       </nav>
     </div>
     <div class="entry-view">${scene}<p class="entry-caption">${icon('lantern', 'sm')}欢迎来坐坐${icon('lantern', 'sm')}</p></div>
+    ${recent.length ? `<nav class="entry-latest" aria-label="最近文章"><p>${icon('wateringcan', 'sm')}最近写下</p>${recent.map(a => `<a href="posts/${esc(a.slug)}.html"><time>${esc(a.date)}</time><span>${esc(a.title)}</span>${icon('arrow', 'sm')}</a>`).join('')}</nav>` : ''}
   </header>`;
 }
 
@@ -37,10 +39,10 @@ html[data-time="night"] .asset-bg::after{background:#162b2d;opacity:.82}
 .appearance-settings{max-width:1200px;padding:0 24px;margin:16px auto 12px}
 .appearance-settings>summary{border:2px solid var(--timber);box-shadow:2px 2px 0 var(--pixel-shadow);background:var(--cream-2)}
 .bunting{display:none}
-.board.pixel-entry{max-width:none;margin:0;display:grid;grid-template-columns:minmax(0,1fr) 384px;gap:24px;
+.board.pixel-entry{max-width:none;margin:0;display:grid;grid-template-columns:minmax(0,1fr) minmax(240px,.9fr);gap:24px;
   padding:12px;border:4px solid var(--timber);background:var(--cream);text-align:left;
   box-shadow:inset 0 0 0 2px var(--timber-top),4px 4px 0 var(--pixel-shadow),0 8px 0 var(--timber-light)}
-.entry-copy{padding:20px 16px 12px;min-width:0}
+.entry-copy{padding:12px 0;min-width:0}
 .entry-label{display:flex;align-items:center;gap:8px;margin:0 0 20px;color:var(--moss);font-size:12px;line-height:24px}
 .board.pixel-entry .bn{justify-content:flex-start;margin:0 0 16px}
 .board.pixel-entry .bt{font-size:36px;line-height:48px;color:var(--ink);text-shadow:none;letter-spacing:0}
@@ -53,7 +55,11 @@ html[data-time="night"] .asset-bg::after{background:#162b2d;opacity:.82}
 .entry-counts a{display:flex;align-items:center;gap:8px;color:var(--ink);text-decoration:none;font-size:12px;line-height:24px}
 .entry-counts b{font-size:24px;line-height:24px;color:var(--moss)}
 .entry-counts a:hover span{text-decoration:underline;text-underline-offset:4px}
-.entry-view{display:flex;flex-direction:column;justify-content:center;min-width:0;padding:8px}
+.entry-view{display:flex;flex-direction:column;justify-content:center;min-width:0;padding:0}
+.entry-latest{grid-column:1/-1;margin-top:8px}
+.entry-latest p{display:flex;align-items:center;gap:8px;color:var(--moss);margin:0 0 12px;font-size:12px;line-height:24px}
+.entry-latest a{display:flex;align-items:baseline;gap:16px;padding:12px 0;border-top:1px dashed var(--cream-3);color:var(--ink);text-decoration:none;font-size:12px;line-height:24px}
+.entry-latest time{flex:none;color:var(--ink-2)}.entry-latest a span{flex:1;min-width:0}.entry-latest a:hover span{text-decoration:underline;text-underline-offset:4px}
 .entry-caption{display:flex;justify-content:center;align-items:center;gap:20px;margin:0;padding:12px;color:var(--cream);background:var(--timber);font-size:12px;line-height:24px}
 html[data-time="night"] .entry-caption{color:var(--ink)}
 .pixel-window{position:relative;height:264px;overflow:hidden;background:#b8d4cc;border:4px solid var(--timber);box-shadow:inset 0 0 0 4px #e3ead0;isolation:isolate}
@@ -81,7 +87,8 @@ html[data-time="night"] .pixel-window>svg{filter:brightness(.78) saturate(.8)}
      · 状态栏不写容器规则（默认 block），间距靠 .panel 自带的 margin-bottom；
      · 日期行复用 .greet 的类，不单开一条；
      · 激活态不用 ::after（背景 + 内阴影已经够读）。 */
-.dash{position:relative;display:grid;grid-template-columns:minmax(0,1fr) 288px;gap:var(--s6);align-items:start}
+.dash{position:relative;display:grid;grid-template-columns:minmax(0,1fr) 304px;gap:0 var(--s6);align-items:start}
+.dash-head{grid-column:1/-1;min-width:0}
 .dash-tabs{display:flex;gap:4px;padding:8px;background:var(--timber);border:2px solid var(--pixel-shadow);box-shadow:0 4px 0 var(--timber-light)}
 .dash-tab{flex:1;min-width:0;height:44px;display:flex;align-items:center;justify-content:center;background:var(--cream);border:2px solid var(--timber-light);box-shadow:inset 0 -4px 0 var(--cream-3);color:var(--ink);font:inherit;font-size:12px;line-height:24px;text-decoration:none;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;transition:background .18s ease,color .18s ease,transform .16s ease-out,box-shadow .16s ease-out}
 .dash-tab[aria-selected="true"]{background:var(--cream-3);color:var(--ink);box-shadow:inset 0 -4px 0 var(--moss);border-color:var(--moss)}
@@ -90,15 +97,18 @@ html[data-time="night"] .pixel-window>svg{filter:brightness(.78) saturate(.8)}
 .dash-walk{position:absolute;left:0;bottom:0;width:40px;height:40px;pointer-events:none;transform:translateX(var(--x,0));image-rendering:pixelated}
 .dash-walk .art{display:block;width:40px;height:40px;transform-origin:center bottom;animation:hop 280ms steps(2) infinite;animation-play-state:paused}
 .dash-walk.walking .art{animation-play-state:running}
-.dash-body{min-height:480px;padding:var(--s6);border:3px solid var(--timber);background:var(--cream);box-shadow:4px 4px 0 var(--pixel-shadow),inset 0 0 0 2px var(--cream-3)}
+.dash-body{min-width:0;padding:var(--s7);border:3px solid var(--timber);background:var(--cream);box-shadow:4px 4px 0 var(--pixel-shadow),inset 0 0 0 2px var(--cream-3)}
 .tabpane:not(.on){display:none}
 .tabpane.on{animation:px-pane-in .22s cubic-bezier(.22,1,.36,1) backwards}
 .tabpane>.panel,.tabpane>.board{border:0;box-shadow:none;margin-bottom:0;padding:0}
 .clock{font-size:24px;line-height:32px;color:var(--ink);font-variant-numeric:tabular-nums}
 .clock b{font-weight:normal;color:var(--ink-2)}
-.greet{min-height:24px;line-height:24px;margin:8px 0;color:var(--ink-2)}
-.side-acts{display:flex;flex-wrap:wrap;gap:8px;margin-top:16px}
-.side-acts .abtn{display:flex;align-items:center;justify-content:center;gap:8px;flex-basis:100%;background:var(--cream-3);color:var(--ink);text-decoration:none;margin-bottom:4px}
+.greet{min-height:24px;line-height:24px;margin:4px 0;color:var(--ink-2)}
+.side-acts{display:flex;align-items:stretch;gap:8px;margin-top:12px}
+.side-acts .abtn{display:flex;align-items:center;justify-content:center;gap:8px;flex:1;background:var(--cream-3);color:var(--ink);text-decoration:none;margin:0;padding:8px}
+.dash-side .panel{padding:16px;margin-bottom:20px}.dash-side .panel:last-child{margin-bottom:0}
+body:not(.is-article) .dash-side .panel>.pt{font-size:12px;line-height:24px;gap:8px;margin-bottom:16px}
+body:not(.is-article) .dash-side .panel>.pt>.ic{width:12px;height:12px}
 @keyframes hop{0%,100%{transform:translateY(0)}50%{transform:translateY(-2px)}}
 @keyframes px-pane-in{from{opacity:.35;transform:translateY(6px)}to{opacity:1;transform:none}}
 /* 首屏的双栏容器（.layout）已换成仪表盘 **.dash**（规则见上方 "首屏仪表盘" 一节）：
@@ -131,9 +141,6 @@ body:not(.is-article) .panel>.pt>.ic{width:24px;height:24px}
 #calendar .se{min-height:58px;border:1px solid var(--timber-light);background:var(--cream-2);gap:8px}
 #calendar .se .ic{width:24px;height:24px}#calendar .se.on{outline:2px solid var(--moss);outline-offset:2px;background:var(--cream-3);color:var(--ink)}
 .calendar-auto{background:var(--cream-2);color:var(--ink);border:1px solid var(--timber-light)}
-.harvest-counts{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
-.harvest-counts a{display:flex;flex-direction:column;align-items:flex-start;padding:12px;border:1px solid var(--timber-light);background:var(--cream-2);gap:12px}
-.harvest-counts a b{color:var(--moss)}.harvest-counts a:hover{background:var(--cream-3)}
 .museum-zone-title{margin:8px 0 16px;gap:12px;line-height:24px}.shelf-tabs{gap:8px;margin-bottom:20px}
 .shelf-tab,.museum-filter{padding:8px 12px;border:1px solid var(--timber-light);box-shadow:0 2px var(--cream-3)}
 .shelf{padding-bottom:20px}.shelf-status,.gfoot{line-height:24px}.exc .t{line-height:24px;height:48px}

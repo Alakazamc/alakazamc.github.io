@@ -13,13 +13,13 @@ function dash(panes, side) {
   const body = panes.map((p, i) =>
     `<div class="tabpane${i === 0 ? ' on' : ''}" id="dpane-${i}" role="tabpanel" aria-labelledby="dtab-${i}">${p.html}</div>`).join('');
   return `<div class="dash">
-  <div class="dash-main">
+  <div class="dash-head">
     <nav class="dash-tabs" role="tablist" aria-label="首页分区">${tabs}</nav>
     <div class="dash-track" aria-hidden="true">
       <svg class="dash-walk" viewBox="0 0 16 16"><use class="art" href="#px-girl"></use></svg>
     </div>
-    <main class="dash-body">${body}</main>
   </div>
+  <main class="dash-body">${body}</main>
   <aside class="dash-side">${side.join('')}</aside>
 </div>`;
 }
@@ -36,6 +36,7 @@ function dashScript() {
   var current = 0, position = 0, travel = 0;
   var map = {};
   panes.forEach(function(p, i){ map[p.querySelector('[id]').id] = i; });
+  map.ledger = map.farm;
 
   function destination(i){
     var a = track.getBoundingClientRect(), b = tabs[i].getBoundingClientRect();

@@ -25,7 +25,18 @@ function collect(articles,gallery,douban){
 }
 function load(){const read=n=>{try{return JSON.parse(fs.readFileSync(path.join(__dirname,'data',n),'utf8'))}catch{return {}}};return collect(require('./content.js').articles(),read('gallery.json'),read('douban.json'));}
 function calendar(){return `<div class="calendar-date"><time id="calendar-date"></time><span id="calendar-weekday"></span></div><div class="seasons">${[['spring','parsnip','春'],['summer','melon','夏'],['autumn','pumpkin','秋'],['winter','snowman','冬']].map(([k,n,label])=>`<button type="button" class="se" data-se="${k}" data-set-season="${k}" aria-label="切换${label}季外观" aria-pressed="false">${icon(n)}<b>${label}</b></button>`).join('')}</div><p class="calendar-mode" id="calendar-mode"></p><button class="abtn calendar-auto" type="button" data-auto-season>恢复自动</button>`;}
-function harvest(data){return `<div class="harvest-heading"><label for="harvest-year">年度收获</label><select id="harvest-year" aria-label="收获年份"></select></div><div class="harvest-counts">${Object.entries(labels).map(([k,v])=>`<a data-harvest-kind="${k}" href="harvest/index.html?kind=${k}"><span>${icon(KIND_ICON[k])}${v}</span><b>0</b></a>`).join('')}</div><p class="harvest-note">随已发布内容更新${data.updatedAt?' · 书影音同步 '+esc(data.updatedAt.slice(0,10)):''}</p><script id="harvest-summary" type="application/json">${safeJSON(data.years)}</script>`;}
+function harvest(data){
+ const crops={article:'wheat',photo:'flower',movie:'film',book:'book'},units={article:'篇',photo:'张',movie:'部',book:'本'};
+ const recent=Object.keys(data.years).sort().reverse().map(year=>`<ul class="farm-recent-list" data-harvest-year="${year}" hidden>${data.items.filter(item=>item.year===year).slice(0,3).map(item=>`<li><span class="farm-recent-kind">${icon(KIND_ICON[item.kind])}${labels[item.kind]}</span><a href="${esc(item.url)}"${/^https:\/\//.test(item.url)?' target="_blank" rel="noopener"':''}>${esc(item.title)}</a><time datetime="${item.date}">${item.date.slice(5).replace('-',' / ')}</time></li>`).join('')}</ul>`).join('');
+ return `<div id="ledger" class="farm-harvest">
+  <p class="farm-harvest-intro">文章、真实照片和看完读完的书影会自动汇入这里，不用另外维护。</p>
+  <div class="harvest-heading"><label for="harvest-year">年度收获</label><select id="harvest-year" aria-label="收获年份"></select></div>
+  <div class="harvest-counts">${Object.entries(labels).map(([kind,label])=>`<a class="farm-plot" data-harvest-kind="${kind}" data-empty="true" href="harvest/index.html?kind=${kind}"><span class="farm-plot-label">${label}</span><span class="farm-plot-crop" aria-hidden="true">${icon(crops[kind])}</span><span class="farm-plot-total"><b>0</b><span>${units[kind]}</span></span><span class="farm-plot-note">暂无记录</span></a>`).join('')}</div>
+  <div class="farm-recent"><div class="farm-recent-heading"><h3>最近的收获</h3><a data-harvest-all href="harvest/index.html">查看这一年</a></div>${recent}<p class="farm-recent-empty">这一年还没有记录，新的生活片段会出现在这里。</p></div>
+  <p class="harvest-note">照片不含生成插画；书影按豆瓣标记日期归档。${data.updatedAt?'最近同步 '+esc(data.updatedAt.slice(0,10))+'。':''}</p>
+  <script id="harvest-summary" type="application/json">${safeJSON(data.years)}</script>
+ </div>`;
+}
 function scenery(){return `<div class="farm-edge-area"><div class="season-scenery" aria-hidden="true">${['left','right'].map(side=>`<div class="edge-plot ${side}"><span class="edge-lantern">${icon('lantern')}</span><span class="season-plants spring">${icon('tulip')}${icon('flower')}</span><span class="season-plants summer">${icon('sunflower')}${icon('melon')}</span><span class="season-plants autumn">${icon('pumpkin')}${icon('wheat')}</span><span class="season-plants winter">${icon('snowman')}<i class="snow-cap"></i></span></div>`).join('')}</div><div class="farm-pet"><button id="farm-pet" type="button" aria-label="摸摸小鸡">${icon('chicken')}</button><span class="pet-reply" role="status" aria-live="polite"></span></div></div>`;}
 function settings(){return `<label class="farm-option"><input type="checkbox" data-farm-option="pet" checked>农场小鸡</label><label class="farm-option"><input type="checkbox" data-farm-option="scenery" checked>季节景物</label>`;}
 const css=`
@@ -52,6 +63,23 @@ const css=`
 .harvest-list a svg.ic{display:inline-block;vertical-align:-4px;margin-right:5px}
 .harvest-list small{display:block;font-size:12px;line-height:24px;color:var(--tx-3)}
 .harvest-list [hidden],.harvest-empty[hidden]{display:none!important}
+.farm-harvest-intro{margin:0 0 24px;color:var(--ink-2);max-width:52em}
+.farm-harvest .harvest-heading{padding-bottom:12px;border-bottom:2px solid var(--cream-3);margin-bottom:20px}
+.farm-harvest .harvest-heading label{font-size:24px;line-height:32px}.farm-harvest .harvest-heading select{padding:4px 8px}
+.farm-harvest .harvest-counts{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px}
+.farm-harvest .farm-plot{display:flex;flex-direction:column;align-items:stretch;gap:8px;padding:16px 12px 12px;min-width:0;border:1px solid var(--timber-light);background:var(--cream-2);text-decoration:none;color:var(--ink);transition:background .2s ease,border-color .2s ease}
+.farm-harvest .farm-plot:hover{background:var(--cream);border-color:var(--moss)}.farm-harvest .farm-plot:focus-visible{outline:2px solid var(--moss);outline-offset:4px}
+.farm-harvest .farm-plot-label{display:block;font-size:12px;line-height:24px}
+.farm-harvest .farm-plot-crop{position:relative;display:flex;align-items:flex-end;justify-content:center;height:64px;padding-bottom:12px}
+.farm-harvest .farm-plot-crop::after{content:'';position:absolute;bottom:0;left:0;right:0;height:12px;background:repeating-linear-gradient(0deg,var(--timber-light) 0 4px,var(--timber) 4px 8px);box-shadow:0 -4px 0 var(--cream-3)}
+.farm-harvest .farm-plot-crop .ic{width:36px;height:36px;z-index:1}.farm-harvest .farm-plot[data-empty="true"] .farm-plot-crop .ic{visibility:hidden}
+.farm-harvest .farm-plot-total{display:flex;align-items:baseline;gap:8px}.farm-harvest .farm-plot-total b{font-size:24px;line-height:32px;color:var(--tx-num);font-variant-numeric:tabular-nums}
+.farm-harvest .farm-plot-total span,.farm-harvest .farm-plot-note{font-size:12px;line-height:24px;color:var(--ink-2)}
+.farm-recent{margin-top:28px}.farm-recent-heading{display:flex;align-items:baseline;justify-content:space-between;gap:12px;margin-bottom:8px}.farm-recent-heading h3{margin:0;font-size:12px;line-height:24px}.farm-recent-heading a{color:var(--ink-2);text-underline-offset:4px;white-space:nowrap}
+.farm-recent-list{list-style:none;padding:0;margin:0}.farm-recent-list li{display:grid;grid-template-columns:76px minmax(0,1fr) auto;align-items:start;gap:12px;padding:12px 0;border-bottom:1px solid var(--cream-3)}
+.farm-recent-list a{color:var(--ink);text-decoration:none;line-height:24px;overflow-wrap:anywhere}.farm-recent-list a:hover{text-decoration:underline;text-underline-offset:4px}
+.farm-recent-kind{display:flex;align-items:center;gap:8px;color:var(--ink-2)}.farm-recent-kind .ic{width:24px;height:24px;flex:none}.farm-recent-list time{color:var(--ink-2);white-space:nowrap;font-variant-numeric:tabular-nums}
+.farm-recent-empty{margin:0;padding:16px 0;color:var(--ink-2)}.farm-harvest [hidden]{display:none!important}
 .farm-option{display:flex;align-items:center;gap:8px;font-size:12px;line-height:24px;min-height:36px}.farm-option input{width:16px;height:16px;accent-color:var(--wood-c)}
 .farm-edge-area{height:110px;position:relative;margin:24px 0 0}.edge-plot{position:absolute;bottom:0;display:flex;align-items:flex-end;gap:8px;pointer-events:none}.edge-plot.left{left:6px}.edge-plot.right{right:6px}
 .edge-plot .ic{width:32px;height:32px}.edge-lantern{display:block;align-self:flex-start;margin-bottom:28px;opacity:.65}
@@ -64,13 +92,18 @@ html[data-season="spring"] .season-plants.spring,html[data-season="summer"] .sea
 .farm-pet button:active{transform:translateY(3px)}.farm-pet button:focus-visible{outline:2px solid var(--wood-c);outline-offset:2px}
 html[data-farm-pet="off"] .farm-pet,html[data-farm-scenery="off"] .season-scenery{display:none}
 @media(min-width:1400px){.farm-edge-area{height:0;margin:0}.edge-plot{position:fixed;bottom:30px;z-index:3;width:70px;flex-wrap:wrap;gap:0}.edge-plot.left{left:10px}.edge-plot.right{right:10px}.edge-lantern{margin-bottom:8px}.farm-pet{position:fixed;left:15px;bottom:140px;z-index:3}}
-@media(max-width:600px){.edge-plot .ic{width:24px;height:24px}.edge-plot{gap:0}.edge-plot.right .edge-lantern{display:none}.harvest-heading{flex-wrap:wrap}}
-@media(prefers-reduced-motion:reduce){.farm-pet button{transition:none;animation:none}}
+@media(max-width:600px){.edge-plot .ic{width:24px;height:24px}.edge-plot{gap:0}.edge-plot.right .edge-lantern{display:none}.harvest-heading{flex-wrap:wrap}.farm-harvest .harvest-counts{grid-template-columns:repeat(2,minmax(0,1fr))}.farm-recent-list li{grid-template-columns:minmax(0,1fr) auto;gap:4px 12px}.farm-recent-kind{grid-column:1}.farm-recent-list a{grid-column:1;grid-row:2}.farm-recent-list time{grid-column:2;grid-row:2}}
+@media(prefers-reduced-motion:reduce){.farm-pet button,.farm-harvest .farm-plot{transition:none;animation:none}}
 `;
 const homeScript=`(function(){
  var root=document.documentElement,years=JSON.parse(document.getElementById('harvest-summary').textContent),select=document.getElementById('harvest-year');
  var current=String(new Date().getFullYear());Array.from(new Set([current].concat(Object.keys(years)))).sort().reverse().forEach(function(y){var o=document.createElement('option');o.value=y;o.textContent=y+' 年';select.appendChild(o)});select.value=current;
- function show(){var counts=years[select.value]||{};document.querySelectorAll('[data-harvest-kind]').forEach(function(a){var k=a.dataset.harvestKind;a.querySelector('b').textContent=counts[k]||0;a.href='harvest/index.html?year='+select.value+'&kind='+k;});}select.addEventListener('change',show);show();
+ function show(){
+  var counts=years[select.value]||{};
+  document.querySelectorAll('[data-harvest-kind]').forEach(function(a){var k=a.dataset.harvestKind,count=counts[k]||0;a.querySelector('b').textContent=count;a.href='harvest/index.html?year='+select.value+'&kind='+k;a.dataset.empty=String(count===0);a.querySelector('.farm-plot-note').textContent=count?'查看记录':'暂无记录';});
+  document.querySelectorAll('[data-harvest-year]').forEach(function(list){list.hidden=list.dataset.harvestYear!==select.value;});
+  document.querySelector('.farm-recent-empty').hidden=!!years[select.value];document.querySelector('[data-harvest-all]').href='harvest/index.html?year='+select.value+'&kind=all';
+ }select.addEventListener('change',show);show();
  document.querySelectorAll('[data-farm-option]').forEach(function(input){var key=input.dataset.farmOption;try{input.checked=localStorage.getItem('kx-farm-'+key)!=='off'}catch(e){}function apply(){root.setAttribute('data-farm-'+key,input.checked?'on':'off');}apply();input.addEventListener('change',function(){apply();try{localStorage.setItem('kx-farm-'+key,input.checked?'on':'off')}catch(e){}});});
  var pet=document.getElementById('farm-pet'),reply=document.querySelector('.pet-reply'),n=0,timer;pet.addEventListener('click',function(){var messages=root.dataset.time==='night'?['啾…晚安','小声一点','陪你看星星']:['啾啾！','摸摸头','今天也加油'];reply.textContent=messages[n++%messages.length];clearTimeout(timer);timer=setTimeout(function(){reply.textContent=''},4000);});
 })();`;
