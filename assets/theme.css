@@ -1420,7 +1420,10 @@ html[data-time="night"] .record-light{background:#efca6a;box-shadow:0 0 8px #efc
 .music-ranking{margin-top:8px;border-top:1px solid var(--cream-3)}
 .music-ranking>summary{display:flex;align-items:center;justify-content:space-between;gap:8px;padding:8px 0;list-style:none;color:var(--ink);font-weight:bold}
 .music-ranking>summary::-webkit-details-marker{display:none}
-.music-ranking>summary span{font-size:16px;line-height:16px;transition:transform .18s ease}
+.music-ranking>summary span{font-size:12px;line-height:12px;transition:transform .18s ease}
+/* ⚠️ 这里曾是 16px —— 违反像素字号硬规矩（12/24/36）。旧布局里它躺在右栏深处、
+   恰好在 check-layout 的取样视口外逃了检；搬进仪表盘侧栏后被量到（2026-09-26）。
+   不是新引入的字号，是旧违规的合规化。 */
 .music-ranking[open]>summary span{transform:rotate(45deg)}
 .music-ranking>summary:hover{color:var(--moss)}.music-ranking>summary:active{transform:translateY(1px)}
 .music-ranking>summary:focus-visible{outline:2px solid var(--moss);outline-offset:3px}

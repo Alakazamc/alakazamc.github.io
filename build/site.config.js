@@ -40,7 +40,7 @@ const SITE = {
   friendSites: [
     { name: '奥特曼 Sam Altman', url: 'https://blog.samaltman.com/', descr: 'OpenAI 首席执行官，前 Y Combinator 总裁' },
     { name: '达里奥 Dario Amodei', url: 'https://www.darioamodei.com/', descr: 'Anthropic 联合创始人兼 CEO，《Machines of Loving Grace》作者' },
-    { name: '李新野', url: 'https://sinyalee.com/', descr: '清华姚班出身，量化交易公司 Alpha Star Research 创始人' }
+    { name: '吴佳翮', url: 'https://www.lelekawaii.com/', descr: 'LLM 系统工程师，设计 Wuu 语言、开发 LLMux，写 agent 与编译器' }
   ],
 
   comments: {
