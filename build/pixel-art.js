@@ -5,8 +5,11 @@ function hero(scene, social, counts, icon, recent = []) {
   return `<header class="board pixel-entry" id="board">
     <div class="entry-copy">
       <p class="entry-label">${icon('book', 'sm')}代码 · 阅读 · 生活</p>
-      <h1 class="bn"><span class="bt">柯西 Alakazam</span></h1>
-      <p class="who">fake it til u make it</p>
+      <!-- 主标题用**本名**（柯西 2026-09-26：「学他，在首页写上自己的名字 陈柯羲」，
+           参照吴佳翮 lelekawaii.com 的「真名 + 身份」写法）。
+           网名「柯西 Alakazam」和签名下移一行保留 —— 只加真名，不删已有信息。 -->
+      <h1 class="bn"><span class="bt">陈柯羲</span></h1>
+      <p class="who">柯西 Alakazam · fake it til u make it</p>
       <p class="entry-intro">这里记录我的项目、文章，还有书影音与游戏收藏。</p>
       ${social}
       <nav class="entry-counts" aria-label="内容概览">
