@@ -3,17 +3,17 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Jev 火了：我们是不是把 BERT 又发明了一遍？ · 柯西 Alakazam</title>
+<title>Jev 是重新发明 BERT 吗？ · 柯西 Alakazam</title>
 <link rel="stylesheet" href="../assets-layers.css">
 <link rel="stylesheet" href="../font.css">
-<link rel="stylesheet" href="../assets/theme.css">
+<link rel="stylesheet" href="../assets/theme.css?v=73eff32bef">
 <!-- SEO -->
 <link rel="canonical" href="https://alakazamc.github.io/posts/01-Jev与BERT.html">
 <link rel="alternate" type="application/rss+xml" title="柯西 Alakazam · RSS" href="https://alakazamc.github.io/rss.xml">
-<meta name="description" content="资料核对：2026 年 9 月 20 日 有人端来一台新咖啡机，说它不跟你聊天，不介绍咖啡文化，按一下按钮就出杯，特别适合办公室。 你看了半天，忍不住问：“咖啡机本来不就应该这样吗？” 读到 ">
+<meta name="description" content="都能读一段文字、返回类别和概率，Jev 与 BERT 的区别究竟在哪里？从任务适配、输出含义和评估成本看，一个判断模型该怎样证明自己的价值。">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Jev 火了：我们是不是把 BERT 又发明了一遍？ · 柯西 Alakazam">
-<meta property="og:description" content="资料核对：2026 年 9 月 20 日 有人端来一台新咖啡机，说它不跟你聊天，不介绍咖啡文化，按一下按钮就出杯，特别适合办公室。 你看了半天，忍不住问：“咖啡机本来不就应该这样吗？” 读到 ">
+<meta property="og:title" content="Jev 是重新发明 BERT 吗？ · 柯西 Alakazam">
+<meta property="og:description" content="都能读一段文字、返回类别和概率，Jev 与 BERT 的区别究竟在哪里？从任务适配、输出含义和评估成本看，一个判断模型该怎样证明自己的价值。">
 <meta property="og:url" content="https://alakazamc.github.io/posts/01-Jev与BERT.html">
 <meta property="og:image" content="https://alakazamc.github.io/assets/og/01-Jev与BERT.png">
 <meta property="og:image:width" content="1200">
@@ -32,9 +32,9 @@
   <article class="panel artpage has-toc">
     <h2 class="pt"><svg class="ic xs" viewBox="0 0 16 16"><use href="#px-wateringcan"></use></svg>本站<svg class="ic xs" viewBox="0 0 16 16"><use href="#px-wateringcan"></use></svg></h2>
     <span class="cor tl"><svg class="ic sm" viewBox="0 0 16 16"><use href="#px-flower"></use></svg></span><span class="cor tr"><svg class="ic sm" viewBox="0 0 16 16"><use href="#px-flower"></use></svg></span><span class="cor bl"><svg class="ic sm" viewBox="0 0 16 16"><use href="#px-wheat"></use></svg></span><span class="cor br"><svg class="ic sm" viewBox="0 0 16 16"><use href="#px-wheat"></use></svg></span>
-    <h1 class="arttitle">Jev 火了：我们是不是把 BERT 又发明了一遍？</h1>
+    <h1 class="arttitle">Jev 是重新发明 BERT 吗？</h1>
     <div class="artmeta-row">
-      <p class="artmeta">2026-09-20 · &lt;svg class=&quot;ic xs&quot; viewBox=&quot;0 0 16 16&quot;&gt;&lt;use href=&quot;#px-crystal&quot;&gt;&lt;/use&gt;&lt;/svg&gt;模型 / &lt;svg class=&quot;ic xs&quot; viewBox=&quot;0 0 16 16&quot;&gt;&lt;use href=&quot;#px-chip&quot;&gt;&lt;/use&gt;&lt;/svg&gt;AI / &lt;svg class=&quot;ic xs&quot; viewBox=&quot;0 0 16 16&quot;&gt;&lt;use href=&quot;#px-book&quot;&gt;&lt;/use&gt;&lt;/svg&gt;BERT</p>
+      <p class="artmeta">2026-09-20 · <svg class="ic xs" viewBox="0 0 16 16"><use href="#px-crystal"></use></svg>模型 / <svg class="ic xs" viewBox="0 0 16 16"><use href="#px-chip"></use></svg>AI / <svg class="ic xs" viewBox="0 0 16 16"><use href="#px-book"></use></svg>BERT</p>
       <button type="button" class="share-btn" data-share title="分享这一页"><svg class="ic sm" viewBox="0 0 16 16"><use href="#px-share"></use></svg><em>分享</em></button>
     </div>
     
@@ -42,78 +42,47 @@
       <aside class="toc-side"><details class="toc" open>
     <summary><span class="title">文章目录</span></summary>
     <nav class="inner" aria-label="文章目录"><ul>
-      <li style="margin-left:0px"><a href="#section-1">BERT 早就交过这种答题卡</a></li>
-<li style="margin-left:0px"><a href="#section-2">看见出餐口，猜不出厨房</a></li>
-<li style="margin-left:0px"><a href="#section-3">真正有意思的是：换一道题，要不要重新培训？</a></li>
-<li style="margin-left:0px"><a href="#section-4">“输出向量”，究竟输出了什么？</a></li>
-<li style="margin-left:0px"><a href="#section-5">训练概率，比训练漂亮回答更接近软件需求吗？</a></li>
-<li style="margin-left:0px"><a href="#section-6">把业务规则写清楚，也是一份工作</a></li>
-<li style="margin-left:0px"><a href="#section-7">我会怎样判断，它值不值得用？</a></li>
-<li style="margin-left:0px"><a href="#section-8">参考资料与说明</a></li>
+      <li style="margin-left:0px"><a href="#section-1">BERT 早就能做判断，但接口不能说明架构</a></li>
+<li style="margin-left:0px"><a href="#section-2">真正影响使用的，是换一道题有多麻烦</a></li>
+<li style="margin-left:0px"><a href="#section-3">同样是数字数组，含义可能完全不同</a></li>
+<li style="margin-left:0px"><a href="#section-4">训练出概率，还得证明概率值得用</a></li>
+<li style="margin-left:0px"><a href="#section-5">判断模型的价值，也要算上定义问题的成本</a></li>
     </ul></nav>
   </details></aside>
       <div class="artbody">
-<blockquote><p>资料核对：2026 年 9 月 20 日</p></blockquote>
-<p>有人端来一台新咖啡机，说它不跟你聊天，不介绍咖啡文化，按一下按钮就出杯，特别适合办公室。</p>
-<p>你看了半天，忍不住问：“咖啡机本来不就应该这样吗？”</p>
-<p>读到 Jev 的介绍，我也有类似的疑问。TypeSafe 把它定位为给软件做判断的模型：输入材料和问题，返回选项、评分或概率，不以生成长篇文字为目标。[1] 听起来很实用。但“理解输入，然后做选择题”，BERT 不是早就会了吗？</p>
-<p>这个怀疑有道理。不过，要把它问到底，得先分清：我们是在比较两台机器的内部结构，还是在比较它们能接哪些活？</p>
-<h2 id="section-1">BERT 早就交过这种答题卡</h2>
-<p>BERT 不是单独一层 Transformer encoder，而是多层双向编码器。原始训练包括预测被遮住的词，以及判断句子之间的关系；做分类时，可以在表示之上接一个输出层，并用任务数据微调。[2]</p>
-<p>不必被这些术语吓住。可以把编码器想成负责阅读材料的部分：它让一句话里的各个位置结合上下文形成表示。分类头再根据这些表示，给候选类别打分，变成概率。</p>
-<p>假设我们做一个客服分流器。用户发来：“我已经付过钱，怎么还是显示未支付？”系统要在“支付”“账号”“物流”之间选一个。训练合适的 BERT 分类器，就可以把这条消息分到支付问题，而不必先写三百字分析。</p>
-<p>这说明，<strong>直接输出类别和概率，并不是 Jev 才带来的能力。</strong> 同样，只返回数字，也不意味着模型只是查字典。“付过钱”和“扣款成功”用词不同，却可能需要送到同一个队列；这个任务仍然需要理解。</p>
-<p>不过，“BERT 能做这种事”，和“BERT 在所有相关任务上已经做得一样好”，之间还差着完整的实验。会出咖啡，不能直接证明出杯速度、口味稳定性和维护成本都相同。</p>
-<h2 id="section-2">看见出餐口，猜不出厨房</h2>
-<p>模型架构、训练目标和产品接口，经常被介绍文章压成一句话。</p>
-<p>架构说的是内部怎么计算。训练目标说的是什么结果受到奖励，什么错误需要修正。接口说的是使用者怎么提问，最后拿到什么。</p>
-<p>把这三件事混起来，最容易出现两种误判：看到返回概率，就说“这一定是 BERT”；看到接口很新，就说“底层智能已经彻底不同”。</p>
-<p>TypeSafe 的发布文宣称使用了新架构、并行输出机制和 RLCD 训练。[3] 但在本文核对的发布材料里，没有足够的结构细节，让我完成它与标准编码器的逐项比较。因此，“就是 BERT 换皮”和“已经摆脱 Transformer”都不是我能确认的结论。</p>
-<p>这里留一个空白，比拿熟悉的术语把空白填满更诚实。<strong>相同的输出形式，可以来自不同实现；不同的产品名称，也可能共享许多基础技术。</strong></p>
-<h2 id="section-3">真正有意思的是：换一道题，要不要重新培训？</h2>
-<p>还是那个客服系统。</p>
-<p>今天只分支付、账号和物流，明天业务又想问：“这位用户有没有明确要求退款？”后天还要判断：“应该先补充材料，还是直接转人工？”</p>
-<p>传统 BERT 分类器常见的工作方式，是预先确定任务，用对应标签数据适配模型。[2] 这并非缺点。如果任务长期稳定，团队又有足够样本，一个专门训练的模型可能很合适。没有必要为了赶潮流，把已经稳定运行的分拣员换掉。</p>
-<p>Jev 的公开接口则让使用者在请求中提供问题、候选项或评分标准。[1] 它试图承担的角色更像临时接题的工作人员：把这次的材料、题目和答题规则交给它，再拿结果。</p>
-<p>比如，问题从“属于哪个部门”改为“需要不需要补充订单号”，不一定需要使用者自己重训一个分类头。这种任务配置方式，对需求经常变化的软件可能更方便。</p>
-<p>但方便换题，不等于每道题都答得好。接口支持一个任务，只说明题目能递进去；泛化能力需要看模型在没有专门适配的新问题上表现如何。</p>
-<p>也别把 BERT 描述成只能死记几个标签。把标签写成自然语言描述、借助自然语言推断做零样本分类，早已有研究探索。[4] 所以比较时不能让一边充分训练和调提示，另一边拿来就用，然后把差距全算成“新范式”的胜利。</p>
-<h2 id="section-4">“输出向量”，究竟输出了什么？</h2>
-<p>还有一个容易误会的地方：不是所有数字数组，都承担同一种工作。</p>
-<p>普通 embedding 可以看作一组表示输入特征的坐标。你拿它去做检索或相似度比较，还需要后续步骤。分类概率则与明确标签绑定：这个数对应支付，那个数对应账号。程序知道该怎样解释。</p>
-<p>Jev 的文档列出 Choice、Score 和 Noul，分别面向选项选择、按标准评分以及是非判断。[1] 把它统称为“吐出一个向量”，虽然没有完全说错，却把最影响使用方式的部分省掉了。</p>
-<p>我们可以设计一个假设输出：支付 0.8，账号 0.15，物流 0.05。这是一张针对当前题目的答题卡，不是输入文本的通用身份证。换了问题，数字的含义就变了。</p>
-<p>而且，这些数也不是事实证明。它们表达模型如何判断，不代表系统已经查过账单。用户说“钱扣了”，模型能识别他在投诉扣款，却不能因此宣称实际交易记录已经确认。</p>
-<p>“理解用户在说什么”和“核实用户说的是否属实”，从这里就开始分岔了。</p>
-<h2 id="section-5">训练概率，比训练漂亮回答更接近软件需求吗？</h2>
-<p>TypeSafe 把 RLCD 解释为面向校准决策的强化学习：希望输出概率与实际结果更匹配。[5] 这是值得评估的目标，但不能仅凭名字断定训练方法有多新，或已经在所有任务上兑现。</p>
-<p>设想两个客服分流器，最后分对的比例一样。其中一个动不动报“百分之百确定”，另一个在材料不足时给出明显犹豫的分布。若这种不确定性确实经过验证，程序就能把难题留下，先自动处理有把握的部分。</p>
-<p>这种能力很有用。不过，概率校准是一个已有研究方向，而不是把 softmax 输出打印出来就自动完成的事情。[6] 是否有效，仍需把预测与真实结果对照。</p>
-<p>也不能把生成式模型说成只能聊天、无法提供结构化答案。受约束生成可以限制模型按语法或结构输出；XGrammar 就是这类研究之一。[7] 比较对象应当是经过合理配置的方案，而不是故意让一个模型写长作文，再笑它交答题卡太慢。</p>
-<h2 id="section-6">把业务规则写清楚，也是一份工作</h2>
-<p>还有一笔成本，不能因为模型直接输出选项就消失：谁来定义这些选项，谁来整理材料？</p>
-<p>假设客服队列里同时有“退款”“支付失败”和“重复扣款”。一位用户说“付了两遍，希望处理一下”，究竟该去哪个队列，可能取决于公司的流程，而不只是中文理解。若退款必须先核实交易，题目就应该把分流与退款执行分开。</p>
-<p>这里模型面对的，不是藏在世界某处、等待被发现的唯一标签，而是需要团队先明确的工作约定。规则本身含糊，模型答得再稳定，也可能只是在稳定地执行一种误解。</p>
-<p>所以，我不会只比较“调一次接口有多简单”。接入前要整理哪些字段、维护哪些标准、业务变更时谁来更新，都属于实际成本。一个好组件可以降低这些成本，却不该假装它们不存在。</p>
-<h2 id="section-7">我会怎样判断，它值不值得用？</h2>
-<p>如果要做选择，我会把问题落到两组任务上。</p>
-<p>一组是标签固定、训练样本充足的任务，看看专用分类器能不能更省。另一组是题目经常变、样本不足的任务，看看 Jev 这种可配置判断接口是否真正减少适配成本。生成式模型也参加比较，但只要求返回所需答案，不让它承担额外的写作工作。</p>
-<p>除了答对多少，还要看哪些题会错、换个领域掉多少，以及输入变长后有什么变化。把这些表现和总成本放在一起，才能知道便利是否值得付费。</p>
-<p>如果一个固定规则已经能准确分流，就不用把它强行升级为 AI。如果语义变化太多、维护规则很累，一个更灵活的判断组件就有机会。选择应由问题决定，而不是由模型名称决定。</p>
-<p>技术的新颖性和产品的价值，也可以分开。它未必需要重新发明神经网络，才能做出好用的产品；但如果宣称是根本性突破，就需要拿出对应的技术证据。</p>
-<p>我对 Jev 最感兴趣的，不是它会不会回答“我是谁”，而是它能否让软件以更低代价完成原本难写的判断。至于是不是 BERT 的远房亲戚，可以继续研究。</p>
-<p><strong>先拿出一份公平的成绩单，再决定该叫它换皮，还是进步。</strong></p>
-<h2 id="section-8">参考资料与说明</h2>
-<blockquote><p><strong>说明</strong>：文中情境和示例数字为说明性假设，不是 Jev 实测结果。产品能力与项目状态以核对当日的公开材料为准；相关引用不代表独立测试或安全审计。参考资料标题可点击打开。</p></blockquote>
-<ul>
-<li>[1] TypeSafe AI：<a href="https://docs.typesafe.ai/introduction" target="_blank" rel="noopener noreferrer">Introduction</a>。</li>
-<li>[2] Devlin 等：<a href="https://arxiv.org/abs/1810.04805" target="_blank" rel="noopener noreferrer">BERT: Pre-training of Deep Bidirectional Transformers for Language Understanding</a>。</li>
-<li>[3] TypeSafe AI，2026-09-15：<a href="https://typesafe.ai/blog/introducing-system-one-models-and-jev" target="_blank" rel="noopener noreferrer">Introducing System One Models &amp; Jev</a>。</li>
-<li>[4] Yin 等：<a href="https://arxiv.org/abs/1909.00161" target="_blank" rel="noopener noreferrer">Benchmarking Zero-shot Text Classification: Datasets, Evaluation and Entailment Approach</a>。</li>
-<li>[5] TypeSafe AI：<a href="https://docs.typesafe.ai/introduction/machine-learning-primer" target="_blank" rel="noopener noreferrer">AI primer</a>。</li>
-<li>[6] Guo 等，ICML 2017：<a href="https://proceedings.mlr.press/v70/guo17a.html" target="_blank" rel="noopener noreferrer">On Calibration of Modern Neural Networks</a>。</li>
-<li>[7] Dong 等，MLSys 2025：<a href="https://arxiv.org/abs/2411.15100" target="_blank" rel="noopener noreferrer">XGrammar: Flexible and Efficient Structured Generation Engine for Large Language Models</a>。</li>
-</ul>
+<p>读到 Jev 的介绍，我首先想到的是 BERT。</p>
+<p>TypeSafe 把 Jev 定位为供软件调用的判断模型：给它材料、问题和候选答案，返回程序能直接使用的结果，不生成长篇回答。这很实用，但“理解一段文字，然后分类”，早已是 BERT 的常见用途。<a href="https://docs.typesafe.ai/introduction" target="_blank" rel="noopener noreferrer">Jev 官方介绍</a></p>
+<p>这是不是把旧东西重新包装了一遍？我觉得可以怀疑，却不能只凭输出里都有几个数字就下结论。真正需要比较的，是它们怎样适配任务、那些数字代表什么，以及为了得到可靠结果，使用者还要做多少工作。</p>
+<h2 id="section-1">BERT 早就能做判断，但接口不能说明架构</h2>
+<p>BERT 由多层双向 Transformer 编码器组成，让文本中的位置结合前后文形成表示。原始预训练任务包括预测被遮住的词，以及判断两个文本片段是否在原文中相邻。做文本分类时，再接上对应的输出层，用任务数据微调。<a href="https://arxiv.org/abs/1810.04805" target="_blank" rel="noopener noreferrer">BERT 原论文</a></p>
+<p>假设要给客服消息分流。用户说“我已经付过钱，怎么还是显示未支付”，模型在“支付”“账号”“物流”之间选择。训练合适的 BERT 分类器就能完成这件事，无需先生成一段解释。“付过钱”和“扣款成功”用词不同，也可能被分到同一队列；直接返回类别，并不意味着它只会匹配关键词。</p>
+<p>不过，能做同一种任务，不等于使用相同架构，也不等于效果和成本相同。</p>
+<p>这里最好分开三件事：<strong>架构决定内部怎样计算，训练目标决定模型学什么，接口决定使用者怎样提问。</strong> 从接口看到概率数组，推不出它内部一定是 BERT；同样，接口换了名称，也不能证明底层技术发生了根本变化。</p>
+<p>TypeSafe 的发布文宣称采用新架构、并行采样机制，以及名为 RLCD 的训练方法。但我查到的发布材料不足以对其内部结构作逐项比较。因此，“就是 BERT 换皮”与“已经摆脱 Transformer”，目前都超出了本文能确认的范围。<a href="https://typesafe.ai/blog/introducing-system-one-models-and-jev" target="_blank" rel="noopener noreferrer">TypeSafe 发布文</a></p>
+<h2 id="section-2">真正影响使用的，是换一道题有多麻烦</h2>
+<p>还是这个客服系统。今天按部门分流，明天要判断用户有没有明确要求退款，后天又要判断是否缺少订单号。</p>
+<p>常见的 BERT 分类方案会先固定标签，再用相应数据适配。若任务稳定、样本充足，这可能是很合适的选择；改变任务时，则要评估是否需要新的标签数据、输出层或训练。</p>
+<p>Jev 的接口允许在请求中提供问题、候选项和评分标准。对使用者而言，改问“是否需要补充订单号”，通常先改任务定义，不必自己训练分类头。它能否胜任新问题，仍要另行评估；<strong>题目递得进去，只证明接口支持，不能替代泛化能力的测试。</strong></p>
+<p>也不能把 BERT 一类编码器描述成只认固定标签。把标签写成自然语言，再借助自然语言推断判断文本是否支持这个标签，已有零样本分类研究。例如，可以把“退款”写成“这条消息要求退款”，让模型评估两段话的关系。零样本指没有用目标分类任务的标注样本训练，并不意味着模型从未接受其他任务训练。<a href="https://arxiv.org/abs/1909.00161" target="_blank" rel="noopener noreferrer">Yin 等人的零样本分类研究</a></p>
+<p>因此，公平的比较应当说明各方用了哪些训练数据、怎样定义任务、花了多少适配成本。不能让一边充分训练和调提示，另一边直接使用，再把差距全部归为“新范式”。</p>
+<h2 id="section-3">同样是数字数组，含义可能完全不同</h2>
+<p>文本嵌入，也就是 embedding，是用一组坐标表示输入。它可以参与检索、聚类或相似度比较，但坐标本身通常不直接对应业务标签。</p>
+<p>分类概率则不同。假设输出是“支付 0.8、账号 0.15、物流 0.05”，每个数都绑定了当前任务的一个选项。程序可以据此分流，换了题目或选项，数字的含义也会变。</p>
+<p>Jev 的接口把任务分为 Choice、Score 和 Noul：分别用于选项选择、按给定标准评分，以及对是非问题返回 0 到 1 的值。把它们都叫“输出向量”，会省略最影响使用方式的区别。具体字段以<a href="https://docs.typesafe.ai/introduction" target="_blank" rel="noopener noreferrer">接口文档</a>为准。</p>
+<p>这里还要区分语义判断与事实核实。模型可以判断一句话在投诉扣款，却不能仅凭这句话确认钱确实扣了。后者需要交易记录。概率描述的是模型依据当前材料作出的判断，不会让输入中没有的证据自动出现。</p>
+<h2 id="section-4">训练出概率，还得证明概率值得用</h2>
+<p>TypeSafe 将 RLCD 解释为“面向校准决策的强化学习”，希望预测概率与实际结果匹配。<a href="https://docs.typesafe.ai/introduction/machine-learning-primer" target="_blank" rel="noopener noreferrer">官方训练说明</a></p>
+<p>这个目标有实际意义。两个分流器可能有相同的准确率，但一个对所有答案都表现得很确定，另一个能够把容易出错的案例筛出来。若这种区分能力经过验证，软件就可以自动处理一部分，把剩下的转给人工。</p>
+<p>不过，输出概率不等于完成校准。一个模型说“八成把握”的那批判断，是否真的约有八成正确，需要用实际结果检验。概率校准早已有系统研究，不能仅凭训练方法的名称推断效果。<a href="https://proceedings.mlr.press/v70/guo17a.html" target="_blank" rel="noopener noreferrer">Guo 等人的校准研究</a></p>
+<p>生成式模型也应当成为比较对象。它们可以通过受约束解码按指定结构输出；XGrammar 就是相关实现之一。公平比较时，应让它只返回任务需要的信息，而不是先要求它写一篇分析，再把长输出的耗时算作判断能力的缺点。<a href="https://arxiv.org/abs/2411.15100" target="_blank" rel="noopener noreferrer">XGrammar 论文</a></p>
+<p>我更想看到的是：在相近准确率下，哪种方案能把错误集中到可识别的部分？当系统只自动处理其中一部分请求时，还剩多少错误，又省下多少工作？这比单独展示一串漂亮的小数更接近使用问题。</p>
+<h2 id="section-5">判断模型的价值，也要算上定义问题的成本</h2>
+<p>最后还有一份工作，任何模型都很难替使用者跳过：把业务要求说清楚。</p>
+<p>假设队列里同时有“退款”“支付失败”和“重复扣款”。用户说“付了两遍，希望处理一下”，该归到哪里，取决于公司的流程。如果退款前必须先核实交易，就应当把“识别退款诉求”和“执行退款”分开。标签边界本身含糊，模型可能只是稳定地执行某一种解释。</p>
+<p>因此，我会分别比较两类场景：标签固定、样本充足的任务，看专用分类器是否更省；题目常变、样本不足的任务，看可配置接口能否降低适配成本。两类都应检查输入变长、领域变化后还能否维持表现，并计入整理输入、维护规则、处理错误和更新模型的工作，而不只看一次 API 调用的价格。</p>
+<p>如果固定规则已经足够，就没有必要增加模型；如果语义变化让规则难以维护，判断模型才有更大的发挥空间。技术新颖性与产品价值也应分开：一个产品可以在已有技术上做得很好，而“根本性突破”需要另有技术证据。</p>
+<p>对 Jev，我会先问一个更具体的问题：在同样的业务要求下，它能否以更少的适配和维护工作，得到足够可靠的判断？回答了这个问题，再讨论它与 BERT 的亲缘关系，才更有意义。</p>
+<p><em>2026 年 9 月 27 日修订。文中的客服系统与数字为说明性示例，未将厂商介绍当作独立实测结果。</em></p>
       </div>
     </div>
     <footer class="artfoot">
@@ -135,8 +104,8 @@
   </div>
 </section>
   <nav class="apager">
-    <a class="apg prev" href="02-数字输出与工具调用.html"><i>上一篇</i><b>只会输出几个数字的 AI，怎么替你干活？</b></a>
-    <a class="apg next" href="深大校园网疑云-为什么我连路由器的时候-官方登录应用失败了.html"><i>下一篇</i><b>深大校园网疑云：为什么我连路由器的时候，官方登录应用失败了</b></a>
+    <a class="apg prev" href="02-数字输出与工具调用.html"><i>上一篇</i><b>只输出选项和概率的 AI，怎样调用工具？</b></a>
+    <a class="apg next" href="深大校园网疑云-为什么我连路由器的时候-官方登录应用失败了.html"><i>下一篇</i><b>连上路由器却登不上校园网：一次 ac_id 排查与修正</b></a>
   </nav>
   <div class="sitebottom">
   <div class="visitbar">

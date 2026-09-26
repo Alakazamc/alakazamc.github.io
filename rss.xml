@@ -11,63 +11,63 @@
       <link>https://alakazamc.github.io/posts/ai-coding-and-necessary-precision.html</link>
       <pubDate>Sun, 27 Sep 2026 00:00:00 GMT</pubDate>
       <guid>https://alakazamc.github.io/posts/ai-coding-and-necessary-precision.html</guid>
-      <description>《代码整洁之道》里一段关于“代码永存”的讨论，让我重新思考 AI 编程：实现可以交给模型，哪些决定仍然需要我们认真做？</description>
+      <description>AI 能补齐大量实现细节，但一句需求里的空白，仍会变成程序的具体行为。从《代码整洁之道》的一段旧文字出发，聊聊哪些决定可以交给模型，哪些需要通过实际使用来确认。</description>
     </item>
 <item>
-      <title>Docker、K8s、Jenkins 到底有什么区别？从“我电脑上能跑”到“别人随时能用”</title>
+      <title>Docker、K8s、Jenkins 有什么区别？沿着一次部署看清它们的分工</title>
       <link>https://alakazamc.github.io/posts/Docker-K8s-Jenkins-%E5%88%B0%E5%BA%95%E6%9C%89%E4%BB%80%E4%B9%88%E5%8C%BA%E5%88%AB-%E4%BB%8E-%E6%88%91%E7%94%B5%E8%84%91%E4%B8%8A%E8%83%BD%E8%B7%91-%E5%88%B0-%E5%88%AB%E4%BA%BA%E9%9A%8F%E6%97%B6%E8%83%BD%E7%94%A8.html</link>
       <pubDate>Sat, 26 Sep 2026 00:00:00 GMT</pubDate>
       <guid>https://alakazamc.github.io/posts/Docker-K8s-Jenkins-%E5%88%B0%E5%BA%95%E6%9C%89%E4%BB%80%E4%B9%88%E5%8C%BA%E5%88%AB-%E4%BB%8E-%E6%88%91%E7%94%B5%E8%84%91%E4%B8%8A%E8%83%BD%E8%B7%91-%E5%88%B0-%E5%88%AB%E4%BA%BA%E9%9A%8F%E6%97%B6%E8%83%BD%E7%94%A8.html</guid>
-      <description>假设你写了一个 AI 问答程序。 输入问题，检索资料，调用模型，返回答案。你试了十几个问题，效果不错，便把代码发给同学，准备让他也体验一下。 过了一会儿，对方发来一张截图：报错了。 你问：“依</description>
+      <description>Docker 交付运行环境，Compose 组织一组服务，K8s 持续管理集群中的应用，Jenkins 执行交付流程。用一个 AI 问答项目，讲清这些工具何时有用、各自管到哪里。</description>
     </item>
 <item>
-      <title>DeepSeek Harness 要做 Runtime？先弄懂 AI Agent 的“运行环境”是什么</title>
+      <title>从 DeepSeek Harness 说起：Agent 的 Runtime 到底运行什么？</title>
       <link>https://alakazamc.github.io/posts/DeepSeek-Harness-%E8%A6%81%E5%81%9A-Runtime-%E5%85%88%E5%BC%84%E6%87%82-AI-Agent-%E7%9A%84-%E8%BF%90%E8%A1%8C%E7%8E%AF%E5%A2%83-%E6%98%AF%E4%BB%80%E4%B9%88.html</link>
       <pubDate>Fri, 25 Sep 2026 00:00:00 GMT</pubDate>
       <guid>https://alakazamc.github.io/posts/DeepSeek-Harness-%E8%A6%81%E5%81%9A-Runtime-%E5%85%88%E5%BC%84%E6%87%82-AI-Agent-%E7%9A%84-%E8%BF%90%E8%A1%8C%E7%8E%AF%E5%A2%83-%E6%98%AF%E4%BB%80%E4%B9%88.html</guid>
-      <description>DeepSeek Harness：AI Agent 也需要运行时？用大白话讲清楚 Runtime “Runtime”是软件开发里一个常见、却容易让人困惑的词。 有人说 Java 有 Runti</description>
+      <description>JVM 执行字节码，Node.js 运行 JavaScript，Agent Harness 则把模型、工具和任务过程接起来。同叫运行时，它们承担的是不同层次的工作。</description>
     </item>
 <item>
-      <title>模型快了 100 倍，整件事为什么只快了 3%？</title>
+      <title>模型快了 100 倍，总耗时为什么只少了 3%？</title>
       <link>https://alakazamc.github.io/posts/05-%E6%A8%A1%E5%9E%8B%E6%8F%90%E9%80%9F%E4%B8%8E%E8%AF%84%E6%B5%8B%E9%99%B7%E9%98%B1.html</link>
       <pubDate>Sun, 20 Sep 2026 00:00:00 GMT</pubDate>
       <guid>https://alakazamc.github.io/posts/05-%E6%A8%A1%E5%9E%8B%E6%8F%90%E9%80%9F%E4%B8%8E%E8%AF%84%E6%B5%8B%E9%99%B7%E9%98%B1.html</guid>
-      <description>资料核对：2026 年 9 月 20 日 先算一笔小账。 假设审查一次代码修改，模型判断需要 10 秒，必要测试需要 300 秒，两步顺序执行。总共 310 秒。 换上新模型，判断时间降到 0</description>
+      <description>从 310 秒变成 300.1 秒的算例出发，分清模型速度与任务耗时，再看看准确率、自动处理比例和零错误演示分别能证明什么。</description>
     </item>
 <item>
       <title>AI 点下“批准”之前，谁真正检查过代码？</title>
       <link>https://alakazamc.github.io/posts/04-AI%E5%AE%A1%E6%89%B9%E4%B8%8E%E4%BB%A3%E7%A0%81%E6%A3%80%E6%9F%A5.html</link>
       <pubDate>Sun, 20 Sep 2026 00:00:00 GMT</pubDate>
       <guid>https://alakazamc.github.io/posts/04-AI%E5%AE%A1%E6%89%B9%E4%B8%8E%E4%BB%A3%E7%A0%81%E6%A3%80%E6%9F%A5.html</guid>
-      <description>资料核对：2026 年 9 月 20 日 设想这样一幕：一个修改文档分享权限的 PR，页面上挂着绿色的“检查通过”。AI 读完代码，觉得问题不大，程序随即批准。 但那个绿色标记，属于昨天的版本</description>
+      <description>模型读懂修改，只完成了代码审查的一部分。从一条分享链接的权限修复出发，看看自动批准还需要哪些检查、权限和版本记录。</description>
     </item>
 <item>
-      <title>“零幻觉”的 AI，为什么仍然会批错？</title>
+      <title>“零幻觉”的 AI，为什么仍然会判断错误？</title>
       <link>https://alakazamc.github.io/posts/03-%E9%9B%B6%E5%B9%BB%E8%A7%89%E4%B8%8E%E7%BD%AE%E4%BF%A1%E5%BA%A6.html</link>
       <pubDate>Sun, 20 Sep 2026 00:00:00 GMT</pubDate>
       <guid>https://alakazamc.github.io/posts/03-%E9%9B%B6%E5%B9%BB%E8%A7%89%E4%B8%8E%E7%BD%AE%E4%BF%A1%E5%BA%A6.html</guid>
-      <description>资料核对：2026 年 9 月 20 日 有一种考试机器，永远不会漏涂答题卡，不会把 A 写成奇怪的符号，也不会在只有三个选项时填出第四个。 厂家说：“它不会乱答。” 你追问：“那本来该选 B</description>
+      <description>合法输出、预测概率和真实正确率是三件事。借 Jev 的“零幻觉”表述，拆开置信度、校准与自动执行阈值，看看一个数字究竟能保证什么。</description>
     </item>
 <item>
-      <title>只会输出几个数字的 AI，怎么替你干活？</title>
+      <title>只输出选项和概率的 AI，怎样调用工具？</title>
       <link>https://alakazamc.github.io/posts/02-%E6%95%B0%E5%AD%97%E8%BE%93%E5%87%BA%E4%B8%8E%E5%B7%A5%E5%85%B7%E8%B0%83%E7%94%A8.html</link>
       <pubDate>Sun, 20 Sep 2026 00:00:00 GMT</pubDate>
       <guid>https://alakazamc.github.io/posts/02-%E6%95%B0%E5%AD%97%E8%BE%93%E5%87%BA%E4%B8%8E%E5%B7%A5%E5%85%B7%E8%B0%83%E7%94%A8.html</guid>
-      <description>资料核对：2026 年 9 月 20 日 空调遥控器从来不会说：“考虑到目前室温较高，我建议开启制冷，并将温度调至二十六摄氏度。” 你按一下，它发送一个信号，空调就开始工作。没人要求遥控器先把</description>
+      <description>用一个代码审查流程拆开模型选择、程序执行和结果反馈：结构化判断可以接入 Agent，但不能凭空补出候选、证据和权限。</description>
     </item>
 <item>
-      <title>Jev 火了：我们是不是把 BERT 又发明了一遍？</title>
+      <title>Jev 是重新发明 BERT 吗？</title>
       <link>https://alakazamc.github.io/posts/01-Jev%E4%B8%8EBERT.html</link>
       <pubDate>Sun, 20 Sep 2026 00:00:00 GMT</pubDate>
       <guid>https://alakazamc.github.io/posts/01-Jev%E4%B8%8EBERT.html</guid>
-      <description>资料核对：2026 年 9 月 20 日 有人端来一台新咖啡机，说它不跟你聊天，不介绍咖啡文化，按一下按钮就出杯，特别适合办公室。 你看了半天，忍不住问：“咖啡机本来不就应该这样吗？” 读到 </description>
+      <description>都能读一段文字、返回类别和概率，Jev 与 BERT 的区别究竟在哪里？从任务适配、输出含义和评估成本看，一个判断模型该怎样证明自己的价值。</description>
     </item>
 <item>
-      <title>深大校园网疑云：为什么我连路由器的时候，官方登录应用失败了</title>
+      <title>连上路由器却登不上校园网：一次 ac_id 排查与修正</title>
       <link>https://alakazamc.github.io/posts/%E6%B7%B1%E5%A4%A7%E6%A0%A1%E5%9B%AD%E7%BD%91%E7%96%91%E4%BA%91-%E4%B8%BA%E4%BB%80%E4%B9%88%E6%88%91%E8%BF%9E%E8%B7%AF%E7%94%B1%E5%99%A8%E7%9A%84%E6%97%B6%E5%80%99-%E5%AE%98%E6%96%B9%E7%99%BB%E5%BD%95%E5%BA%94%E7%94%A8%E5%A4%B1%E8%B4%A5%E4%BA%86.html</link>
       <pubDate>Thu, 17 Sep 2026 00:00:00 GMT</pubDate>
       <guid>https://alakazamc.github.io/posts/%E6%B7%B1%E5%A4%A7%E6%A0%A1%E5%9B%AD%E7%BD%91%E7%96%91%E4%BA%91-%E4%B8%BA%E4%BB%80%E4%B9%88%E6%88%91%E8%BF%9E%E8%B7%AF%E7%94%B1%E5%99%A8%E7%9A%84%E6%97%B6%E5%80%99-%E5%AE%98%E6%96%B9%E7%99%BB%E5%BD%95%E5%BA%94%E7%94%A8%E5%A4%B1%E8%B4%A5%E4%BA%86.html</guid>
-      <description>最近在做SZUDesktop桌面应用，在设置校园网登录功能的时候遇到了 认证失败：acid 用错了（Unknow ac-type）。 的bug。 在排查一番以后，发现不仅是自己连不上，官方的上</description>
+      <description>官方客户端和自己的工具一起失败，让我把注意力转向认证参数。但页面能打开、HTTP 返回 200、缓存曾经成功，都不足以单独证明当前网络的配置正确。</description>
     </item>
 <item>
       <title>一部好电影，但是我讨厌mj</title>
