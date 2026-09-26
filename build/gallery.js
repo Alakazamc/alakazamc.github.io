@@ -12,7 +12,7 @@ const fs = require('fs');
 const path = require('path');
 const { ICONS, toSymbol } = require('./icons.js');
 const SITE = require('./site.config.js');
-const { seasonScript, bottomBlock, decorate, dcShelf, DECOR_ICONS, shareBtn, shareScript } = require('./subpage.js');
+const { seasonScript, bottomBlock, decorate, dcShelf, DECOR_ICONS, shareBtn, shareScript, skinHead, themeHref } = require('./subpage.js');
 
 const ROOT = path.join(__dirname, '..');
 const DATA_FILE = path.join(__dirname, 'data', 'gallery.json');
@@ -131,9 +131,10 @@ function page(data) {
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>相馆 · ${esc(SITE.name)}</title>
+${skinHead()}
 <link rel="stylesheet" href="../assets-layers.css">
 <link rel="stylesheet" href="../font.css">
-<link rel="stylesheet" href="../assets/theme.css">
+<link rel="stylesheet" href="${themeHref()}">
 <style>
 /* ===== 相馆专属布局（仅本页生效，不污染全局样式表） =====
    字号 / 行高一律用 12 的倍数（12 / 24 / 36 / 48），不出现 14 / 16 / 18。 */

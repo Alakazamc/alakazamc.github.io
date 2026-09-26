@@ -11,19 +11,14 @@
 // 也可以单独跑：node build/posts.js
 const fs = require('fs');
 const path = require('path');
-const { createHash } = require('crypto');
 const { articles, TAG_ICON } = require('./content.js');
 const { ICONS, toSymbol } = require('./icons.js');
-const { seasonScript, bottomBlock, decorate, dcShelf, DECOR_ICONS, shareBtn, shareScript } = require('./subpage.js');
+const { seasonScript, bottomBlock, decorate, dcShelf, DECOR_ICONS, shareBtn, shareScript, skinHead, themeHref } = require('./subpage.js');
 const SITE = require('./site.config.js');
 const {tableOfContents} = require('./papermod.js');
 
 const ROOT = path.join(__dirname, '..');
 const OUT_DIR = path.join(ROOT, 'posts');
-
-// 在生成页面时读取最新样式；CSS 更新后，浏览器自动请求对应版本。
-const themeHref = () => '../assets/theme.css?v=' + createHash('sha256')
-  .update(fs.readFileSync(path.join(ROOT, 'assets', 'theme.css'))).digest('hex').slice(0, 10);
 
 const ic = (n, cls) =>
   `<svg class="ic${cls ? ' ' + cls : ''}" viewBox="0 0 16 16"><use href="#px-${n}"></use></svg>`;
@@ -156,6 +151,7 @@ ${reading.body}
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>${esc(a.title)} · ${esc(SITE.name)}</title>
+${skinHead()}
 <link rel="stylesheet" href="../assets-layers.css">
 <link rel="stylesheet" href="../font.css">
 <link rel="stylesheet" href="${themeHref()}">
@@ -270,6 +266,7 @@ function blogPage(list) {
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>博客 · ${esc(SITE.name)}</title>
+${skinHead()}
 <link rel="stylesheet" href="../assets-layers.css">
 <link rel="stylesheet" href="../font.css">
 <link rel="stylesheet" href="${themeHref()}">

@@ -13,7 +13,7 @@ const fs = require('fs');
 const path = require('path');
 const { ICONS, toSymbol } = require('./icons.js');
 const SITE = require('./site.config.js');
-const { seasonScript, bottomBlock, decorate, dcShelf, DECOR_ICONS, shareBtn, shareScript } = require('./subpage.js');
+const { seasonScript, bottomBlock, decorate, dcShelf, DECOR_ICONS, shareBtn, shareScript, skinHead, themeHref } = require('./subpage.js');
 
 const ROOT = path.join(__dirname, '..');
 const OUT = path.join(ROOT, 'workshop', 'index.html');
@@ -80,9 +80,10 @@ function page(payload) {
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>工坊 · ${esc(SITE.name)}</title>
+${skinHead()}
 <link rel="stylesheet" href="../assets-layers.css">
 <link rel="stylesheet" href="../font.css">
-<link rel="stylesheet" href="../assets/theme.css">
+<link rel="stylesheet" href="${themeHref()}">
 </head>
 <body class="is-article is-workshop-page">
 ${sprite(['chest', 'gem', 'crystal', 'coin', 'key', 'star', 'wheat', 'flower', 'mailbox', 'gear', 'share'].concat(DECOR_ICONS))}

@@ -6,7 +6,7 @@ const path = require('path');
 const { ICONS, toSymbol } = require('./icons.js');
 const SITE = require('./site.config.js');
 const { GAME_ICON } = require('./game-data.js');
-const { seasonScript, bottomBlock, decorate, dcShelf, DECOR_ICONS, shareBtn, shareScript } = require('./subpage.js');
+const { seasonScript, bottomBlock, decorate, dcShelf, DECOR_ICONS, shareBtn, shareScript, skinHead, themeHref } = require('./subpage.js');
 
 const ROOT = path.join(__dirname, '..');
 const OUT = path.join(ROOT, 'museum', 'index.html');
@@ -84,9 +84,10 @@ function page(payload) {
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>博物馆 · ${esc(SITE.name)}</title>
+${skinHead()}
 <link rel="stylesheet" href="../assets-layers.css">
 <link rel="stylesheet" href="../font.css">
-<link rel="stylesheet" href="../assets/theme.css">
+<link rel="stylesheet" href="${themeHref()}">
 </head>
 <body class="is-article is-museum-page">
 ${sprite(['mailbox', 'book', 'star', 'crystal', 'basket', 'flower', 'wheat', 'film', 'note', 'grass', 'share']

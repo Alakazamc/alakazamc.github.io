@@ -1,4 +1,4 @@
-﻿// 子页面（文章页 / 博物馆 / 工坊 / 博客）共用的几件事：
+// 子页面（文章页 / 博物馆 / 工坊 / 博客）共用的几件事：
 //   1. 季节与昼夜自动判定 —— 主页面 gen.js 里那套逻辑的等价实现
 //   2. 底部区块 —— 访问量统计 + 评论区
 //   3. 分享键 + 分享脚本 —— 全站每一页都挂一枚（2026-09-21 补齐覆盖）
@@ -11,6 +11,14 @@
 // 所以那段季节逻辑必须在这里**独立重写一份**（很短，且不依赖 DOM 结构之外的东西）。
 
 const SEASON_NAMES = ['spring', 'summer', 'autumn', 'winter'];
+const SKINS = require('./skins.js');
+const fs = require('fs');
+const path = require('path');
+const { createHash } = require('crypto');
+const skinHead = SKINS.bootScript;
+// Resolve at generation time, after gen.js has written the latest CSS.
+const themeHref = () => '../assets/theme.css?v=' + createHash('sha256')
+  .update(fs.readFileSync(path.join(__dirname, '..', 'assets', 'theme.css'))).digest('hex').slice(0, 10);
 
 // 季节 / 昼夜自动判定。放在 </body> 前执行。
 // 只做两件事：给 <html> 打上 data-season / data-time。
@@ -30,7 +38,7 @@ function seasonScript() {
   var h = now.getHours();
   root.dataset.time = (h < 6 || h >= 18) ? 'night' : 'day';
 })();
-</script>`;
+</script>${SKINS.script()}`;
 }
 
 // ---------- 分享（全站共用） ----------
@@ -134,7 +142,7 @@ const DECOR_ICONS = [
 ];
 
 // prefix 与 bottomBlock 一致：'../' 或 ''。装饰本身全是内联 SVG，不引外部文件。
-const decorate = () => `<div class="dc" aria-hidden="true">${require('./decor.js').scene()}</div>`;
+const decorate = () => `<div class="dc" aria-hidden="true">${require('./decor.js').scene()}</div>${SKINS.scene()}${SKINS.chooser(true)}`;
 
 const dcShelf = () => require('./decor.js').shelf();
 
@@ -172,12 +180,12 @@ function bottomBlock(inner, prefix) {
   return `<div class="sitebottom">
   ${visitsBar(prefix)}
   ${inner || ''}
-  <p class="site-links"><a href="${prefix || ''}rss.xml">RSS 订阅</a> · <a href="https://github.com/adityatelange/hugo-PaperMod">阅读部件：PaperMod</a></p>
+  <p class="site-links"><a href="${prefix || ''}rss.xml">RSS 订阅</a> · <a href="https://github.com/adityatelange/hugo-PaperMod">阅读部件：PaperMod</a> · <a href="https://github.com/Kenton-GMI/sakura-crossing">风景灵感：Sakura Crossing</a></p>
 </div>`;
 }
 
 module.exports = {
   seasonScript, visitsBar, bottomBlock, SEASON_NAMES,
   decorate, dcShelf, DECOR_ICONS,
-  shareBtn, shareScript
+  shareBtn, shareScript, skinHead, themeHref
 };

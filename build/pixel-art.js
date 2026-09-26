@@ -18,7 +18,7 @@ function hero(scene, social, counts, icon, recent = []) {
         <a href="gallery/index.html">${icon('flower', 'sm')}<b>${counts.photos}</b><span>张图像</span></a>
       </nav>
     </div>
-    <div class="entry-view">${scene}<p class="entry-caption">${icon('lantern', 'sm')}欢迎来坐坐${icon('lantern', 'sm')}</p></div>
+    <div class="entry-view">${scene}<p class="entry-caption">${icon('lantern', 'sm')}<span data-skin-caption>欢迎来坐坐</span>${icon('lantern', 'sm')}</p></div>
     ${recent.length ? `<nav class="entry-latest" aria-label="最近文章"><p>${icon('wateringcan', 'sm')}最近写下</p>${recent.map(a => `<a href="posts/${esc(a.slug)}.html"><time>${esc(a.date)}</time><span>${esc(a.title)}</span>${icon('arrow', 'sm')}</a>`).join('')}</nav>` : ''}
   </header>`;
 }

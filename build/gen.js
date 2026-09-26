@@ -8,6 +8,7 @@ const { toCursorSvg, encode } = require('./cursor.js');
 const { brandIcon } = require('./brands.js');
 const DC = require('./decor.js');
 const PIXEL = require('./pixel-art.js');
+const SKINS = require('./skins.js');
 const MUSIC = require('./music.js');
 const ALBUMS = require('./album-data.js').load();
 const md = require('./md.js');
@@ -602,6 +603,7 @@ const HTML = `<!DOCTYPE html>
 <html lang="zh-CN" data-season="spring" data-time="day">
 <head>
 <meta charset="utf-8">
+${SKINS.bootScript()}
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>${md.esc(SITE.name)} · 个人主页</title>
 <link rel="stylesheet" href="assets-layers.css">
@@ -1617,9 +1619,11 @@ ${FARM.css}
 ${DC.css}
 ${PIXEL.css}
 ${MUSIC.css}
+${SKINS.css}
 </style>
 </head>
 <body>
+${SKINS.scene()}
 
 <div class="bg" aria-hidden="true">
   <div id="stars"></div>
@@ -1661,11 +1665,11 @@ ${MUSIC.css}
   <div class="asset-edge"></div>
 </div>
 
-${controls()}
+<div class="skin-bar">${SKINS.chooser()}${controls()}</div>
 
 <div class="wrap">
   ${dash([
-    { label: '概览',   html: PIXEL.hero(DC.panorama(), social(), {articles:ARTICLES.length,collection:(DOUBAN.items || []).length + (GAMES.games || []).length + ALBUMS.items.length,photos:GALLERY.count || 0}, ic, ARTICLES.slice(0,2)) + hang() },
+    { label: '概览',   html: PIXEL.hero(DC.panorama() + SKINS.diorama(), social(), {articles:ARTICLES.length,collection:(DOUBAN.items || []).length + (GAMES.games || []).length + ALBUMS.items.length,photos:GALLERY.count || 0}, ic, ARTICLES.slice(0,2)) + hang() },
     { label: '工坊',   html: repos() },
     { label: '文章',   html: timeline() },
     { label: '博物馆', html: museum() },
@@ -2074,6 +2078,7 @@ ${dashScript()}
 <script>${FARM.homeScript}</script>
 <script>${MUSIC.script}</script>
 ${shareScript()}
+${SKINS.script()}
 </body>
 </html>`;
 
