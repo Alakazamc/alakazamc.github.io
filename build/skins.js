@@ -4,7 +4,7 @@ const path = require('path');
 const scenes = require('./skin-scenes.js');
 
 const skins = [
-  ['sakura', '樱花铁路', '粉樱、纸票与缓缓经过的列车'],
+  ['sakura', '樱花书屋', '花树下的书屋、唱片与经过的列车'],
   ['coast', '海边夏日', '海蓝搪瓷、潮水与港口灯塔'],
   ['observatory', '星夜观测站', '深蓝星图、铜色仪器与山顶圆顶'],
   ['farm', '原野农场', '熟悉的木框、小屋与四季田野']
@@ -27,7 +27,7 @@ const chooser = (compact = false) => `<nav class="skin-picker${compact ? ' skin-
 
 function runtime() {
   var root = document.documentElement;
-  var captions = {farm: '欢迎来坐坐', sakura: '樱花小站，欢迎停靠', coast: '海风经过，慢慢坐', observatory: '今夜，一起看星星'};
+  var captions = {farm: '欢迎来坐坐', sakura: '在花树下，读一页书', coast: '海风经过，慢慢坐', observatory: '今夜，一起看星星'};
   var buttons = document.querySelectorAll('[data-set-skin]');
   function apply(value) {
     // Swap both text and surfaces together; the old seasonal background tween

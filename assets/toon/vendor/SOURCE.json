@@ -1,0 +1,74 @@
+{
+  "sakuraCrossing": {
+    "repository": "https://github.com/Kenton-GMI/sakura-crossing",
+    "commit": "de01898e89c7f6ab3fad93fa802f0f5ac66fbd81",
+    "license": "MIT",
+    "copyright": "Copyright (c) 2026 Kenton Wang",
+    "files": [
+      {
+        "path": "core/outline.js",
+        "upstreamPath": "src/core/outline.js",
+        "sha256": "0b235b4db576d891f4fe771387ee6a4309b11e38ea2e7ccc098263faabb157d6",
+        "modified": false
+      },
+      {
+        "path": "core/palette.js",
+        "upstreamPath": "src/core/palette.js",
+        "sha256": "51ecd369145a17e77b565b8c0785f249a55b764f7f975ac80b711863b53bd588",
+        "modified": false
+      },
+      {
+        "path": "core/post.js",
+        "upstreamPath": "src/core/post.js",
+        "sha256": "3232d66acf48423c921e0b6f6ebdce0f0251683090acc89b91eff6568c8eeeff",
+        "modified": false
+      },
+      {
+        "path": "core/sky.js",
+        "upstreamPath": "src/core/sky.js",
+        "sha256": "12123c33c65cd1bd5c90eae7a7d2f801031c5b21e79716ae448621077a84c50a",
+        "modified": false
+      },
+      {
+        "path": "core/textures.js",
+        "upstreamPath": "src/core/textures.js",
+        "sha256": "3e9d55a100aa3a4719c4c82be8973be61d8ee7cfdba85ee147da4bc587bc05f1",
+        "modified": false
+      },
+      {
+        "path": "core/toon.js",
+        "upstreamPath": "src/core/toon.js",
+        "sha256": "ca2ada8b05545546c3b78b31218854e410b89ff0fe1c7e1e4a2070e2fb3dfccf",
+        "modified": true,
+        "changes": "Assign flatShading after construction for Three.js r180 compatibility; preserve requested faceted shading without setValues warnings."
+      },
+      {
+        "path": "core/util.js",
+        "upstreamPath": "src/core/util.js",
+        "sha256": "0d87a48031008ecff3917f6e7fb4baaeef5041736cbf9a9555dc42c5b2c53a9d",
+        "modified": false
+      },
+      {
+        "path": "world/buildings.js",
+        "upstreamPath": "src/world/buildings.js",
+        "sha256": "4c14befd976ff4e348402e3690a9805bd0192409100cfee7e7ae0548786d8682",
+        "modified": false
+      },
+      {
+        "path": "world/trees.js",
+        "upstreamPath": "src/world/trees.js",
+        "sha256": "d0208be4b89046a947631f93602e6c334ef013f49f42570fd7d8ac9aba225429",
+        "modified": true,
+        "changes": "Denser blossom clusters for the close, fixed bookshop camera."
+      }
+    ]
+  },
+  "three": {
+    "package": "three",
+    "version": "0.180.0",
+    "source": "https://www.npmjs.com/package/three/v/0.180.0",
+    "license": "MIT",
+    "note": "Official minified ESM runtime; three.module.min.js renamed three.module.js. Pass and BufferGeometryUtils addons included."
+  },
+  "adaptation": "main.js and bookshop.js compose a new garden scene for Alakazam using the MIT renderer and procedural modeling techniques. No upstream audio, world bootstrap or player code is included."
+}

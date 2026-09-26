@@ -144,7 +144,22 @@ function observatory() {
 }
 
 function diorama() {
-  return `<div class="skin-diorama" aria-hidden="true" data-scene-paused="true">${[['sakura', sakura], ['coast', coast], ['observatory', observatory]].map(([name, draw]) => `<svg class="skin-art" data-scene="${name}" viewBox="0 0 600 360" width="600" height="360" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false">${draw()}</svg>`).join('')}</div>`;
+  return `<figure class="toon-scene" data-toon-scene data-state="loading" data-light="day" aria-label="樱花书屋风景">
+    <div class="toon-stage">
+      <canvas data-toon-canvas role="img" aria-label="樱花树下的书屋与唱片店，远处的列车缓缓驶过">樱花树下的书屋与唱片店。</canvas>
+      <p class="toon-status" data-toon-status role="status">风景正在慢慢展开…</p>
+      <p class="toon-unavailable">风景暂时没有展开，先来读一篇文章吧。</p>
+    </div>
+    <figcaption class="toon-caption">
+      <span class="toon-place">樱花书屋</span>
+      <div class="toon-light" role="group" aria-label="风景光线">
+        <button type="button" data-toon-light="day" aria-pressed="true">午后</button>
+        <button type="button" data-toon-light="night" aria-pressed="false">入夜</button>
+      </div>
+      <button type="button" class="toon-pause" data-toon-pause aria-pressed="false">暂停风景</button>
+    </figcaption>
+  </figure>
+  <div class="skin-diorama" aria-hidden="true" data-scene-paused="true">${[['coast', coast], ['observatory', observatory]].map(([name, draw]) => `<svg class="skin-art" data-scene="${name}" viewBox="0 0 600 360" width="600" height="360" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false">${draw()}</svg>`).join('')}</div>`;
 }
 
 function backdrop() {
@@ -157,8 +172,8 @@ function backdrop() {
 const css = `
 .skin-diorama{display:none;width:100%;overflow:hidden;isolation:isolate}
 .skin-art{display:none;width:100%;height:auto;aspect-ratio:5/3;overflow:hidden;shape-rendering:crispEdges;image-rendering:pixelated}
-html[data-skin="sakura"] .skin-diorama,html[data-skin="coast"] .skin-diorama,html[data-skin="observatory"] .skin-diorama{display:block}
-html[data-skin="sakura"] .skin-art[data-scene="sakura"],html[data-skin="coast"] .skin-art[data-scene="coast"],html[data-skin="observatory"] .skin-art[data-scene="observatory"]{display:block}
+html[data-skin="coast"] .skin-diorama,html[data-skin="observatory"] .skin-diorama{display:block}
+html[data-skin="coast"] .skin-art[data-scene="coast"],html[data-skin="observatory"] .skin-art[data-scene="observatory"]{display:block}
 .skin-art[data-scene="sakura"]{--scene-sky:#b7c9d2;--scene-haze:#d0cbd1;--scene-horizon:#e5cfd0;--scene-far:#a2a9b9;--scene-near:#8b9d98;--scene-ground:#91a287;--scene-cloud:#eee0d9;--scene-cloud-shadow:#d6cbd0;--scene-star:#e6d9d4;--scene-window:#c4d2c8;--scene-lamp:#f5d8a0;--station-wall:#e6c9b1;--cherry-main:#dca0b6;--cherry-shadow:#bd809b;--cherry-light:#f4c1ce}
 .skin-art[data-scene="coast"]{--scene-sky:#9dc9d0;--scene-haze:#b7d5d2;--scene-horizon:#ded9bb;--scene-far:#89aeb0;--scene-cloud:#ece7ce;--scene-cloud-shadow:#c3d6cb;--scene-star:#e7e2c5;--scene-window:#b8d3cc;--scene-lamp:#edd49b;--sea-far:#81b5b9;--sea-mid:#639fa9;--sea-near:#518c9b;--sea-deep:#467c90;--sea-light:#8fc0be;--sea-foam:#d3dac1}
 .skin-art[data-scene="observatory"]{--scene-sky:#303d5b;--scene-haze:#424f6e;--scene-horizon:#606882;--scene-far:#677b8e;--scene-near:#3e5867;--scene-star:#e4d5b1;--scene-window:#ead1a0}

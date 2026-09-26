@@ -605,6 +605,7 @@ const HTML = `<!DOCTYPE html>
 <meta charset="utf-8">
 ${SKINS.bootScript()}
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<script type="importmap">{"imports":{"three":"./assets/toon/vendor/three/three.module.js","three/addons/":"./assets/toon/vendor/three/addons/"}}</script>
 <title>${md.esc(SITE.name)} · 个人主页</title>
 <link rel="stylesheet" href="assets-layers.css">
 <!-- 像素字体的 @font-face 在根目录的 font.css 里，不在下面的内联样式块 ——
@@ -2079,6 +2080,11 @@ ${dashScript()}
 <script>${MUSIC.script}</script>
 ${shareScript()}
 ${SKINS.script()}
+<script type="module">
+import('./assets/toon/main.js').catch(function(){
+  document.querySelector('[data-toon-scene]').dataset.state='error';
+});
+</script>
 </body>
 </html>`;
 
