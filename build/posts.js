@@ -11,6 +11,7 @@
 // 也可以单独跑：node build/posts.js
 const fs = require('fs');
 const path = require('path');
+const { createHash } = require('crypto');
 const { articles, TAG_ICON } = require('./content.js');
 const { ICONS, toSymbol } = require('./icons.js');
 const { seasonScript, bottomBlock, decorate, dcShelf, DECOR_ICONS, shareBtn, shareScript } = require('./subpage.js');
@@ -19,6 +20,10 @@ const {tableOfContents} = require('./papermod.js');
 
 const ROOT = path.join(__dirname, '..');
 const OUT_DIR = path.join(ROOT, 'posts');
+
+// 在生成页面时读取最新样式；CSS 更新后，浏览器自动请求对应版本。
+const themeHref = () => '../assets/theme.css?v=' + createHash('sha256')
+  .update(fs.readFileSync(path.join(ROOT, 'assets', 'theme.css'))).digest('hex').slice(0, 10);
 
 const ic = (n, cls) =>
   `<svg class="ic${cls ? ' ' + cls : ''}" viewBox="0 0 16 16"><use href="#px-${n}"></use></svg>`;
@@ -130,7 +135,7 @@ function page(a, prev, next) {
   // ⚠️ 图标是 display:block 的 SVG，直接塞进 <p> 的文本流会被当成块级元素换行 ——
   //    gen.js 里的 .artmeta svg.ic 规则已把它退回 inline-block（theme.css 的唯一来源）。
   const tagRow = (a.tags || []).map((t) => (TAG_ICON[t] ? ic(TAG_ICON[t], 'xs') : '') + esc(t)).join(' / ');
-  const metarow = [a.date, a.meta, tagRow].filter(Boolean).join(' · ');
+  const metarow = [esc(a.date), a.meta ? esc(a.meta) : '', tagRow].filter(Boolean).join(' · ');
 
   /* 目录在左、正文在右（柯西 2026-09-20：「文章内的文章目录能不能放在左边」）。
      有目录才建两栏（.art-cols）；没有目录时正文整幅居中，跟改造前一样。 */
@@ -153,7 +158,7 @@ ${reading.body}
 <title>${esc(a.title)} · ${esc(SITE.name)}</title>
 <link rel="stylesheet" href="../assets-layers.css">
 <link rel="stylesheet" href="../font.css">
-<link rel="stylesheet" href="../assets/theme.css">
+<link rel="stylesheet" href="${themeHref()}">
 </head>
 <body class="is-article">
 ${decorate()}
@@ -169,7 +174,7 @@ ${spriteFor(['mailbox', 'book', 'star', 'wateringcan', 'heart', 'flower', 'wheat
     ${corners('flower', 'flower', 'wheat', 'wheat')}
     <h1 class="arttitle">${esc(a.title)}</h1>
     <div class="artmeta-row">
-      <p class="artmeta">${esc(metarow)}</p>
+      <p class="artmeta">${metarow}</p>
       ${shareBtn('sm')}
     </div>
     ${cover}
@@ -267,7 +272,7 @@ function blogPage(list) {
 <title>博客 · ${esc(SITE.name)}</title>
 <link rel="stylesheet" href="../assets-layers.css">
 <link rel="stylesheet" href="../font.css">
-<link rel="stylesheet" href="../assets/theme.css">
+<link rel="stylesheet" href="${themeHref()}">
 </head>
 <body class="is-article">
 ${decorate()}
