@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "uid": "32133355",
-  "updatedAt": "2026-09-26T00:42:54.540Z",
+  "updatedAt": "2026-09-27T00:43:45.805Z",
   "platforms": {
     "steam": {
       "complete": true,
@@ -16,7 +16,7 @@
           "hours": 15.9,
           "cleared": false,
           "notOwned": false,
-          "recentHours": 2.4,
+          "recentHours": 1.4,
           "cover": "steam-2001120.jpg"
         },
         {
