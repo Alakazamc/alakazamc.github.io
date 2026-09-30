@@ -94,6 +94,10 @@
   button.danger{background:#E24B4A;color:#fff}
   .hint{font-size:12px;background:#FFF7D9;border:3px solid var(--ink);padding:5px 9px}
 
+  #unsavedDialog{color:var(--ink);background:var(--cream);border:4px solid var(--ink);max-width:520px;padding:20px}
+  #unsavedDialog::backdrop{background:rgba(59,36,18,.7)}
+  #unsavedDialog .row{display:flex;gap:8px;flex-wrap:wrap}
+
   /* 日志 */
   #log{
     display:none;position:fixed;inset:auto 0 0 0;max-height:42vh;overflow:auto;
@@ -165,6 +169,7 @@ main{display:block}.pane+.pane{border-left:0;border-top:2px solid var(--ink)}.pa
   <span class="sp"></span>
   <button id="btnOpen">打开已有文章</button>
   <div class="posts" id="postsList"></div>
+  <button id="btnDrafts">打开本机草稿</button>
   <button id="btnSave">存草稿</button>
   <button class="primary" id="btnPub">发布上线</button>
 </header><details class="sync-tools"><summary>收藏同步</summary><p>书影音、游戏和听歌排行每天自动更新，也可以立即同步。</p><p id="syncSources">正在读取上次同步时间…</p><button type="button" id="btnSyncSources">立即同步收藏</button><p id="syncResult" role="status" aria-live="polite"></p></details>
@@ -228,6 +233,16 @@ main{display:block}.pane+.pane{border-left:0;border-top:2px solid var(--ink)}.pa
 <input type="file" id="fileGallery" accept="image/png,image/jpeg,image/gif,image/webp,image/avif" style="display:none">
 
 <div id="log"></div>
+
+<dialog id="unsavedDialog" aria-labelledby="unsavedTitle" aria-describedby="unsavedHelp">
+  <h2 id="unsavedTitle">当前文章还有未保存的修改</h2>
+  <p id="unsavedHelp">先保存草稿再打开，或明确放弃这次修改。取消会留在当前文章。</p>
+  <form method="dialog" class="row">
+    <button value="save" class="primary">保存草稿并打开</button>
+    <button value="discard">放弃修改并打开</button>
+    <button value="cancel" autofocus>取消</button>
+  </form>
+</dialog>
 
 <!-- 云端模式的登录面板（本机模式永远不显示） -->
 <div id="login">
@@ -878,6 +893,7 @@ function setGalleryMode(on){
   // 文章专属的头部按钮在相馆模式下藏起来，避免误点成发布空文章
   $('btnOpen').style.display = on ? 'none' : '';
   $('btnSave').style.display = on ? 'none' : '';
+  $('btnDrafts').style.display = on ? 'none' : '';
   $('btnPub').style.display = on ? 'none' : '';
   $('tabWrite').classList.toggle('on', !on);
   $('tabGallery').classList.toggle('on', on);
@@ -1054,25 +1070,111 @@ function checkReady(){
    云端模式：写进**这台设备的浏览器**。
    ⚠️ 云端没有"只写文件不构建"这回事 —— 往仓库提交任何东西都会触发
    Actions 重建，所以草稿一律不出这台设备。 */
-var DRAFT_KEY = 'kx_blog_draft';
-async function doSave(){
-  if(!elTitle.value.trim()){ alert('先写个标题'); return; }
-  if (CLOUD){
-    try{
-      localStorage.setItem(DRAFT_KEY, JSON.stringify(payload()));
-      setStatus('已暂存到本机浏览器（不会上线）');
-    }catch(e){ setStatus('暂存失败：'+e.message); }
-    return;
+var DRAFT_KEY = 'kx_blog_draft'; // 兼容旧版单草稿，读到后仍保留原件。
+var DRAFT_PREFIX = 'kx_blog_draft:v2:';
+var activeDraftKey = null;
+var openRequestId = 0, openPending = false, draftDialogPromise = null;
+var editorFields = [elTitle, elDate, elTags, elSummary, elSlug, elCover, elBody];
+function editorSnapshot(){ return JSON.stringify(editorFields.map(function(el){ return el.value; })); }
+var savedEditorSnapshot = editorSnapshot();
+function editorDirty(){ return editorSnapshot() !== savedEditorSnapshot; }
+function restoreDraft(d, key){
+  loadedPost=d.base||null;
+  elTitle.value=d.title||'';
+  elDate.value=d.date||todayStr();
+  elTags.value=(d.tags||[]).join(', ');
+  elSummary.value=d.summary||'';
+  elCover.value=d.cover||'';
+  elSlug.value=d.slug||'';
+  elSlug.dataset.touched='1';
+  elBody.value=d.body||'';
+  if(Array.isArray(d.fields) && d.fields.length===editorFields.length){
+    editorFields.forEach(function(el,i){ el.value=String(d.fields[i]); });
   }
+  activeDraftKey=key===DRAFT_KEY?null:key;
+  savedEditorSnapshot=editorSnapshot();
+  refresh();
+}
+function browserDrafts(){
+  var drafts=[];
+  for(var i=0;i<localStorage.length;i++){
+    var key=localStorage.key(i);
+    if(key!==DRAFT_KEY && !key.startsWith(DRAFT_PREFIX)) continue;
+    try{
+      var d=JSON.parse(localStorage.getItem(key));
+      if(d && typeof d.body==='string') drafts.push({key:key,data:d});
+    }catch(e){} // 一份损坏的旧草稿不阻止其余草稿恢复。
+  }
+  return drafts.sort(function(a,b){return (b.data.savedAt||0)-(a.data.savedAt||0);});
+}
+function chooseUnsavedAction(){
+  if(draftDialogPromise) return draftDialogPromise;
+  var dialog=$('unsavedDialog');
+  draftDialogPromise=new Promise(function(resolve){
+    dialog.returnValue='cancel';
+    dialog.addEventListener('close',function(){
+      draftDialogPromise=null;
+      resolve(dialog.returnValue||'cancel');
+    },{once:true});
+    dialog.showModal();
+  });
+  return draftDialogPromise;
+}
+async function mayReplaceEditor(requestId){
+  if($('btnPub').disabled){setStatus('正在发布，完成后再打开其他文章');return false;}
+  if(!editorDirty()) return true;
+  var action=await chooseUnsavedAction();
+  if(requestId!==openRequestId || action==='cancel') return false;
+  if(action==='save') return await doSave();
+  return action==='discard';
+}
+function cancelOpen(){
+  openRequestId++;
+  if(openPending) setStatus('已取消载入，当前文章保持不变');
+  openPending=false;
+  $('postsList').classList.remove('on');
+}
+window.addEventListener('beforeunload',function(e){
+  if(!editorDirty()) return;
+  e.preventDefault(); e.returnValue='';
+});
+async function doSave(){
+  var p=payload(), snapshot=editorSnapshot();
+  if(CLOUD){
+    try{
+      // 每篇文章独立保存；新文章使用独立 ID，不互相挤掉草稿。
+      var key=activeDraftKey || DRAFT_PREFIX+(loadedPost ? encodeURIComponent(loadedPost.file) : crypto.randomUUID());
+      p.fields=JSON.parse(snapshot);
+      p.savedAt=Date.now();
+      localStorage.setItem(key, JSON.stringify(p));
+      activeDraftKey=key;
+      savedEditorSnapshot=snapshot;
+      setStatus('已暂存到本机浏览器（不会上线，可从「打开本机草稿」恢复）');
+      return true;
+    }catch(e){ setStatus('暂存失败：'+e.message+'；当前内容仍保留，请勿关闭页面'); return false; }
+  }
+  if(!p.title){ alert('先写个标题'); return false; }
   setStatus('保存中…');
   try{
-    var r=await fetch('/api/save',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(payload())});
+    var r=await fetch('/api/save',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(p)});
     var j=await r.json();
     if(!j.ok) throw new Error(j.error||'保存失败');
+    if(editorSnapshot()===snapshot) savedEditorSnapshot=snapshot;
     setStatus('已存草稿：'+j.file+'（'+j.bytes+' 字符）');
-  }catch(e){ setStatus('保存失败：'+e.message); alert('保存失败：'+e.message); }
+    return editorSnapshot()===snapshot;
+  }catch(e){ setStatus('保存失败：'+e.message); alert('保存失败：'+e.message); return false; }
 }
 $('btnSave').onclick=doSave;
+$('btnDrafts').onclick=function(){
+  cancelOpen();
+  try{
+    var drafts=browserDrafts();
+    $('postsList').innerHTML=drafts.length ? drafts.map(function(d){
+      return '<div data-local-draft="'+esc(d.key)+'">[本机草稿] '+esc(d.data.title||'(无标题)')+'</div>';
+    }).join('') : '<div>本机还没有草稿</div>';
+    $('postsList').classList.add('on');
+  }catch(e){ setStatus('读不到本机草稿：'+e.message); }
+};
 
 /* ---- 轮询 Actions 的构建状态 ----
    ⚠️ 必须按 head_sha 过滤再取。仓库里可能同时躺着别的 run（比如你手动点的，
@@ -1115,7 +1217,7 @@ $('btnPub').onclick=async ()=>{
 
   /* ===== 云端模式 ===== */
   if(CLOUD){
-    var p = payload();
+    var p = payload(), publishedSnapshot=editorSnapshot(), publishedDraftKey=activeDraftKey;
     var slug = safeSlug(p.slug || p.title);
     var file = POSTS_DIR + '/' + slug + '.md';
     showLog('提交到 GitHub…\n');
@@ -1142,6 +1244,7 @@ $('btnPub').onclick=async ()=>{
       var res = await gh('/repos/'+REPO+'/contents/'+encPath(file),
                          { method:'PUT', body: JSON.stringify(body) });
       loadedPost = {file:file,sha:res.content.sha};
+      if(editorSnapshot()===publishedSnapshot) savedEditorSnapshot=publishedSnapshot;
       var commit = (res && res.commit && res.commit.sha) || '';
       log('已提交 ' + commit.slice(0,7) + '，等服务器重建…\n');
 
@@ -1153,7 +1256,13 @@ $('btnPub').onclick=async ()=>{
       if(r.ok){
         log('\n发布成功 ✓ 约半分钟后可见：\n  https://alakazamc.github.io/posts/' + slug + '.html\n');
         setStatus('发布成功');
-        try{ var saved=JSON.parse(localStorage.getItem(DRAFT_KEY)||'null'); if(saved && saved.title===p.title && saved.body===p.body && saved.slug===p.slug) localStorage.removeItem(DRAFT_KEY); }catch(e){}
+        try{
+          var saved=JSON.parse(localStorage.getItem(publishedDraftKey)||'null');
+          if(saved && JSON.stringify(saved.fields)===publishedSnapshot){
+            localStorage.removeItem(publishedDraftKey);
+            if(activeDraftKey===publishedDraftKey) activeDraftKey=null;
+          }
+        }catch(e){}
       }else if(r.timeout){
         log('\n构建超过 5 分钟还没结束，自己去看看：\n  https://github.com/'+REPO+'/actions\n');
         setStatus('构建太久，去 Actions 看看');
@@ -1215,7 +1324,8 @@ $('btnPub').onclick=async ()=>{
 /* ---- 打开已有文章 ---- */
 $('btnOpen').onclick=async()=>{
   const box=$('postsList');
-  if(box.classList.contains('on')){ box.classList.remove('on'); return; }
+  if(box.classList.contains('on')){ cancelOpen(); return; }
+  const listRequestId=++openRequestId;
   let posts, notice='';
   try{
     if(CLOUD){
@@ -1236,7 +1346,8 @@ $('btnOpen').onclick=async()=>{
       const j=await r.json();
       posts = j.posts;
     }
-  }catch(e){ cloudError(e); return; }
+  }catch(e){ if(listRequestId===openRequestId) cloudError(e); return; }
+  if(listRequestId!==openRequestId) return;
   const note = notice ? '<div style="opacity:.6;padding:4px 8px">'+notice+'</div>' : '';
   if(!posts.length){ box.innerHTML=note+'<div style="opacity:.6">还没有文章</div>'; }
   else{
@@ -1246,38 +1357,62 @@ $('btnOpen').onclick=async()=>{
   box.classList.add('on');
 };
 $('postsList').onclick=async(e)=>{
-  const row=e.target.closest('[data-f]');
+  const row=e.target.closest('[data-f], [data-local-draft]');
   if(!row) return;
-  let raw;
+  const requestId=++openRequestId;
+  if(!await mayReplaceEditor(requestId) || requestId!==openRequestId) return;
+  const snapshot=editorSnapshot();
+  let raw, base=null, draft=null;
+  openPending=true;
+  setStatus('载入中…（继续输入会取消本次替换）');
   try{
-    if(CLOUD){
-      /* 正文优先走 raw CDN（不占 GitHub 配额、不用登录），取不到再退回接口。
-         sha 由原始字节算出，跟接口给的一致 —— 更新时的冲突检查照样管用。 */
+    if(row.dataset.localDraft){
+      draft=JSON.parse(localStorage.getItem(row.dataset.localDraft)||'null');
+      if(!draft || typeof draft.body!=='string') throw new Error('这份草稿已不存在或无法读取');
+    }else if(CLOUD){
       const got = await readPostText(row.dataset.f);
       raw = got.raw;
-      loadedPost = {file: POSTS_DIR + '/' + row.dataset.f, sha:got.sha};
+      base = {file: POSTS_DIR + '/' + row.dataset.f, sha:got.sha};
     }else{
       const r=await fetch('/api/post?file='+encodeURIComponent(row.dataset.f.replace(/\.md$/,''))+'&draft='+row.dataset.draft);
       const j=await r.json();
-      if(!j.ok){ alert(j.error); return; }
+      if(!j.ok) throw new Error(j.error||'读取失败');
       raw=j.raw;
     }
-  }catch(e2){ cloudError(e2); return; }
-  const fm=/^---\r?\n([\s\S]*?)\r?\n---\r?\n?/.exec(raw);
-  const get=k=>{ const m=new RegExp('^'+k+':\\s*(.*)$','m').exec(fm?fm[1]:''); return m?m[1].trim():''; };
-  elTitle.value=get('title');
-  elDate.value=get('date')||todayStr();
-  elTags.value=get('tags').replace(/^\[|\]$/g,'');
-  elSummary.value=get('summary');
-  elSlug.value=row.dataset.f.replace(/\.md$/,'');
-  elSlug.dataset.touched='1';
-  elBody.value=fm?raw.slice(fm[0].length).trim():raw;
+  }catch(e2){
+    if(requestId===openRequestId){openPending=false;cloudError(e2);}
+    return;
+  }
+  if(requestId!==openRequestId) return;
+  openPending=false;
+  if(editorSnapshot()!==snapshot){
+    setStatus('载入期间你又修改了内容，已保留当前文章；需要时请重新打开');
+    return;
+  }
+  if(draft){
+    restoreDraft(draft,row.dataset.localDraft);
+    setStatus('已恢复本机草稿（不会自动发布）');
+  }else{
+    const fm=/^---\r?\n([\s\S]*?)\r?\n---\r?\n?/.exec(raw);
+    const get=k=>{ const m=new RegExp('^'+k+':\\s*(.*)$','m').exec(fm?fm[1]:''); return m?m[1].trim():''; };
+    elTitle.value=get('title');
+    elDate.value=get('date')||todayStr();
+    elTags.value=get('tags').replace(/^\[|\]$/g,'');
+    elSummary.value=get('summary');
+    elCover.value=get('cover');
+    elSlug.value=row.dataset.f.replace(/\.md$/,'');
+    elSlug.dataset.touched='1';
+    elBody.value=fm?raw.slice(fm[0].length).trim():raw;
+    loadedPost=base;
+    activeDraftKey=null;
+    savedEditorSnapshot=editorSnapshot();
+    refresh();
+    setStatus('已载入 '+(row.dataset.draft==='1'?'草稿 ':'')+row.dataset.f+'（发布后更新正式文章）');
+  }
   $('postsList').classList.remove('on');
-  refresh();
-  setStatus('已载入 '+(row.dataset.draft==='1'?'草稿 ':'')+row.dataset.f+'（发布后更新正式文章）');
 };
 document.addEventListener('click',e=>{
-  if(!e.target.closest('#postsList') && !e.target.closest('#btnOpen')) $('postsList').classList.remove('on');
+  if(!e.target.closest('#postsList') && !e.target.closest('#btnOpen') && !e.target.closest('#btnDrafts') && !e.target.closest('#unsavedDialog')) cancelOpen();
 });
 
 /* ---- 心跳：告诉服务"网页还开着" ----
@@ -1375,20 +1510,12 @@ $('tokClear').onclick = function(){
   setStatus('已清除 token');
 };
 
-/* 上次没发完的草稿：**问一次**，不自动覆盖你正在写的东西 */
+/* 上次没发完的草稿：问一次；其他草稿仍可从列表恢复，旧版草稿不删除。 */
 if(CLOUD){
   try{
-    var d = JSON.parse(localStorage.getItem(DRAFT_KEY) || 'null');
-    if(d && d.body && confirm('这台设备上还存着一份没发布的草稿「' + (d.title||'(无标题)') + '」，要恢复吗？')){
-      loadedPost=d.base||null;
-      elTitle.value=d.title||'';
-      elDate.value=d.date||todayStr();
-      elTags.value=(d.tags||[]).join(', ');
-      elSummary.value=d.summary||'';
-      elCover.value=d.cover||'';
-      elSlug.value=d.slug||'';
-      elBody.value=d.body||'';
-      refresh();
+    var lastDraft=browserDrafts()[0];
+    if(lastDraft && confirm('这台设备上还存着草稿「' + (lastDraft.data.title||'(无标题)') + '」，要恢复吗？')){
+      restoreDraft(lastDraft.data,lastDraft.key);
       setStatus('已恢复本机草稿');
     }
   }catch(e){}
