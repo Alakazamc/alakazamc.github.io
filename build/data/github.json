@@ -1,13 +1,80 @@
 {
  "user": "Alakazamc",
- "updatedAt": "2026-09-29T02:04:56.242Z",
+ "updatedAt": "2026-09-30T01:21:10.286Z",
  "repos": [
   {
+   "name": "pskit-2.0",
+   "description": "🧪 BioAI Agent 工作台：LangGraph 编排 + 20+ 生信工具 + Qdrant RAG + Vue 3 SPA",
+   "url": "https://github.com/Alakazamc/pskit-2.0",
+   "stars": 0,
+   "pushedAt": "2026-09-29",
+   "language": "Python",
+   "color": "#3572A5",
+   "topics": [
+    "bioinformatics",
+    "fastapi",
+    "langgraph",
+    "qdrant"
+   ],
+   "langs": [
+    {
+     "name": "Python",
+     "color": "#3572A5",
+     "size": 1603615
+    },
+    {
+     "name": "TypeScript",
+     "color": "#3178c6",
+     "size": 74318
+    },
+    {
+     "name": "Vue",
+     "color": "#41b883",
+     "size": 36868
+    },
+    {
+     "name": "Shell",
+     "color": "#89e051",
+     "size": 24517
+    },
+    {
+     "name": "CSS",
+     "color": "#663399",
+     "size": 14571
+    },
+    {
+     "name": "Dockerfile",
+     "color": "#384d54",
+     "size": 2387
+    },
+    {
+     "name": "PowerShell",
+     "color": "#012456",
+     "size": 924
+    },
+    {
+     "name": "JavaScript",
+     "color": "#f1e05a",
+     "size": 646
+    },
+    {
+     "name": "Mako",
+     "color": "#7e858d",
+     "size": 593
+    },
+    {
+     "name": "HTML",
+     "color": "#e34c26",
+     "size": 294
+    }
+   ]
+  },
+  {
    "name": "szudesktop",
-   "description": "深大校园桌面应用：像素庭院陪你专注和记笔记，附校园网认证与断线诊断（Windows 桌面版；Windows / macOS / Linux 命令行）",
+   "description": "深大校园桌面应用：像素庭院陪你专注和记笔记，附校园网认证与断线诊断（Windows / macOS 桌面版；Windows / macOS / Linux 命令行）",
    "url": "https://github.com/SzuDesktopTeam/szudesktop",
    "stars": 5,
-   "pushedAt": "2026-09-28",
+   "pushedAt": "2026-09-29",
    "language": "JavaScript",
    "color": "#f1e05a",
    "topics": [],
@@ -15,27 +82,27 @@
     {
      "name": "JavaScript",
      "color": "#f1e05a",
-     "size": 1535199
+     "size": 1623830
     },
     {
      "name": "Go",
      "color": "#00ADD8",
-     "size": 1068641
+     "size": 1126509
     },
     {
      "name": "Python",
      "color": "#3572A5",
-     "size": 249582
+     "size": 271747
     },
     {
      "name": "CSS",
      "color": "#663399",
-     "size": 136767
+     "size": 136248
     },
     {
      "name": "HTML",
      "color": "#e34c26",
-     "size": 24355
+     "size": 24511
     },
     {
      "name": "PowerShell",
@@ -78,58 +145,6 @@
      "name": "HTML",
      "color": "#e34c26",
      "size": 37086
-    }
-   ]
-  },
-  {
-   "name": "pskit-2.0",
-   "description": "🧪 BioAI Agent 工作台：LangGraph 编排 + 20+ 生信工具 + Qdrant RAG + Vue 3 SPA",
-   "url": "https://github.com/Alakazamc/pskit-2.0",
-   "stars": 0,
-   "pushedAt": "2026-08-30",
-   "language": "Python",
-   "color": "#3572A5",
-   "topics": [
-    "bioinformatics",
-    "fastapi",
-    "langgraph",
-    "qdrant"
-   ],
-   "langs": [
-    {
-     "name": "Python",
-     "color": "#3572A5",
-     "size": 137428
-    },
-    {
-     "name": "Vue",
-     "color": "#41b883",
-     "size": 27773
-    },
-    {
-     "name": "CSS",
-     "color": "#663399",
-     "size": 13398
-    },
-    {
-     "name": "TypeScript",
-     "color": "#3178c6",
-     "size": 8169
-    },
-    {
-     "name": "Shell",
-     "color": "#89e051",
-     "size": 5414
-    },
-    {
-     "name": "Dockerfile",
-     "color": "#384d54",
-     "size": 732
-    },
-    {
-     "name": "HTML",
-     "color": "#e34c26",
-     "size": 294
     }
    ]
   },
@@ -365,100 +380,100 @@
  ],
  "languages": [
   {
-   "name": "JavaScript",
-   "color": "#f1e05a",
-   "size": 2642922,
-   "percent": 0.3416087467862561
-  },
-  {
    "name": "Python",
    "color": "#3572A5",
-   "size": 1697536,
-   "percent": 0.21941364352960627
+   "size": 3185888,
+   "percent": 0.33640057107746685
+  },
+  {
+   "name": "JavaScript",
+   "color": "#f1e05a",
+   "size": 2732199,
+   "percent": 0.2884951711727731
   },
   {
    "name": "Go",
    "color": "#00ADD8",
-   "size": 1068641,
-   "percent": 0.13812632865230662
+   "size": 1126509,
+   "percent": 0.1189490248633681
   },
   {
    "name": "Vue",
    "color": "#41b883",
-   "size": 971056,
-   "percent": 0.12551305835710425
+   "size": 980151,
+   "percent": 0.10349496157496754
   },
   {
    "name": "Java",
    "color": "#b07219",
    "size": 737013,
-   "percent": 0.09526201957347927
+   "percent": 0.07782181736819281
   },
   {
    "name": "CSS",
    "color": "#663399",
-   "size": 357594,
-   "percent": 0.04622052342001938
-  },
-  {
-   "name": "HTML",
-   "color": "#e34c26",
-   "size": 121997,
-   "percent": 0.015768623622521922
+   "size": 358248,
+   "percent": 0.037827705113098874
   },
   {
    "name": "TypeScript",
    "color": "#3178c6",
-   "size": 92243,
-   "percent": 0.011922794403241798
+   "size": 158392,
+   "percent": 0.016724743385235805
+  },
+  {
+   "name": "HTML",
+   "color": "#e34c26",
+   "size": 122153,
+   "percent": 0.012898237150466622
+  },
+  {
+   "name": "Shell",
+   "color": "#89e051",
+   "size": 25494,
+   "percent": 0.002691932723011273
   },
   {
    "name": "SCSS",
    "color": "#c6538c",
    "size": 20888,
-   "percent": 0.00269986155583529
+   "percent": 0.002205581341423844
   },
   {
    "name": "Dockerfile",
    "color": "#384d54",
-   "size": 9926,
-   "percent": 0.0012829771066268237
-  },
-  {
-   "name": "Shell",
-   "color": "#89e051",
-   "size": 6391,
-   "percent": 0.000826063539034055
+   "size": 11581,
+   "percent": 0.0012228474490152018
   },
   {
    "name": "PowerShell",
    "color": "#012456",
-   "size": 4448,
-   "percent": 0.0005749226445976337
+   "size": 5372,
+   "percent": 0.0005672339604619346
   },
   {
    "name": "Makefile",
    "color": "#427819",
    "size": 2846,
-   "percent": 0.0003678574295244751
+   "percent": 0.0003005115136773391
   },
   {
    "name": "Lua",
    "color": "#000080",
    "size": 1678,
-   "percent": 0.00021688853364092384
+   "percent": 0.00017718141951882468
+  },
+  {
+   "name": "Mako",
+   "color": "#7e858d",
+   "size": 1173,
+   "percent": 0.00012385804832871355
   },
   {
    "name": "NSIS",
    "color": null,
    "size": 934,
-   "percent": 0.00012072341503016857
-  },
-  {
-   "name": "Mako",
-   "color": "#7e858d",
-   "size": 580,
-   "percent": 0.00007496743117505115
+   "percent": 0.00009862183899319563
   }
  ],
  "totals": {

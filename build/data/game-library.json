@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "uid": "32133355",
-  "updatedAt": "2026-09-29T02:05:59.370Z",
+  "updatedAt": "2026-09-30T01:22:22.688Z",
   "platforms": {
     "steam": {
       "complete": true,
@@ -418,7 +418,7 @@
         {
           "appid": "292030",
           "sourceId": "292030",
-          "name": "巫师3：狂猎",
+          "name": "巫师3：狂猎 - 重制版",
           "platform": "steam",
           "platformLabel": "Steam",
           "hours": 17.4,
