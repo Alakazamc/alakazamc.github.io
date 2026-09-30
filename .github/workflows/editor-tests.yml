@@ -1,0 +1,28 @@
+name: Editor regression tests
+
+on:
+  pull_request:
+    paths:
+      - 'build/**'
+      - 'tests/**'
+      - '.github/workflows/editor-tests.yml'
+  push:
+    branches: [main]
+    paths:
+      - 'build/**'
+      - 'tests/**'
+      - '.github/workflows/editor-tests.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - run: node --test tests/*.test.js
+      - run: node build/gen.js
