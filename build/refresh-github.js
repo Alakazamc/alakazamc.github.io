@@ -10,7 +10,14 @@
    ⚠️ 本文件会被 push.js 传上云端（CI_BUILD_SET 显式列了它），但 sources/ 永远不会
       （那里有 heybox-sign.js 的小黑盒签名逆向，不该公开）。所以共享代码只能放这里，
       不能放到 sources/ 下 —— 云端会 MODULE_NOT_FOUND。
-   Public GitHub data only. Failure leaves the last good snapshot untouched. */
+   ⚠️ 关于「私有」：contributionsCollection 给的是**聚合计数**，GitHub 对任何调用方
+      返回同一份（实测：用第三方身份查别人的档案，日历总数含其私有贡献，而按仓库的
+      明细只列公开仓库）。私有仓库名一律拿不到 —— 快照和页面上不会出现任何私有信息，
+      和 github.com/Alakazamc 公开显示的是同一份数据。也正因如此，CI 里现成的
+      GITHUB_TOKEN 就够用，**不需要**额外配 PAT secret。
+      所以别把 commitContributionsByRepository 加进查询：它不含私有、和 total 对不上，
+      还平白多出仓库名。tests/github-contributions.test.js 守着「快照里不许出现仓库名」。
+   Failure leaves the last good snapshot untouched. */
 const fs=require('fs'),path=require('path');
 const DATA_DIR=path.join(__dirname,'data'),USER='Alakazamc';
 const SKIP=new Set(['Alakazamc','alakazamc.github.io']);
@@ -34,9 +41,11 @@ const REPO_FIELDS=`
           edges { size node { name color } }
         }`;
 
-/* 查询串：个人仓库 + 每个补录仓库一个别名字段。
+/* 查询串：个人仓库 + 每个补录仓库一个别名字段 + 一整年的贡献日历。
    补录用 `repository(owner:, name:)` 而不是查组织的仓库列表 —— 目标是**具体这个仓库**，
-   与它现在归谁无关（转组织、转回个人都不用改这里）。 */
+   与它现在归谁无关（转组织、转回个人都不用改这里）。
+   ⚠️ 日历必须整年查：年度总数和「连续活跃天数」都要跨越窗口边界才准，
+      只查最近 4 周会算出假的 streak。落快照时才裁到 RECENT_WEEKS（见 deriveContributions）。 */
 function buildQuery(){
   const extras=EXTRA_REPOS.map((r,i)=>
     `  extra${i}: repository(owner: ${JSON.stringify(r.owner)}, name: ${JSON.stringify(r.name)}) {${REPO_FIELDS}\n  }`).join('\n');
@@ -46,6 +55,12 @@ function buildQuery(){
                  orderBy: {field: PUSHED_AT, direction: DESC}) {
       pageInfo { hasNextPage }
       nodes {${REPO_FIELDS}
+      }
+    }
+    contributionsCollection {
+      contributionCalendar {
+        totalContributions
+        weeks { contributionDays { date contributionCount } }
       }
     }
   }
@@ -64,6 +79,54 @@ function collectNodes(data){
   const seen=new Set(),out=[];
   for(const r of nodes){if(!r||!r.url||seen.has(r.url))continue;seen.add(r.url);out.push(r);}
   return out;
+}
+
+/* 首页工坊那块热力图只画最近 RECENT_WEEKS 周 —— 全年 53 周里非空的只有 32 格（9%），
+   画出来是一整片灰，反而在说「这人一年没动几天」。实测密度：4 周 64%、6 周 48%、
+   12 周 31%、全年 9%；而近 4 周已经覆盖全年 84% 的贡献量。
+   ⚠️ 这个密度是 2026-10 快照当天的，活跃分布会变。哪天觉得格子又空了，改这一个常量。 */
+const RECENT_WEEKS = 4;
+
+/* 把整年日历压成首页要的那一小块 + 三个数字。
+   只留数字和日期，不留任何仓库名（见文件头「关于私有」）。
+   拿不到就返回 null —— 调用方按「没有这块」降级渲染，绝不让构建失败。 */
+function deriveContributions(collection) {
+  const weeks = collection?.contributionCalendar?.weeks;
+  if (!Array.isArray(weeks) || !weeks.length) return null;
+  const days = [];
+  for (const w of weeks) {
+    if (!Array.isArray(w?.contributionDays)) return null;
+    for (const d of w.contributionDays) {
+      if (!d || typeof d.date !== 'string' || typeof d.contributionCount !== 'number') return null;
+      days.push({ date: d.date, count: d.contributionCount });
+    }
+  }
+  if (!days.length) return null;
+
+  let total = 0;
+  for (const d of days) total += d.count;
+
+  /* 连续天数：今天还没提交不算「断」。否则每天 06:23 定时构建时，只要当天还没动过，
+     首页就会顶着「连续活跃 0 天」直到你提交第一次 —— GitHub 个人页也是这个规则。 */
+  let i = days.length - 1;
+  if (days[i].count === 0) i--;
+  let streak = 0;
+  for (; i >= 0 && days[i].count > 0; i--) streak++;
+
+  let lastActiveAt = null;
+  for (let k = days.length - 1; k >= 0; k--) if (days[k].count > 0) { lastActiveAt = days[k].date; break; }
+
+  /* 残周补 -1：GitHub 的日历最后一周常常不满 7 天（今年就是 370 格 = 52 周 + 6 天），
+     不补齐 CSS grid 会少一格、整列错位。-1 表示「这天还不存在」，渲染成占位空格。 */
+  const kept = weeks.slice(-RECENT_WEEKS);
+  const keptCount = kept.reduce((a, w) => a + w.contributionDays.length, 0);
+  const recentWeeks = kept.map((w) => {
+    const row = w.contributionDays.map((d) => d.contributionCount);
+    while (row.length < 7) row.push(-1);
+    return row;
+  });
+
+  return { total, streak, lastActiveAt, recentStart: days[days.length - keptCount].date, recentWeeks };
 }
 
 function convert(data){
@@ -112,7 +175,8 @@ function convert(data){
       repos: repos.length,
       stars: repos.reduce((a, r) => a + r.stars, 0),
       languages: languages.length
-    }
+    },
+    contributions: deriveContributions(data?.user?.contributionsCollection)
   };
 }
 
@@ -127,5 +191,5 @@ async function refresh(fetcher=fetch){
  if(JSON.stringify({...old,updatedAt:''})===JSON.stringify({...out,updatedAt:''}))return false;
  const tmp=target+'.tmp';fs.writeFileSync(tmp,JSON.stringify(out,null,1));fs.renameSync(tmp,target);return true;
 }
-module.exports={USER,SKIP,EXTRA_REPOS,buildQuery,collectNodes,convert,refresh};
+module.exports={USER,SKIP,EXTRA_REPOS,RECENT_WEEKS,buildQuery,collectNodes,deriveContributions,convert,refresh};
 if(require.main===module)refresh().then(changed=>console.log(changed?'GitHub data refreshed':'GitHub data unchanged')).catch(e=>{console.error('Keeping last snapshot: '+e.message);process.exitCode=1});
