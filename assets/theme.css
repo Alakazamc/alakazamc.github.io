@@ -546,6 +546,23 @@ html{scroll-behavior:smooth;scrollbar-width:thin;scrollbar-color:var(--wood-b) v
 .gfoot{display:flex;align-items:center;justify-content:center;gap:7px;margin-top:2px;font-size:12px;opacity:.72}
 .rfoot .sfx,.gfoot .sfx{letter-spacing:.4px}
 
+/* 工坊·贡献热力图：最近四周，7 列（周日→周六）× 4 行，就是个日历。
+   ⚠️ **不新增宽度档位** —— 断点预算 14/14 是精确棘轮，再用 width:min() 流式收放。
+   ⚠️ 五档深浅全用 --moss 加透明度调，不引入新颜色 token；夜间模式 --moss/--cream-3
+      已在 html[data-time="night"] 里重定义，这里不用额外写一条夜间规则。 */
+.cblock{margin-top:16px;text-align:center}
+.chead{display:flex;align-items:center;justify-content:center;flex-wrap:wrap;gap:7px;margin:0;font-size:12px;letter-spacing:.4px;opacity:.72}
+.chead b{font-weight:500;color:var(--moss);font-variant-numeric:tabular-nums}
+.chead .sfx+.sfx::before{content:'·';margin-right:7px;opacity:.55}
+.cgrid{display:grid;grid-template-columns:repeat(7,1fr);gap:3px;width:min(238px,100%);margin:12px auto 0}
+.ccell{aspect-ratio:1;background:var(--cream-3)}
+.ccell.lv1{background:var(--moss);opacity:.34}
+.ccell.lv2{background:var(--moss);opacity:.55}
+.ccell.lv3{background:var(--moss);opacity:.78}
+.ccell.lv4{background:var(--moss)}
+.ccell.void{background:transparent}
+.cnote{margin:9px 0 0;font-size:12px;opacity:.6}
+
 /* 专精:语言构成条 */
 .stack{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:7px}
 .stack li{display:flex;align-items:center;gap:7px;background:var(--cream-2);border:2px solid var(--wood-c);padding:5px 8px}

@@ -564,6 +564,23 @@ html{scroll-behavior:smooth;scrollbar-width:thin;scrollbar-color:var(--wood-b) v
 .gfoot{display:flex;align-items:center;justify-content:center;gap:7px;margin-top:2px;font-size:12px;opacity:.72}
 .rfoot .sfx,.gfoot .sfx{letter-spacing:.4px}
 
+/* 工坊·贡献热力图：最近四周，7 列（周日→周六）× 4 行，就是个日历。
+   ⚠️ **不新增宽度档位** —— 断点预算 14/14 是精确棘轮，再用 width:min() 流式收放。
+   ⚠️ 五档深浅全用 --moss 加透明度调，不引入新颜色 token；夜间模式 --moss/--cream-3
+      已在 html[data-time="night"] 里重定义，这里不用额外写一条夜间规则。 */
+.cblock{margin-top:16px;text-align:center}
+.chead{display:flex;align-items:center;justify-content:center;flex-wrap:wrap;gap:7px;margin:0;font-size:12px;letter-spacing:.4px;opacity:.72}
+.chead b{font-weight:500;color:var(--moss);font-variant-numeric:tabular-nums}
+.chead .sfx+.sfx::before{content:'·';margin-right:7px;opacity:.55}
+.cgrid{display:grid;grid-template-columns:repeat(7,1fr);gap:3px;width:min(238px,100%);margin:12px auto 0}
+.ccell{aspect-ratio:1;background:var(--cream-3)}
+.ccell.lv1{background:var(--moss);opacity:.34}
+.ccell.lv2{background:var(--moss);opacity:.55}
+.ccell.lv3{background:var(--moss);opacity:.78}
+.ccell.lv4{background:var(--moss)}
+.ccell.void{background:transparent}
+.cnote{margin:9px 0 0;font-size:12px;opacity:.6}
+
 /* 专精:语言构成条 */
 .stack{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:7px}
 .stack li{display:flex;align-items:center;gap:7px;background:var(--cream-2);border:2px solid var(--wood-c);padding:5px 8px}
@@ -1905,7 +1922,7 @@ html[data-skin="sakura"] .skin-edge[data-scene="sakura"],html[data-skin="coast"]
         <span class="rc-d">深大校园桌面应用：像素庭院陪你专注和记笔记，附校园网认证与断线诊断（Windows / macOS 桌面版；Windows / macOS / Linux 命令行）</span>
         <span class="rc-f">
           <i class="rc-l" style="background:#f1e05a"></i><em>JavaScript</em>
-          <span class="rc-t">09.29</span>
+          <span class="rc-t">10.01</span>
         </span>
       </a>
       <a class="rcard" style="--i:1" href="https://github.com/Alakazamc/pskit-2.0" target="_blank" rel="noopener">
@@ -1923,7 +1940,11 @@ html[data-skin="sakura"] .skin-edge[data-scene="sakura"],html[data-skin="coast"]
           <i class="rc-l" style="background:#3572A5"></i><em>Python</em>
           <span class="rc-t">08.29</span>
         </span>
-      </a></div><div class="rfoot"><svg class="ic sm" viewBox="0 0 16 16"><use href="#px-chest"></use></svg><span class="sfx">9 个仓库</span><svg class="ic sm" viewBox="0 0 16 16"><use href="#px-gem"></use></svg><span class="sfx">16 种语言</span><svg class="ic sm" viewBox="0 0 16 16"><use href="#px-key"></use></svg><span class="sfx">@Alakazamc</span></div><div class="museum-more"><svg class="ic sm" viewBox="0 0 16 16"><use href="#px-chest"></use></svg><a href="workshop/index.html">查看全部仓库 · 可分类翻页</a><svg class="ic sm" viewBox="0 0 16 16"><use href="#px-crystal"></use></svg></div><div class="dc-shelf" aria-hidden="true"><span class="dc-season spring"><i style="animation-delay:0.00s"><svg class="ic" viewBox="0 0 16 16"><use href="#px-tulip"></use></svg></i><i style="animation-delay:0.27s"><svg class="ic" viewBox="0 0 16 16"><use href="#px-flower"></use></svg></i><i style="animation-delay:0.54s"><svg class="ic" viewBox="0 0 16 16"><use href="#px-strawberry"></use></svg></i><i style="animation-delay:0.81s"><svg class="ic" viewBox="0 0 16 16"><use href="#px-leaf2"></use></svg></i><i style="animation-delay:1.08s"><svg class="ic" viewBox="0 0 16 16"><use href="#px-sunflower"></use></svg></i><i style="animation-delay:1.35s"><svg class="ic" viewBox="0 0 16 16"><use href="#px-bee"></use></svg></i><i style="animation-delay:1.62s"><svg class="ic" viewBox="0 0 16 16"><use href="#px-mushroom"></use></svg></i><i style="animation-delay:1.89s"><svg class="ic" viewBox="0 0 16 16"><use href="#px-grape"></use></svg></i></span><span class="dc-season summer"><i style="animation-delay:0.00s"><svg class="ic" viewBox="0 0 16 16"><use href="#px-sunflower"></use></svg></i><i style="animation-delay:0.27s"><svg class="ic" viewBox="0 0 16 16"><use href="#px-melon"></use></svg></i><i style="animation-delay:0.54s"><svg class="ic" viewBox="0 0 16 16"><use href="#px-tomato"></use></svg></i><i style="animation-delay:0.81s"><svg class="ic" viewBox="0 0 16 16"><use href="#px-corn"></use></svg></i><i style="animation-delay:1.08s"><svg class="ic" viewBox="0 0 16 16"><use href="#px-pepper"></use></svg></i><i style="animation-delay:1.35s"><svg class="ic" viewBox="0 0 16 16"><use href="#px-beehive"></use></svg></i><i style="animation-delay:1.62s"><svg class="ic" viewBox="0 0 16 16"><use href="#px-flower"></use></svg></i><i style="animation-delay:1.89s"><svg class="ic" viewBox="0 0 16 16"><use href="#px-honey"></use></svg></i></span><span class="dc-season autumn"><i style="animation-delay:0.00s"><svg class="ic" viewBox="0 0 16 16"><use href="#px-pumpkin"></use></svg></i><i style="animation-delay:0.27s"><svg class="ic" viewBox="0 0 16 16"><use href="#px-eggplant"></use></svg></i><i style="animation-delay:0.54s"><svg class="ic" viewBox="0 0 16 16"><use href="#px-grape"></use></svg></i><i style="animation-delay:0.81s"><svg class="ic" viewBox="0 0 16 16"><use href="#px-mushroom"></use></svg></i><i style="animation-delay:1.08s"><svg class="ic" viewBox="0 0 16 16"><use href="#px-corn"></use></svg></i><i style="animation-delay:1.35s"><svg class="ic" viewBox="0 0 16 16"><use href="#px-acorn"></use></svg></i><i style="animation-delay:1.62s"><svg class="ic" viewBox="0 0 16 16"><use href="#px-wheat"></use></svg></i><i style="animation-delay:1.89s"><svg class="ic" viewBox="0 0 16 16"><use href="#px-ancientfruit"></use></svg></i></span><span class="dc-season winter"><i style="animation-delay:0.00s"><svg class="ic" viewBox="0 0 16 16"><use href="#px-crystal"></use></svg></i><i style="animation-delay:0.27s"><svg class="ic" viewBox="0 0 16 16"><use href="#px-snowman"></use></svg></i><i style="animation-delay:0.54s"><svg class="ic" viewBox="0 0 16 16"><use href="#px-ore"></use></svg></i><i style="animation-delay:0.81s"><svg class="ic" viewBox="0 0 16 16"><use href="#px-gem"></use></svg></i><i style="animation-delay:1.08s"><svg class="ic" viewBox="0 0 16 16"><use href="#px-acorn"></use></svg></i><i style="animation-delay:1.35s"><svg class="ic" viewBox="0 0 16 16"><use href="#px-mushroom"></use></svg></i><i style="animation-delay:1.62s"><svg class="ic" viewBox="0 0 16 16"><use href="#px-pot"></use></svg></i><i style="animation-delay:1.89s"><svg class="ic" viewBox="0 0 16 16"><use href="#px-lantern"></use></svg></i></span></div>
+      </a></div><div class="cblock">
+        <p class="chead"><svg class="ic sm" viewBox="0 0 16 16"><use href="#px-pickaxe"></use></svg><span class="sfx">近一年 <b>669</b> 次贡献</span><span class="sfx">连续活跃 <b>9</b> 天</span><span class="sfx">最近 <b>10.02</b></span></p>
+        <div class="cgrid" role="img" aria-label="最近四周的贡献热力图，共 562 次贡献"><i class="ccell lv0" title="2026-09-06 · 0 次贡献"></i><i class="ccell lv0" title="2026-09-07 · 0 次贡献"></i><i class="ccell lv0" title="2026-09-08 · 0 次贡献"></i><i class="ccell lv0" title="2026-09-09 · 0 次贡献"></i><i class="ccell lv0" title="2026-09-10 · 0 次贡献"></i><i class="ccell lv0" title="2026-09-11 · 0 次贡献"></i><i class="ccell lv0" title="2026-09-12 · 0 次贡献"></i><i class="ccell lv0" title="2026-09-13 · 0 次贡献"></i><i class="ccell lv1" title="2026-09-14 · 2 次贡献"></i><i class="ccell lv2" title="2026-09-15 · 24 次贡献"></i><i class="ccell lv3" title="2026-09-16 · 35 次贡献"></i><i class="ccell lv2" title="2026-09-17 · 22 次贡献"></i><i class="ccell lv3" title="2026-09-18 · 37 次贡献"></i><i class="ccell lv3" title="2026-09-19 · 31 次贡献"></i><i class="ccell lv3" title="2026-09-20 · 36 次贡献"></i><i class="ccell lv3" title="2026-09-21 · 43 次贡献"></i><i class="ccell lv3" title="2026-09-22 · 34 次贡献"></i><i class="ccell lv0" title="2026-09-23 · 0 次贡献"></i><i class="ccell lv1" title="2026-09-24 · 9 次贡献"></i><i class="ccell lv3" title="2026-09-25 · 35 次贡献"></i><i class="ccell lv4" title="2026-09-26 · 65 次贡献"></i><i class="ccell lv4" title="2026-09-27 · 89 次贡献"></i><i class="ccell lv1" title="2026-09-28 · 8 次贡献"></i><i class="ccell lv3" title="2026-09-29 · 52 次贡献"></i><i class="ccell lv3" title="2026-09-30 · 31 次贡献"></i><i class="ccell lv1" title="2026-10-01 · 2 次贡献"></i><i class="ccell lv1" title="2026-10-02 · 7 次贡献"></i><i class="ccell void"></i></div>
+        <p class="cnote">含私有与组织仓库 · 每日更新</p>
+      </div><div class="rfoot"><svg class="ic sm" viewBox="0 0 16 16"><use href="#px-chest"></use></svg><span class="sfx">9 个仓库</span><svg class="ic sm" viewBox="0 0 16 16"><use href="#px-gem"></use></svg><span class="sfx">16 种语言</span><svg class="ic sm" viewBox="0 0 16 16"><use href="#px-key"></use></svg><span class="sfx">@Alakazamc</span></div><div class="museum-more"><svg class="ic sm" viewBox="0 0 16 16"><use href="#px-chest"></use></svg><a href="workshop/index.html">查看全部仓库 · 可分类翻页</a><svg class="ic sm" viewBox="0 0 16 16"><use href="#px-crystal"></use></svg></div><div class="dc-shelf" aria-hidden="true"><span class="dc-season spring"><i style="animation-delay:0.00s"><svg class="ic" viewBox="0 0 16 16"><use href="#px-tulip"></use></svg></i><i style="animation-delay:0.27s"><svg class="ic" viewBox="0 0 16 16"><use href="#px-flower"></use></svg></i><i style="animation-delay:0.54s"><svg class="ic" viewBox="0 0 16 16"><use href="#px-strawberry"></use></svg></i><i style="animation-delay:0.81s"><svg class="ic" viewBox="0 0 16 16"><use href="#px-leaf2"></use></svg></i><i style="animation-delay:1.08s"><svg class="ic" viewBox="0 0 16 16"><use href="#px-sunflower"></use></svg></i><i style="animation-delay:1.35s"><svg class="ic" viewBox="0 0 16 16"><use href="#px-bee"></use></svg></i><i style="animation-delay:1.62s"><svg class="ic" viewBox="0 0 16 16"><use href="#px-mushroom"></use></svg></i><i style="animation-delay:1.89s"><svg class="ic" viewBox="0 0 16 16"><use href="#px-grape"></use></svg></i></span><span class="dc-season summer"><i style="animation-delay:0.00s"><svg class="ic" viewBox="0 0 16 16"><use href="#px-sunflower"></use></svg></i><i style="animation-delay:0.27s"><svg class="ic" viewBox="0 0 16 16"><use href="#px-melon"></use></svg></i><i style="animation-delay:0.54s"><svg class="ic" viewBox="0 0 16 16"><use href="#px-tomato"></use></svg></i><i style="animation-delay:0.81s"><svg class="ic" viewBox="0 0 16 16"><use href="#px-corn"></use></svg></i><i style="animation-delay:1.08s"><svg class="ic" viewBox="0 0 16 16"><use href="#px-pepper"></use></svg></i><i style="animation-delay:1.35s"><svg class="ic" viewBox="0 0 16 16"><use href="#px-beehive"></use></svg></i><i style="animation-delay:1.62s"><svg class="ic" viewBox="0 0 16 16"><use href="#px-flower"></use></svg></i><i style="animation-delay:1.89s"><svg class="ic" viewBox="0 0 16 16"><use href="#px-honey"></use></svg></i></span><span class="dc-season autumn"><i style="animation-delay:0.00s"><svg class="ic" viewBox="0 0 16 16"><use href="#px-pumpkin"></use></svg></i><i style="animation-delay:0.27s"><svg class="ic" viewBox="0 0 16 16"><use href="#px-eggplant"></use></svg></i><i style="animation-delay:0.54s"><svg class="ic" viewBox="0 0 16 16"><use href="#px-grape"></use></svg></i><i style="animation-delay:0.81s"><svg class="ic" viewBox="0 0 16 16"><use href="#px-mushroom"></use></svg></i><i style="animation-delay:1.08s"><svg class="ic" viewBox="0 0 16 16"><use href="#px-corn"></use></svg></i><i style="animation-delay:1.35s"><svg class="ic" viewBox="0 0 16 16"><use href="#px-acorn"></use></svg></i><i style="animation-delay:1.62s"><svg class="ic" viewBox="0 0 16 16"><use href="#px-wheat"></use></svg></i><i style="animation-delay:1.89s"><svg class="ic" viewBox="0 0 16 16"><use href="#px-ancientfruit"></use></svg></i></span><span class="dc-season winter"><i style="animation-delay:0.00s"><svg class="ic" viewBox="0 0 16 16"><use href="#px-crystal"></use></svg></i><i style="animation-delay:0.27s"><svg class="ic" viewBox="0 0 16 16"><use href="#px-snowman"></use></svg></i><i style="animation-delay:0.54s"><svg class="ic" viewBox="0 0 16 16"><use href="#px-ore"></use></svg></i><i style="animation-delay:0.81s"><svg class="ic" viewBox="0 0 16 16"><use href="#px-gem"></use></svg></i><i style="animation-delay:1.08s"><svg class="ic" viewBox="0 0 16 16"><use href="#px-acorn"></use></svg></i><i style="animation-delay:1.35s"><svg class="ic" viewBox="0 0 16 16"><use href="#px-mushroom"></use></svg></i><i style="animation-delay:1.62s"><svg class="ic" viewBox="0 0 16 16"><use href="#px-pot"></use></svg></i><i style="animation-delay:1.89s"><svg class="ic" viewBox="0 0 16 16"><use href="#px-lantern"></use></svg></i></span></div>
 </section></div><div class="tabpane" id="dpane-2" role="tabpanel" aria-labelledby="dtab-2">
 <section class="panel" id="timeline">
   <h2 class="pt"><svg class="ic xs" viewBox="0 0 16 16"><use href="#px-sunflower"></use></svg>最新文章<svg class="ic xs" viewBox="0 0 16 16"><use href="#px-sunflower"></use></svg></h2>
@@ -3607,18 +3628,18 @@ html[data-skin="sakura"] .skin-edge[data-scene="sakura"],html[data-skin="coast"]
   <ul class="stack">
       <li>
         <svg class="ic sm" viewBox="0 0 16 16"><use href="#px-gem"></use></svg><em>Python</em>
-        <span class="tbar"><b style="width:33.6%;background:#3572A5"></b></span>
-        <u>33.6%</u>
+        <span class="tbar"><b style="width:33.5%;background:#3572A5"></b></span>
+        <u>33.5%</u>
       </li>
       <li>
         <svg class="ic sm" viewBox="0 0 16 16"><use href="#px-gem"></use></svg><em>JavaScript</em>
-        <span class="tbar"><b style="width:28.8%;background:#f1e05a"></b></span>
-        <u>28.8%</u>
+        <span class="tbar"><b style="width:29.2%;background:#f1e05a"></b></span>
+        <u>29.2%</u>
       </li>
       <li>
         <svg class="ic sm" viewBox="0 0 16 16"><use href="#px-gem"></use></svg><em>Go</em>
-        <span class="tbar"><b style="width:11.9%;background:#00ADD8"></b></span>
-        <u>11.9%</u>
+        <span class="tbar"><b style="width:11.8%;background:#00ADD8"></b></span>
+        <u>11.8%</u>
       </li>
       <li>
         <svg class="ic sm" viewBox="0 0 16 16"><use href="#px-gem"></use></svg><em>Vue</em>
@@ -3627,8 +3648,8 @@ html[data-skin="sakura"] .skin-edge[data-scene="sakura"],html[data-skin="coast"]
       </li>
       <li>
         <svg class="ic sm" viewBox="0 0 16 16"><use href="#px-gem"></use></svg><em>Java</em>
-        <span class="tbar"><b style="width:7.8%;background:#b07219"></b></span>
-        <u>7.8%</u>
+        <span class="tbar"><b style="width:7.7%;background:#b07219"></b></span>
+        <u>7.7%</u>
       </li>
       <li>
         <svg class="ic sm" viewBox="0 0 16 16"><use href="#px-gem"></use></svg><em>CSS</em>
