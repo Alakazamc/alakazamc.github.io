@@ -19,9 +19,20 @@ node --test tests/*.test.js
 node build/gen.js
 ```
 
-测试执行写作台的实际内联脚本，覆盖取消、保存失败、分别恢复草稿、旧草稿兼容、连续选文、慢请求、输入期间载入、封面恢复及离页保护。它们不代替实体手机或真实 GitHub 发布验收。
+测试执行写作台的实际内联脚本，覆盖取消、保存失败、分别恢复草稿、旧草稿兼容、连续选文、慢请求、输入期间载入、封面恢复及离页保护。它们不代替实体手机或真实 GitHub 发布验收。`tests/github-contributions.test.js` 覆盖贡献派生逻辑：年度总数、连续活跃天数（今天为空不算断）、残周补齐、旧快照降级，以及快照里不许出现仓库名。
 
 构建会更新 `write/index.html` 等生成页面。修改写作台请编辑 `build/blog-editor.html`，不要只改生成副本。
+
+## 贡献热力图
+
+首页「工坊」面板显示最近四周的贡献热力图，以及近一年总贡献、连续活跃天数和最近活跃日期。
+
+- 数据来自 GitHub GraphQL 的 `contributionsCollection`，查询与派生都在 `build/refresh-github.js`，快照落在 `build/data/github.json`。
+- 口径是**贡献**（commit + PR + issue + review）而不是「提交」：含私有的数字 GitHub 只给聚合贡献数，commit 明细一律只统计公开仓库，写「提交」会和 GitHub 个人页对不上。
+- 总数**包含私有与组织仓库**的贡献，与 github.com/Alakazamc 个人页显示的是同一份数据；私有仓库名一律不进入快照（`build/data/github.json` 是公开可读的）。
+- 只画最近四周（`build/refresh-github.js` 的 `RECENT_WEEKS`）：全年 53 周里非空格子不足一成，画全年等于一整片灰。
+- 数字在构建时烘焙进页面，由「重建站点」工作流每天北京时间 06:23 刷新一次，不是实时的。
+- 快照缺失或字段不全时整块不渲染，不影响构建 —— PR 检查会拿仓库里现有的旧快照跑 `node build/gen.js`。
 
 ## 发布
 

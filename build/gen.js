@@ -340,6 +340,34 @@ const repos = () => {
   const blank = (n) => Array.from({ length: n }, () => `
       <span class="rcard blank">${slot('title', '62%', '12px')}${slot('body', '100%', '11px')}${slot('body', '54%', '11px')}</span>`).join('');
 
+  /* 贡献热力图：数据侧已经裁到最近 4 周（见 refresh-github.js 的 RECENT_WEEKS）。
+     口径是「贡献」不是「提交」—— 含私有的数字 GitHub 只给聚合贡献数，
+     commit 明细一律只统计公开仓库，写「提交」会和 GitHub 个人页对不上。
+     ⚠️ contributions 缺失时整块不渲染：PR 检查（editor-tests.yml）会拿**仓库里现有的
+        旧快照**跑 node build/gen.js，旧快照没有这个字段 —— 不降级 CI 直接红。 */
+  const cb = (src && src.contributions) || null;
+  const cblock = cb ? (() => {
+    // 五档深浅，分界按实测分布定（近一年单日最多 89 次）。
+    const lv = (n) => (n <= 0 ? 0 : n < 10 ? 1 : n < 30 ? 2 : n < 60 ? 3 : 4);
+    const cells = [];
+    let shown = 0;
+    cb.recentWeeks.forEach((week, w) => week.forEach((n, d) => {
+      if (n < 0) { cells.push('<i class="ccell void"></i>'); return; }   // 残周补位，见 deriveContributions
+      const t = new Date(cb.recentStart + 'T00:00:00Z');
+      t.setUTCDate(t.getUTCDate() + w * 7 + d);
+      shown += n;
+      cells.push(`<i class="ccell lv${lv(n)}" title="${t.toISOString().slice(0, 10)} · ${n} 次贡献"></i>`);
+    }));
+    const when = (cb.lastActiveAt || '').slice(5).replace('-', '.');
+    return `<div class="cblock">
+        <p class="chead">${ic('pickaxe', 'sm')}<span class="sfx">近一年 <b>${cb.total}</b> 次贡献</span>` +
+      `<span class="sfx">连续活跃 <b>${cb.streak}</b> 天</span>` +
+      (when ? `<span class="sfx">最近 <b>${when}</b></span>` : '') + `</p>
+        <div class="cgrid" role="img" aria-label="最近四周的贡献热力图，共 ${shown} 次贡献">${cells.join('')}</div>
+        <p class="cnote">含私有与组织仓库 · 每日更新</p>
+      </div>`;
+  })() : '';
+
   const tot = (src && src.totals) || {};
   const foot = list.length
     ? `<div class="rfoot">${ic('chest', 'sm')}<span class="sfx">${tot.repos || list.length} 个仓库</span>` +
@@ -355,7 +383,7 @@ const repos = () => {
     : '';
 
   return panel('工坊', ['chest', 'gem', 'crystal', 'coin', 'chest'],
-    `<div class="rgrid">${list.length ? list.map(card).join('') : blank(6)}</div>${foot}${more}` + DC.shelf(), 'projects');
+    `<div class="rgrid">${list.length ? list.map(card).join('') : blank(6)}</div>${cblock}${foot}${more}` + DC.shelf(), 'projects');
 };
 
 // ---------- 相馆 ----------
@@ -1157,6 +1185,23 @@ html{scroll-behavior:smooth;scrollbar-width:thin;scrollbar-color:var(--wood-b) v
 .gt-h{font-style:normal;font-size:12px;opacity:.6}
 .gfoot{display:flex;align-items:center;justify-content:center;gap:7px;margin-top:2px;font-size:12px;opacity:.72}
 .rfoot .sfx,.gfoot .sfx{letter-spacing:.4px}
+
+/* 工坊·贡献热力图：最近四周，7 列（周日→周六）× 4 行，就是个日历。
+   ⚠️ **不新增宽度档位** —— 断点预算 14/14 是精确棘轮，再用 width:min() 流式收放。
+   ⚠️ 五档深浅全用 --moss 加透明度调，不引入新颜色 token；夜间模式 --moss/--cream-3
+      已在 html[data-time="night"] 里重定义，这里不用额外写一条夜间规则。 */
+.cblock{margin-top:16px;text-align:center}
+.chead{display:flex;align-items:center;justify-content:center;flex-wrap:wrap;gap:7px;margin:0;font-size:12px;letter-spacing:.4px;opacity:.72}
+.chead b{font-weight:500;color:var(--moss);font-variant-numeric:tabular-nums}
+.chead .sfx+.sfx::before{content:'·';margin-right:7px;opacity:.55}
+.cgrid{display:grid;grid-template-columns:repeat(7,1fr);gap:3px;width:min(238px,100%);margin:12px auto 0}
+.ccell{aspect-ratio:1;background:var(--cream-3)}
+.ccell.lv1{background:var(--moss);opacity:.34}
+.ccell.lv2{background:var(--moss);opacity:.55}
+.ccell.lv3{background:var(--moss);opacity:.78}
+.ccell.lv4{background:var(--moss)}
+.ccell.void{background:transparent}
+.cnote{margin:9px 0 0;font-size:12px;opacity:.6}
 
 /* 专精:语言构成条 */
 .stack{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:7px}

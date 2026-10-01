@@ -1,7 +1,59 @@
 {
  "user": "Alakazamc",
- "updatedAt": "2026-09-30T01:21:10.286Z",
+ "updatedAt": "2026-10-01T20:11:52.680Z",
  "repos": [
+  {
+   "name": "szudesktop",
+   "description": "深大校园桌面应用：像素庭院陪你专注和记笔记，附校园网认证与断线诊断（Windows / macOS 桌面版；Windows / macOS / Linux 命令行）",
+   "url": "https://github.com/SzuDesktopTeam/szudesktop",
+   "stars": 5,
+   "pushedAt": "2026-10-01",
+   "language": "JavaScript",
+   "color": "#f1e05a",
+   "topics": [],
+   "langs": [
+    {
+     "name": "JavaScript",
+     "color": "#f1e05a",
+     "size": 1667479
+    },
+    {
+     "name": "Go",
+     "color": "#00ADD8",
+     "size": 1126509
+    },
+    {
+     "name": "Python",
+     "color": "#3572A5",
+     "size": 271756
+    },
+    {
+     "name": "CSS",
+     "color": "#663399",
+     "size": 137318
+    },
+    {
+     "name": "HTML",
+     "color": "#e34c26",
+     "size": 24599
+    },
+    {
+     "name": "PowerShell",
+     "color": "#012456",
+     "size": 3539
+    },
+    {
+     "name": "Makefile",
+     "color": "#427819",
+     "size": 2846
+    },
+    {
+     "name": "NSIS",
+     "color": null,
+     "size": 934
+    }
+   ]
+  },
   {
    "name": "pskit-2.0",
    "description": "🧪 BioAI Agent 工作台：LangGraph 编排 + 20+ 生信工具 + Qdrant RAG + Vue 3 SPA",
@@ -66,58 +118,6 @@
      "name": "HTML",
      "color": "#e34c26",
      "size": 294
-    }
-   ]
-  },
-  {
-   "name": "szudesktop",
-   "description": "深大校园桌面应用：像素庭院陪你专注和记笔记，附校园网认证与断线诊断（Windows / macOS 桌面版；Windows / macOS / Linux 命令行）",
-   "url": "https://github.com/SzuDesktopTeam/szudesktop",
-   "stars": 5,
-   "pushedAt": "2026-09-29",
-   "language": "JavaScript",
-   "color": "#f1e05a",
-   "topics": [],
-   "langs": [
-    {
-     "name": "JavaScript",
-     "color": "#f1e05a",
-     "size": 1623830
-    },
-    {
-     "name": "Go",
-     "color": "#00ADD8",
-     "size": 1126509
-    },
-    {
-     "name": "Python",
-     "color": "#3572A5",
-     "size": 271747
-    },
-    {
-     "name": "CSS",
-     "color": "#663399",
-     "size": 136248
-    },
-    {
-     "name": "HTML",
-     "color": "#e34c26",
-     "size": 24511
-    },
-    {
-     "name": "PowerShell",
-     "color": "#012456",
-     "size": 3539
-    },
-    {
-     "name": "Makefile",
-     "color": "#427819",
-     "size": 2846
-    },
-    {
-     "name": "NSIS",
-     "color": null,
-     "size": 934
     }
    ]
   },
@@ -382,103 +382,147 @@
   {
    "name": "Python",
    "color": "#3572A5",
-   "size": 3185888,
-   "percent": 0.33640057107746685
+   "size": 3185897,
+   "percent": 0.33481711363814304
   },
   {
    "name": "JavaScript",
    "color": "#f1e05a",
-   "size": 2732199,
-   "percent": 0.2884951711727731
+   "size": 2775848,
+   "percent": 0.2917236229728118
   },
   {
    "name": "Go",
    "color": "#00ADD8",
    "size": 1126509,
-   "percent": 0.1189490248633681
+   "percent": 0.11838879030533345
   },
   {
    "name": "Vue",
    "color": "#41b883",
    "size": 980151,
-   "percent": 0.10349496157496754
+   "percent": 0.10300751366084326
   },
   {
    "name": "Java",
    "color": "#b07219",
    "size": 737013,
-   "percent": 0.07782181736819281
+   "percent": 0.07745528665044372
   },
   {
    "name": "CSS",
    "color": "#663399",
-   "size": 358248,
-   "percent": 0.037827705113098874
+   "size": 359318,
+   "percent": 0.03776199156414357
   },
   {
    "name": "TypeScript",
    "color": "#3178c6",
    "size": 158392,
-   "percent": 0.016724743385235805
+   "percent": 0.016645972002036713
   },
   {
    "name": "HTML",
    "color": "#e34c26",
-   "size": 122153,
-   "percent": 0.012898237150466622
+   "size": 122241,
+   "percent": 0.01284673634717012
   },
   {
    "name": "Shell",
    "color": "#89e051",
    "size": 25494,
-   "percent": 0.002691932723011273
+   "percent": 0.0026792540672503913
   },
   {
    "name": "SCSS",
    "color": "#c6538c",
    "size": 20888,
-   "percent": 0.002205581341423844
+   "percent": 0.0021951933379119075
   },
   {
    "name": "Dockerfile",
    "color": "#384d54",
    "size": 11581,
-   "percent": 0.0012228474490152018
+   "percent": 0.0012170879953254405
   },
   {
    "name": "PowerShell",
    "color": "#012456",
    "size": 5372,
-   "percent": 0.0005672339604619346
+   "percent": 0.0005645623617035028
   },
   {
    "name": "Makefile",
    "color": "#427819",
    "size": 2846,
-   "percent": 0.0003005115136773391
+   "percent": 0.00029909614322564575
   },
   {
    "name": "Lua",
    "color": "#000080",
    "size": 1678,
-   "percent": 0.00017718141951882468
+   "percent": 0.000176346917896217
   },
   {
    "name": "Mako",
    "color": "#7e858d",
    "size": 1173,
-   "percent": 0.00012385804832871355
+   "percent": 0.00012327469290361294
   },
   {
    "name": "NSIS",
    "color": null,
    "size": 934,
-   "percent": 0.00009862183899319563
+   "percent": 0.00009815734285760827
   }
  ],
  "totals": {
   "repos": 9,
   "stars": 5,
   "languages": 16
+ },
+ "contributions": {
+  "total": 669,
+  "streak": 9,
+  "lastActiveAt": "2026-10-02",
+  "recentStart": "2026-09-06",
+  "recentWeeks": [
+   [
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0
+   ],
+   [
+    0,
+    2,
+    24,
+    35,
+    22,
+    37,
+    31
+   ],
+   [
+    36,
+    43,
+    34,
+    0,
+    9,
+    35,
+    65
+   ],
+   [
+    89,
+    8,
+    52,
+    31,
+    2,
+    7,
+    -1
+   ]
+  ]
  }
 }
