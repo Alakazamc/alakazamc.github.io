@@ -45,7 +45,7 @@ const REPO_FIELDS=`
    补录用 `repository(owner:, name:)` 而不是查组织的仓库列表 —— 目标是**具体这个仓库**，
    与它现在归谁无关（转组织、转回个人都不用改这里）。
    ⚠️ 日历必须整年查：年度总数和「连续活跃天数」都要跨越窗口边界才准，
-      只查最近 4 周会算出假的 streak。落快照时才裁到 RECENT_WEEKS（见 deriveContributions）。 */
+      只查最近 4 周会算出假的 streak。翻页裁哪几周是渲染层的事（pageWindow），快照存整年。 */
 function buildQuery(){
   const extras=EXTRA_REPOS.map((r,i)=>
     `  extra${i}: repository(owner: ${JSON.stringify(r.owner)}, name: ${JSON.stringify(r.name)}) {${REPO_FIELDS}\n  }`).join('\n');
@@ -81,14 +81,16 @@ function collectNodes(data){
   return out;
 }
 
-/* 首页工坊那块热力图只画最近 RECENT_WEEKS 周 —— 全年 53 周里非空的只有 32 格（9%），
-   画出来是一整片灰，反而在说「这人一年没动几天」。实测密度：4 周 64%、6 周 48%、
+/* 首页热力图**一屏只画最近 PER_PAGE 周**（可前后翻页）—— 全年 53 周里非空的只有 32 格（9%），
+   一次性画出来是一整片灰，反而在说「这人一年没动几天」。实测密度：4 周 64%、6 周 48%、
    12 周 31%、全年 9%；而近 4 周已经覆盖全年 84% 的贡献量。
-   ⚠️ 这个密度是 2026-10 快照当天的，活跃分布会变。哪天觉得格子又空了，改这一个常量。 */
-const RECENT_WEEKS = 4;
+   ⚠️ 密度是 2026-10 快照当天的，活跃分布会变。哪天觉得格子又空了，改这一个常量。 */
+const PER_PAGE = 4;
 
-/* 把整年日历压成首页要的那一小块 + 三个数字。
+/* 把整年日历压成快照 + 三个数字。
    只留数字和日期，不留任何仓库名（见文件头「关于私有」）。
+   ⚠️ **整年都存**，不止一屏那几周：首页要能往前翻到底，年度总数和连续天数
+      也得跨越窗口边界才准。格子里的 -1 表示「这天还不存在」（残周尾部补位）。
    拿不到就返回 null —— 调用方按「没有这块」降级渲染，绝不让构建失败。 */
 function deriveContributions(collection) {
   const weeks = collection?.contributionCalendar?.weeks;
@@ -117,16 +119,40 @@ function deriveContributions(collection) {
   for (let k = days.length - 1; k >= 0; k--) if (days[k].count > 0) { lastActiveAt = days[k].date; break; }
 
   /* 残周补 -1：GitHub 的日历最后一周常常不满 7 天（今年就是 370 格 = 52 周 + 6 天），
-     不补齐 CSS grid 会少一格、整列错位。-1 表示「这天还不存在」，渲染成占位空格。 */
-  const kept = weeks.slice(-RECENT_WEEKS);
-  const keptCount = kept.reduce((a, w) => a + w.contributionDays.length, 0);
-  const recentWeeks = kept.map((w) => {
+     不补齐 CSS grid 会少一格、整列错位。渲染时把 -1 当占位空格跳过。 */
+  const rows = weeks.map((w) => {
     const row = w.contributionDays.map((d) => d.contributionCount);
     while (row.length < 7) row.push(-1);
     return row;
   });
 
-  return { total, streak, lastActiveAt, recentStart: days[days.length - keptCount].date, recentWeeks };
+  return { total, streak, lastActiveAt, start: days[0].date, weeks: rows };
+}
+
+/* 翻页：page 从 0（最新一屏）往大翻到更早。
+   返回的 from/to 是窗口里**真实存在**的那些天，不含 -1 补位 ——
+   否则区间末尾会虚报一个还不存在的日子（实测最后一周只有 6 天）。
+   ⚠️ 首页热力图的日期全从这里推（区间标签、悬浮气泡、月份分隔），
+      所以做成纯函数放本文件：它会被 push.js 传上云端，又能被 node:test 直接 require。 */
+function pageWindow(weeks, start, page, perPage) {
+  if (!Array.isArray(weeks) || !weeks.length || !start || !(perPage > 0)) return null;
+  const total = weeks.length;
+  const pages = Math.max(1, Math.ceil(total / perPage));
+  const p = Math.min(Math.max(0, Number.isFinite(page) ? Math.floor(page) : 0), pages - 1);
+  const end = Math.max(perPage, total - p * perPage);
+  const begin = Math.max(0, end - perPage);
+  const rows = weeks.slice(begin, end);
+  const addDays = (date, n) => {
+    const d = new Date(date + 'T00:00:00Z');
+    d.setUTCDate(d.getUTCDate() + n);
+    return d.toISOString().slice(0, 10);
+  };
+  const cellDate = (w, d) => addDays(start, w * 7 + d);
+  const first = Math.max(0, rows[0].findIndex((n) => n >= 0));
+  const lastRow = rows[rows.length - 1];
+  let last = lastRow.length - 1;
+  while (last >= 0 && lastRow[last] < 0) last--;
+  return { rows, page: p, pages, begin, from: cellDate(begin, first), to: cellDate(end - 1, last), perPage };
 }
 
 function convert(data){
@@ -191,5 +217,5 @@ async function refresh(fetcher=fetch){
  if(JSON.stringify({...old,updatedAt:''})===JSON.stringify({...out,updatedAt:''}))return false;
  const tmp=target+'.tmp';fs.writeFileSync(tmp,JSON.stringify(out,null,1));fs.renameSync(tmp,target);return true;
 }
-module.exports={USER,SKIP,EXTRA_REPOS,RECENT_WEEKS,buildQuery,collectNodes,deriveContributions,convert,refresh};
+module.exports={USER,SKIP,EXTRA_REPOS,PER_PAGE,buildQuery,collectNodes,deriveContributions,pageWindow,convert,refresh};
 if(require.main===module)refresh().then(changed=>console.log(changed?'GitHub data refreshed':'GitHub data unchanged')).catch(e=>{console.error('Keeping last snapshot: '+e.message);process.exitCode=1});
