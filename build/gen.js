@@ -375,14 +375,14 @@ const repos = () => {
           `data-label="${date.slice(2).replace(/-/g, '.')} · ${n} 次贡献"></div>`);
       });
     });
-    const when = (cb.lastActiveAt || '').slice(5).replace('-', '.');
+    const when = (cb.lastActiveAt || '').slice(2).replace(/-/g, '.');
     return `<div class="cblock" id="cblock">
         <p class="chead">${ic('pickaxe', 'sm')}<span class="sfx">近一年 <b>${cb.total}</b> 次贡献</span>` +
       `<span class="sfx">连续活跃 <b>${cb.streak}</b> 天</span>` +
       (when ? `<span class="sfx">最近 <b>${when}</b></span>` : '') + `</p>
         <div class="cbar">
           <button type="button" class="cbtn" data-page="prev" aria-label="看更早的四周" disabled>${ic('arrow', 'sm')}</button>
-          <p class="crange"><span data-from>${w.from.slice(5).replace('-', '.')}</span><span class="cand">至</span><span data-to>${w.to.slice(5).replace('-', '.')}</span></p>
+          <p class="crange"><span data-from>${w.from.slice(2).replace(/-/g, '.')}</span><span class="cand">至</span><span data-to>${w.to.slice(2).replace(/-/g, '.')}</span></p>
           <button type="button" class="cbtn" data-page="next" aria-label="看更近的四周">${ic('arrow', 'sm')}</button>
           <p class="cpage"><span data-page-now>1</span><span class="csl">/</span><span data-page-all>${w.pages}</span></p>
         </div>
