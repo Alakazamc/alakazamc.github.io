@@ -19,6 +19,8 @@ const { shareBtn, shareScript } = require('./subpage.js');
 // 首屏仪表盘（一张主卡 + 状态栏）：dash() 出结构，dashScript() 出交互。
 // 2026-09-25 实施，取代首屏的「工具条 + 双栏面板墙」。
 const { dash, dashScript } = require('./dash.js');
+// 贡献热力图一屏几周：和 refresh-github.js 用同一个常量，免得两边改出分歧。
+const { PER_PAGE, pageWindow } = require('./refresh-github.js');
 const galleryData = require('./gallery-data.js');
 
 // 相馆元数据是用户在写作页上传后新增的，构建前必须先刷新数据快照。
@@ -340,33 +342,59 @@ const repos = () => {
   const blank = (n) => Array.from({ length: n }, () => `
       <span class="rcard blank">${slot('title', '62%', '12px')}${slot('body', '100%', '11px')}${slot('body', '54%', '11px')}</span>`).join('');
 
-  /* 贡献热力图：数据侧已经裁到最近 4 周（见 refresh-github.js 的 RECENT_WEEKS）。
-     口径是「贡献」不是「提交」—— 含私有的数字 GitHub 只给聚合贡献数，
+  /* 贡献热力图。口径是「贡献」不是「提交」—— 含私有的数字 GitHub 只给聚合贡献数，
      commit 明细一律只统计公开仓库，写「提交」会和 GitHub 个人页对不上。
      ⚠️ contributions 缺失时整块不渲染：PR 检查（editor-tests.yml）会拿**仓库里现有的
-        旧快照**跑 node build/gen.js，旧快照没有这个字段 —— 不降级 CI 直接红。 */
+        旧快照**跑 node build/gen.js，旧快照没有这个字段 —— 不降级 CI 直接红。
+     ⚠️ 整年 53 周都要能翻页，不可能每屏都吐一份 HTML：服务端只吐**最新一屏**的格子
+        （用 pageWindow 算日期），完整周数据放进数据岛，翻页交给客户端。
+        工坊面板本来就藏在 dash tab 后面（无 JS 连面板都看不到），不损失降级能力。 */
   const cb = (src && src.contributions) || null;
-  const cblock = cb ? (() => {
+  const cblock = (() => {
+    const w = cb && Array.isArray(cb.weeks) && cb.weeks.length ? pageWindow(cb.weeks, cb.start, 0, PER_PAGE) : null;
+    if (!w) return '';
     // 五档深浅，分界按实测分布定（近一年单日最多 89 次）。
     const lv = (n) => (n <= 0 ? 0 : n < 10 ? 1 : n < 30 ? 2 : n < 60 ? 3 : 4);
+    const addDays = (date, n) => {
+      const t = new Date(date + 'T00:00:00Z');
+      t.setUTCDate(t.getUTCDate() + n);
+      return t.toISOString().slice(0, 10);
+    };
     const cells = [];
-    let shown = 0;
-    cb.recentWeeks.forEach((week, w) => week.forEach((n, d) => {
-      if (n < 0) { cells.push('<i class="ccell void"></i>'); return; }   // 残周补位，见 deriveContributions
-      const t = new Date(cb.recentStart + 'T00:00:00Z');
-      t.setUTCDate(t.getUTCDate() + w * 7 + d);
-      shown += n;
-      cells.push(`<i class="ccell lv${lv(n)}" title="${t.toISOString().slice(0, 10)} · ${n} 次贡献"></i>`);
-    }));
+    let lastMonth = -1;
+    w.rows.forEach((row, r) => {
+      row.forEach((n, d) => {
+        if (n < 0) return;                                   // 残周补位，这天还不存在
+        const date = addDays(cb.start, (w.begin + r) * 7 + d);
+        const month = date.slice(5, 7).replace(/^0/, '');
+        if (+month !== lastMonth) {                           // 月份分隔条，跨月时插在那一行前面
+          cells.push(`<div class="cmonth">${['一', '二', '三', '四', '五', '六', '七', '八', '九', '十', '十一', '十二'][+month - 1]}月</div>`);
+          lastMonth = +month;
+        }
+        cells.push(`<div class="ccell lv${lv(n)}" role="img" aria-label="${date} · ${n} 次贡献" ` +
+          `data-label="${date.slice(2).replace(/-/g, '.')} · ${n} 次贡献"></div>`);
+      });
+    });
     const when = (cb.lastActiveAt || '').slice(5).replace('-', '.');
-    return `<div class="cblock">
+    return `<div class="cblock" id="cblock">
         <p class="chead">${ic('pickaxe', 'sm')}<span class="sfx">近一年 <b>${cb.total}</b> 次贡献</span>` +
       `<span class="sfx">连续活跃 <b>${cb.streak}</b> 天</span>` +
       (when ? `<span class="sfx">最近 <b>${when}</b></span>` : '') + `</p>
-        <div class="cgrid" role="img" aria-label="最近四周的贡献热力图，共 ${shown} 次贡献">${cells.join('')}</div>
-        <p class="cnote">含私有与组织仓库 · 每日更新</p>
-      </div>`;
-  })() : '';
+        <div class="cbar">
+          <button type="button" class="cbtn" data-page="prev" aria-label="看更早的四周" disabled>${ic('arrow', 'sm')}</button>
+          <p class="crange"><span data-from>${w.from.slice(5).replace('-', '.')}</span><span class="cand">至</span><span data-to>${w.to.slice(5).replace('-', '.')}</span></p>
+          <button type="button" class="cbtn" data-page="next" aria-label="看更近的四周">${ic('arrow', 'sm')}</button>
+          <p class="cpage"><span data-page-now>1</span><span class="csl">/</span><span data-page-all>${w.pages}</span></p>
+        </div>
+        <div class="ctable">
+          <div class="cdow" aria-hidden="true">${['日', '一', '二', '三', '四', '五', '六'].map((d) => `<span>${d}</span>`).join('')}</div>
+          <div class="cgrid" data-cgrid role="img" aria-label="贡献热力图">${cells.join('')}</div>
+        </div>
+        <div class="ctip" data-ctip aria-hidden="true"></div>
+        <p class="cnote">含私有与组织仓库 · 每日更新 · 悬浮或方向键翻看每一天</p>
+      </div>
+      <script id="cblock-data" type="application/json">${JSON.stringify({ start: cb.start, perPage: PER_PAGE, weeks: cb.weeks })}</script>`;
+  })();
 
   const tot = (src && src.totals) || {};
   const foot = list.length
@@ -385,6 +413,85 @@ const repos = () => {
   return panel('工坊', ['chest', 'gem', 'crystal', 'coin', 'chest'],
     `<div class="rgrid">${list.length ? list.map(card).join('') : blank(6)}</div>${cblock}${foot}${more}` + DC.shelf(), 'projects');
 };
+
+/* 贡献热力图交互：‹ › 翻页 + 悬浮/方向键看某一天。
+   ⚠️ 客户端只做「窗口起始日 + 序号」这一件事（一个窗口内的日期是连续的），
+      翻页的起止区间一律不在这里重算 —— 那是 pageWindow() 的活，别处再抄一遍就会
+      出现"标签和格子对不上"而且**没有报错**。
+   ⚠️ 格子用漫游 tabindex：整张图只占一个 Tab 停点，方向键在格间移动。
+      否则 28 个格子会把键盘用户堵死在 Tab 键里。 */
+function cblockScript() {
+  return `<script>
+(function(){
+  var box=document.getElementById('cblock');if(!box)return;
+  var island=document.getElementById('cblock-data');if(!island)return;
+  var data;try{data=JSON.parse(island.textContent)}catch(e){return}
+  if(!data||!Array.isArray(data.weeks)||!data.weeks.length)return;
+  var per=data.perPage||4,total=data.weeks.length,
+      pages=Math.max(1,Math.ceil(total/per)),cur=0,rove=0;
+  var grid=box.querySelector('[data-cgrid]'),prev=box.querySelector('[data-page="prev"]'),
+      next=box.querySelector('[data-page="next"]'),tip=box.querySelector('[data-ctip]');
+  var MON=['一','二','三','四','五','六','七','八','九','十','十一','十二'];
+  var addDays=function(s,n){var t=new Date(s+'T00:00:00Z');t.setUTCDate(t.getUTCDate()+n);return t.toISOString().slice(0,10)};
+  var short=function(s){return s.slice(2).replace(/-/g,'.')};
+  var lv=function(n){return n<=0?0:n<10?1:n<30?2:n<60?3:4};
+  function paint(){
+    var end=Math.max(per,total-cur*per),begin=Math.max(0,end-per),
+        rows=data.weeks.slice(begin,end),html=[],month=-1;
+    for(var r=0;r<rows.length;r++)for(var d=0;d<7;d++){
+      var n=rows[r][d];if(n<0)continue;
+      var date=addDays(data.start,(begin+r)*7+d),m=+date.slice(5,7);
+      if(m!==month){html.push('<div class="cmonth">'+MON[m-1]+'月</div>');month=m}
+      html.push('<div class="ccell lv'+lv(n)+'" role="img" aria-label="'+date+' · '+n+' 次贡献" data-label="'+short(date)+' · '+n+' 次贡献"></div>');
+    }
+    grid.innerHTML=html.join('');
+    var first=begin*7+rows[0].findIndex(function(x){return x>=0}),
+        lastRow=rows[rows.length-1],off=6;while(off>=0&&lastRow[off]<0)off--;
+    var from=short(addDays(data.start,first)),to=short(addDays(data.start,(end-1)*7+off));
+    box.querySelector('[data-from]').textContent=from;
+    box.querySelector('[data-to]').textContent=to;
+    box.querySelector('[data-page-now]').textContent=cur+1;
+    box.querySelector('[data-page-all]').textContent=pages;
+    prev.disabled=cur>=pages-1;next.disabled=cur<=0;
+    grid.setAttribute('aria-label','贡献热力图 '+from+' 至 '+to+'，第 '+(cur+1)+' / '+pages+' 屏');
+    rove=0;roving();hide();
+  }
+  function realCells(){return Array.prototype.filter.call(grid.children,function(el){return el.classList.contains('ccell')})}
+  function roving(){
+    var cells=realCells();if(!cells.length)return;
+    var at=Math.min(Math.max(0,rove),cells.length-1);rove=at;
+    for(var i=0;i<cells.length;i++)cells[i].tabIndex=i===at?0:-1;
+  }
+  function show(cell){
+    tip.textContent=cell.getAttribute('data-label');tip.classList.add('on');
+    var b=box.getBoundingClientRect(),c=cell.getBoundingClientRect(),t=tip.getBoundingClientRect();
+    var left=Math.max(0,Math.min(c.left-b.left+c.width/2-t.width/2,b.width-t.width)),
+        top=c.top-b.top-t.height-4;
+    if(top<0)top=c.bottom-b.top+4;
+    tip.style.left=Math.round(left)+'px';tip.style.top=Math.round(top)+'px';
+  }
+  function hide(){tip.classList.remove('on')}
+  grid.addEventListener('mouseover',function(e){var c=e.target.closest('.ccell');if(c)show(c)});
+  grid.addEventListener('mouseleave',hide);
+  grid.addEventListener('focusin',function(e){
+    var c=e.target.closest('.ccell');if(!c)return;
+    rove=realCells().indexOf(c);roving();show(c);
+  });
+  grid.addEventListener('focusout',hide);
+  grid.addEventListener('keydown',function(e){
+    var s=e.key==='ArrowRight'?1:e.key==='ArrowLeft'?-1:e.key==='ArrowDown'?7:e.key==='ArrowUp'?-7:0;
+    if(!s)return;
+    e.preventDefault();
+    var cells=realCells();if(!cells.length)return;
+    rove=Math.min(Math.max(0,rove+s),cells.length-1);roving();cells[rove].focus();show(cells[rove]);
+  });
+  prev.addEventListener('click',function(){if(cur<pages-1){cur++;paint()}});
+  next.addEventListener('click',function(){if(cur>0){cur--;paint()}});
+  window.addEventListener('resize',hide);
+  paint();
+})();
+</script>`;
+}
 
 // ---------- 相馆 ----------
 // 2026-09-18 取代原来的「公告板」：那块面板一直是三条灰色斜纹占位，
@@ -1186,21 +1293,46 @@ html{scroll-behavior:smooth;scrollbar-width:thin;scrollbar-color:var(--wood-b) v
 .gfoot{display:flex;align-items:center;justify-content:center;gap:7px;margin-top:2px;font-size:12px;opacity:.72}
 .rfoot .sfx,.gfoot .sfx{letter-spacing:.4px}
 
-/* 工坊·贡献热力图：最近四周，7 列（周日→周六）× 4 行，就是个日历。
-   ⚠️ **不新增宽度档位** —— 断点预算 14/14 是精确棘轮，再用 width:min() 流式收放。
-   ⚠️ 五档深浅全用 --moss 加透明度调，不引入新颜色 token；夜间模式 --moss/--cream-3
-      已在 html[data-time="night"] 里重定义，这里不用额外写一条夜间规则。 */
-.cblock{margin-top:16px;text-align:center}
+/* 工坊·贡献热力图：可翻页（‹ › 换四周）+ 悬浮/方向键看某一天。
+   ⚠️ **不新增宽度档位** —— 断点预算 14/14 是精确棘轮，一律用 width:min() 流式收放。
+   ⚠️ 五档深浅用 --moss 加透明度调，不引入新颜色 token；皮肤与日夜各自重定义
+      --moss/--cream-3（skins.css），这里自动跟随，不用写夜间规则。 */
+/* 五档深浅用 --moss 加透明度调，不引入新颜色 token；皮肤与日夜各自重定义
+   --moss/--cream-3（skins.css），这里自动跟随，不用写夜间规则。
+   ⚠️ 档位起始就是 0.4 起步**不是随手定的**：浅档要能跟面板底拉开 3:1 的对比度
+      （WCAG 1.4.11，图形里承载信息的形状必须能分辨）。0.34/0.55/0.78 实测只有
+      1.81:1 / 2.68:1 / 3.97:1 —— 前两档在浅色皮肤下几乎看不见，改完是
+      3.0:1 / 3.7:1 / 4.7:1 / 5.8:1。_probe-cblock.js 每次都量这道线。 */
+.cblock{margin-top:16px;text-align:center;position:relative}
 .chead{display:flex;align-items:center;justify-content:center;flex-wrap:wrap;gap:7px;margin:0;font-size:12px;letter-spacing:.4px;opacity:.72}
 .chead b{font-weight:500;color:var(--moss);font-variant-numeric:tabular-nums}
 .chead .sfx+.sfx::before{content:'·';margin-right:7px;opacity:.55}
-.cgrid{display:grid;grid-template-columns:repeat(7,1fr);gap:3px;width:min(238px,100%);margin:12px auto 0}
-.ccell{aspect-ratio:1;background:var(--cream-3)}
-.ccell.lv1{background:var(--moss);opacity:.34}
-.ccell.lv2{background:var(--moss);opacity:.55}
-.ccell.lv3{background:var(--moss);opacity:.78}
+.cbar{display:flex;align-items:center;justify-content:center;flex-wrap:wrap;gap:8px;margin:12px 0 6px;font-size:12px}
+.cbtn{display:flex;align-items:center;justify-content:center;flex:none;width:24px;height:24px;padding:0;border:2px solid var(--frame);
+  background:var(--cream-2);color:var(--ink);cursor:pointer;box-shadow:0 2px 0 var(--frame)}
+.cbtn:hover:not(:disabled){background:var(--cream-3);transform:translateY(-1px)}
+.cbtn:focus-visible{outline:2px solid var(--moss);outline-offset:1px}
+.cbtn:disabled{opacity:.35;cursor:default;box-shadow:none}
+.cbtn[data-page="prev"] .ic{transform:scaleX(-1)}
+.crange{margin:0;display:flex;align-items:center;gap:5px;font-variant-numeric:tabular-nums;letter-spacing:.4px;opacity:.8}
+.cand,.csl{opacity:.5}
+.cpage{margin:0;opacity:.55;font-variant-numeric:tabular-nums}
+.ctable{width:min(238px,100%);margin:0 auto}
+.cdow{display:grid;grid-template-columns:repeat(7,1fr);gap:3px;margin-bottom:4px;font-size:12px;opacity:.5}
+.cgrid{display:grid;grid-template-columns:repeat(7,1fr);gap:3px}
+.cmonth{grid-column:1/-1;margin:7px 0 2px;font-size:12px;text-align:left;opacity:.55}
+.cmonth:first-child{margin-top:0}
+/* 残周补位的那天（-1，还不存在）**不渲染**：末尾那列自然空着，
+   和补一个透明占位格一模一样，却省掉一类死规则。 */
+.ccell{aspect-ratio:1;background:var(--cream-3);outline:0}
+.ccell.lv1{background:var(--moss);opacity:.7}
+.ccell.lv2{background:var(--moss);opacity:.8}
+.ccell.lv3{background:var(--moss);opacity:.9}
 .ccell.lv4{background:var(--moss)}
-.ccell.void{background:transparent}
+.ccell:focus-visible{box-shadow:0 0 0 2px var(--moss)}
+.ctip{position:absolute;z-index:5;left:0;top:0;padding:3px 6px;font-size:12px;white-space:nowrap;pointer-events:none;
+  color:var(--ink);background:var(--cream);border:2px solid var(--frame);box-shadow:2px 2px 0 var(--pixel-shadow)}
+.ctip:not(.on){display:none}
 .cnote{margin:9px 0 0;font-size:12px;opacity:.6}
 
 /* 专精:语言构成条 */
@@ -1741,6 +1873,7 @@ ${SKINS.scene()}
 
 ${buildSprite()}
 ${dashScript()}
+${cblockScript()}
 
 <script src="assets-layers.js"></script>
 <script>

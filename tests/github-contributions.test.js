@@ -30,29 +30,79 @@ test('the query actually asks for the contribution calendar', () => {
   assert.match(q, /contributionDays\s*\{[^}]*contributionCount/);
 });
 
-test('total sums every day of the year, not just the rendered window', () => {
+test('total sums every day of the year, not just the visible window', () => {
   const counts = new Array(40).fill(0); counts[0] = 7; counts[39] = 5;
   assert.equal(G.deriveContributions(makeCalendar(counts)).total, 12);
 });
 
-test('keeps only the last four weeks, seven cells each', () => {
+/* 快照存**全年**而不是只存可见的几周：翻页要能往回翻到底，
+   而且年度总数与连续天数都得跨越窗口边界才准。 */
+test('the snapshot keeps the whole year, every row padded to seven cells', () => {
   const counts = new Array(42).fill(0).map((_, i) => i);
   const c = G.deriveContributions(makeCalendar(counts));
-  assert.equal(c.recentWeeks.length, 4);
-  for (const w of c.recentWeeks) assert.equal(w.length, 7);
-  assert.deepEqual(c.recentWeeks[0], counts.slice(14, 21));
-  assert.deepEqual(c.recentWeeks[3], counts.slice(35, 42));
+  assert.equal(c.weeks.length, 6);
+  for (const w of c.weeks) assert.equal(w.length, 7);
+  assert.deepEqual(c.weeks[0], counts.slice(0, 7));
+  assert.deepEqual(c.weeks[5], counts.slice(35, 42));
 });
 
-test('pads a partial trailing week with -1 so the grid stays rectangular', () => {
+test('a partial trailing week is padded with -1', () => {
   const c = G.deriveContributions(makeCalendar(new Array(27).fill(1)));
-  assert.equal(c.recentWeeks.length, 4);
-  assert.deepEqual(c.recentWeeks[3], [1, 1, 1, 1, 1, 1, -1]);
+  assert.equal(c.weeks.length, 4);
+  assert.deepEqual(c.weeks[3], [1, 1, 1, 1, 1, 1, -1]);
 });
 
-test('recentStart is the date of the first cell in the kept window', () => {
-  assert.equal(G.deriveContributions(makeCalendar(new Array(42).fill(0), '2026-08-23')).recentStart, '2026-09-06');
+test('start is the date of the very first cell in the calendar', () => {
+  assert.equal(G.deriveContributions(makeCalendar(new Array(10).fill(0), '2026-08-23')).start, '2026-08-23');
 });
+
+/* ---- 翻页 ---- pageWindow 是唯一的日期推算来源，区间标签、tooltip、月份分隔都靠它 */
+
+test('page 0 is the most recent weeks', () => {
+  const weeks = G.deriveContributions(makeCalendar(new Array(42).fill(0), '2026-08-23')).weeks;
+  const w = G.pageWindow(weeks, '2026-08-23', 0, 4);
+  assert.equal(w.pages, 2);
+  assert.equal(w.page, 0);
+  assert.equal(w.begin, 2);
+  assert.equal(w.rows.length, 4);
+  assert.deepEqual(w.rows[0], weeks[2]);
+  assert.equal(w.from, '2026-09-06');
+  assert.equal(w.to, '2026-10-03');
+});
+
+test('paging back reaches the oldest weeks and the start of the calendar', () => {
+  const weeks = G.deriveContributions(makeCalendar(new Array(42).fill(0), '2026-08-23')).weeks;
+  const w = G.pageWindow(weeks, '2026-08-23', 1, 4);
+  assert.equal(w.page, 1);
+  assert.deepEqual(w.rows[0], weeks[0]);
+  assert.equal(w.from, '2026-08-23');
+  assert.equal(w.to, '2026-09-19');
+});
+
+test('the range ends on the last day that actually exists, not the padded cell', () => {
+  const c = G.deriveContributions(makeCalendar(new Array(27).fill(2), '2026-09-06'));
+  const w = G.pageWindow(c.weeks, c.start, 0, 4);
+  assert.equal(w.pages, 1);
+  assert.equal(w.rows.length, 4);
+  assert.equal(w.from, '2026-09-06');
+  assert.equal(w.to, '2026-10-02');
+});
+
+test('an out-of-range page clamps to the nearest end instead of going blank', () => {
+  const weeks = G.deriveContributions(makeCalendar(new Array(42).fill(0), '2026-08-23')).weeks;
+  assert.equal(G.pageWindow(weeks, '2026-08-23', 99, 4).page, 1);
+  assert.equal(G.pageWindow(weeks, '2026-08-23', -5, 4).page, 0);
+  assert.equal(G.pageWindow(weeks, '2026-08-23', NaN, 4).page, 0);
+});
+
+test('an empty or malformed window degrades to null instead of throwing', () => {
+  assert.equal(G.pageWindow(undefined, '2026-08-23', 0, 4), null);
+  assert.equal(G.pageWindow(null, '2026-08-23', 0, 4), null);
+  assert.equal(G.pageWindow([], '2026-08-23', 0, 4), null);
+  assert.equal(G.pageWindow([[0, 1]], '', 0, 4), null);
+});
+
+/* ---- 三个数字：不变 ---- */
 
 test('streak counts consecutive active days ending today', () => {
   const counts = new Array(28).fill(0); counts[25] = 3; counts[26] = 1; counts[27] = 9;
@@ -85,11 +135,15 @@ test('a missing or malformed collection degrades to null instead of throwing', (
   }
 });
 
+/* ---- convert() 与快照契约 ---- */
+
 test('convert() carries contributions when present and null when absent', () => {
   assert.equal(G.convert(withRepos()).contributions, null);
   const c = G.convert(withRepos({ contributionsCollection: makeCalendar([1, 2, 3]) })).contributions;
   assert.equal(c.total, 6);
   assert.equal(c.streak, 3);
+  assert.equal(c.weeks.flat().filter(n => n >= 0).length, 3);
+  assert.equal(c.start, '2026-09-06');
 });
 
 test('convert() still returns repos when the collection is missing entirely', () => {
