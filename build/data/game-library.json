@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "uid": "32133355",
-  "updatedAt": "2026-10-01T01:21:41.978Z",
+  "updatedAt": "2026-10-02T01:44:38.130Z",
   "platforms": {
     "steam": {
       "complete": true,
@@ -790,7 +790,7 @@
         {
           "appid": "1466860",
           "sourceId": "1466860",
-          "name": "帝国时代4",
+          "name": "帝国时代 4：周年纪念版",
           "platform": "steam",
           "platformLabel": "Steam",
           "hours": 3,
