@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "uid": "32133355",
-  "updatedAt": "2026-10-03T01:15:55.704Z",
+  "updatedAt": "2026-10-04T01:43:51.164Z",
   "platforms": {
     "steam": {
       "complete": true,
@@ -16,7 +16,7 @@
           "hours": 23.6,
           "cleared": false,
           "notOwned": false,
-          "recentHours": 2.1,
+          "recentHours": 1.4,
           "cover": "steam-3240220.jpg"
         },
         {
@@ -30,6 +30,30 @@
           "notOwned": false,
           "recentHours": 1.3,
           "cover": "steam-413150.jpg"
+        },
+        {
+          "appid": "2868840",
+          "sourceId": "2868840",
+          "name": "杀戮尖塔2",
+          "platform": "steam",
+          "platformLabel": "Steam",
+          "hours": 110.9,
+          "cleared": false,
+          "notOwned": false,
+          "recentHours": 0.1,
+          "cover": "2868840.jpg"
+        },
+        {
+          "appid": "578080",
+          "sourceId": "578080",
+          "name": "绝地求生",
+          "platform": "steam",
+          "platformLabel": "Steam",
+          "hours": 292.7,
+          "cleared": false,
+          "notOwned": false,
+          "recentHours": 0.1,
+          "cover": "578080.jpg"
         },
         {
           "appid": "632470",
@@ -54,18 +78,6 @@
           "notOwned": false,
           "recentHours": 0,
           "cover": "steam-993090.jpg"
-        },
-        {
-          "appid": "578080",
-          "sourceId": "578080",
-          "name": "绝地求生",
-          "platform": "steam",
-          "platformLabel": "Steam",
-          "hours": 292.6,
-          "cleared": false,
-          "notOwned": false,
-          "recentHours": 0,
-          "cover": "578080.jpg"
         },
         {
           "appid": "1920960",
@@ -126,18 +138,6 @@
           "notOwned": false,
           "recentHours": 0,
           "cover": "1174180.jpg"
-        },
-        {
-          "appid": "2868840",
-          "sourceId": "2868840",
-          "name": "杀戮尖塔2",
-          "platform": "steam",
-          "platformLabel": "Steam",
-          "hours": 110.8,
-          "cleared": false,
-          "notOwned": false,
-          "recentHours": 0,
-          "cover": "2868840.jpg"
         },
         {
           "appid": "250900",
