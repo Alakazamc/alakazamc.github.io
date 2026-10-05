@@ -25,7 +25,15 @@ const SKIP=new Set(['Alakazamc','alakazamc.github.io']);
 /* 显式补录：不在个人账号名下、但要上墙的仓库。
    ⚠️ 只列 owner/name，**不扫整个组织** —— 与 DEPLOY_SET 同一种「显式白名单」风格：
       组织里以后新增的仓库不会自动上墙，免得把不是自己的东西算进来。 */
-const EXTRA_REPOS=[{owner:'SzuDesktopTeam',name:'szudesktop'}];
+const EXTRA_REPOS=[
+  {owner:'SzuDesktopTeam',name:'szudesktop'},
+  /* 2026-10-03 补录：柯西的两个参赛作品在 musicMapTeam 组织下，
+     个人账号的 ownerAffiliations:OWNER 查不到它们 —— 工坊里一直没有这两项。
+     ⚠️ 加这里只是让**仓库列表**认得它们（工坊详情页能筛能翻）；
+     主页顶部的「精选项目」是 build/projects.js 手工维护的另一层，两者互不依赖。 */
+  {owner:'musicMapTeam',name:'musicSpace'},
+  {owner:'musicMapTeam',name:'musicMap'}
+];
 
 const REPO_FIELDS=`
         isPrivate

@@ -180,7 +180,10 @@ html[data-skin="sakura"] .entry-latest p{color:var(--tx-em)}
 .toon-caption{display:flex;align-items:center;gap:12px;padding:8px 16px;border-bottom:1px solid var(--timber-light);background:var(--cream-2);color:var(--ink);font-size:12px;line-height:24px}
 .toon-place{flex:1;min-width:0;color:var(--tx-em)}
 .toon-light{display:flex;gap:4px}
-.toon-caption button{padding:4px 12px;min-height:32px;border:1px solid transparent;background:transparent;color:var(--ink-2);font:inherit;line-height:24px;cursor:pointer;transition:background .16s,color .16s}
+/* ⚠️ 不要写 cursor:pointer：`.toon-caption button` 是 (0,1,1)，
+   比可点态像素光标规则里的裸 `button` (0,0,1) 特异性高，会把像素箭头顶掉。
+   button 元素本身已经继承了像素光标，留空即可。守门：check-cursor.js 第 3 条。 */
+.toon-caption button{padding:4px 12px;min-height:32px;border:1px solid transparent;background:transparent;color:var(--ink-2);font:inherit;line-height:24px;transition:background .16s,color .16s}
 .toon-caption button[aria-pressed="true"]{background:var(--cream);border-color:var(--timber-light);color:var(--ink)}
 .toon-caption button:focus-visible{outline:2px solid var(--moss);outline-offset:3px}
 .toon-caption .toon-pause{border-left-color:var(--timber-light);padding-left:16px}

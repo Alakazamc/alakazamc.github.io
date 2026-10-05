@@ -67,7 +67,9 @@ const controlsCss = `
 .skin-bar{display:flex;align-items:center;justify-content:space-between;gap:16px;position:relative;z-index:60;max-width:min(1560px,max(1200px,100% - 240px));padding:0 24px;margin:20px auto 16px}
 .skin-picker{display:flex;align-items:center;flex-wrap:wrap;gap:8px;min-width:0;font-size:12px;line-height:24px}
 .skin-label{color:var(--ink);margin-right:8px}
-.skin-choice{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:40px;padding:6px 12px;border:2px solid var(--timber-light);background:var(--cream);color:var(--ink);font:inherit;cursor:pointer;box-shadow:0 2px 0 var(--pixel-shadow);transition:background .16s,border-color .16s,transform .16s}
+/* ⚠️ .skin-choice 是 <button>，别给它写 cursor:pointer —— (0,1,0) 会盖掉
+   像素光标的裸 button 规则。守门：check-cursor.js 第 3 条（不许有裸 cursor:pointer）。 */
+.skin-choice{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:40px;padding:6px 12px;border:2px solid var(--timber-light);background:var(--cream);color:var(--ink);font:inherit;box-shadow:0 2px 0 var(--pixel-shadow);transition:background .16s,border-color .16s,transform .16s}
 .skin-choice[aria-pressed="true"]{background:var(--cream-2);border-color:var(--moss);box-shadow:inset 0 -3px 0 var(--moss),0 2px 0 var(--pixel-shadow)}
 .skin-choice:focus-visible{outline:3px solid var(--moss);outline-offset:4px}
 .skin-choice:active{transform:translateY(2px)}

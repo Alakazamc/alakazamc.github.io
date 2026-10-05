@@ -131,6 +131,40 @@ body:not(.is-article) .panel>.pt>.ic{width:24px;height:24px}
 .rcard:hover{background:var(--cream);box-shadow:4px 4px 0 var(--timber-light);transform:translate(-2px,-2px)}
 .rfoot{justify-content:flex-start;font-size:12px;margin-top:18px}.museum-more{line-height:24px}.museum-more a,.more a{color:var(--ink);text-underline-offset:5px}
 #projects .museum-more{justify-content:flex-end;margin-top:-24px}#projects .dc-shelf{margin-top:24px}
+/* ---------- 精选项目（工坊顶部，柯西 2026-10-03）----------
+   ⚠️ 列数交给 auto-fit + 240px 最小宽，**不新增断点**：
+      852 主栏 → 3 列（每列 273）、700 → 2 列、350 手机 → 1 列，全部自动。
+      写死 repeat(3) 的话 1000px 档每列只剩 215，标题就得折行。
+   ⚠️ 封面统一 16:10（assets/projects/*.jpg，由 build/_make-covers.py 生成）。
+      竖图（Music Space 那张 390×860 的实机截图）在源头已经裁成横版，
+      这里只做 object-fit:cover 兜底 —— 卡片尺寸变了也不会拉变形。 */
+.pjblock{margin:0 0 var(--s6)}
+.pjhead{display:flex;align-items:center;gap:8px;margin:0 0 var(--s3);color:var(--moss);font-size:12px;line-height:24px}
+.pjgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:var(--s4);align-items:stretch}
+.pjcard{display:flex;flex-direction:column;border:2px solid var(--timber-light);background:var(--cream-2);box-shadow:inset 0 4px var(--cream-3);color:var(--ink);text-decoration:none}
+.pjshot{display:block;aspect-ratio:16/10;overflow:hidden;background:var(--timber);border-bottom:2px solid var(--timber-light)}
+.pjshot img{display:block;width:100%;height:100%;object-fit:cover}
+.pjbody{display:flex;flex:1;flex-direction:column;gap:var(--s2);padding:var(--s4)}
+.pjh{display:flex;align-items:baseline;justify-content:space-between;gap:var(--s2);flex-wrap:wrap}
+.pjname{font-size:24px;line-height:32px;overflow-wrap:anywhere}
+.pjrole{font-size:12px;line-height:24px;padding:0 8px;background:var(--moss);color:var(--cream);white-space:nowrap}
+.pjevent{font-size:12px;line-height:24px;color:var(--moss);margin:0}
+.pjtag{font-size:12px;line-height:24px;color:var(--ink-2);margin:0}
+.pjstack{display:flex;flex-wrap:wrap;gap:4px}
+.pjstack i{font-size:12px;line-height:24px;font-style:normal;padding:0 8px;border:1px solid var(--timber-light);background:var(--cream)}
+.pjfacts{display:flex;flex-direction:column;gap:var(--s1);margin:0;padding:var(--s2) 0 0;border-top:1px dashed var(--timber-light)}
+.pjfacts i{position:relative;display:block;padding-left:16px;color:var(--ink-2);font-style:normal;font-size:12px;line-height:24px}
+.pjfacts i::before{content:'';position:absolute;left:0;top:8px;width:8px;height:8px;background:var(--moss)}
+.pjgo{margin-top:auto;padding-top:var(--s3);font-size:12px;line-height:24px;color:var(--ink);text-decoration:underline;text-underline-offset:5px}
+.pjcard:hover{background:var(--cream);box-shadow:4px 4px 0 var(--timber-light);transform:translate(-2px,-2px)}
+/* 开源贡献：虚线框 + 无封面，视觉上比精选弱一档 —— 作者和贡献者不能长得一样 */
+.pjcontrib{margin-top:var(--s6)}
+.pjcbox{padding:var(--s4);border:2px dashed var(--timber-light);background:var(--cream)}
+.pjcname{display:flex;align-items:baseline;gap:var(--s2);flex-wrap:wrap;margin:0 0 var(--s2)}
+.pjcname b{font-size:24px;line-height:32px}
+.pjcname i{font-style:normal;color:var(--ink-2);font-size:12px;line-height:24px}
+.pjcbox .pjfacts{padding-top:0;border-top:0}
+.pjcbox .pjgo{padding-top:var(--s2)}
 .tl-item{padding-bottom:18px}.tl-card{padding:14px;border:0;border-bottom:2px solid var(--cream-3);background:transparent;gap:14px}
 .tl-item.lead .tl-card{background:var(--cream-2);border:2px solid var(--timber-light);box-shadow:inset 4px 0 var(--moss);padding:18px}
 .tl-exc{line-height:24px;color:var(--ink-2);opacity:1}.tl-title{line-height:24px}
@@ -209,7 +243,7 @@ body:not(.is-article) .panel>.pt>.ic{width:24px;height:24px}
 .dash-tab:active,.pixel-entry .social .soc:active,.cbtn:active,.gal-item:active,
 .museum-item a:active,.gstrip .gp:active,.exc > a:active,.apg:active,.museum-page-btn:active:not(:disabled),
 .shelf-tab:active,.museum-filter:active,.copy-code:active{transform:translateY(1px)}
-.rcard:active,.wcard-link:active{transform:translate(0,1px);box-shadow:inset 0 4px var(--cream-3)}
+.rcard:active,.wcard-link:active,.pjcard:active{transform:translate(0,1px);box-shadow:inset 0 4px var(--cream-3)}
 .fr:active{transform:translateY(1px) scale(1.02)}
 .abtn:active{transform:translateY(1px);box-shadow:0 1px var(--timber)}
 .more a:active,.museum-more a:active{position:relative;top:1px}
@@ -219,7 +253,7 @@ body:not(.is-article) .panel>.pt>.ic{width:24px;height:24px}
    hover 在触屏上一律摁平（背景色粘滞比位移轻，留着不动）。
    ⚠️ 同样必须写在本文件：.toolbar .tool:hover / .rcard:hover 的生效层在这里。 */
 @media (hover:none){
-  .dash-tab:hover,.pixel-entry .social .soc:hover,.cbtn:hover,.rcard:hover,
+  .dash-tab:hover,.pixel-entry .social .soc:hover,.cbtn:hover,.rcard:hover,.pjcard:hover,
   .wcard-link:hover,.gal-item:hover,.gstrip .gp:hover,.fr:hover,.exc > a:hover,
   .abtn:hover,.apg:hover,.tool:hover,.tool:focus-visible,.soc:hover,.soc:focus-visible,
   .share-btn:hover{transform:none}
@@ -227,7 +261,7 @@ body:not(.is-article) .panel>.pt>.ic{width:24px;height:24px}
 /* 卡片轻微上移并渐显：280ms，35ms 交错且最多等待 175ms。
    backwards 只管理入场，不占住 hover/active；减少动效时内容保持可见。 */
 @keyframes px-card-in{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
-.rcard,.tl-card,.gstrip .gp,.exc,.gal-item,.museum-item,.wcard{animation:px-card-in .28s cubic-bezier(.22,1,.36,1) backwards;animation-delay:min(calc(var(--i,0)*35ms),175ms)}
+.rcard,.pjcard,.tl-card,.gstrip .gp,.exc,.gal-item,.museum-item,.wcard{animation:px-card-in .28s cubic-bezier(.22,1,.36,1) backwards;animation-delay:min(calc(var(--i,0)*35ms),175ms)}
 `;
 
 module.exports = {hero, css};

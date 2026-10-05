@@ -21,6 +21,9 @@ const { shareBtn, shareScript } = require('./subpage.js');
 const { dash, dashScript } = require('./dash.js');
 // 贡献热力图一屏几周：和 refresh-github.js 用同一个常量，免得两边改出分歧。
 const { PER_PAGE, pageWindow } = require('./refresh-github.js');
+// 精选项目（工坊顶部的「主打」区）。渲染也在那个模块里 ——
+// 工坊详情页要用同一份 HTML，各写一遍会长得不一样且不报错。
+const { featuredHtml, contribHtml, FEATURED } = require('./projects.js');
 const galleryData = require('./gallery-data.js');
 
 // 相馆元数据是用户在写作页上传后新增的，构建前必须先刷新数据快照。
@@ -324,8 +327,17 @@ const repos = () => {
   // 不切的话仓库一多，工坊面板会长到把时间线顶到第二屏之外，
   // 而工坊是放在最上面的（柯西要求），等于把下面的内容全埋了。
   const all = (src && src.repos) || [];
-  const chosen = (SITE.featuredRepos || []).map(name => all.find(r => r.name === name)).filter(Boolean);
-  const list = (chosen.length ? chosen : all).slice(0, REPO_SHOW);
+  /* 2026-10-03：主页这块的排序依据从「site.config 里手写的三个名字」换成
+     **剔除精选区已展示的、剩下的按最近推送排**。
+     原因：精选区（build/projects.js）是手工主打、这张网格是自动补充，
+     两者撞上同一个仓库就会在同一个面板里出现两张一样的卡。
+     ⚠️ 剔完必须仍凑够 REPO_SHOW 张 —— 池子只剩一两个时不能静默少卡。 */
+  // ⚠️ 必须**忽略大小写**再比：projects.js 里的 id 是全小写（musicspace），
+  //    而 GitHub 返回的仓库名是驼峰（musicSpace）—— 直接 Set.has(r.name) 比不上，
+  //    musicSpace / musicMap 会同时出现在精选区和下面这张网格里，同一面板两张一样的卡。
+  const shown = new Set(FEATURED.map((f) => String(f.id).toLowerCase()));
+  const pool = all.filter((r) => !shown.has(String(r.name).toLowerCase()));
+  const list = pool.slice(0, REPO_SHOW);
 
   const card = (r, i) => `
       <a class="rcard" style="--i:${i}" href="${r.url}" target="_blank" rel="noopener">
@@ -411,7 +423,14 @@ const repos = () => {
     : '';
 
   return panel('工坊', ['chest', 'gem', 'crystal', 'coin', 'chest'],
-    `<div class="rgrid">${list.length ? list.map(card).join('') : blank(6)}</div>${cblock}${foot}${more}` + DC.shelf(), 'projects');
+    /* 面板结构（2026-10-03 起）：
+       ① 精选项目（手工主打，带封面/角色/成果）
+       ② 开源贡献（别人仓库里提的 PR，虚线框、视觉弱一档）
+       ③ 最近推送的仓库（自动，与①不重复）
+       ④ 贡献热力图 —— 「在持续写」的证据 ⑤ 汇总行 + 查看更多入口
+       ⚠️ 精选放在最前是柯西 2026-09-16「代码仓库放最上面」那条要求的延伸：
+         最上面那块应该是**最能说明问题**的东西，而仓库名 + 语言说明不了什么。 */
+    `${featuredHtml()}${contribHtml()}<div class="rgrid">${list.length ? list.map(card).join('') : blank(6)}</div>${cblock}${foot}${more}` + DC.shelf(), 'projects');
 };
 
 /* 贡献热力图交互：‹ › 翻页 + 悬浮/方向键看某一天。
@@ -1309,7 +1328,11 @@ html{scroll-behavior:smooth;scrollbar-width:thin;scrollbar-color:var(--wood-b) v
 .chead .sfx+.sfx::before{content:'·';margin-right:7px;opacity:.55}
 .cbar{display:flex;align-items:center;justify-content:center;flex-wrap:wrap;gap:8px;margin:12px 0 6px;font-size:12px}
 .cbtn{display:flex;align-items:center;justify-content:center;flex:none;width:24px;height:24px;padding:0;border:2px solid var(--frame);
-  background:var(--cream-2);color:var(--ink);cursor:pointer;box-shadow:0 2px 0 var(--frame)}
+  /* ⚠️ 这里以前写着 cursor:pointer —— 它是「.cbtn」（0,1,0），比文件前面那条
+     可点态像素光标规则「button,…,.cbtn」（同为 0,1,0）**出现得更晚**，于是赢下级联，
+     季节/昼夜/翻页这几个按钮悄悄变回系统箭头。base 的 button 规则已经给了像素光标，
+     这里必须留空。守门：build/check-cursor.js 第 3 条（不许有裸 cursor:pointer）。 */
+  background:var(--cream-2);color:var(--ink);box-shadow:0 2px 0 var(--frame)}
 .cbtn:hover:not(:disabled){background:var(--cream-3);transform:translateY(-1px)}
 .cbtn:focus-visible{outline:2px solid var(--moss);outline-offset:1px}
 .cbtn:disabled{opacity:.35;cursor:default;box-shadow:none}
