@@ -56,9 +56,14 @@ function runtime(cfg) {
   }
   commentsTheme();
   new MutationObserver(commentsTheme).observe(root, {attributes:true, attributeFilter:['data-skin','data-time']});
-  document.addEventListener('load', function (event) {
-    if (event.target.matches && event.target.matches('iframe.giscus-frame')) commentsTheme();
-  }, true);
+  // 评论区是懒加载 iframe：它还没启动完时发出的 setConfig 会丢（线上实测换皮肤后评论区停在旧主题）。
+  // giscus 第一次回消息（resizeHeight）时它的监听已经挂好，这时补发一次当前主题；之后的切换直接生效。
+  var commentsReady = false;
+  addEventListener('message', function (event) {
+    if (event.origin !== 'https://giscus.app' || commentsReady) return;
+    commentsReady = true;
+    commentsTheme();
+  });
 }
 
 const controlsCss = `
