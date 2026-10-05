@@ -1,12 +1,12 @@
 {
  "user": "Alakazamc",
- "updatedAt": "2026-10-05T01:03:04.657Z",
+ "updatedAt": "2026-10-05T15:26:04.765Z",
  "repos": [
   {
    "name": "szudesktop",
    "description": "深大校园桌面应用：像素庭院陪你专注和记笔记，附校园网认证与断线诊断（Windows / macOS 桌面版；Windows / macOS / Linux 命令行）",
    "url": "https://github.com/SzuDesktopTeam/szudesktop",
-   "stars": 5,
+   "stars": 6,
    "pushedAt": "2026-10-04",
    "language": "JavaScript",
    "color": "#f1e05a",
@@ -56,6 +56,100 @@
      "name": "NSIS",
      "color": null,
      "size": 934
+    }
+   ]
+  },
+  {
+   "name": "musicSpace",
+   "description": "Music Space：演唱会散场后，同场观众交换彼此没有的视角（腾讯音乐高校 AI Hackathon）",
+   "url": "https://github.com/musicMapTeam/musicSpace",
+   "stars": 0,
+   "pushedAt": "2026-10-04",
+   "language": "JavaScript",
+   "color": "#f1e05a",
+   "topics": [],
+   "langs": [
+    {
+     "name": "JavaScript",
+     "color": "#f1e05a",
+     "size": 2264051
+    },
+    {
+     "name": "HTML",
+     "color": "#e34c26",
+     "size": 1555477
+    },
+    {
+     "name": "CSS",
+     "color": "#663399",
+     "size": 583531
+    },
+    {
+     "name": "TypeScript",
+     "color": "#3178c6",
+     "size": 29429
+    },
+    {
+     "name": "Python",
+     "color": "#3572A5",
+     "size": 4210
+    },
+    {
+     "name": "Swift",
+     "color": "#F05138",
+     "size": 1968
+    },
+    {
+     "name": "Kotlin",
+     "color": "#A97BFF",
+     "size": 1667
+    },
+    {
+     "name": "Dockerfile",
+     "color": "#384d54",
+     "size": 1209
+    },
+    {
+     "name": "Batchfile",
+     "color": "#C1F12E",
+     "size": 530
+    },
+    {
+     "name": "Shell",
+     "color": "#89e051",
+     "size": 497
+    }
+   ]
+  },
+  {
+   "name": "musicMap",
+   "description": "",
+   "url": "https://github.com/musicMapTeam/musicMap",
+   "stars": 1,
+   "pushedAt": "2026-09-30",
+   "language": "HTML",
+   "color": "#e34c26",
+   "topics": [],
+   "langs": [
+    {
+     "name": "HTML",
+     "color": "#e34c26",
+     "size": 1545518
+    },
+    {
+     "name": "JavaScript",
+     "color": "#f1e05a",
+     "size": 518690
+    },
+    {
+     "name": "CSS",
+     "color": "#663399",
+     "size": 255563
+    },
+    {
+     "name": "Python",
+     "color": "#3572A5",
+     "size": 14194
     }
    ]
   },
@@ -385,109 +479,127 @@
  ],
  "languages": [
   {
-   "name": "Python",
-   "color": "#3572A5",
-   "size": 3231829,
-   "percent": 0.33516664948570146
-  },
-  {
    "name": "JavaScript",
    "color": "#f1e05a",
-   "size": 2832693,
-   "percent": 0.2937730374446173
+   "size": 5615434,
+   "percent": 0.34200853304722556
+  },
+  {
+   "name": "Python",
+   "color": "#3572A5",
+   "size": 3250233,
+   "percent": 0.19795574489731035
+  },
+  {
+   "name": "HTML",
+   "color": "#e34c26",
+   "size": 3223211,
+   "percent": 0.19630996745962662
+  },
+  {
+   "name": "CSS",
+   "color": "#663399",
+   "size": 1198412,
+   "percent": 0.07298939496149215
   },
   {
    "name": "Go",
    "color": "#00ADD8",
    "size": 1150876,
-   "percent": 0.11935509363072927
+   "percent": 0.07009421043489404
   },
   {
    "name": "Vue",
    "color": "#41b883",
    "size": 980151,
-   "percent": 0.10164953859256161
+   "percent": 0.05969618833998783
   },
   {
    "name": "Java",
    "color": "#b07219",
    "size": 737013,
-   "percent": 0.07643417329240046
-  },
-  {
-   "name": "CSS",
-   "color": "#663399",
-   "size": 359318,
-   "percent": 0.03726416532554887
+   "percent": 0.04488784570644671
   },
   {
    "name": "TypeScript",
    "color": "#3178c6",
-   "size": 158392,
-   "percent": 0.016426523787409306
-  },
-  {
-   "name": "HTML",
-   "color": "#e34c26",
-   "size": 122216,
-   "percent": 0.012674781751616342
+   "size": 187821,
+   "percent": 0.011439255574095065
   },
   {
    "name": "Shell",
    "color": "#89e051",
-   "size": 25494,
-   "percent": 0.002643932758196202
+   "size": 25991,
+   "percent": 0.0015829842862422458
   },
   {
    "name": "SCSS",
    "color": "#c6538c",
    "size": 20888,
-   "percent": 0.0021662535284067727
+   "percent": 0.0012721855938989661
   },
   {
    "name": "Dockerfile",
    "color": "#384d54",
-   "size": 11581,
-   "percent": 0.0012010428050784581
+   "size": 12790,
+   "percent": 0.0007789761463983042
   },
   {
    "name": "PowerShell",
    "color": "#012456",
    "size": 5372,
-   "percent": 0.0005571195880218874
+   "percent": 0.0003271821625059961
   },
   {
    "name": "Makefile",
    "color": "#427819",
    "size": 2846,
-   "percent": 0.0002951530803258175
+   "percent": 0.00017333589621966957
+  },
+  {
+   "name": "Swift",
+   "color": "#F05138",
+   "size": 1968,
+   "percent": 0.00011986122409005963
   },
   {
    "name": "Lua",
    "color": "#000080",
    "size": 1678,
-   "percent": 0.00017402209022723884
+   "percent": 0.00010219874696296751
+  },
+  {
+   "name": "Kotlin",
+   "color": "#A97BFF",
+   "size": 1667,
+   "percent": 0.00010152879093400885
   },
   {
    "name": "Mako",
    "color": "#7e858d",
    "size": 1173,
-   "percent": 0.00012164953029591845
+   "percent": 0.00007144167472441055
   },
   {
    "name": "NSIS",
    "color": null,
    "size": 934,
-   "percent": 0.00009686330886307572
+   "percent": 0.000056885357367944964
+  },
+  {
+   "name": "Batchfile",
+   "color": "#C1F12E",
+   "size": 530,
+   "percent": 0.000032279699577099396
   }
  ],
  "totals": {
-  "repos": 9,
-  "stars": 5,
-  "languages": 16
+  "repos": 11,
+  "stars": 7,
+  "languages": 19
  },
  "contributions": {
-  "total": 774,
+  "total": 775,
   "streak": 12,
   "lastActiveAt": "2026-10-05",
   "start": "2025-10-05",
@@ -962,7 +1074,7 @@
    ],
    [
     25,
-    8,
+    9,
     -1,
     -1,
     -1,
