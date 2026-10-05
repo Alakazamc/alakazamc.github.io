@@ -1,0 +1,19 @@
+/* 由 build/palette.js 生成，勿手改。变量名沿用 giscus 内置主题（MIT，giscus/giscus），
+   其来源是 GitHub Primer Primitives（MIT）。 */
+@import url("https://giscus.app/themes/noborder_dark.css");
+main {
+  color-scheme: dark;
+  --color-canvas-default: #202F48;  --color-canvas-overlay: #202F48;
+  --color-canvas-subtle: #2B3B57;
+  --color-canvas-inset: #172235;
+  --color-fg-default: #EEEEF2;
+  --color-fg-muted: #C4C9D7;  --color-fg-subtle: #C4C9D7;
+  --color-border-default: #7A87A3;
+  --color-border-muted: #35445E;
+  --color-accent-fg: #B8D9F4;
+  --color-accent-emphasis: #E4BF87;
+  --color-btn-text: #EEEEF2;  --color-btn-bg: #202F48;  --color-btn-border: #7A87A3;  --color-btn-hover-bg: #2B3B57;
+  --color-btn-primary-text: #172235;  --color-btn-primary-bg: #E4BF87;  --color-btn-primary-hover-bg: #E4BF87;
+  --color-segmented-control-bg: #2B3B57;  --color-segmented-control-button-bg: #202F48;
+  --color-segmented-control-button-selected-border: #7A87A3;
+}

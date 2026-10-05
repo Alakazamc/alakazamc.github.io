@@ -32,15 +32,12 @@ const { articles } = require('./content.js');
 const { esc } = require('./md.js');
 const { delFile } = require('./rm.js');
 const { measure } = require('./probe-dom.js');   // 复用现成探针（flag 坑都踩过了）
+const { browser } = require('./browser.js');     // 浏览器择主交给它（Edge 会哑）
 
 const ROOT = path.join(__dirname, '..');
 const OUT_DIR = path.join(ROOT, 'assets', 'og');
 const MANIFEST = path.join(OUT_DIR, 'manifest.json');
 const TMP = path.join(ROOT, '_og-card.html');    // probe-dom.js 会在同目录造 _probe-dom.html
-const EDGE = [
-  'C:/Program Files (x86)/Microsoft/Edge/Application/msedge.exe',
-  'C:/Program Files/Microsoft/Edge/Application/msedge.exe'
-].find((p) => fs.existsSync(p));
 const W = 1200, H = 630;
 const OG_LIMIT = 32 * 1024;      // 微信的隐形上限（字节）
 const DESIGN = 'og-1';
@@ -179,6 +176,8 @@ function measureCard(c) {
 // 截图：flag 组合照抄 _shot-readme.js（那份是验证过像素字体能正确出图的），
 // user-data-dir 每次新开一个临时目录，跑完就扔。
 function shot(html, out) {
+  const EDGE = browser();
+  if (!EDGE) throw new Error('没有可用的无头浏览器，出不了图');
   fs.writeFileSync(TMP, html, 'utf8');
   try { fs.unlinkSync(out); } catch {}
   const ud = fs.mkdtempSync(path.join(os.tmpdir(), 'kxog-'));
@@ -266,8 +265,8 @@ function defaultCard() {
 // ---------- 主流程 ----------
 
 function render() {
-  if (!EDGE) {
-    console.log('og 卡片：本机没有 Edge，跳过出图（沿用仓库里已提交的卡片）');
+  if (!browser()) {
+    console.log('og 卡片：找不到能跑无头模式的浏览器，跳过出图（沿用仓库里已提交的卡片）');
     return;
   }
   fs.mkdirSync(OUT_DIR, { recursive: true });

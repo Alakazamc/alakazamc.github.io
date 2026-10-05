@@ -31,12 +31,15 @@ function render() {
 const css = `
 #music{scroll-margin-top:24px;font-size:12px;line-height:20px}
 .music-tabs{display:grid;grid-template-columns:repeat(auto-fit,minmax(64px,1fr));gap:8px;margin:8px 0}
-#music button:not([data-music-play]){font:inherit;line-height:20px;color:var(--ink);background:var(--cream-2);border:1px solid var(--timber-light);padding:4px 8px}
-#music button[aria-pressed="true"]{background:var(--ink);color:var(--cream);border-color:var(--ink)}
-#music button:disabled{opacity:.4;cursor:default}#music button:active:not(:disabled){transform:translateY(2px)}
-#music a:focus-visible,#music button:focus-visible{outline:2px solid var(--moss);outline-offset:3px}
-.record-player{padding:4px;background:var(--timber-light);border:3px solid var(--timber);box-shadow:inset 2px 2px var(--timber-top),3px 3px var(--pixel-shadow)}
-.record-deck{height:104px;position:relative;background:var(--cream-3);border:2px solid var(--timber)}
+/* V20 第 6.6 节：功能与标记不变，只换材质。按钮是搪瓷徽章（选中站牌色，悬停浮起色只给未选中的那枚，
+   免得选中键悬停时站牌色字压在浮起色上）；唱片盘、唱臂、指示灯仍是像素画。 */
+#music button:not([data-music-play]){font:inherit;line-height:20px;color:var(--ink);background:var(--surface);border:2px solid var(--edge);box-shadow:0 2px 0 var(--edge);padding:4px 8px}
+#music button:not([data-music-play]):not([aria-pressed="true"]):hover:not(:disabled){background:var(--raised)}
+#music button[aria-pressed="true"]{background:var(--plate);color:var(--on-plate);border-color:var(--plate)}
+#music button:disabled{opacity:.4;cursor:default}#music button:active:not(:disabled){transform:translateY(2px);box-shadow:none}
+#music a:focus-visible,#music button:focus-visible{outline:2px solid var(--rail);outline-offset:3px}
+.record-player{padding:4px;background:var(--raised);border:2px solid var(--edge);box-shadow:var(--lift)}
+.record-deck{height:104px;position:relative;background:var(--surface);border:2px solid var(--edge)}
 .record-disc{position:absolute;left:calc(50% - 54px);top:2px;width:96px;height:96px;background:#252d2b;clip-path:polygon(25% 0,75% 0,75% 6%,87% 6%,87% 13%,94% 13%,94% 25%,100% 25%,100% 75%,94% 75%,94% 87%,87% 87%,87% 94%,75% 94%,75% 100%,25% 100%,25% 94%,13% 94%,13% 87%,6% 87%,6% 75%,0 75%,0 25%,6% 25%,6% 13%,13% 13%,13% 6%,25% 6%)}
 .record-disc::before{content:'';position:absolute;inset:10px;border:3px solid #46504a;box-shadow:inset 0 0 0 4px #252d2b,inset 0 0 0 6px #46504a;clip-path:polygon(20% 0,80% 0,80% 8%,92% 8%,92% 20%,100% 20%,100% 80%,92% 80%,92% 92%,80% 92%,80% 100%,20% 100%,20% 92%,8% 92%,8% 80%,0 80%,0 20%,8% 20%,8% 8%,20% 8%)}
 .record-label{position:absolute;left:30px;top:30px;width:36px;height:36px;object-fit:contain;border:3px solid #d8b16c;image-rendering:auto}
@@ -44,29 +47,32 @@ const css = `
 .record-arm::after{content:'';position:absolute;bottom:-6px;left:-3px;width:12px;height:14px;background:#9a6344;border:2px solid #45372b}
 .record-light{position:absolute;right:12px;bottom:10px;width:8px;height:8px;background:#64824c;box-shadow:2px 2px #3e5032}
 html[data-time="night"] .record-light{background:#efca6a;box-shadow:0 0 8px #efca6a}
-.record-speaker{height:12px;margin-top:4px;background:repeating-linear-gradient(90deg,var(--timber) 0 3px,transparent 3px 7px);border-top:2px solid var(--timber);border-bottom:2px solid var(--timber)}
-.music-ranking{margin-top:8px;border-top:1px solid var(--cream-3)}
-.music-ranking>summary{display:flex;align-items:center;justify-content:space-between;gap:8px;padding:8px 0;list-style:none;color:var(--ink);font-weight:bold}
+.record-speaker{height:12px;margin-top:4px;background:repeating-linear-gradient(90deg,var(--edge) 0 3px,transparent 3px 7px);border-top:2px solid var(--edge);border-bottom:2px solid var(--edge)}
+.music-ranking{margin-top:8px;border-top:1px solid var(--line)}
+.music-ranking>summary{display:flex;align-items:center;justify-content:space-between;gap:8px;padding:8px 0;list-style:none;color:var(--ink)}
 .music-ranking>summary::-webkit-details-marker{display:none}
 .music-ranking>summary span{font-size:12px;line-height:12px;transition:transform .18s ease}
 /* ⚠️ 这里曾是 16px —— 违反像素字号硬规矩（12/24/36）。旧布局里它躺在右栏深处、
    恰好在 check-layout 的取样视口外逃了检；搬进仪表盘侧栏后被量到（2026-09-26）。
    不是新引入的字号，是旧违规的合规化。 */
 .music-ranking[open]>summary span{transform:rotate(45deg)}
-.music-ranking>summary:hover{color:var(--moss)}.music-ranking>summary:active{transform:translateY(1px)}
-.music-ranking>summary:focus-visible{outline:2px solid var(--moss);outline-offset:3px}
+.music-ranking>summary:hover{color:var(--rail)}.music-ranking>summary:active{transform:translateY(1px)}
+.music-ranking>summary:focus-visible{outline:2px solid var(--rail);outline-offset:3px}
 @media(prefers-reduced-motion:reduce){.music-ranking>summary span{transition:none}}
-.music-selection{margin:8px 0 4px;display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:4px 8px}.music-selection>span{font-weight:bold}.music-listen{color:var(--ink);font-size:12px;text-underline-offset:3px}
-.music-list{list-style:none;padding:0;margin:0}.music-row{display:grid;grid-template-columns:24px minmax(0,1fr);gap:8px;align-items:center;border-bottom:1px dashed var(--cream-3)}
-.music-row:hover{background:var(--cream-2)}
+.music-selection{margin:8px 0 4px;display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:4px 8px}.music-listen{color:var(--ink);font-size:12px;text-underline-offset:3px}
+.music-list{list-style:none;padding:0;margin:0}.music-row{display:grid;grid-template-columns:24px minmax(0,1fr);gap:8px;align-items:center;border-bottom:1px dashed var(--line)}
+.music-row:hover{background:var(--raised)}
 .music-row a{display:block;min-width:0;padding:8px 0;text-decoration:none;color:var(--ink)}
-.music-rank{color:var(--moss)}.music-track{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,.65fr);gap:8px;min-width:0}.music-track b{display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;font-weight:normal}.music-track small{display:block;font-size:12px;line-height:20px;color:var(--ink-2);text-align:right;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+/* 名次像素 12；曲名与歌手会被截断，用阅读字 14 */
+.music-rank{color:var(--rail)}.music-track{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,.65fr);gap:8px;min-width:0}
+.music-track b,.music-track small{display:block;font-family:var(--read);font-size:14px;line-height:22px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.music-track b{font-weight:normal}.music-track small{color:var(--ink-2);text-align:right}
 /* ---- 序号格 = 试听键 ----
    ⚠️⚠️ 上面那条木牌按钮用 :not([data-music-play]) 排除了它 —— 但排除之后
    **浏览器默认的按钮样式**（灰底、2px outset 黑边、13.33px 字号）会顶上来，
    实测量出来的（第一版只排不管，柯西：「放歌 UI 不好看」的元凶之一）。
    所以这里 reset 必须自己写全，一个都不能省。 */
-#music button[data-music-play]{position:relative;width:24px;height:24px;display:grid;place-items:center;padding:0;border:0;background:none;font:inherit;line-height:12px;color:var(--moss)}
+#music button[data-music-play]{position:relative;width:24px;height:24px;display:grid;place-items:center;padding:0;border:0;background:none;font:inherit;line-height:12px;color:var(--rail)}
 /* 两个手绘像素图标（icons.js 的 play/pause），默认藏着，按状态亮。
    行里那枚 16px（跟序号一格），播控条上那枚 24px —— 主控制要够大才点得爽。 */
 #music .music-ic{display:none}
@@ -80,8 +86,8 @@ html[data-time="night"] .record-light{background:#efca6a;box-shadow:0 0 8px #efc
 #music[data-playing="1"] .music-transport .music-ic-play{display:none}
 #music[data-playing="1"] .music-transport .music-ic-pause{display:inline-block}
 /* 进度条：8px 高的木框槽 + 实心填充，点/拖都能跳（cursor 见 gen.js 的可点光标名单） */
-.music-seek{display:block;height:8px;background:var(--cream-3);border:2px solid var(--timber)}
-.music-seek-fill{display:block;height:100%;width:0;background:var(--moss)}
+.music-seek{display:block;height:8px;background:var(--raised);border:2px solid var(--edge)}
+.music-seek-fill{display:block;height:100%;width:0;background:var(--rail)}
 .music-time{font-size:12px;line-height:24px;color:var(--ink-2);font-variant-numeric:tabular-nums;white-space:nowrap}
 #music .music-row:not([data-state="playing"]):not([data-state="paused"]) .music-play:hover .music-ic-play{display:inline-block}
 #music .music-row[data-state="paused"] .music-ic-play{display:inline-block}
@@ -97,7 +103,7 @@ html[data-time="night"] .record-light{background:#efca6a;box-shadow:0 0 8px #efc
 .record-deck.playing .record-arm{transform:rotate(25deg)}
 @keyframes mu-blink{50%{opacity:.15}}
 .record-deck.playing .record-light{animation:mu-blink 1s steps(2,end) infinite}
-.music-now{margin:6px 0 0;color:var(--ink-2);line-height:20px}
+.music-now{margin:8px 0 0;font-family:var(--read);font-size:14px;line-height:22px;color:var(--ink-2)}
 .music-pager{display:flex;align-items:center;justify-content:space-between;gap:4px;margin:8px 0}.music-pager [data-music-page]{white-space:nowrap;font-variant-numeric:tabular-nums}
 .music-source{display:flex;flex-wrap:wrap;justify-content:space-between;gap:2px 8px;margin:8px 0 0;color:var(--ink-2);line-height:18px}.music-source a{color:var(--ink);text-underline-offset:3px}.music-source>span{white-space:nowrap}.music-empty{margin:12px 0;color:var(--ink-2)}
 #music [hidden]{display:none!important}

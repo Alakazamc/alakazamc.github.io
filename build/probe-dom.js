@@ -19,13 +19,16 @@ const fs = require('fs');
 const path = require('path');
 const { execFileSync } = require('child_process');
 const { delFile } = require('./rm.js');
-
-const EDGE = [
-  'C:/Program Files (x86)/Microsoft/Edge/Application/msedge.exe',
-  'C:/Program Files/Microsoft/Edge/Application/msedge.exe'
-].find((p) => fs.existsSync(p));
+const { browser } = require('./browser.js');
 
 const ROOT = path.join(__dirname, '..');
+
+// ⚠️ 别再写死 Edge 路径：2026-10-01 那次 Edge 半截更新后 msedge.exe 变成
+//   "启动即退出、exit 0、stdout 空"，它不报错但也不干活，于是这里报的错
+//   全都是"读不到探针输出"这种误导性信息。改走 browser.js 的能力探测。
+//   注意是**函数**不是常量：进程启动时 Edge 可能还是好的，也可能已经哑了，
+//   每次调用重新确认一次（browser.js 内部有缓存，只会真探一次）。
+const EDGE = () => browser();
 
 /**
  * @param {string} relPage   相对站点根目录的页面路径，例如 'stardew-maximal-v3.html'
@@ -61,15 +64,22 @@ function measure(relPage, jsFn, opt) {
   const tmp = path.join(path.dirname(pagePath), '_probe-dom.html');
   fs.writeFileSync(tmp, src.replace('</body>', probe + '</body>'), 'utf8');
 
+  const exe = browser();
+  if (!exe) throw new Error('没有可用的无头浏览器（Edge 和 Playwright chromium 都跑不出 --dump-dom）');
+
   let out;
   try {
-    out = execFileSync(EDGE, [
+    out = execFileSync(exe, [
       '--headless=new', '--disable-gpu', '--no-sandbox', '--hide-scrollbars',
       '--window-size=' + width + ',' + height,
       '--virtual-time-budget=' + budget,
       '--dump-dom',
       'file:///' + tmp.replace(/\\/g, '/')
-    ], { encoding: 'utf8', maxBuffer: 128 * 1024 * 1024 });
+      // ⚠️ stderr 必须吞掉：chromium headless shell 会把页面里的 console 噪音
+      //   （giscus postMessage、file:// 的 CORS 报错）打到 stderr，而 execFileSync
+      //   默认把子进程 stderr 接到父进程 stderr —— check-all 的输出会被这些
+      //   跟结论无关的行刷屏，看起来像检查报错。
+    ], { encoding: 'utf8', maxBuffer: 128 * 1024 * 1024, stdio: ['ignore', 'pipe', 'ignore'] });
   } finally {
     // 探针可能运行在主页，也可能运行在 museum/ 这类部署目录。
     // 无论浏览器成功还是抛错都立刻删除，避免检查产物被 push.js 当成站点文件上线。
@@ -93,4 +103,4 @@ function measure(relPage, jsFn, opt) {
   return parsed;
 }
 
-module.exports = { measure, EDGE, ROOT };
+module.exports = { measure, EDGE, ROOT };   // EDGE 是函数，历史调用方见 cdp.js

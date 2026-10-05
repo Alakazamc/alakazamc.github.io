@@ -20,8 +20,11 @@
 const SITE = {
   name: '柯西 Alakazam',
   home: 'stardew-maximal-v3.html',
-  // Provisional selection from existing public projects; descriptions remain source-backed.
-  featuredRepos: ['szudesktop', 'pskit-2.0', 'ProteinAgent'],
+  /* ⚠️ 这里原来是 featuredRepos（手写三个仓库名，主页精选用）。
+     2026-10-03 移除了 —— 主页工坊顶部的「精选项目」改由 **build/projects.js** 维护，
+     那个文件能给封面、角色、可验证成果，一个名字数组给不了。
+     「最近推送的仓库」那条网格也不再按名字选，直接按推送时间排、并剔除精选里已展示的。
+     守门从 check-workshop 里改到守 projects.js（含封面文件存在性）。 */
 
   // ===== 友情站（主页「友情站」面板的数据）=====
   //

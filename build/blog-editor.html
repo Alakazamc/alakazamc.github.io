@@ -12,8 +12,9 @@
   @import url('../font.css');
   *{box-sizing:border-box}
   :root{
-    --ink:#3B2412; --cream:#FDF6E3; --wood:#C8A165; --wood-d:#8B5A2B;
-    --grass:#4E9440; --accent:#E8A33D;
+    /* V20 第 7.2 节：颜色换成樱花昼值（墨、面、浮起、控件边、车厢青、灯笼）；组件规则不动。 */
+    --ink:#2A2731; --cream:#FFFBF5; --wood:#F2E7DA; --wood-d:#8E8174;
+    --grass:#2E5E6E; --accent:#F0B45C;
     /* 可点态像素光标（金黄箭头）。全站普通态/可点态是两支不同的箭头，
        写作页没有主题样式表，单独带一份 --cur-b 进来。
        ⚠️ 别改回裸 cursor:pointer —— 系统箭头会把像素光标顶掉。 */
@@ -23,7 +24,7 @@
   body{
     font-family:'FusionPixel','Courier New',monospace;
     font-size:12px; line-height:1.7; color:var(--ink);
-    background:#7FB3D5;
+    background:#F7F1E8;
     display:flex; flex-direction:column; height:100vh; overflow:hidden;
   }
   header{
@@ -32,6 +33,13 @@
   }
   header h1{margin:0;font-size:24px;font-weight:400}
   header .sp{flex:1}
+  /* 站牌返回链接（V20 第 7.2 节）：像素 24「柯西」+ 像素 12「← 回到主页」，与工具栏徽章同一套皮。
+     写作台没有 sprite，箭头用文字「←」（在 font.css 核心子集里）。 */
+  header .brand{display:flex;align-items:center;gap:8px;min-height:40px;padding:0 12px;flex:0 0 auto;
+    background:var(--cream);border:2px solid var(--ink);color:var(--ink);text-decoration:none;
+    font-size:12px;line-height:24px;cursor:var(--cur-b),pointer}
+  header .brand b{font-size:24px;line-height:32px;font-weight:400}
+  header .brand:hover span{text-decoration:underline;text-underline-offset:4px}
   .badge{background:var(--cream);border:3px solid var(--ink);padding:4px 8px;font-size:12px}
   main{flex:1;display:flex;min-height:0}
   .pane{flex:1;display:flex;flex-direction:column;min-width:0}
@@ -45,13 +53,13 @@
 
   /* 表单 */
   .meta{padding:12px;display:grid;grid-template-columns:auto 1fr;gap:8px 10px;align-items:center;
-    border-bottom:3px solid var(--ink);background:#FFFDF5}
+    border-bottom:3px solid var(--ink);background:#FFFBF5}
   .meta label{text-align:right;font-size:12px}
   input,textarea{
     font-family:inherit;font-size:12px;color:var(--ink);
     background:var(--cream);border:3px solid var(--ink);padding:6px 8px;width:100%;
   }
-  input:focus,textarea:focus{outline:none;border-color:var(--accent);background:#fff}
+  input:focus,textarea:focus{outline:none;border-color:var(--grass);background:#fff}
   textarea{resize:none;line-height:1.75;tab-size:2}
 
   #body{height:100%;border:0;border-radius:0;padding:12px;font-family:ui-monospace,Consolas,"Microsoft YaHei",monospace;font-size:16px;line-height:1.8}
@@ -61,16 +69,16 @@
   .coverbox{display:flex;gap:6px}
   .coverbox input{flex:1;min-width:0}
   .coverbox button{padding:6px 10px;white-space:nowrap}
-  #preview{padding:16px 20px;background:#FFFDF5;font-family:system-ui,-apple-system,"Segoe UI","PingFang SC","Microsoft YaHei",sans-serif;font-size:18px;line-height:1.9;max-width:42rem;margin-inline:auto;overflow-wrap:break-word}
+  #preview{padding:16px 20px;background:#FFFBF5;font-family:system-ui,-apple-system,"Segoe UI","PingFang SC","Microsoft YaHei",sans-serif;font-size:18px;line-height:1.9;max-width:42rem;margin-inline:auto;overflow-wrap:break-word}
   #preview h2,#preview h3,#preview h4{font-family:"FusionPixel","Courier New",monospace;font-weight:400;line-height:1.6}
   #preview h2{font-size:24px;margin:18px 0 10px;border-bottom:3px solid var(--ink);padding-bottom:4px}
   #preview h3{font-size:24px;margin:16px 0 8px}
   #preview h4{font-size:24px;margin:14px 0 6px}
   #preview p{margin:0 0 1.25em}
-  #preview code{font-family:ui-monospace,Consolas,"SFMono-Regular",monospace;font-size:15px;background:#F0E6CE;border:2px solid var(--ink);padding:0 3px}
+  #preview code{font-family:ui-monospace,Consolas,"SFMono-Regular",monospace;font-size:15px;background:#F2E7DA;border:2px solid var(--ink);padding:0 3px}
   #preview pre{background:#2B1D0E;color:#FDF6E3;padding:10px 12px;overflow:auto;border:3px solid var(--ink)}
   #preview pre code{background:none;border:0;padding:0}
-  #preview blockquote{margin:0 0 12px;padding:6px 12px;border-left:5px solid var(--wood-d);background:#F5EDD8}
+  #preview blockquote{margin:0 0 12px;padding:6px 12px;border-left:5px solid var(--wood-d);background:#F2E7DA}
   #preview blockquote p{margin:0 0 6px}
   #preview ul,#preview ol{margin:0 0 12px;padding-left:24px}
   #preview li{margin:2px 0}
@@ -125,7 +133,7 @@
   .card p{margin:0 0 10px}
   .card ol{margin:8px 0 12px;padding-left:22px}
   .card li{margin:4px 0}
-  .card code{background:#F0E6CE;border:2px solid var(--ink);padding:0 3px}
+  .card code{background:#F2E7DA;border:2px solid var(--ink);padding:0 3px}
   .card a{color:#185FA5}
   .card .row{display:flex;gap:8px;margin-top:12px;flex-wrap:wrap}
   .err{display:none;background:#FCEBEB;border:3px solid #E24B4A;padding:6px 9px;margin-top:10px}
@@ -140,7 +148,7 @@
 
   /* 相馆上传区 */
   .gdrop{
-    border:3px dashed var(--ink);background:#FFFDF5;padding:18px;
+    border:3px dashed var(--ink);background:#FFFBF5;padding:18px;
     text-align:center;cursor:var(--cur-b),pointer;font-size:12px;line-height:1.7;
   }
   .gdrop.hot{background:#EAF6E6;border-color:var(--grass)}
@@ -150,7 +158,7 @@
   .gfield input[type=text]{flex:1;min-width:200px}
   .gfield input[type=date]{width:150px}
   #gPrev{max-width:100%;border:3px solid var(--ink);image-rendering:auto;background:#fff}
-@media(max-width:680px){
+@media(max-width:760px){
 body{height:auto;min-height:100dvh;overflow:visible}header{flex-wrap:wrap;gap:8px;padding:12px}header h1{font-size:24px}header .sp{display:none}
 main{display:block}.pane+.pane{border-left:0;border-top:2px solid var(--ink)}.pane-b{overflow:visible}#body{min-height:50dvh}.bar{position:sticky;bottom:0;z-index:10;padding:8px}.hint{width:100%;overflow-wrap:anywhere}#preview{padding:16px}#login{padding:12px}#login.on{align-items:flex-start}.card{padding:16px}.card code{overflow-wrap:anywhere}.meta{grid-template-columns:48px minmax(0,1fr);gap:8px}.coverbox{flex-wrap:wrap}.coverbox input{flex-basis:100%}.gfield input[type=text]{min-width:0;width:100%;flex-basis:100%}.posts{max-width:calc(100vw - 24px);min-width:0}button{min-height:44px}
 }
@@ -160,6 +168,7 @@ main{display:block}.pane+.pane{border-left:0;border-top:2px solid var(--ink)}.pa
 <body>
 
 <header>
+  <a class="brand" href="../stardew-maximal-v3.html" aria-label="回到主页"><b>柯西</b><span>← 回到主页</span></a>
   <h1>写博客</h1>
   <span class="badge" id="mode">本机专用</span>
   <span class="seg" id="modeSeg">

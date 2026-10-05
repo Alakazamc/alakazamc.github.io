@@ -13,7 +13,8 @@ const fs = require('fs');
 const path = require('path');
 const { ICONS, toSymbol } = require('./icons.js');
 const SITE = require('./site.config.js');
-const { seasonScript, bottomBlock, decorate, dcShelf, DECOR_ICONS, shareBtn, shareScript, skinHead, themeHref } = require('./subpage.js');
+const { featuredHtml, contribHtml } = require('./projects.js');
+const { seasonScript, bottomBlock, CHROME_ICONS, metaLine, shareScript, sitebar, skinHead, themeHref } = require('./subpage.js');
 
 const ROOT = path.join(__dirname, '..');
 const OUT = path.join(ROOT, 'workshop', 'index.html');
@@ -57,6 +58,9 @@ function normalize() {
   return { repos, source: g };
 }
 
+/* ⚠️ 精选区用的是与主页同一份渲染（build/projects.js），只多传一个 '../' 前缀 ——
+   封面图的路径是**站根相对**的，这页在子目录里。漏传前缀的后果是静默的：
+   三张封面全 404，而 404 的 img 在 CSS 里不占位，卡片顶上直接空一块。 */
 function page(payload) {
   const repos = payload.repos;
   const src = payload.source || {};
@@ -81,19 +85,25 @@ function page(payload) {
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>工坊 · ${esc(SITE.name)}</title>
 ${skinHead()}
-<link rel="stylesheet" href="../assets-layers.css">
 <link rel="stylesheet" href="../font.css">
 <link rel="stylesheet" href="${themeHref()}">
 </head>
 <body class="is-article is-workshop-page">
-${sprite(['chest', 'gem', 'crystal', 'coin', 'key', 'star', 'wheat', 'flower', 'mailbox', 'gear', 'share'].concat(DECOR_ICONS))}
-${decorate()}
+${sprite(['chest', 'gem', 'crystal', 'coin', 'key', 'star', 'gear',
+  // 'play'：精选区（projects.js）每张卡的「查看仓库 ▶」尾部指针（V20 起不用光标形状的 arrow），也是页头站牌的 ◀。
+  // ⚠️ 这页的 sprite 是**手工白名单**，不是首页那套全量 —— 精选区加图标时
+  //    容易漏在这里，而漏了的 `<use href="#px-play">` 渲染成空白、不报错。
+  'play'].concat(CHROME_ICONS))}
 <div class="wrap museum-wrap">
-  <nav class="abarnav"><a class="abtn" href="../${esc(SITE.home)}#projects">${ic('mailbox', 'sm')}回到农场</a>${shareBtn('sm')}</nav>
+  ${sitebar({ prefix: '../', back: '#projects' })}
   <section class="panel museum-page">
-    <h2 class="pt">${ic('chest', 'xs')}工坊${ic('crystal', 'xs')}</h2>
+    <h2 class="pt">${ic('chest', 'sm')}工坊</h2>
     <h1 class="arttitle">仓库 ${repos.length} 个</h1>
-    <p class="artmeta">${ic('gear', 'xs')}主语言 ${langs.length} 种 · ${tot.languages || '—'} 种语言构成 · @${esc(src.user || 'Alakazamc')}${updated ? ' · 最近同步 ' + esc(updated) : ''}</p>
+    <p class="artmeta">${metaLine([{ html: ic('gear', 'xs') + '主语言 ' + langs.length + ' 种' }, (tot.languages || '—') + ' 种语言构成',
+      '@' + (src.user || 'Alakazamc'), updated && '最近同步 ' + updated])}</p>
+    ${featuredHtml('../')}
+    ${contribHtml()}
+    <h2 class="museum-zone-title">${ic('chest', 'sm')}全部仓库</h2>
     ${repos.length ? `
     <div class="museum-filters" role="tablist" aria-label="按主语言筛选">
       ${tabs.map(([k, label, n], i) => `<button class="museum-filter${i === 0 ? ' on' : ''}" data-lang="${esc(k)}" role="tab" aria-selected="${i === 0}">${esc(label)}<i>${n}</i></button>`).join('')}
@@ -108,7 +118,7 @@ ${decorate()}
     <p class="museum-note">仓库信息来自 GitHub 公开仓库；语言构成按字节数统计，仅供参照（模板/配置多的仓库会失真）。</p>
     ` : `<p class="museum-note">暂时读不到 GitHub 数据。跑一次 <code>node build/sources/github.js</code> 就能恢复。</p>`}
   </section>
-  ${bottomBlock('', '../')}
+  ${bottomBlock('', '../', { current: 2 })}
 </div>
 <script id="workshop-data" type="application/json">${json(repos)}</script>
 <script>

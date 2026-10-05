@@ -189,13 +189,14 @@ function startGarden(host) {
   pipeline.ink.mat.uniforms.uSens.value=.009;
   pipeline.ink.mat.uniforms.uConcave.value=.035;
 
-  let paused=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  // V20「一束光」：光照只跟随 <html data-time>，暂停只跟随舞台的 data-paused（按钮在 gen.js／skin-scenes.js 里）。
+  const root = document.documentElement;
+  const stageBox = host.closest('[data-stage]');
+  const isPaused = () => stageBox.dataset.paused === 'true';
   let visible=false, raf=0, last=0, elapsed=0, lightMode='day', width=0, height=0;
   let desiredX=0, desiredY=0, driftX=0, driftY=0;
   const abort = new AbortController();
   const on=(obj,event,fn)=>obj.addEventListener(event,fn,{signal:abort.signal});
-  const lightButtons = host.querySelectorAll('[data-toon-light]');
-  const pauseButton = host.querySelector('[data-toon-pause]');
   function setLighting(mode) {
     lightMode=mode;
     host.dataset.light=mode;
@@ -213,7 +214,6 @@ function startGarden(host) {
     su.uHaze.value.set(night ? 0xc0a9bc:0xfbe7e9);
     shopLamp.intensity=night ? 7:0;
     bookshop.lanterns.forEach(m=>{m.emissiveIntensity=night ? 1.8:.25;});
-    lightButtons.forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.toonLight===mode)));
     draw();
   }
   function draw() {
@@ -252,20 +252,19 @@ function startGarden(host) {
   function sync() {
     cancelAnimationFrame(raf);raf=0;
     const active=visible&&!document.hidden&&document.documentElement.dataset.skin==='sakura';
-    host.dataset.motion=active&&!paused?'running':'paused';
+    host.dataset.motion=active&&!isPaused()?'running':'paused';
     if(active) {
       resize();
-      if(!paused) {last=performance.now();raf=requestAnimationFrame(frame);}
+      if(!isPaused()) {last=performance.now();raf=requestAnimationFrame(frame);}
     }
   }
-  function pauseLabel() {
-    pauseButton.setAttribute('aria-pressed',String(paused));
-    pauseButton.textContent=paused?'继续风景':'暂停风景';
-  }
-  lightButtons.forEach(b=>on(b,'click',()=>setLighting(b.dataset.toonLight)));
-  on(pauseButton,'click',()=>{paused=!paused;pauseLabel();sync();});
+  const watcher=new MutationObserver(records=>{
+    records.forEach(r=>{if(r.target===root)setLighting(root.dataset.time==='night'?'night':'day');else sync();});
+  });
+  watcher.observe(root,{attributes:true,attributeFilter:['data-time']});
+  watcher.observe(stageBox,{attributes:true,attributeFilter:['data-paused']});
   on(canvas,'pointermove',e=>{
-    if(paused)return;
+    if(isPaused())return;
     const r=canvas.getBoundingClientRect();
     desiredX=(e.clientX-r.left)/r.width*2-1;
     desiredY=.5-(e.clientY-r.top)/r.height;
@@ -273,8 +272,6 @@ function startGarden(host) {
   on(canvas,'pointerleave',()=>{desiredX=desiredY=0;});
   on(document,'visibilitychange',sync);
   on(document,'kx:skin',sync);
-  const reduced=window.matchMedia('(prefers-reduced-motion: reduce)');
-  on(reduced,'change',e=>{paused=e.matches;pauseLabel();sync();});
   const intersection=new IntersectionObserver(entries=>{visible=entries[0].isIntersecting;sync();},{threshold:0});
   intersection.observe(stage);
   const resizer=new ResizeObserver(resize);
@@ -282,7 +279,7 @@ function startGarden(host) {
   on(window,'pagehide',e=>{
     cancelAnimationFrame(raf);
     if(e.persisted)return;
-    intersection.disconnect();resizer.disconnect();abort.abort();
+    intersection.disconnect();resizer.disconnect();watcher.disconnect();abort.abort();
     const geometries=new Set(),mats=new Set(),textures=new Set();
     scene.traverse(obj=>{
       if(obj.geometry)geometries.add(obj.geometry);
@@ -293,7 +290,7 @@ function startGarden(host) {
     pipeline.dispose();renderer.dispose();
   });
   on(window,'pageshow',sync);
-  resize();setLighting('day');pauseLabel();
+  resize();setLighting(root.dataset.time==='night'?'night':'day');
   host.dataset.state='ready';
 
   function makeTrain() {

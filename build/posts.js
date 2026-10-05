@@ -13,18 +13,17 @@ const fs = require('fs');
 const path = require('path');
 const { articles, TAG_ICON } = require('./content.js');
 const { ICONS, toSymbol } = require('./icons.js');
-const { seasonScript, bottomBlock, decorate, dcShelf, DECOR_ICONS, shareBtn, shareScript, skinHead, themeHref } = require('./subpage.js');
+const { seasonScript, bottomBlock, CHROME_ICONS, metaLine, shareScript, sitebar, skinHead, themeHref } = require('./subpage.js');
 const SITE = require('./site.config.js');
 const {tableOfContents} = require('./papermod.js');
+const { row } = require('./timetable.js');
+const PALETTE = require('./palette.js');
 
 const ROOT = path.join(__dirname, '..');
 const OUT_DIR = path.join(ROOT, 'posts');
 
 const ic = (n, cls) =>
   `<svg class="ic${cls ? ' ' + cls : ''}" viewBox="0 0 16 16"><use href="#px-${n}"></use></svg>`;
-const corners = (a, b, c, d) =>
-  `<span class="cor tl">${ic(a, 'sm')}</span><span class="cor tr">${ic(b, 'sm')}</span>` +
-  `<span class="cor bl">${ic(c, 'sm')}</span><span class="cor br">${ic(d, 'sm')}</span>`;
 
 // 文章页只需要用到的几个图标。整份 sprite 有 60+ 个图标、几十 KB，
 // 每篇文章都塞一份纯属浪费 —— 按需裁一份出来。
@@ -66,7 +65,8 @@ function commentsBlock(a, opts) {
   const c = (SITE.comments || {});
   const blockId = o.id || 'comments';
   const title = o.title || '评论';
-  const head = `<h2 class="pt">${ic('mailbox', 'xs')}${title}${ic('mailbox', 'xs')}</h2>`;
+  // 面板头：一枚 16px 图标 + 标题（V20 第 6.11 节，与 gen.js 的 panel() 同一写法）
+  const head = `<h2 class="pt">${ic('mailbox')}${title}</h2>`;
 
   if (c.provider === 'giscus' && c.giscus && c.giscus.repo && c.giscus.repoId) {
     const g = c.giscus;
@@ -84,7 +84,7 @@ function commentsBlock(a, opts) {
       data-mapping="${esc(mapping)}"${termLine}
       data-reactions-enabled="${esc(g.reactionsEnabled || '1')}" data-emit-metadata="0"
       data-input-position="${esc(g.inputPosition || 'top')}"
-      data-theme="light" data-lang="zh-CN" data-loading="lazy"
+      data-theme="${esc(PALETTE.giscusThemes()['sakura-day'])}" data-lang="zh-CN" data-loading="lazy"
       crossorigin="anonymous" async></script>
   </div>
 </section>`;
@@ -126,11 +126,12 @@ function page(a, prev, next) {
   const cover = a.cover
     ? `<p class="artcover"><img src="${esc(rel(a.cover))}" alt="${esc(a.title)}"></p>`
     : '';
-  // 标签各配一枚像素图标（映射表 TAG_ICON 在 content.js）；没命中的标签原样出文字。
-  // ⚠️ 图标是 display:block 的 SVG，直接塞进 <p> 的文本流会被当成块级元素换行 ——
-  //    gen.js 里的 .artmeta svg.ic 规则已把它退回 inline-block（theme.css 的唯一来源）。
-  const tagRow = (a.tags || []).map((t) => (TAG_ICON[t] ? ic(TAG_ICON[t], 'xs') : '') + esc(t)).join(' / ');
-  const metarow = [esc(a.date), a.meta ? esc(a.meta) : '', tagRow].filter(Boolean).join(' · ');
+  // 元信息行（V20 第 4 节 metaLine()）：日期、豆瓣元信息（按 ' · ' 拆回三项）、每个标签各成一项。
+  // 标签带一枚像素图标（映射表 TAG_ICON 在 content.js），没命中的标签原样出文字。
+  // 字符串项由 metaLine 统一转义；{ html } 里只放 ic() 图标和 esc() 过的标签名。
+  // ⚠️ 图标是 display:block 的 SVG —— gen.js 里的 .artmeta svg.ic 规则已把它退回 inline-block。
+  const metarow = metaLine([a.date, ...(a.meta ? a.meta.split(' · ') : []),
+    ...(a.tags || []).map((t) => ({ html: (TAG_ICON[t] ? ic(TAG_ICON[t], 'xs') : '') + esc(t) }))]);
 
   /* 目录在左、正文在右（柯西 2026-09-20：「文章内的文章目录能不能放在左边」）。
      有目录才建两栏（.art-cols）；没有目录时正文整幅居中，跟改造前一样。 */
@@ -152,27 +153,17 @@ ${reading.body}
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>${esc(a.title)} · ${esc(SITE.name)}</title>
 ${skinHead()}
-<link rel="stylesheet" href="../assets-layers.css">
 <link rel="stylesheet" href="../font.css">
 <link rel="stylesheet" href="${themeHref()}">
 </head>
 <body class="is-article">
-${decorate()}
-${spriteFor(['mailbox', 'book', 'star', 'wateringcan', 'heart', 'flower', 'wheat', 'basket', 'share', icon]
-  .concat(Object.values(TAG_ICON)).concat(DECOR_ICONS))}
+${spriteFor(['mailbox', 'basket', icon].concat(Object.values(TAG_ICON), CHROME_ICONS))}
 <div class="wrap">
-  <nav class="abarnav${reading.toc ? ' has-toc' : ''}">
-    <a class="abtn" href="../${esc(SITE.home)}">${ic('mailbox', 'sm')}回到农场</a>
-    <a class="abtn" href="index.html">${ic('basket', 'sm')}博客首页</a>
-  </nav>
+  ${sitebar({ prefix: '../', back: '#timeline', extra: `<a class="abtn" href="index.html">${ic('basket', 'sm')}博客首页</a>` })}
   <article class="panel artpage${reading.toc ? ' has-toc' : ''}">
-    <h2 class="pt">${ic(icon, 'xs')}${SRC_LABEL[a.source] || '文章'}${ic(icon, 'xs')}</h2>
-    ${corners('flower', 'flower', 'wheat', 'wheat')}
+    <h2 class="pt">${ic(icon, 'sm')}${SRC_LABEL[a.source] || '文章'}</h2>
     <h1 class="arttitle">${esc(a.title)}</h1>
-    <div class="artmeta-row">
-      <p class="artmeta">${metarow}</p>
-      ${shareBtn('sm')}
-    </div>
+    <p class="artmeta">${metarow}</p>
     ${cover}
     ${body}
     <footer class="artfoot">
@@ -181,12 +172,12 @@ ${spriteFor(['mailbox', 'book', 'star', 'wateringcan', 'heart', 'flower', 'wheat
       : `<span class="artorig quiet">${esc(SITE.name)}</span>`}
     </footer>
   </article>
-  ${commentsBlock(a)}
   <nav class="apager">
     ${prev ? `<a class="apg prev" href="${esc(prev.slug)}.html"><i>上一篇</i><b>${esc(prev.title)}</b></a>` : '<span class="apg empty"></span>'}
     ${next ? `<a class="apg next" href="${esc(next.slug)}.html"><i>下一篇</i><b>${esc(next.title)}</b></a>` : '<span class="apg empty"></span>'}
   </nav>
-  ${bottomBlock('', '../')}
+  ${commentsBlock(a)}
+  ${bottomBlock('', '../', { current: 3 })}
 </div>
 <script src="../assets/vendor/papermod-reading.js" defer></script>
 ${seasonScript()}
@@ -204,16 +195,14 @@ ${shareScript()}
 //
 // 2026-09-20 柯西：**「把时间线做一个单独的页面（作为博客页），
 // 主页只要放三篇最新的文章」** → 完整的时间线从主页搬到了这一页。
-// 结构从「大卡 + 紧凑列表」换成**时间线卡片**，与主页「最新文章」面板
-// 逐字节同构（tlwrap / tl-line / tl-item / tl-card），只有两处按子目录调整：
-//   1. 文章链接是同级 `${slug}.html`（不是主页的 `posts/${slug}.html`）；
-//   2. 封面路径要加 `../`（rel()），因为这一页自己在 posts/ 里。
+// V20（第 6.7 节）：行由 timetable.js 的 row() 渲染，与主页「最新文章」面板是同一个函数；
+// 只有文章链接按子目录调整成同级 `${slug}.html`（不是主页的 `posts/${slug}.html`）。行里不放封面。
 //
 // ⚠️ 样式不在本文件：.tl-* 的唯一定义在 gen.js 的内联 <style>，
 //    构建时导出成 assets/theme.css，本页 <link> 的就是它。改样式去改 gen.js。
 //
 // 仍然守住 2026-09-16 那三条"真博客页"的底线（只是换了个外形）：
-//   1. **带摘要和封面** —— 一列光秃秃的标题没法让人决定点哪个；
+//   1. **带摘要** —— 一列光秃秃的标题没法让人决定点哪个；
 //   2. **按来源分组标注** —— 本站手写的和豆瓣影评混在一起，但标签要能分清；
 //   3. **有自己的评论区** —— 柯西要求"首页 + 每篇文章"都有评论，博客列表页是
 //      除首页外最该能留言的地方（读者想说"你最近写得好"时，不会去某一篇文章底下说）。
@@ -223,34 +212,9 @@ function blogPage(list) {
   const siteCount = list.filter((x) => x.source === 'site').length;
   const doubanCount = list.filter((x) => x.source === 'douban').length;
 
-  /* 时间线卡片。与 gen.js 主页 timeline() 的 card() 同构 —— 改一边记得改另一边，
-     check-timeline.js 两个页面都会量。 */
-  const card = (a, i) => {
-    const [y, m, d] = String(a.date).split('-');
-    const tags = [a.source === 'douban' ? '豆瓣影评' : '本站']
-      .concat(a.tags.filter((t) => t !== '豆瓣影评'))
-      .slice(0, 3);
-    return `
-      <li class="tl-item${i === 0 ? ' lead' : ''}">
-        <div class="tl-when">
-          <b>${m}.${d}</b>
-          <i>${y}</i>
-        </div>
-        <div class="tl-axis"><span class="tl-dot">${ic(a.icon, 'xs')}</span></div>
-        <a class="tl-card${a.cover ? '' : ' nocover'}" href="${esc(a.slug)}.html">
-          ${a.cover
-        ? `<span class="tl-cover"><img src="${esc(rel(a.cover))}" alt="" loading="lazy"></span>`
-        : ''}
-          <div class="tl-body">
-            <b class="tl-title">${esc(a.title)}</b>
-            <p class="tl-exc">${esc(a.excerpt.slice(0, 110))}</p>
-            <div class="tl-tags">
-              ${tags.map((t) => `<span class="tl-tag">${TAG_ICON[t] ? ic(TAG_ICON[t], 'xs') : ''}${esc(t)}</span>`).join('')}
-            </div>
-          </div>
-        </a>
-      </li>`;
-  };
+  /* 时刻表行：与首页「最新文章」面板同一个渲染函数（timetable.js），check-timeline.js 两个页面都会量。
+     链接是同级的 <slug>.html（本页自己在 posts/ 里）。 */
+  const card = (a, i) => row(a, i, { href: a.slug + '.html', lead: i === 0, ic });
 
   // id="timeline" 让 check-timeline.js 用同一段 EXPR 同时量主页和这一页。
   // 一篇都没有时不画时间线，留一句指向写作台的话（不留空面板）。
@@ -267,32 +231,24 @@ function blogPage(list) {
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>博客 · ${esc(SITE.name)}</title>
 ${skinHead()}
-<link rel="stylesheet" href="../assets-layers.css">
 <link rel="stylesheet" href="../font.css">
 <link rel="stylesheet" href="${themeHref()}">
 </head>
 <body class="is-article">
-${decorate()}
-${spriteFor(['mailbox', 'basket', 'book', 'wateringcan', 'star', 'wheat', 'flower', 'chest', 'share']
+${spriteFor(['mailbox', 'basket', 'book', 'play']
   .concat(list.map((a) => a.icon))
   .concat(Object.values(TAG_ICON))
-  .concat(DECOR_ICONS))}
+  .concat(CHROME_ICONS))}
 <div class="wrap">
-  <nav class="abarnav">
-    <a class="abtn" href="../${esc(SITE.home)}">${ic('mailbox', 'sm')}回到农场</a>
-  </nav>
+  ${sitebar({ prefix: '../', back: '#timeline' })}
   <section class="panel artpage">
-    <h2 class="pt">${ic('basket', 'xs')}博客${ic('basket', 'xs')}</h2>
-    ${corners('wheat', 'flower', 'flower', 'wheat')}
+    <h2 class="pt">${ic('basket', 'sm')}博客</h2>
     <h1 class="arttitle">一共 ${list.length} 篇</h1>
-    <div class="artmeta-row">
-      <p class="artmeta">本站手写 ${siteCount} 篇 · 豆瓣影评 ${doubanCount} 篇 · 按时间倒序</p>
-      ${shareBtn('sm')}
-    </div>
+    <p class="artmeta">${metaLine(['本站手写 ' + siteCount + ' 篇', '豆瓣影评 ' + doubanCount + ' 篇', '按时间倒序'])}</p>
     ${timeline}
     <p class="blog-note">想投稿 / 纠错：首页底部「留言板」，或每篇文章底部的评论区。</p>
   </section>
-  ${bottomBlock(commentsBlock(null, { id: 'comments-blog', title: '博客评论', mapping: 'specific', term: 'blog' }), '../')}
+  ${bottomBlock(commentsBlock(null, { id: 'comments-blog', title: '博客评论', mapping: 'specific', term: 'blog' }), '../', { current: 3 })}
 </div>
 ${seasonScript()}
 ${shareScript()}
