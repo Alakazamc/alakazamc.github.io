@@ -2,6 +2,7 @@
 const fs = require('fs');
 const path = require('path');
 const scenes = require('./skin-scenes.js');
+const PALETTE = require('./palette.js');
 
 const skins = [
   ['sakura', '樱花书屋', '花树下的书屋、唱片与经过的列车'],
@@ -20,14 +21,13 @@ function boot() {
 }
 const bootScript = () => `<script>(${boot.toString()})();</script>`;
 
-const chooser = (compact = false) => `<nav class="skin-picker${compact ? ' skin-picker-subpage' : ''}" aria-label="视觉皮肤">
+const chooser = () => `<nav class="skin-picker" aria-label="视觉皮肤">
   <span class="skin-label">换个风景</span>
   ${skins.map(([id, name, detail]) => `<button type="button" class="skin-choice" data-set-skin="${id}" aria-pressed="${id === 'sakura'}" title="${detail}"><span class="skin-swatch skin-swatch-${id}" aria-hidden="true"></span><span>${name}</span></button>`).join('')}
 </nav>`;
 
-function runtime() {
+function runtime(cfg) {
   var root = document.documentElement;
-  var captions = {farm: '欢迎来坐坐', sakura: '在花树下，读一页书', coast: '海风经过，慢慢坐', observatory: '今夜，一起看星星'};
   var buttons = document.querySelectorAll('[data-set-skin]');
   function apply(value) {
     // Swap both text and surfaces together; the old seasonal background tween
@@ -35,7 +35,6 @@ function runtime() {
     root.classList.add('skin-changing');
     root.dataset.skin = value;
     buttons.forEach(function (button) { button.setAttribute('aria-pressed', String(button.dataset.setSkin === value)); });
-    document.querySelectorAll('[data-skin-caption]').forEach(function (caption) { caption.textContent = captions[value]; });
     document.dispatchEvent(new CustomEvent('kx:skin', {detail: value}));
     requestAnimationFrame(function () { requestAnimationFrame(function () { root.classList.remove('skin-changing'); }); });
   }
@@ -48,7 +47,8 @@ function runtime() {
   });
   apply(root.dataset.skin);
   function commentsTheme() {
-    var theme = root.dataset.skin === 'observatory' || root.dataset.time === 'night' ? 'dark' : 'light';
+    // 评论区主题跟皮肤与昼夜（第 6.12 节）：cfg 是 palette.js giscusThemes() 的 8 个地址
+    var theme = cfg[root.dataset.skin + '-' + (root.dataset.time === 'night' ? 'night' : 'day')];
     var client = document.querySelector('script[src="https://giscus.app/client.js"]');
     if (client) client.dataset.theme = theme;
     var frame = document.querySelector('iframe.giscus-frame');
@@ -62,35 +62,50 @@ function runtime() {
 }
 
 const controlsCss = `
-/* The chooser stays outside the collapsed appearance settings. */
+/* 换皮肤时压住过渡；昼夜切换不压（第 3.6 节：配色即时切换）。 */
 .skin-changing *,.skin-changing *::before,.skin-changing *::after{transition:none!important}
-.skin-bar{display:flex;align-items:center;justify-content:space-between;gap:16px;position:relative;z-index:60;max-width:min(1560px,max(1200px,100% - 240px));padding:0 24px;margin:20px auto 16px}
+/* 页头 .sitebar（V20 第 6.1 节，subpage.js 的 sitebar() 生成）：左站牌，右组分享在前、外观设置固定在最右；不吸顶。 */
+.sitebar{position:relative;display:flex;align-items:center;justify-content:space-between;gap:var(--s2);min-height:48px;margin-bottom:var(--s4)}
+.sitebar-l,.sitebar-r{display:flex;align-items:center;gap:var(--s2)}
+.sitebar-r{margin-left:auto}
+/* 子页站牌式返回链接（第 6.1 节）：站牌材质，像素 24「柯西」+ 像素 12「◀ 回到主页」，整块一个链接；悬停给后半句加下划线。
+   箭头是 play 水平翻转（arrow 是鼠标光标那张像素画）。 */
+.brand{display:flex;align-items:center;gap:var(--s2);min-height:40px;padding:0 12px;text-decoration:none;
+  background:var(--plate);color:var(--on-plate);border:2px solid var(--plate);font-size:12px;line-height:24px}
+.brand b{font-size:24px;line-height:32px;font-weight:normal}
+.brand span{display:flex;align-items:center;gap:var(--s1)}
+.brand .ic{transform:scaleX(-1)}
+.brand:hover span{text-decoration:underline;text-underline-offset:4px}
+/* 外观设置：summary 是搪瓷徽章，展开算按下态（站牌色）。展开面板锚定整条页头而不是 <details>，
+   右沿与页头右沿对齐，任何宽度都不伸出视口（面板向左溢出不增加 scrollWidth，检查抓不到）。 */
+.sitebar .appearance-settings{position:static}
+.appearance-settings>summary{display:flex;align-items:center;min-height:40px;padding:0 12px;list-style:none;font-size:12px;line-height:24px;color:var(--ink);background:var(--surface);border:2px solid var(--edge);box-shadow:0 2px 0 var(--edge)}
+.appearance-settings>summary::-webkit-details-marker{display:none}
+.appearance-settings[open]>summary{background:var(--plate);color:var(--on-plate);border-color:var(--plate)}
+.appearance-settings>.controls{position:absolute;right:0;top:calc(100% + var(--s2));z-index:60;display:flex;flex-direction:column;gap:var(--s3);width:320px;max-width:calc(100vw - 32px);padding:var(--s4);background:var(--surface);border:1px solid var(--line);box-shadow:var(--lift)}
 .skin-picker{display:flex;align-items:center;flex-wrap:wrap;gap:8px;min-width:0;font-size:12px;line-height:24px}
-.skin-label{color:var(--ink);margin-right:8px}
+.controls .skin-label{width:100%;margin:0;color:var(--ink-2)}
 /* ⚠️ .skin-choice 是 <button>，别给它写 cursor:pointer —— (0,1,0) 会盖掉
    像素光标的裸 button 规则。守门：check-cursor.js 第 3 条（不许有裸 cursor:pointer）。 */
-.skin-choice{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:40px;padding:6px 12px;border:2px solid var(--timber-light);background:var(--cream);color:var(--ink);font:inherit;box-shadow:0 2px 0 var(--pixel-shadow);transition:background .16s,border-color .16s,transform .16s}
-.skin-choice[aria-pressed="true"]{background:var(--cream-2);border-color:var(--moss);box-shadow:inset 0 -3px 0 var(--moss),0 2px 0 var(--pixel-shadow)}
-.skin-choice:focus-visible{outline:3px solid var(--moss);outline-offset:4px}
-.skin-choice:active{transform:translateY(2px)}
+/* 搪瓷徽章（V20 第 3.5 节）：当前皮肤（aria-pressed）用站牌色；第 6 层的 hover 只改背景。 */
+.skin-choice{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:40px;padding:6px 12px;border:2px solid var(--edge);background:var(--surface);color:var(--ink);font:inherit;box-shadow:0 2px 0 var(--edge);transition:background .16s,border-color .16s,transform .16s}
+.skin-choice[aria-pressed="true"]{background:var(--plate);color:var(--on-plate);border-color:var(--plate)}
+.skin-choice:focus-visible{outline:3px solid var(--rail);outline-offset:4px}
+.skin-choice:active{transform:translateY(2px);box-shadow:none}
 .skin-swatch{width:24px;height:20px;flex-shrink:0;display:block;border:1px solid #ffffff70;image-rendering:pixelated}
 .skin-swatch-sakura{background:linear-gradient(90deg,transparent 45%,#39465e 45% 55%,transparent 55%),linear-gradient(#b1d1de 45%,#efb3c8 45% 70%,#e7ded5 70% 85%,#647d76 85%)}
 .skin-swatch-coast{background:linear-gradient(90deg,transparent 65%,#faf1d8 65% 80%,transparent 80%),linear-gradient(#a8dbe6 45%,#3c9eb4 45% 75%,#eddbb4 75%)}
 .skin-swatch-observatory{background:radial-gradient(circle at 75% 25%,#edca80 0 2px,transparent 3px),linear-gradient(150deg,#192c45 60%,#627487 60% 75%,#354459 75%)}
 .skin-swatch-farm{background:linear-gradient(140deg,transparent 50%,#a75d47 50% 72%,transparent 72%),linear-gradient(#b6d0bb 50%,#7f955d 50%)}
-.skin-bar>.appearance-settings{padding:0;margin:0;max-width:none;flex-shrink:0}
-.skin-bar>.appearance-settings>.controls{right:0;top:40px;min-width:288px}
-.skin-picker-subpage{position:relative;z-index:2;max-width:1100px;margin:24px auto 0;padding:0 24px;justify-content:flex-end}
-html:is([data-skin="sakura"],[data-skin="coast"],[data-skin="observatory"]) .bgmode{display:none}
-@media(hover:hover){.skin-choice:hover{border-color:var(--moss);background:var(--cream-2)}}
-@media(max-width:760px){.skin-bar{padding:0 16px;margin:16px auto;align-items:flex-start;gap:8px}.skin-label{display:none}.skin-picker{gap:8px}.skin-choice{padding:4px 8px;gap:4px}.skin-swatch{width:16px;height:16px}.skin-picker-subpage{justify-content:flex-start;padding:0 16px}.skin-bar>.appearance-settings>summary{padding:4px 8px;white-space:nowrap}}
+@media(hover:hover){.skin-choice:not([aria-pressed="true"]):hover,.appearance-settings:not([open])>summary:hover{background:var(--raised)}}
+@media(max-width:760px){.skin-choice{padding:4px 8px;gap:4px}.skin-swatch{width:16px;height:16px}}
+@media(max-width:430px){.sitebar{flex-wrap:wrap;row-gap:var(--s2)}}
 @media(prefers-reduced-motion:reduce){.skin-choice{transition:none}}
 `;
 
 module.exports = {
   bootScript, chooser,
   css: fs.readFileSync(path.join(__dirname, 'skins.css'), 'utf8') + controlsCss + scenes.css,
-  scene: scenes.backdrop,
   diorama: scenes.diorama,
-  script: () => `<script>(${runtime.toString()})();${scenes.script}</script>`
+  script: () => `<script>(${runtime.toString()})(${JSON.stringify(PALETTE.giscusThemes())});${scenes.script}</script>`
 };

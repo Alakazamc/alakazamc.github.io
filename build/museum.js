@@ -6,7 +6,7 @@ const path = require('path');
 const { ICONS, toSymbol } = require('./icons.js');
 const SITE = require('./site.config.js');
 const { GAME_ICON } = require('./game-data.js');
-const { seasonScript, bottomBlock, decorate, dcShelf, DECOR_ICONS, shareBtn, shareScript, skinHead, themeHref } = require('./subpage.js');
+const { seasonScript, bottomBlock, CHROME_ICONS, metaLine, shareScript, sitebar, skinHead, themeHref } = require('./subpage.js');
 
 const ROOT = path.join(__dirname, '..');
 const OUT = path.join(ROOT, 'museum', 'index.html');
@@ -77,7 +77,8 @@ function page(payload) {
   const labels={steam:'Steam',psn:'PSN',xbox_v2:'Xbox',switchall:'Switch',epic:'Epic',douban:'豆瓣收藏'};
   const platformOptions=Object.entries(labels).map(([key,label])=>({key,label,count:payload.items.filter(x=>x.kind==='game'&&x.platform===key).length})).filter(x=>x.count);
   const coverage=Object.entries(payload.games.coverage||{}).map(([key,v])=>`${labels[key]||key} ${v.count} 条`).join('、');
-  const gameNote=coverage ? `已读取 ${coverage}；Epic 尚未接入。按平台保留记录，同一游戏跨平台分别计数。` : '游戏为小黑盒生涯拼图样本。';
+  // 不写「Epic 尚未接入」：用户明确放弃 Epic（台账 T06，V20 第 6.8 节）。
+  const gameNote=coverage ? `已读取 ${coverage}。按平台保留记录，同一游戏跨平台分别计数。` : '游戏为小黑盒生涯拼图样本。';
   return `<!DOCTYPE html>
 <html lang="zh-CN" data-season="spring" data-time="day">
 <head>
@@ -85,22 +86,21 @@ function page(payload) {
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>博物馆 · ${esc(SITE.name)}</title>
 ${skinHead()}
-<link rel="stylesheet" href="../assets-layers.css">
 <link rel="stylesheet" href="../font.css">
 <link rel="stylesheet" href="${themeHref()}">
 </head>
 <body class="is-article is-museum-page">
-${sprite(['mailbox', 'book', 'star', 'crystal', 'basket', 'flower', 'wheat', 'film', 'note', 'grass', 'share']
+${sprite(['book', 'star', 'film', 'note', 'grass']
   .concat(GAME_ICON.map(([, icon]) => icon))
-  .concat(DECOR_ICONS))}
-${decorate()}
+  .concat(CHROME_ICONS))}
 <div class="wrap museum-wrap">
-  <nav class="abarnav"><a class="abtn" href="../${esc(SITE.home)}#museum">${ic('mailbox', 'sm')}回到农场</a>${shareBtn('sm')}</nav>
+  ${sitebar({ prefix: '../', back: '#museum' })}
   <section class="panel museum-page">
-    <h2 class="pt">${ic('book', 'xs')}博物馆${ic('crystal', 'xs')}</h2>
+    <h2 class="pt">${ic('book', 'sm')}博物馆</h2>
     <h1 class="arttitle">馆藏 ${payload.items.length} 件</h1>
     <p class="artmeta"><a class="douban-mark-link" href="https://www.douban.com/people/${esc(String(payload.douban.uid || '211628276'))}/" target="_blank" rel="noopener">去豆瓣打标</a></p>
-    <p class="artmeta">豆瓣书影音 ${payload.douban.total || 0} 件 · 网易云收藏专辑 ${payload.albums.items.length} 张 · 小黑盒游戏记录 ${((payload.games.games || []).length)} 条 · 生涯快照 ${summary.gameCount || 0} 款</p>
+    <p class="artmeta">${metaLine(['豆瓣书影音 ' + (payload.douban.total || 0) + ' 件', '网易云收藏专辑 ' + payload.albums.items.length + ' 张',
+      '小黑盒游戏记录 ' + (payload.games.games || []).length + ' 条', '生涯快照 ' + (summary.gameCount || 0) + ' 款'])}</p>
     <div class="museum-filters" role="tablist" aria-label="馆藏分类">
       ${tabs.map(([k, label, n], i) => `<button class="museum-filter${i === 0 ? ' on' : ''}" data-kind="${k}" role="tab" aria-selected="${i === 0}">${ic(TAB_ICON[k] || 'star', 'xs')}${label}<i>${n}</i></button>`).join('')}
     </div>
@@ -114,10 +114,9 @@ ${decorate()}
       <span class="museum-page-info"></span>
       <button class="museum-page-btn" data-page="next">下一页</button>
     </nav>
-    ${dcShelf()}
     <p class="museum-note">书影音来自豆瓣公开收藏，网易云专辑由桌面工具同步；同一作品在不同来源的记录分别保留。${esc(gameNote)}${updated ? '最近同步 ' + esc(updated.slice(0, 10).replace(/-/g, '.')) + '。' : ''}</p>
   </section>
-  ${bottomBlock('', '../')}
+  ${bottomBlock('', '../', { current: 4 })}
 </div>
 <script id="museum-data" type="application/json">${json(payload.items)}</script>
 <script>
@@ -166,9 +165,8 @@ ${decorate()}
         svg.appendChild(use);title.insertBefore(svg,title.firstChild);
       }
       tx.appendChild(title);
-      tx.appendChild(el('i','museum-item-meta',x.meta));
-      if(x.detail) tx.appendChild(el('span','museum-item-detail',x.detail));
-      tx.appendChild(el('em','museum-item-source',x.source));
+      // 说明固定两行（V20 第 6.8 节）：标题一行 + 元信息一行，detail 与来源并进元信息，一行省略号。
+      tx.appendChild(el('i','museum-item-meta',[x.meta, x.detail, x.source].filter(Boolean).join(' · ')));
       if(x.image) box.appendChild(poster); box.appendChild(tx); li.appendChild(box); grid.appendChild(li);
     });
     status.textContent = '当前 ' + list.length + ' 件 · 第 ' + page + ' / ' + pages + ' 页 · 本页 ' + shown.length + ' 件';

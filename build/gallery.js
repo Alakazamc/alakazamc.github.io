@@ -1,33 +1,33 @@
 // 相馆页面生成器：只读 build/data/gallery.json，生成 gallery/index.html。
 // 复用站点的配置 / 图标 / 子页面逻辑 / 样式，保证和全站同一套皮。
 //
-// 布局核心：构建期「等高错列」。摄影作品不裁剪，所以每一行里的每张图
-// 按比例分配宽度，使整行恰好铺满容器宽，且每张等高 —— 像报纸排版那样错落对齐。
-// 最后一行不反推拉伸，保持目标行高、左对齐。
+// 布局核心：「构建期只分行，宽度交给 CSS 按比例伸缩」（V20 第 7.2 节）。摄影作品不裁剪：
+// 构建期按 1440 屏的排版宽决定每行放哪几张；满行每张 flex-grow 与宽高比成正比、基准为 0，
+// 任何宽度下都恰好铺满且等高；最后一行不拉伸，基准是相对容器的百分比，左对齐。
 //
 // 灯箱：自己写的原生 JS/CSS，零依赖。点图开大图，Esc / 点背景 / 关闭按钮退出，
 // 左右箭头与键盘切换，显示说明与日期，做焦点管理与 body 滚动锁定。
-// 刻意不用圆角、不用半透明毛玻璃 —— 维持像素木牌质感。
+// 刻意不用圆角、不用半透明毛玻璃 —— 纸卡材质。
 const fs = require('fs');
 const path = require('path');
 const { ICONS, toSymbol } = require('./icons.js');
 const SITE = require('./site.config.js');
-const { seasonScript, bottomBlock, decorate, dcShelf, DECOR_ICONS, shareBtn, shareScript, skinHead, themeHref } = require('./subpage.js');
+const { seasonScript, bottomBlock, CHROME_ICONS, metaLine, shareScript, sitebar, skinHead, themeHref } = require('./subpage.js');
 
 const ROOT = path.join(__dirname, '..');
 const DATA_FILE = path.join(__dirname, 'data', 'gallery.json');
 const OUT = path.join(ROOT, 'gallery', 'index.html');
 
-// 页面列宽 820（任务给定）。justify 算法需要的「实际排版宽」是 820 减去卡片边框与内边距，
-// 这里显式从 820 推导出来，既守住 820 的设计值，又不会出现横向滚动条。
-const PAGE_W = 820;
-const CARD_BORDER = 4;   // .gal-card 左右边框各 4px
-const CARD_PAD = 24;     // .gal-card 左右内边距各 12px
+// 这几个数从 CSS 推导：1440 屏 .wrap 内容宽 = 1440 − 120 − 2 × 24 = 1272（V20 第 5.2 节）；
+// .gal-card 是纸卡，1px 边 + 24 内边距，排版宽 = 1272 − 2 − 48 = 1222。
+const PAGE_W = 1272;
+const CARD_BORDER = 2;   // .gal-card 左右边框各 1px
+const CARD_PAD = 48;     // .gal-card 左右内边距各 24px
 const GAL = {
   page: PAGE_W,
   gap: 16,                // 列间距
   targetH: 180,          // 目标行高（12 的倍数，避免和字体网格打架）
-  container: PAGE_W - CARD_BORDER - CARD_PAD // = 788，实际排版宽度
+  container: PAGE_W - CARD_BORDER - CARD_PAD // = 1222，实际排版宽度
 };
 
 // 转义：页面里所有外部文本（caption/date/文件名）都过一遍，防 XSS / 标签破损。
@@ -35,7 +35,6 @@ const esc = (s) => String(s == null ? '' : s)
   .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
 // JSON 内联到脚本里时，把 < 转义成 \u003c，避免 </script> 提前截断脚本。
 const json = (v) => JSON.stringify(v).replace(/</g, '\\u003c');
-const ic = (n, cls = '') => `<svg class="ic${cls ? ' ' + cls : ''}" viewBox="0 0 16 16"><use href="#px-${n}"></use></svg>`;
 const sprite = (names) => '<svg xmlns="http://www.w3.org/2000/svg" style="display:none" aria-hidden="true">' +
   [...new Set(names)].filter((n) => ICONS[n]).map((n) => toSymbol(n, ICONS[n])).join('') + '</svg>';
 
@@ -105,15 +104,19 @@ function page(data) {
   const rowsHtml = rows.map((row) => {
     const cells = row.items.map((it, i) => {
       // 每个缩图都是 <a> 包 <img>：即使 JS 死掉，点 <a> 也能直接打开大图（href 指向大图）。
-      // 内联 width/height/flex-basis 由 justify 算法算好，保证等高且不裁切。
+      // 满行：flex-grow 与宽高比成正比、基准 0 → 任何宽度都铺满且等高；
+      // 末行：基准是 1440 屏 180px 行高对应的容器百分比，只缩不放、左对齐。aspect-ratio 保证不裁切。
       const href = `../assets/gallery/${esc(it.file)}`;
       const src = `../assets/gallery/${esc(it.thumb)}`;
       const caption = esc((it.generated ? '插画 · ' : '') + (it.caption || it.file));
       const date = esc(it.date || '');
+      const flex = row.isLast
+        ? `0 1 ${(100 * GAL.targetH * it.w / it.h / GAL.container).toFixed(3)}%`
+        : `${(it.w / it.h).toFixed(3)} 1 0`;
       return `<a class="gal-item" id="photo-${esc(it.file)}" href="${href}" data-w="${it.w}" data-h="${it.h}" ` +
         `data-caption="${caption}" data-date="${date}" ` +
         // --i 是卡片入场的错开序号（pixel-art.js 的 @keyframes px-card-in），按行内位置从左到右错开
-        `style="--i:${i};width:${it.outW}px;height:${it.outH}px;flex:0 0 ${it.outW}px">` +
+        `style="--i:${i};flex:${flex};aspect-ratio:${it.w}/${it.h}">` +
         `<img src="${src}" width="${it.tw}" height="${it.th}" loading="lazy" alt="${caption}"><span class="gal-caption">${caption}</span></a>`;
     }).join('');
     return `<div class="gal-row">${cells}</div>`;
@@ -132,77 +135,74 @@ function page(data) {
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>相馆 · ${esc(SITE.name)}</title>
 ${skinHead()}
-<link rel="stylesheet" href="../assets-layers.css">
 <link rel="stylesheet" href="../font.css">
 <link rel="stylesheet" href="${themeHref()}">
 <style>
 /* ===== 相馆专属布局（仅本页生效，不污染全局样式表） =====
-   字号 / 行高一律用 12 的倍数（12 / 24 / 36 / 48），不出现 14 / 16 / 18。 */
-.gal-card{background:var(--cream);border:2px solid var(--wood-c);
-  box-shadow:0 4px 0 rgba(59,36,18,.15);
-  padding:24px 12px 18px;margin-bottom:32px}
-.gal-title{font-size:36px;line-height:48px;margin:6px 0 12px;word-break:break-word}
-.gal-note{font-size:12px;line-height:24px;opacity:.66;margin:0 0 12px}
+   像素字用 12 的倍数；阅读字用 14／16／18，行高 22／26／28（方案第 4 节）。
+   阅读字写 font-size／line-height 两个长属性（不用 font: 简写），check-gallery.js 的扫描才看得见。
+   页面标题 .gal-title 与 .arttitle 同一条规则，在 gen.js。 */
+.gal-card{background:var(--surface);border:1px solid var(--line);box-shadow:var(--lift);
+  padding:24px;margin-bottom:32px}
+.gal-note{font-size:12px;line-height:24px;color:var(--ink-2);margin:0 0 12px}
 
-/* 错列容器：列间 6px 间距。行宽是构建期算好的（正好铺满容器），
-   正常情况永不溢出；万一极端情况差一两像素，用折行兜底 ——
+/* 错列容器：一行不折行（满行按比例铺满、末行按百分比缩放，都不会超出容器）——
    ⚠️ 不用 overflow-x:auto：这站的规矩是内容不许藏进横向滚动条。 */
 .gal-rows{margin:4px 0 8px}
-.gal-row{display:flex;gap:16px;margin-bottom:16px;flex-wrap:wrap;justify-content:center}
-/* 每张图：木色描边 + 落影，无圆角（像素风）。尺寸构建期算好，绝不裁切。 */
-.gal-item{display:block;position:relative;background:var(--cream-3);
-  border:1px solid var(--wood-c);box-shadow:none;
-  overflow:hidden;transition:transform .12s steps(2),box-shadow .12s}
-.gal-caption{position:absolute;left:0;right:0;bottom:0;background:var(--cream);color:var(--ink);font-size:12px;line-height:24px;padding:4px 8px;opacity:0;transition:opacity .15s}
+.gal-row{display:flex;gap:16px;margin-bottom:16px;flex-wrap:nowrap}
+/* 每张图：1px 细线相纸边、浮起色底，无圆角；悬停只换边色、显示说明，不上浮（内联样式排在 theme.css 之后，
+   写位移会压过合并的 :active，V20 第 14.3 节）。尺寸由 flex + aspect-ratio 决定，绝不裁切。 */
+.gal-item{display:block;position:relative;min-width:0;height:auto;background:var(--raised);
+  border:1px solid var(--line);overflow:hidden;transition:border-color .12s}
+.gal-caption{position:absolute;left:0;right:0;bottom:0;background:var(--surface);color:var(--ink);
+  font-family:var(--read);font-size:14px;line-height:22px;padding:4px 8px;opacity:0;transition:opacity .15s}
 .gal-item:hover .gal-caption,.gal-item:focus-visible .gal-caption{opacity:1}
 .gal-item img{display:block;width:100%;height:100%;object-fit:contain;image-rendering:auto}
-.gal-item:hover{transform:translateY(-3px);box-shadow:0 7px 0 rgba(59,36,18,.34)}
-.gal-item:focus-visible{outline:3px solid var(--gold);outline-offset:2px}
-.gal-empty{font-size:24px;line-height:36px;opacity:.7;padding:24px 0;text-align:center}
+.gal-item:hover{border-color:var(--edge)}
+.gal-empty{font-size:24px;line-height:36px;color:var(--ink-2);padding:24px 0;text-align:center}
 
-/* 窄屏：一行一张，宽度撑满，高度按原图比例自适应。 */
-@media (max-width:680px){
-  .gal-row{display:block;margin-bottom:16px}
-  .gal-item{width:100%!important;height:auto!important;flex:none!important;margin-bottom:16px}
-  .gal-item img{height:auto}
+/* 窄屏：一行一张，宽度撑满，高度按原图比例（aspect-ratio）。 */
+@media (max-width:760px){
+  .gal-card{padding:16px}
+  .gal-row{display:block}
+  .gal-item{width:100%;margin-bottom:16px}
 }
 
-/* ===== 像素灯箱（原生 JS/CSS，无依赖）=====
-   刻意不用圆角、不用半透明毛玻璃 —— 维持像素木牌质感。 */
+/* ===== 灯箱（原生 JS/CSS，无依赖）=====
+   纸卡材质，不用圆角、不用半透明毛玻璃。 */
 .lb{position:fixed;inset:0;z-index:500;display:flex;align-items:center;justify-content:center}
 .lb[hidden]{display:none}
 .lb-backdrop{position:absolute;inset:0;background:#1A1208;opacity:.92}
 .lb-stage{position:relative;z-index:1;max-width:94vw;max-height:90vh;display:flex;flex-direction:column;align-items:center;
-  background:var(--cream);border:4px solid var(--ink);box-shadow:0 0 0 4px var(--wood-c),9px 9px 0 0 rgba(0,0,0,.4);padding:18px}
+  background:var(--surface);border:2px solid var(--edge);padding:16px}
 .lb-fig{margin:0;display:flex;flex-direction:column;align-items:center;max-width:100%}
 .lb-img{max-width:100%;max-height:72vh;width:auto;height:auto;display:block;
-  border:3px solid var(--ink);background:#000;image-rendering:auto}
+  border:1px solid var(--line);background:#000;image-rendering:auto}
 .lb-cap{font-size:12px;line-height:24px;margin:12px 0 0;text-align:center;max-width:80vw}
-.lb-cap b{font-weight:700}
-.lb-cap i{font-style:normal;opacity:.6;margin-left:8px}
+.lb-cap b{font-family:var(--read);font-size:14px;line-height:22px;font-weight:600;color:var(--ink)}
+.lb-cap i{font-style:normal;color:var(--ink-2);margin-left:8px;white-space:nowrap}
 /* .lb-close / .lb-nav 是 <button>，光标由 theme.css 主规则统一给可点态箭头；
-   ⚠️ 这里不要写 cursor:pointer（特异性更高，会把像素光标顶掉）。 */
-.lb-close,.lb-nav{font-family:inherit;color:var(--ink);background:var(--cream-2);
-  border:3px solid var(--ink);box-shadow:0 0 0 2px var(--wood-c);
+   ⚠️ 这里不要写 cursor:pointer（特异性更高，会把像素光标顶掉）。搪瓷徽章：面色 + 2px 控件边 + 实色落影。 */
+.lb-close,.lb-nav{font-family:inherit;color:var(--ink);background:var(--surface);
+  border:2px solid var(--edge);box-shadow:0 2px 0 var(--edge);
   display:flex;align-items:center;justify-content:center}
-.lb-close{position:absolute;top:-18px;right:-18px;width:36px;height:36px;font-size:24px;line-height:1}
+.lb-close{position:absolute;top:-16px;right:-16px;width:36px;height:36px;font-size:24px;line-height:1}
 .lb-nav{position:absolute;top:50%;transform:translateY(-50%);width:36px;height:48px;font-size:36px;line-height:1}
-.lb-prev{left:-18px}.lb-next{right:-18px}
-.lb-close:hover,.lb-nav:hover{background:var(--gold)}
-.lb-close:focus-visible,.lb-nav:focus-visible{outline:3px solid var(--gold);outline-offset:2px}
+.lb-prev{left:-16px}.lb-next{right:-16px}
+.lb-close:hover,.lb-nav:hover{background:var(--raised)}
+/* 焦点框交给全局 :focus-visible（墨色 3px）：原来的 --gold 框映射成浮起色后几乎看不见（V20 第 3.6 节）。 */
 </style>
 </head>
 <body class="is-article is-gallery-page">
-${decorate()}
-${sprite(['mailbox', 'star', 'share'].concat(DECOR_ICONS))}
-<div class="artpage">
-  <nav class="abarnav"><a class="abtn" href="../${esc(SITE.home)}#gallery">${ic('mailbox', 'sm')}回到农场</a>${shareBtn('sm')}</nav>
+${sprite(['star'].concat(CHROME_ICONS))}
+<div class="wrap">
+  ${sitebar({ prefix: '../', back: '#gallery' })}
   <div class="gal-card">
     <h1 class="gal-title">相馆</h1>
-    <p class="gal-note">${items.length ? ('共 ' + items.length + ' 张作品' + (items.some(it => it.generated) ? '（含 ' + items.filter(it => it.generated).length + ' 张生成插画）' : '') + (upd ? ' · 更新于 ' + upd : '')) : ''}</p>
+    <p class="gal-note">${metaLine(items.length ? ['共 ' + items.length + ' 张作品' + (items.some(it => it.generated) ? '（含 ' + items.filter(it => it.generated).length + ' 张生成插画）' : ''), upd && '更新于 ' + upd] : [])}</p>
     ${gallery}
   </div>
-  ${bottomBlock('', '../')}
+  ${bottomBlock('', '../', { current: 5 })}
 </div>
 
 <!-- 灯箱：默认隐藏，由页面底部脚本接管点击 -->

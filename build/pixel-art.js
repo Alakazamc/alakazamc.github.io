@@ -1,213 +1,195 @@
-// Shared visual treatment: pixel timber, paper, and a small farm diorama.
+// Shared visual treatment: the homepage stage, sign, line map and walker, plus pixel-material details.
 // Existing farm artwork and the current content model stay in use.
-const { esc } = require('./md.js');
-function hero(scene, social, counts, icon, recent = []) {
-  return `<header class="board pixel-entry" id="board">
-    <div class="entry-copy">
-      <p class="entry-label">${icon('book', 'sm')}代码 · 阅读 · 生活</p>
-      <!-- 主标题用**本名**（柯西 2026-09-26：「学他，在首页写上自己的名字 陈柯羲」，
-           参照吴佳翮 lelekawaii.com 的「真名 + 身份」写法）。
-           网名「柯西 Alakazam」和签名下移一行保留 —— 只加真名，不删已有信息。 -->
-      <h1 class="bn"><span class="bt">陈柯羲</span></h1>
-      <p class="who">柯西 Alakazam · fake it til u make it</p>
-      <p class="entry-intro">这里记录我的项目、文章，还有书影音与游戏收藏。</p>
-      ${social}
-      <nav class="entry-counts" aria-label="内容概览">
-        <a href="posts/index.html">${icon('book', 'sm')}<b>${counts.articles}</b><span>篇文章</span></a>
-        <a href="museum/index.html">${icon('star', 'sm')}<b>${counts.collection}</b><span>件馆藏</span></a>
-        <a href="gallery/index.html">${icon('flower', 'sm')}<b>${counts.photos}</b><span>张图像</span></a>
-      </nav>
+
+// 首屏舞台 + 招牌（V20 第 6.2、6.3 节）：.hero 是同一格叠放的两层，DOM 顺序舞台在前、招牌在后，
+// Tab 与读屏顺序也就是「舞台控件 → 招牌」。舞台是整站唯一的「世界」。
+// 主标题用**本名**（柯西 2026-09-26：「学他，在首页写上自己的名字 陈柯羲」）；网名与签名在下一行保留。
+// 地名牌四个地名都在标记里，由 html[data-skin] 只显示当前那个（不靠脚本，首帧就对）。
+function stage(scene, social) {
+  return `<div class="hero">
+  <section class="stage" data-stage data-paused="false" aria-label="风景">
+    ${scene}
+    <p class="stage-plate"><span class="plate-sakura">樱花书屋</span><span class="plate-coast">海边夏日</span><span class="plate-observatory">星夜观测站</span><span class="plate-farm">原野农场</span></p>
+    <div class="stage-ctrl" role="group" aria-label="风景光线">
+      <button type="button" class="stage-btn" data-stage-light="day" aria-pressed="true">午后</button>
+      <button type="button" class="stage-btn" data-stage-light="night" aria-pressed="false">入夜</button>
+      <button type="button" class="stage-btn" data-stage-pause aria-pressed="false">暂停风景</button>
     </div>
-    <div class="entry-view">${scene}<p class="entry-caption">${icon('lantern', 'sm')}<span data-skin-caption>欢迎来坐坐</span>${icon('lantern', 'sm')}</p></div>
-    ${recent.length ? `<nav class="entry-latest" aria-label="最近文章"><p>${icon('wateringcan', 'sm')}最近写下</p>${recent.map(a => `<a href="posts/${esc(a.slug)}.html"><time>${esc(a.date)}</time><span>${esc(a.title)}</span>${icon('arrow', 'sm')}</a>`).join('')}</nav>` : ''}
-  </header>`;
+  </section>
+  <div class="sign">
+    <h1>陈柯羲</h1>
+    <p class="motto">柯西 Alakazam · fake it til u make it</p>
+    <p class="intro">这里记录我的项目、文章，还有书影音与游戏收藏。</p>
+    ${social}
+  </div>
+</div>`;
 }
 
 const css = `
-/* Pixel art system: square steps and solid materials, no smooth bevels. */
-:root{--cream:#fff5dc;--cream-2:#f1e3bd;--cream-3:#decca0;--ink:#3e3124;--ink-2:#746149;
-  --timber:#644832;--timber-light:#b48854;--timber-top:#e4bf7f;--moss:#647950;--pixel-shadow:#352e26;
-  --frame:var(--timber);--reading-surface:var(--cream);--reading-muted:var(--cream-2)}
-html[data-time="night"]{--cream:#30382f;--cream-2:#263027;--cream-3:#45503d;--ink:#f3e8ce;--ink-2:#c6bea5;
-  --timber:#1a2621;--timber-light:#617059;--timber-top:#819075;--moss:#a0b575;--pixel-shadow:#101b19;--gold:#ddbc70;--gold-3:#ddbc70}
-/* 容器上限随视口缓涨：1200 ▸ 1560（1920 屏留白从 360 收到 180）。
-   ⚠️ 写成 min/max 表达式而不是加 @media —— 断点档位有棘轮预算，能不新增就不新增。
-   1440 屏及以下 max() 兜住 1200，与改动前**逐像素一致**。 */
-.wrap{max-width:min(1560px,max(1200px,100% - 240px));padding:0 24px 40px}
-.asset-bg{filter:saturate(.5) brightness(.8)}
-.asset-bg::after{content:'';position:absolute;inset:0;background:var(--sky-b);opacity:.64}
-html[data-time="night"] .asset-bg::after{background:#162b2d;opacity:.82}
-.bg{filter:saturate(.6) brightness(.86)}
-.dc-scene{opacity:.38}.dc-pond{opacity:.58}.dc-birds{opacity:.45}.dc-post{display:none!important}
-.appearance-settings{max-width:1200px;padding:0 24px;margin:16px auto 12px}
-.appearance-settings>summary{border:2px solid var(--timber);box-shadow:2px 2px 0 var(--pixel-shadow);background:var(--cream-2)}
-.bunting{display:none}
-.board.pixel-entry{max-width:none;margin:0;display:grid;grid-template-columns:minmax(0,1fr) minmax(240px,.9fr);gap:24px;
-  padding:12px;border:4px solid var(--timber);background:var(--cream);text-align:left;
-  box-shadow:inset 0 0 0 2px var(--timber-top),4px 4px 0 var(--pixel-shadow),0 8px 0 var(--timber-light)}
-.entry-copy{padding:12px 0;min-width:0}
-.entry-label{display:flex;align-items:center;gap:8px;margin:0 0 20px;color:var(--moss);font-size:12px;line-height:24px}
-.board.pixel-entry .bn{justify-content:flex-start;margin:0 0 16px}
-.board.pixel-entry .bt{font-size:36px;line-height:48px;color:var(--ink);text-shadow:none;letter-spacing:0}
-.board.pixel-entry .who{font-size:12px;background:none;border:0;box-shadow:none;padding:0;margin:0 0 12px;color:var(--ink-2)}
-.entry-intro{font-size:12px;line-height:24px;margin:0 0 16px;color:var(--ink-2)}
-.pixel-entry .social{justify-content:flex-start;gap:8px;margin:0;flex-wrap:wrap}
-.pixel-entry .social .soc{color:var(--ink);background:var(--cream-2);border:1px solid var(--timber-light);box-shadow:0 2px 0 var(--timber-light);padding:8px 10px}
-.pixel-entry .social .soc:hover{background:var(--cream-3);transform:translateY(-2px)}
-.entry-counts{display:flex;gap:20px;flex-wrap:wrap;margin-top:24px;padding-top:16px;border-top:2px dotted var(--cream-3)}
-.entry-counts a{display:flex;align-items:center;gap:8px;color:var(--ink);text-decoration:none;font-size:12px;line-height:24px}
-.entry-counts b{font-size:24px;line-height:24px;color:var(--moss)}
-.entry-counts a:hover span{text-decoration:underline;text-underline-offset:4px}
-.entry-view{display:flex;flex-direction:column;justify-content:center;min-width:0;padding:0}
-.entry-latest{grid-column:1/-1;margin-top:8px}
-.entry-latest p{display:flex;align-items:center;gap:8px;color:var(--moss);margin:0 0 12px;font-size:12px;line-height:24px}
-.entry-latest a{display:flex;align-items:baseline;gap:16px;padding:12px 0;border-top:1px dashed var(--cream-3);color:var(--ink);text-decoration:none;font-size:12px;line-height:24px}
-.entry-latest time{flex:none;color:var(--ink-2)}.entry-latest a span{flex:1;min-width:0}.entry-latest a:hover span{text-decoration:underline;text-underline-offset:4px}
-.entry-caption{display:flex;justify-content:center;align-items:center;gap:20px;margin:0;padding:12px;color:var(--cream);background:var(--timber);font-size:12px;line-height:24px}
-html[data-time="night"] .entry-caption{color:var(--ink)}
-.pixel-window{position:relative;height:264px;overflow:hidden;background:#b8d4cc;border:4px solid var(--timber);box-shadow:inset 0 0 0 4px #e3ead0;isolation:isolate}
-.pixel-window::before{content:'';position:absolute;width:32px;height:32px;top:24px;right:36px;background:#fff0ac;box-shadow:4px 0 #fff0ac,-4px 0 #fff0ac,0 4px #fff0ac,0 -4px #fff0ac}
-.pixel-window::after{content:'';position:absolute;bottom:0;left:0;right:0;height:56px;background:repeating-linear-gradient(90deg,#566642 0 4px,transparent 4px 32px),linear-gradient(#899655 0 8px,#74824b 8px 32px,#a9986a 32px 40px,#77834a 40px);z-index:-1}
-.window-hills{position:absolute;left:-20px;right:-20px;bottom:56px;height:104px;background:#8bad91;clip-path:polygon(0 55%,8% 55%,8% 40%,20% 40%,20% 24%,38% 24%,38% 40%,50% 40%,50% 12%,68% 12%,68% 32%,82% 32%,82% 55%,100% 55%,100% 100%,0 100%);z-index:-1}
-.window-cloud{position:absolute;top:40px;left:28px;width:72px;height:12px;background:#edf2da;box-shadow:12px -8px #edf2da,24px -16px #edf2da}
-.pixel-window .dc-house{position:absolute;left:20px;bottom:24px;width:192px!important}
-.pixel-window .dc-mill{position:absolute;right:16px;left:auto;bottom:54px;width:96px!important}
-.pixel-window .dc-pond-svg{position:absolute;right:0;bottom:0;width:144px!important}
-.window-tree{position:absolute;left:0;bottom:40px;z-index:2}.window-tree .ic{width:64px;height:64px}
-.window-crops{position:absolute;bottom:4px;left:48px;display:flex;gap:8px}.window-crops .ic{width:24px;height:24px}
-html[data-season="autumn"] .pixel-window{background:#d6d6a9}html[data-season="autumn"] .window-hills{background:#a5ac78}
-html[data-season="winter"] .pixel-window{background:#bdcfd6}html[data-season="winter"] .window-hills{background:#dce6da}
-html[data-season="winter"] .pixel-window::after{background:linear-gradient(#e7efe3 0 12px,#b2c5bd 12px 16px,#d8e3d8 16px)}
-html[data-time="night"] .pixel-window{background:#263c45;box-shadow:inset 0 0 0 4px #3c575b}
-html[data-time="night"] .window-hills{background:#3e5a56}html[data-time="night"] .window-cloud{opacity:.16}
-html[data-time="night"] .pixel-window::before{background:#f5e2a4;box-shadow:4px 0 #f5e2a4,-4px 0 #f5e2a4,0 4px #f5e2a4,0 -4px #f5e2a4}
-html[data-time="night"] .pixel-window>svg{filter:brightness(.78) saturate(.8)}
-/* ===== 首屏仪表盘：一张主卡（tab 切换）+ 右侧状态栏（2026-09-25 实施）=====
-   工具条（.toolbar）与次级导航（.secondary-nav）在这里退役 —— 它们的入口
-   全部搬进 tab 栏 / 状态栏，**功能一个不丢，只是位置变了**。
-   ⚠️ 规则数有棘轮（check-css-budget 上限 1920），新样式能合并就合并：
-     · 时钟冒号与打字机光标**共用一条** .clock b,.cur；
-     · 状态栏不写容器规则（默认 block），间距靠 .panel 自带的 margin-bottom；
-     · 日期行复用 .greet 的类，不单开一条；
-     · 激活态不用 ::after（背景 + 内阴影已经够读）。 */
-.dash{position:relative;display:grid;grid-template-columns:minmax(0,1fr) 304px;gap:0 var(--s6);align-items:start}
-.dash-head{grid-column:1/-1;min-width:0}
-.dash-tabs{display:flex;gap:4px;padding:8px;background:var(--timber);border:2px solid var(--pixel-shadow);box-shadow:0 4px 0 var(--timber-light)}
-.dash-tab{flex:1;min-width:0;height:44px;display:flex;align-items:center;justify-content:center;background:var(--cream);border:2px solid var(--timber-light);box-shadow:inset 0 -4px 0 var(--cream-3);color:var(--ink);font:inherit;font-size:12px;line-height:24px;text-decoration:none;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;transition:background .18s ease,color .18s ease,transform .16s ease-out,box-shadow .16s ease-out}
-.dash-tab[aria-selected="true"]{background:var(--cream-3);color:var(--ink);box-shadow:inset 0 -4px 0 var(--moss);border-color:var(--moss)}
-.dash-tab:hover{background:var(--cream-2);transform:translateY(-2px)}
-.dash-track{position:relative;height:48px;background:linear-gradient(var(--timber-light),var(--timber-light)) left bottom / 100% 2px no-repeat;margin:0 8px}
-.dash-walk{position:absolute;left:0;bottom:0;width:40px;height:40px;pointer-events:none;transform:translateX(var(--x,0));image-rendering:pixelated}
+/* Pixel art system: square steps and solid materials, no smooth bevels.
+   ⚠️ 颜色只在 build/palette.js 定义（V20）：这里不再写 :root／夜间色板，组件只引用角色变量。 */
+/* 容器（V20 第 5.2 节）：1440 屏内容宽 1272，1920 屏封顶 1560 —— 舞台要放大，9／3 分栏也要约 1232 的内容宽。
+   ⚠️ 写成 min/max 表达式而不是加 @media —— 断点档位有棘轮预算，能不新增就不新增。 */
+.wrap{max-width:min(1560px,max(1200px,100% - 120px));padding:0 24px 40px}
+/* ===== 舞台与招牌（V20 第 6.2、6.3 节）=====
+   .hero 网格里同一格叠两层：舞台在下、招牌在上。用网格叠层而不用绝对定位，
+   舞台变矮（WebGL 出错、矮视口）时容器按招牌撑高，招牌不会探出舞台顶部。 */
+.hero{display:grid}.hero>*{grid-area:1/1}
+.stage{position:relative;width:100%;aspect-ratio:21/9;max-height:max(300px,calc(100vh - 220px));overflow:hidden;
+  background:var(--raised);border:1px solid var(--line);box-shadow:var(--lift)}
+.stage-plate{position:absolute;top:var(--s4);left:var(--s4);z-index:2;margin:0;padding:0 8px;
+  background:var(--plate);color:var(--on-plate);border:2px solid var(--plate);font-size:12px;line-height:24px}
+.stage-plate span{display:none}
+html[data-skin="sakura"] .plate-sakura,html[data-skin="coast"] .plate-coast,
+html[data-skin="observatory"] .plate-observatory,html[data-skin="farm"] .plate-farm{display:inline}
+/* 控件组压在任何场景上都要可读：纸卡底。按钮是 32px 高的小号搪瓷徽章，当前光线那枚是按下态。 */
+.stage-ctrl{position:absolute;top:var(--s4);right:var(--s4);z-index:2;display:flex;gap:var(--s1);padding:var(--s1);
+  background:var(--surface);border:1px solid var(--line)}
+.stage-btn{min-height:32px;padding:0 8px;border:2px solid var(--edge);background:var(--surface);color:var(--ink);
+  box-shadow:0 2px 0 var(--edge);font:inherit;font-size:12px;line-height:24px}
+.stage-btn:hover{background:var(--raised)}
+.stage-btn[aria-pressed="true"]{background:var(--plate);color:var(--on-plate);border-color:var(--plate)}
+/* 招牌：纸卡 + 顶部 6px 线路色带（把招牌和线路图连成一套）；>1080 压在舞台左下（书屋主体在中右，左下是长椅和小径）。 */
+.sign{position:relative;z-index:3;align-self:end;justify-self:start;width:min(456px,42%);margin:var(--s6);padding:var(--s6);
+  background:var(--surface);border:1px solid var(--line);border-top:6px solid var(--rail);box-shadow:var(--lift)}
+.sign h1{margin:0;font:normal 48px/60px var(--pix);color:var(--ink)}
+.sign .motto{margin:var(--s1) 0 var(--s3);font-size:12px;line-height:24px;color:var(--ink-2)}
+.sign .intro{margin:0 0 var(--s4);font-family:var(--read);font-size:16px;line-height:26px;color:var(--ink)}
+.sign .social{justify-content:flex-start;margin:0}
+.sign .soc:hover{background:var(--raised)}
+/* ===== 12 栏网格（V20 第 5.2 节）=====
+   线路图跨满 12 栏；主栏 8／站台 4（≥1400 为 9／3）。主栏 .dash-body 是首页唯一一层卡，拉满这一行；
+   站台 sticky，比视口高时 dash.js 写负的 --side-top，侧栏任何部分都滚得到（第 6.6 节）。 */
+.dash{position:relative;display:grid;grid-template-columns:repeat(12,minmax(0,1fr));column-gap:var(--s6);margin-top:var(--s6)}
+.dash-head{grid-column:1/-1;position:relative;min-width:0;margin-bottom:var(--s6);scroll-margin-top:var(--s4)}
+.dash-body{grid-column:span 8;align-self:stretch;min-width:0;padding:var(--s6);border:1px solid var(--line);background:var(--surface);box-shadow:var(--lift)}
+.dash-side{grid-column:span 4;min-width:0;position:sticky;top:var(--side-top,16px);align-self:start}
+/* ===== 线路图（V20 第 6.4 节）=====
+   每个标签是一个车站：线段 ::before、站点 ::after 都是伪元素，不加标记。快车站大方块 + 实线，普通站小方块 + 虚线。
+   每格高 92：0–40 女孩行走带，线段中心 52，快车站点 42–62、普通站点 46–58，站名 68–92。
+   当前站同时靠「站点填满 + 站名变站牌」两种形状变化区分，不只靠颜色。 */
+.dash-tabs{display:grid;grid-auto-flow:column;grid-auto-columns:minmax(0,1fr)}
+.dash-tab{position:relative;display:block;height:92px;color:var(--ink);font-size:12px;line-height:24px;text-decoration:none}
+.dash-tab::before{content:'';position:absolute;left:0;right:0;top:50px;height:4px;background:var(--rail)}
+.dash-tab.is-local::before{background:repeating-linear-gradient(90deg,var(--rail) 0 8px,transparent 8px 16px)}
+.dash-tab:first-child::before{left:50%}.dash-tab:last-child::before{right:50%}
+.dash-tab::after{content:'';position:absolute;z-index:1;left:calc(50% - 10px);top:42px;width:20px;height:20px;background:var(--surface);border:4px solid var(--rail)}
+.dash-tab.is-local::after{left:calc(50% - 6px);top:46px;width:12px;height:12px;border-width:2px}
+.dash-tab .stn{position:absolute;left:50%;top:68px;transform:translateX(-50%);padding:0 8px;white-space:nowrap}
+.dash-tab.is-local .stn{color:var(--ink-2)}
+.dash-tab[aria-selected="true"]::after{background:var(--plate);border-color:var(--plate)}
+.dash-tab[aria-selected="true"] .stn{background:var(--plate);color:var(--on-plate)}
+.dash-tab:not([aria-selected="true"]):hover::after{background:var(--raised)}
+.dash-tab:hover .stn{text-decoration:underline 2px;text-underline-offset:4px}
+/* 女孩画在整条线路图上的叠层里（不再另占一条 48px 的带），点击穿透到站格。 */
+.dash-track{position:absolute;inset:0;pointer-events:none}
+.dash-walk{position:absolute;left:0;top:0;width:40px;height:40px;pointer-events:none;transform:translate(var(--x,0),var(--y,0));image-rendering:pixelated}
 .dash-walk .art{display:block;width:40px;height:40px;transform-origin:center bottom;animation:hop 280ms steps(2) infinite;animation-play-state:paused}
 .dash-walk.walking .art{animation-play-state:running}
-.dash-body{min-width:0;padding:var(--s7);border:3px solid var(--timber);background:var(--cream);box-shadow:4px 4px 0 var(--pixel-shadow),inset 0 0 0 2px var(--cream-3)}
 .tabpane:not(.on){display:none}
 .tabpane.on{animation:px-pane-in .22s cubic-bezier(.22,1,.36,1) backwards}
-.tabpane>.panel,.tabpane>.board{border:0;box-shadow:none;margin-bottom:0;padding:0}
-.clock{font-size:24px;line-height:32px;color:var(--ink);font-variant-numeric:tabular-nums}
+.tabpane>.panel{border:0;box-shadow:none;margin-bottom:0;padding:0;background:none}
+/* ===== 站台侧栏（V20 第 6.6 节）=====
+   状态与唱片机各是一张纸卡（内边距 24，≤760 为 16）。时钟像素 36、问候阅读 14、日期·季节·昼夜像素 12；
+   写作台是整宽 40px 的站牌主按钮（check-dashboard.js 认 .side-acts a[href="write/index.html"]）。 */
+.clock{font-size:36px;line-height:48px;color:var(--ink);font-variant-numeric:tabular-nums}
 .clock b{font-weight:normal;color:var(--ink-2)}
-.greet{min-height:24px;line-height:24px;margin:4px 0;color:var(--ink-2)}
-.side-acts{display:flex;align-items:stretch;gap:8px;margin-top:12px}
-.side-acts .abtn{display:flex;align-items:center;justify-content:center;gap:8px;flex:1;background:var(--cream-3);color:var(--ink);text-decoration:none;margin:0;padding:8px}
-.dash-side .panel{padding:16px;margin-bottom:20px}.dash-side .panel:last-child{margin-bottom:0}
-body:not(.is-article) .dash-side .panel>.pt{font-size:12px;line-height:24px;gap:8px;margin-bottom:16px}
-body:not(.is-article) .dash-side .panel>.pt>.ic{width:12px;height:12px}
+.greet{min-height:22px;margin:var(--s1) 0 0;font-family:var(--read);font-size:14px;line-height:22px;color:var(--ink)}
+#dash-meta{min-height:24px;margin:0;font-family:var(--pix);font-size:12px;line-height:24px;color:var(--ink-2)}
+.side-acts{display:flex;margin-top:var(--s4)}
+.side-acts .abtn{flex:1;justify-content:center;gap:8px;min-height:40px;margin:0;padding:0 12px;
+  background:var(--plate);color:var(--on-plate);border-color:var(--plate)}
+.side-acts .abtn:hover span{text-decoration:underline;text-underline-offset:4px}
+.dash-side .panel{margin-bottom:var(--s6)}.dash-side .panel:last-child{margin-bottom:0}
 @keyframes hop{0%,100%{transform:translateY(0)}50%{transform:translateY(-2px)}}
 @keyframes px-pane-in{from{opacity:.35;transform:translateY(6px)}to{opacity:1;transform:none}}
+@media(min-width:1400px){.dash-body{grid-column:span 9}.dash-side{grid-column:span 3}}
+/* ≤1080：招牌接在舞台下沿、宽度跟舞台一致；舞台 2:1；站台落到主栏下方、两块面板并排，不再 sticky。 */
+@media(max-width:1080px){
+  .hero{display:block}.sign{width:auto;margin:0;place-self:auto}.sign h1{font-size:36px;line-height:48px}
+  .stage{aspect-ratio:2/1}
+  .dash-body,.dash-side{grid-column:1/-1}
+  .dash-side{position:static;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:var(--s6);margin-top:var(--s6)}
+  .dash-side .panel{margin-bottom:0}
+  .wgrid{grid-template-columns:repeat(2,minmax(0,1fr))}
+}
 /* 首屏的双栏容器（.layout）已换成仪表盘 **.dash**（规则见上方 "首屏仪表盘" 一节）：
-   主栏 1fr + 状态栏 288px。下滑区（farmyard / scenery / footer / 留言板）仍是整行，不走两栏。 */
-.panel{border:3px solid var(--timber);padding:var(--s6);background:var(--cream);box-shadow:4px 4px 0 var(--pixel-shadow),inset 0 0 0 2px var(--cream-3);margin-bottom:var(--s8)}
-.panel::after{display:none}.panel>.cor{opacity:.7}.panel>.cor .ic{width:12px;height:12px}
-.panel>.pt{position:relative;top:auto;left:auto;width:fit-content;max-width:100%;margin:-2px 0 var(--s6);padding:var(--s1) var(--s3);background:var(--timber);color:#ffedbb;border:2px solid var(--timber-light);box-shadow:2px 2px 0 var(--pixel-shadow);line-height:24px;gap:var(--s3)}
-body:not(.is-article) .panel>.pt{font-size:24px;line-height:32px}
-body:not(.is-article) .panel>.pt>.ic{width:24px;height:24px}
-.pt::before,.pt::after{display:none}
-.dc-shelf{margin:24px -22px -22px;padding:8px 12px 4px;min-height:32px;border-top:3px solid var(--timber);background:repeating-linear-gradient(0deg,var(--timber-light) 0 4px,var(--timber) 4px 6px,var(--timber-light) 6px 16px);box-shadow:inset 0 2px var(--timber-top)}
-.dc-shelf .dc-season{gap:16px}.dc-shelf svg{width:24px;height:24px}.dc-shelf i,.dc-fy,.dc-stone{animation:none}
-.rgrid{gap:16px}.rcard{position:relative;min-height:184px;padding:20px 16px 16px;border:2px solid var(--timber-light);background:var(--cream-2);box-shadow:inset 0 4px var(--cream-3);gap:14px}
-.rc-h{gap:10px;align-items:center}.rc-h b{font-size:24px;line-height:32px;overflow-wrap:anywhere}
-.rc-d{font-size:12px;line-height:24px;opacity:1;color:var(--ink-2)}
-.rc-f{padding-top:10px;border-top:1px dashed var(--timber-light)}
-.rcard:hover{background:var(--cream);box-shadow:4px 4px 0 var(--timber-light);transform:translate(-2px,-2px)}
-.rfoot{justify-content:flex-start;font-size:12px;margin-top:18px}.museum-more{line-height:24px}.museum-more a,.more a{color:var(--ink);text-underline-offset:5px}
-#projects .museum-more{justify-content:flex-end;margin-top:-24px}#projects .dc-shelf{margin-top:24px}
-/* ---------- 精选项目（工坊顶部，柯西 2026-10-03）----------
-   ⚠️ 列数交给 auto-fit + 240px 最小宽，**不新增断点**：
-      852 主栏 → 3 列（每列 273）、700 → 2 列、350 手机 → 1 列，全部自动。
-      写死 repeat(3) 的话 1000px 档每列只剩 215，标题就得折行。
-   ⚠️ 封面统一 16:10（assets/projects/*.jpg，由 build/_make-covers.py 生成）。
-      竖图（Music Space 那张 390×860 的实机截图）在源头已经裁成横版，
-      这里只做 object-fit:cover 兜底 —— 卡片尺寸变了也不会拉变形。 */
+   主栏 1fr + 状态栏 288px。下滑区（留言板、页脚站台）仍是整行，不走两栏。 */
+/* 面板材质（纸卡）与面板头只写在 gen.js 的 .panel、.pt 一处（V20 第 3.5、6.11 节）；四角饰件与作物架随 V20 删了。 */
+.museum-more{line-height:24px}.museum-more a,.more a{color:var(--ink);text-underline-offset:5px}
+/* 「查看全部仓库」与仓库汇总行同一行、靠右 */
+#projects .museum-more{justify-content:flex-end;margin-top:-24px}
+/* ---------- 精选项目与开源贡献（工坊顶部，柯西 2026-10-03；V20 第 6.9 节）----------
+   精选是**显式两列**、第三张跨满两列左图右文（auto-fit 在宽主栏会变 3 列，第三张的跨列放不进第一行剩下的 1 列）；
+   ≤760 回到单列上图下文。不给卡片加类名：check-workshop.js 按 class="pjcard" 精确计数。
+   封面统一 16:10（assets/projects/*.jpg，由 build/_make-covers.py 生成），object-fit:cover 只是兜底。
+   卡片是海报材质（纸卡）；文字只用 projects.js 里 10-03 确认过的内容（B03）。 */
 .pjblock{margin:0 0 var(--s6)}
-.pjhead{display:flex;align-items:center;gap:8px;margin:0 0 var(--s3);color:var(--moss);font-size:12px;line-height:24px}
-.pjgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:var(--s4);align-items:stretch}
-.pjcard{display:flex;flex-direction:column;border:2px solid var(--timber-light);background:var(--cream-2);box-shadow:inset 0 4px var(--cream-3);color:var(--ink);text-decoration:none}
-.pjshot{display:block;aspect-ratio:16/10;overflow:hidden;background:var(--timber);border-bottom:2px solid var(--timber-light)}
+.pjhead{display:flex;align-items:center;gap:8px;margin:0 0 var(--s3);color:var(--rail);font-size:12px;line-height:24px}
+.pjgrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:var(--s4)}
+.pjgrid>.pjcard:nth-child(3){grid-column:1/-1;display:grid;grid-template-columns:1fr 1fr}
+.pjgrid>.pjcard:nth-child(3) .pjshot{align-self:start;border-bottom:0;border-right:1px solid var(--line)}
+.pjcard{display:flex;flex-direction:column;background:var(--surface);border:1px solid var(--line);box-shadow:var(--lift);
+  color:var(--ink);text-decoration:none;transition:background .12s}
+.pjcard:hover{background:var(--raised)}
+.pjshot{display:block;aspect-ratio:16/10;overflow:hidden;background:var(--raised);border-bottom:1px solid var(--line)}
 .pjshot img{display:block;width:100%;height:100%;object-fit:cover}
 .pjbody{display:flex;flex:1;flex-direction:column;gap:var(--s2);padding:var(--s4)}
 .pjh{display:flex;align-items:baseline;justify-content:space-between;gap:var(--s2);flex-wrap:wrap}
-.pjname{font-size:24px;line-height:32px;overflow-wrap:anywhere}
-.pjrole{font-size:12px;line-height:24px;padding:0 8px;background:var(--moss);color:var(--cream);white-space:nowrap}
-.pjevent{font-size:12px;line-height:24px;color:var(--moss);margin:0}
-.pjtag{font-size:12px;line-height:24px;color:var(--ink-2);margin:0}
+.pjname{font-size:24px;line-height:32px;font-weight:normal;overflow-wrap:anywhere}
+.pjrole{font-size:12px;line-height:24px;font-style:normal;padding:0 8px;background:var(--plate);color:var(--on-plate);white-space:nowrap}
+.pjevent{margin:0;font-family:var(--read);font-size:14px;line-height:22px;color:var(--ink-2)}
+.pjtag{margin:0;font-family:var(--read);font-size:16px;line-height:26px;color:var(--ink)}
 .pjstack{display:flex;flex-wrap:wrap;gap:4px}
-.pjstack i{font-size:12px;line-height:24px;font-style:normal;padding:0 8px;border:1px solid var(--timber-light);background:var(--cream)}
-.pjfacts{display:flex;flex-direction:column;gap:var(--s1);margin:0;padding:var(--s2) 0 0;border-top:1px dashed var(--timber-light)}
-.pjfacts i{position:relative;display:block;padding-left:16px;color:var(--ink-2);font-style:normal;font-size:12px;line-height:24px}
-.pjfacts i::before{content:'';position:absolute;left:0;top:8px;width:8px;height:8px;background:var(--moss)}
-.pjgo{margin-top:auto;padding-top:var(--s3);font-size:12px;line-height:24px;color:var(--ink);text-decoration:underline;text-underline-offset:5px}
-.pjcard:hover{background:var(--cream);box-shadow:4px 4px 0 var(--timber-light);transform:translate(-2px,-2px)}
-/* 开源贡献：虚线框 + 无封面，视觉上比精选弱一档 —— 作者和贡献者不能长得一样 */
+.pjstack i{font-size:12px;line-height:24px;font-style:normal;padding:0 8px;background:var(--raised);color:var(--tx-tag)}
+/* 事实列表：每条一行、条间 1px 细线，不加项目符号 */
+.pjfacts{display:flex;flex-direction:column;margin:0}
+.pjfacts i{display:block;padding:var(--s2) 0;font-family:var(--read);font-style:normal;font-size:14px;line-height:22px;color:var(--ink-2)}
+.pjfacts i+i{border-top:1px solid var(--line)}
+.pjgo{display:flex;align-items:center;gap:var(--s2);width:fit-content;margin-top:auto;padding-top:var(--s3);font-size:12px;line-height:24px;
+  color:var(--ink);text-decoration:underline;text-underline-offset:5px}
+/* 开源贡献：无封面、1px 虚线控件边（虚线表示「参与别人的项目」），视觉上比精选弱一档 —— 作者和贡献者不能长得一样 */
 .pjcontrib{margin-top:var(--s6)}
-.pjcbox{padding:var(--s4);border:2px dashed var(--timber-light);background:var(--cream)}
+.pjcbox{padding:var(--s4);border:1px dashed var(--edge);background:var(--surface)}
 .pjcname{display:flex;align-items:baseline;gap:var(--s2);flex-wrap:wrap;margin:0 0 var(--s2)}
-.pjcname b{font-size:24px;line-height:32px}
-.pjcname i{font-style:normal;color:var(--ink-2);font-size:12px;line-height:24px}
-.pjcbox .pjfacts{padding-top:0;border-top:0}
+.pjcname b{font-size:24px;line-height:32px;font-weight:normal;color:var(--ink)}
+.pjcname i{font-style:normal;font-family:var(--read);font-size:14px;line-height:22px;color:var(--ink-2)}
 .pjcbox .pjgo{padding-top:var(--s2)}
-.tl-item{padding-bottom:18px}.tl-card{padding:14px;border:0;border-bottom:2px solid var(--cream-3);background:transparent;gap:14px}
-.tl-item.lead .tl-card{background:var(--cream-2);border:2px solid var(--timber-light);box-shadow:inset 4px 0 var(--moss);padding:18px}
-.tl-exc{line-height:24px;color:var(--ink-2);opacity:1}.tl-title{line-height:24px}
-.tl-item.lead .tl-title{font-size:36px;line-height:48px}.tl-item:hover .tl-card{background:var(--cream-2);transform:none}
-.tl-tag{border:0;background:var(--cream-3);padding:2px 6px}.tl-line{opacity:.3}
-.tl-cover{border:0;background:none;height:auto}.tl-cover img{height:auto;object-fit:contain}
-.stack li{border:0;background:none;padding:8px 0;flex-wrap:wrap;border-bottom:1px dotted var(--timber-light)}
-.stack .tbar{border:1px solid var(--timber-light);height:10px}.stack li>.ic{display:none}
-.calendar-date{border-bottom:2px dashed var(--cream-3);padding-bottom:16px;margin-bottom:20px}
-.calendar-date time{font-size:24px;line-height:32px;letter-spacing:-1px}
-#calendar .se{min-height:58px;border:1px solid var(--timber-light);background:var(--cream-2);gap:8px}
-#calendar .se .ic{width:24px;height:24px}#calendar .se.on{outline:2px solid var(--moss);outline-offset:2px;background:var(--cream-3);color:var(--ink)}
-.calendar-auto{background:var(--cream-2);color:var(--ink);border:1px solid var(--timber-light)}
-.museum-zone-title{margin:8px 0 16px;gap:12px;line-height:24px}.shelf-tabs{gap:8px;margin-bottom:20px}
-.shelf-tab,.museum-filter{padding:8px 12px;border:1px solid var(--timber-light);box-shadow:0 2px var(--cream-3)}
-.shelf{padding-bottom:20px}.shelf-status,.gfoot{line-height:24px}.exc .t{line-height:24px;height:48px}
-.gt{gap:14px}.gt-n{height:auto;line-height:24px}.gt-h{line-height:24px}
-.gstrip{gap:16px;justify-content:flex-start}.gstrip .gp{border:4px solid var(--cream-2);outline:1px solid var(--timber-light);box-shadow:3px 3px var(--cream-3);padding-bottom:12px;background:var(--cream-2)}
-.gstrip img{height:120px}.dc-path{margin-top:-10px;margin-bottom:26px;opacity:.65}
+#calendar .se{min-height:58px;gap:8px}
+#calendar .se .ic{width:24px;height:24px}
+.museum-zone-title{margin:8px 0 16px;gap:12px;line-height:24px}
+.shelf-tab,.museum-filter{padding:8px 12px}
+.shelf-status,.gfoot{line-height:24px}
 .is-article .artpage,.is-article .cmtpanel{max-width:860px}.is-article .artbody{max-width:42rem;line-height:1.9}
 /* 有目录的文章（柯西 2026-09-20：目录放左边）面板放宽到 1000px：
    860 - 48(面板内边距) - 200(目录栏) - 28(栏间距) = 584px，比从前的阅读宽度
    42rem(672px) 还窄；放宽后正文正好拿回 672px。 specificity 必须比上面那条
    .is-article .artpage 高一级（多个 .has-toc），否则同特异性下还是 860 赢。 */
 .is-article .artpage.has-toc{max-width:1000px}
-.is-article .abarnav.has-toc{max-width:1000px}
-.is-article .abarnav{max-width:860px;margin:0 auto 24px}.abtn{border:2px solid var(--timber-light);box-shadow:0 3px var(--timber);padding:8px 12px}
-.is-article .arttitle{margin-top:12px}.is-article .artcover img{border:0;box-shadow:none}
-.is-article .dc-shelf{margin-top:32px}.is-article .artpage>.pt{font-size:12px}
-.sitebottom{margin-top:var(--s8)}.site-links{line-height:24px}.dc-farmyard{padding-top:var(--s5)}
-@media(max-width:1000px){.board.pixel-entry{grid-template-columns:minmax(0,1fr) 300px;gap:8px}.entry-copy{padding:16px 12px}.board.pixel-entry .bt{font-size:24px;line-height:36px}.entry-counts{gap:12px}.entry-counts b{font-size:12px}.dash{grid-template-columns:minmax(0,1fr) 264px;gap:var(--s6)}.rc-h b{font-size:12px;line-height:24px}.rgrid{gap:12px}.rcard{padding:16px 12px}}
-@media(max-width:760px){.wrap{padding:0 16px 32px}.appearance-settings{padding:0 16px}.board.pixel-entry{grid-template-columns:1fr;padding:8px;gap:0}.entry-copy{padding:16px}.entry-view{padding:8px}.pixel-window{height:184px}.pixel-window .dc-house{width:160px!important;left:calc(50% - 110px)}.pixel-window .dc-mill{right:32px;width:80px!important}.entry-caption{padding:8px}.entry-label{margin-bottom:12px}.entry-counts{margin-top:16px;gap:16px}.entry-counts b{font-size:24px}.dash{grid-template-columns:1fr;gap:var(--s5)}.dash-tabs{flex-wrap:wrap}.dash-tab{flex:0 0 calc(33.333% - 4px)}.dash-body{min-height:360px;padding:var(--s5)}.panel{padding:var(--s5);margin-bottom:var(--s7)}.panel>.pt{margin-bottom:var(--s5)}body:not(.is-article) .panel>.pt{font-size:24px}.dc-shelf{margin:20px -18px -18px}.rgrid{grid-template-columns:1fr}.rcard{min-height:0}.rc-h b{font-size:24px;line-height:32px}.rc-d{-webkit-line-clamp:3}.rfoot{display:none}#projects .museum-more{margin-top:20px;justify-content:center}/* ⚠️ 窄屏的 .tl-item 必须是**两列**：日期列（.tl-when）在 1080 以下就被 gen.js
-   display:none 了，而 display:none 的元素**不占网格格位** —— 这里若写回三列，
-   .tl-card 会掉进第 2 列（原来给轴线的那 18px），卡片只剩内边距、内容宽 0，
-   手机上时间线只剩一根空条（2026-09-21 发现，纯静态断言看不出来，得在窄屏量宽度）。
-   轴列 40px 是这里刻意放大的（配 18px 的圆点），轴线中心 = 40/2 → left 19px。
-   卡片内部同理：封面在 820 以下已经隐藏，内部网格留成 1 列。 */
-.tl-item{grid-template-columns:40px minmax(0,1fr);gap:8px}.tl-line{left:19px;width:3px}.tl-dot{width:18px;height:18px}.tl-card{padding:10px;grid-template-columns:minmax(0,1fr);gap:10px}.tl-cover{width:40px}.tl-item.lead .tl-card{padding:12px}.tl-item.lead .tl-title{font-size:24px;line-height:36px}.gstrip img{height:96px}.museum-zone-title{flex-wrap:wrap}.douban-mark-link{margin-left:0}.dc-scene,.dc-pond{display:none}}
-/* ===== 窄屏横向溢出的两个源头（2026-09-20 量出来的，别再当"环境问题"） =====
-   ⚠️ 这两条**必须留在本文件**：本文件是样式表里最后一份，写进 gen.js 会被上面的
-   .shelf-tab / .dc-shelf 覆盖（同特异性、后来者胜），看着改了其实没生效。
+.is-article .artcover img{border:0;box-shadow:none}
+@media(max-width:760px){.wrap{padding:0 16px 32px}.stage{aspect-ratio:4/3}
+/* 线路图两行、不滚动：60 列网格，快车站 5 × 12 排满第一行，普通站 4 × 15 排满第二行；相馆或友链缺席时按 data-* 改跨度。
+   每格 84：0–32 女孩带，站点 34–54，站名 60–84 —— 与桌面同一套留白（女孩脚下 2px、站点到站名 6px），第一行站名不贴站点。 */
+.dash-tabs{grid-auto-flow:row;grid-auto-columns:auto;grid-template-columns:repeat(60,minmax(0,1fr))}
+.dash-tab{height:84px;grid-column:span 12}.dash-tab.is-local{grid-column:span 15}
+.dash-tabs[data-express="4"] .is-express{grid-column:span 15}.dash-tabs[data-local="3"] .is-local{grid-column:span 20}
+.dash-tab::before{top:42px}.dash-tab::after{top:34px}.dash-tab.is-local::after{top:38px}.dash-tab .stn{top:60px}
+.dash-tab.is-turn-end::before{right:50%}.dash-tab.is-turn-start::before{left:50%}
+.dash-walk,.dash-walk .art{width:32px;height:32px}
+.dash-side{grid-template-columns:minmax(0,1fr)}
+/* 面板内边距 16（站台纸卡、子页面板）；主栏工坊仓库与精选海报单列，第三张海报回到上图下文。
+   时刻表的窄屏规则与基础规则同在 gen.js（第 1 层），不在这里写。 */
+.dash-body{padding:var(--s4)}.panel{padding:var(--s4);margin-bottom:var(--s7)}
+.rgrid,.wgrid{grid-template-columns:minmax(0,1fr)}.rfoot{display:none}#projects .museum-more{margin-top:20px;justify-content:center}
+.pjgrid{grid-template-columns:minmax(0,1fr)}.pjgrid>.pjcard:nth-child(3){display:flex;flex-direction:column}
+.pjgrid>.pjcard:nth-child(3) .pjshot{border-right:0;border-bottom:1px solid var(--line)}
+.gstrip img{height:96px}.museum-zone-title{flex-wrap:wrap}.douban-mark-link{margin-left:0}}
+/* ===== 窄屏横向溢出的源头（2026-09-20 量出来的，别再当"环境问题"） =====
+   ⚠️ 这条**必须留在本文件**：本文件是样式表里最后一份，写进 gen.js 会被上面的
+   .shelf-tab 覆盖（同特异性、后来者胜），看着改了其实没生效。
+   （另一个源头「面板底部作物架」.dc-shelf 随 V20 删了。）
 
-   1) 博物馆的 5 个分类按钮（全部1198 / 影287 / 书44 / 音乐571 / 游戏296）
+   博物馆的 5 个分类按钮（全部1198 / 影287 / 书44 / 音乐571 / 游戏296）
       一行天然要 354px，而它所在面板的内容宽只有 320px→242 / 360px→282 /
       375px→297 / 390px→312。实测 360px 就已经顶出面板外（页面横向溢出 9px）。
       先收紧内边距（375px 以上这样就是一行了），再允许折行兜底 ——
@@ -217,15 +199,14 @@ body:not(.is-article) .panel>.pt>.ic{width:24px;height:24px}
   .shelf-bar{flex-wrap:wrap;gap:4px}
   .shelf-tab{padding:8px 4px}
   .shelf-tab i{padding:0 2px}
+  /* 书架固定 3 列（第 6.8 节）；海报名「szuDesktop · 荔枝庭院」像素 24 要 264px，320 屏卡内只有约 220（第 6.9 节） */
+  .shelf{grid-template-columns:repeat(3,minmax(0,1fr))}
+  .pjname{font-size:12px;line-height:24px}
 }
-/*   2) 装饰层「面板底部作物架」(.dc-shelf，build/decor.js) 本身是 aria-hidden 的纯装饰，
-      却是把右栏顶宽的真凶：8 个作物 × 24px + 7 × 16px 间隙 = 304px 的**硬最小宽**，
-      320px 时把右栏每个面板都撑到 338px → 整页横向溢出 34px。
-      试过 .dc-shelf{overflow:hidden}：**没用** —— 块级 flex 容器的 overflow 不会让
-      最小内容宽变小（实测仍然 328），所以只能让它在窄屏真的变窄。
-      间隙 16→8 后作物组 248px，反推到 298px 视口都不会再溢出。 */
 @media(max-width:360px){
-  .dc-shelf .dc-season{gap:8px}
+  /* 320 屏地名牌与右上控件组放不进同一行；≤1080 招牌已接在舞台下沿，舞台左下是空的（第 6.2 节，v5） */
+  .stage-plate{top:auto;bottom:var(--s4)}
+  .sign .soc{flex:1 1 calc(50% - 4px)}
 }
 /* ===== 按压反馈（2026-09-22，对标 jonbrown66/pixel-portfolio 的 .pixel-button）=====
    像素按钮的三态手感：hover 上浮 ▸ active 下沉 + 落影收缩，"按得下去"。
@@ -240,12 +221,11 @@ body:not(.is-article) .panel>.pt>.ic{width:24px;height:24px}
       用 position:relative + top 偏移。
    ⚠️ 同位移值的合并成一条选择器列表：规则总数有 1900 的棘轮预算
       （check-css-budget），一个控件一条 :active 放不下。 */
-.dash-tab:active,.pixel-entry .social .soc:active,.cbtn:active,.gal-item:active,
+/* V20 第 6.15 节：所有按下态统一成「下沉 2px + 收起落影」，一条规则管完（含页脚快捷栏 .hb）。 */
+.dash-tab:active,.sign .soc:active,.stage-btn:active,.cbtn:active,.gal-item:active,
 .museum-item a:active,.gstrip .gp:active,.exc > a:active,.apg:active,.museum-page-btn:active:not(:disabled),
-.shelf-tab:active,.museum-filter:active,.copy-code:active{transform:translateY(1px)}
-.rcard:active,.wcard-link:active,.pjcard:active{transform:translate(0,1px);box-shadow:inset 0 4px var(--cream-3)}
-.fr:active{transform:translateY(1px) scale(1.02)}
-.abtn:active{transform:translateY(1px);box-shadow:0 1px var(--timber)}
+.shelf-tab:active,.museum-filter:active,.copy-code:active,
+.rcard:active,.wcard-link:active,.pjcard:active,.abtn:active,.hb:active{transform:translateY(2px);box-shadow:none}
 .more a:active,.museum-more a:active{position:relative;top:1px}
 /* 触屏没有"悬停"：tap 之后 :hover 会粘在元素上（卡片一直浮着、一直黄底），
    桌面看不出、手机必现。参照项目用 @media (hover:hover) 正向包 hover；
@@ -253,10 +233,10 @@ body:not(.is-article) .panel>.pt>.ic{width:24px;height:24px}
    hover 在触屏上一律摁平（背景色粘滞比位移轻，留着不动）。
    ⚠️ 同样必须写在本文件：.toolbar .tool:hover / .rcard:hover 的生效层在这里。 */
 @media (hover:none){
-  .dash-tab:hover,.pixel-entry .social .soc:hover,.cbtn:hover,.rcard:hover,.pjcard:hover,
-  .wcard-link:hover,.gal-item:hover,.gstrip .gp:hover,.fr:hover,.exc > a:hover,
+  .dash-tab:hover,.sign .soc:hover,.cbtn:hover,.rcard:hover,.pjcard:hover,
+  .wcard-link:hover,.gal-item:hover,.gstrip .gp:hover,.exc > a:hover,
   .abtn:hover,.apg:hover,.tool:hover,.tool:focus-visible,.soc:hover,.soc:focus-visible,
-  .share-btn:hover{transform:none}
+  .share-btn:hover,.hb:hover,.tl-item:hover{transform:none}
 }
 /* 卡片轻微上移并渐显：280ms，35ms 交错且最多等待 175ms。
    backwards 只管理入场，不占住 hover/active；减少动效时内容保持可见。 */
@@ -264,4 +244,4 @@ body:not(.is-article) .panel>.pt>.ic{width:24px;height:24px}
 .rcard,.pjcard,.tl-card,.gstrip .gp,.exc,.gal-item,.museum-item,.wcard{animation:px-card-in .28s cubic-bezier(.22,1,.36,1) backwards;animation-delay:min(calc(var(--i,0)*35ms),175ms)}
 `;
 
-module.exports = {hero, css};
+module.exports = {stage, css};

@@ -1,6 +1,6 @@
 const fs=require('fs'),path=require('path');
 const {ICONS,toSymbol}=require('./icons.js');
-const {seasonScript,bottomBlock,decorate,dcShelf,DECOR_ICONS,shareBtn,shareScript,skinHead,themeHref}=require('./subpage.js');
+const {seasonScript,bottomBlock,CHROME_ICONS,shareScript,sitebar,skinHead,themeHref}=require('./subpage.js');
 const SITE=require('./site.config.js');
 const esc=s=>String(s==null?'':s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
 const safeJSON=o=>JSON.stringify(o).replace(/</g,'\\u003c');
@@ -37,63 +37,88 @@ function harvest(data){
   <script id="harvest-summary" type="application/json">${safeJSON(data.years)}</script>
  </div>`;
 }
-function scenery(){return `<div class="farm-edge-area"><div class="season-scenery" aria-hidden="true">${['left','right'].map(side=>`<div class="edge-plot ${side}"><span class="edge-lantern">${icon('lantern')}</span><span class="season-plants spring">${icon('tulip')}${icon('flower')}</span><span class="season-plants summer">${icon('sunflower')}${icon('melon')}</span><span class="season-plants autumn">${icon('pumpkin')}${icon('wheat')}</span><span class="season-plants winter">${icon('snowman')}<i class="snow-cap"></i></span></div>`).join('')}</div><div class="farm-pet"><button id="farm-pet" type="button" aria-label="摸摸小鸡">${icon('chicken')}</button><span class="pet-reply" role="status" aria-live="polite"></span></div></div>`;}
+// 季节景物与小鸡（N02）只放在首页页脚站台、快捷栏两侧（V20 第 6.13 节）：开关只在首页外观设置里，放到子页会关不掉。
+// 根元素保留 season-scenery / farm-pet 两个类名：开关规则与 check-farm.js 都认它们。
+function planter(){return `<div class="planter season-scenery" aria-hidden="true"><span class="planter-lantern">${icon('lantern')}</span><span class="season-plants spring">${icon('tulip')}${icon('flower')}</span><span class="season-plants summer">${icon('sunflower')}${icon('melon')}</span><span class="season-plants autumn">${icon('pumpkin')}${icon('wheat')}</span><span class="season-plants winter">${icon('snowman')}<i class="snow-cap"></i></span></div>`;}
+function pet(){return `<div class="pet farm-pet"><span class="pet-reply" role="status" aria-live="polite"></span><button id="farm-pet" type="button" aria-label="摸摸小鸡">${icon('chicken')}</button></div>`;}
 function settings(){return `<label class="farm-option"><input type="checkbox" data-farm-option="pet" checked>农场小鸡</label><label class="farm-option"><input type="checkbox" data-farm-option="scenery" checked>季节景物</label>`;}
 const css=`
 /* Farm modules: preserve pixel palette; restrained motion, readable content. */
 #calendar,#ledger,.harvest-page{font-size:12px;line-height:24px}
-.calendar-date{display:flex;flex-direction:column;gap:8px;margin:4px 0 20px}
-.calendar-date time{font-size:24px;line-height:36px;font-weight:bold;font-variant-numeric:tabular-nums}
-.calendar-date span,.calendar-mode,.harvest-note{font-size:12px;line-height:24px}
-/* .se / .farm-pet button / #music button 都是 <button>，光标由主题主规则
+/* 日历日期（V20 第 6.9 节末）：规则只留这一处，≤430 降档在后面收获簿列表之后那个块里（同特异性后来者赢）。
+   像素字不加粗；日期与四季按钮之间一道 1px 细线（虚线在 V20 里留给普通站线段、空田和开源贡献框）。 */
+.calendar-date{display:flex;flex-direction:column;gap:8px;margin:4px 0 20px;padding-bottom:16px;border-bottom:1px solid var(--line)}
+.calendar-date time{font-size:36px;line-height:48px;font-variant-numeric:tabular-nums}
+.calendar-date span,.calendar-mode{font-size:12px;line-height:24px}
+/* 说明句会折行，用阅读字（第 4 节点名表） */
+.harvest-note{font-family:var(--read);font-size:14px;line-height:22px}
+/* .se / .pet button / #music button 都是 <button>，光标由主题主规则
    统一发「金黄可点态箭头」。⚠️ 这些规则里不要再写 cursor:pointer ——
    ID/类选择器特异性高于主规则的 (0,0,1)，会把像素光标顶回系统箭头。 */
-#calendar .se{font:inherit;min-height:60px;display:flex;align-items:center;justify-content:center;gap:12px;color:var(--ink);background:var(--cream);border:2px solid var(--wood-c);padding:8px}
+/* 四季键是搪瓷徽章（V20 第 3.5 节）：当前季节（aria-pressed）用站牌色，悬停浮起色。 */
+#calendar .se{font:inherit;min-height:60px;display:flex;align-items:center;justify-content:center;gap:12px;color:var(--ink);background:var(--surface);border:2px solid var(--edge);box-shadow:0 2px 0 var(--edge);padding:8px}
 #calendar .se b{font-size:12px;line-height:24px;margin:0}
-#calendar .se.on{outline:2px solid var(--wood-c);outline-offset:2px;background:var(--accent,#ffe087);color:#3b2412}
-.calendar-mode{margin:16px 0 8px}.calendar-auto{min-height:40px;font:inherit}
+#calendar .se:hover{background:var(--raised)}
+#calendar .se[aria-pressed="true"]{background:var(--plate);color:var(--on-plate);border-color:var(--plate)}
+/* 当季那一格：落影换成 2px 线路色下边（季节按真实时间自动判定，不标出来看不出「现在这一季」）。 */
+#calendar .se.now{box-shadow:0 2px 0 var(--rail)}
+.calendar-mode{margin:16px 0 8px;color:var(--ink-2)}.calendar-auto{min-height:40px;font:inherit}
 .harvest-heading{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:12px}
-.harvest-heading select,.harvest-filters select{font:inherit;line-height:24px;color:var(--ink);background:var(--cream);border:2px solid var(--wood-c);padding:6px;max-width:100%}
+/* 年份下拉是 40px 高的搪瓷徽章 */
+.harvest-heading select,.harvest-filters select{font:inherit;line-height:24px;min-height:40px;color:var(--ink);background:var(--surface);
+  border:2px solid var(--edge);box-shadow:0 2px 0 var(--edge);padding:4px 8px;max-width:100%}
 .harvest-counts a{display:flex;align-items:center;justify-content:space-between;gap:12px;min-height:48px;border-bottom:1px solid var(--wood-c);text-decoration:none;color:var(--ink)}
-.harvest-counts a span{display:flex;align-items:center;gap:10px}.harvest-counts a b{font-size:24px;line-height:36px;color:var(--tx-num)}.harvest-note{margin:16px 0 0;color:var(--tx-3)}
+.harvest-counts a span{display:flex;align-items:center;gap:10px}.harvest-note{margin:16px 0 0;color:var(--tx-3)}
 .harvest-filters{display:flex;flex-wrap:wrap;gap:16px;margin:24px 0}.harvest-filters label{display:flex;align-items:center;gap:8px}
-.harvest-list{list-style:none;padding:0;margin:20px 0}.harvest-list li{padding:16px 0;border-bottom:1px solid var(--wood-c)}
-.harvest-list a{color:var(--ink);font-weight:bold;line-height:24px}
-/* 标题前的类型图标（KIND_ICON）：SVG 默认 display:block，在 <a> 文本流里会换行 */
-.harvest-list a svg.ic{display:inline-block;vertical-align:-4px;margin-right:5px}
-.harvest-list small{display:block;font-size:12px;line-height:24px;color:var(--tx-3)}
+/* 收获簿记录按时刻表行排（V20 第 7.2 节）：日期像素 12 ｜ 类型图标 + 标题阅读 16 ｜ 类型芯片；行间 1px 细线，悬停整行浮起色。
+   ≤430 日期独占一行（见下方 ≤430 块）。 */
+.harvest-list{list-style:none;padding:0;margin:20px 0}
+.harvest-list li{display:grid;grid-template-columns:96px minmax(0,1fr) auto;align-items:start;gap:12px;padding:12px 8px;border-bottom:1px solid var(--line)}
+.harvest-list li:hover{background:var(--raised)}
+.harvest-list time{color:var(--tx-em);white-space:nowrap;font-variant-numeric:tabular-nums}
+.harvest-list a{display:flex;align-items:flex-start;gap:8px;min-width:0;color:var(--ink);text-decoration:none;font-family:var(--read);font-size:16px;line-height:26px;font-weight:600;overflow-wrap:anywhere}
+.harvest-list a:hover{text-decoration:underline;text-underline-offset:4px}
+.harvest-list a svg.ic{margin-top:5px}
+.harvest-list small{padding:0 6px;font-size:12px;line-height:24px;white-space:nowrap;background:var(--raised);color:var(--tx-tag)}
+.harvest-list li:hover small{background:var(--surface)}
+/* ≤430 降档：日历日期（第 6.9 节末）与收获簿日期独占一行。排在两者的基础规则之后（同特异性后来者赢）。 */
+@media(max-width:430px){.calendar-date time{font-size:24px;line-height:36px}.harvest-list li{grid-template-columns:minmax(0,1fr) auto;row-gap:4px}.harvest-list time{grid-column:1/-1}}
 .harvest-list [hidden],.harvest-empty[hidden]{display:none!important}
-.farm-harvest-intro{margin:0 0 24px;color:var(--ink-2);max-width:52em}
-.farm-harvest .harvest-heading{padding-bottom:12px;border-bottom:2px solid var(--cream-3);margin-bottom:20px}
-.farm-harvest .harvest-heading label{font-size:24px;line-height:32px}.farm-harvest .harvest-heading select{padding:4px 8px}
+.farm-harvest-intro{margin:0 0 24px;font-family:var(--read);font-size:14px;line-height:22px;color:var(--ink-2);max-width:52em}
+.farm-harvest .harvest-heading{padding-bottom:12px;border-bottom:1px solid var(--line);margin-bottom:20px}
+.farm-harvest .harvest-heading label{font-size:24px;line-height:32px}
+/* 四块收获田是纸卡（V20 第 6.11 节）；空田用浮起色底 + 1px 虚线控件边。数字像素 24、名称像素 12。 */
 .farm-harvest .harvest-counts{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px}
-.farm-harvest .farm-plot{display:flex;flex-direction:column;align-items:stretch;gap:8px;padding:16px 12px 12px;min-width:0;border:1px solid var(--timber-light);background:var(--cream-2);text-decoration:none;color:var(--ink);transition:background .2s ease,border-color .2s ease}
-.farm-harvest .farm-plot:hover{background:var(--cream);border-color:var(--moss)}.farm-harvest .farm-plot:focus-visible{outline:2px solid var(--moss);outline-offset:4px}
+.farm-harvest .farm-plot{display:flex;flex-direction:column;align-items:stretch;gap:8px;padding:16px 12px 12px;min-width:0;
+  border:1px solid var(--line);background:var(--surface);box-shadow:var(--lift);text-decoration:none;color:var(--ink);transition:background .2s ease}
+.farm-harvest .farm-plot[data-empty="true"]{background:var(--raised);border:1px dashed var(--edge);box-shadow:none}
+.farm-harvest .farm-plot:hover{background:var(--raised)}.farm-harvest .farm-plot:focus-visible{outline:2px solid var(--rail);outline-offset:4px}
 .farm-harvest .farm-plot-label{display:block;font-size:12px;line-height:24px}
 .farm-harvest .farm-plot-crop{position:relative;display:flex;align-items:flex-end;justify-content:center;height:64px;padding-bottom:12px}
-.farm-harvest .farm-plot-crop::after{content:'';position:absolute;bottom:0;left:0;right:0;height:12px;background:repeating-linear-gradient(0deg,var(--timber-light) 0 4px,var(--timber) 4px 8px);box-shadow:0 -4px 0 var(--cream-3)}
+.farm-harvest .farm-plot-crop::after{content:'';position:absolute;bottom:0;left:0;right:0;height:8px;background:var(--wood)}
 .farm-harvest .farm-plot-crop .ic{width:36px;height:36px;z-index:1}.farm-harvest .farm-plot[data-empty="true"] .farm-plot-crop .ic{visibility:hidden}
 .farm-harvest .farm-plot-total{display:flex;align-items:baseline;gap:8px}.farm-harvest .farm-plot-total b{font-size:24px;line-height:32px;color:var(--tx-num);font-variant-numeric:tabular-nums}
 .farm-harvest .farm-plot-total span,.farm-harvest .farm-plot-note{font-size:12px;line-height:24px;color:var(--ink-2)}
-.farm-recent{margin-top:28px}.farm-recent-heading{display:flex;align-items:baseline;justify-content:space-between;gap:12px;margin-bottom:8px}.farm-recent-heading h3{margin:0;font-size:12px;line-height:24px}.farm-recent-heading a{color:var(--ink-2);text-underline-offset:4px;white-space:nowrap}
-.farm-recent-list{list-style:none;padding:0;margin:0}.farm-recent-list li{display:grid;grid-template-columns:76px minmax(0,1fr) auto;align-items:start;gap:12px;padding:12px 0;border-bottom:1px solid var(--cream-3)}
-.farm-recent-list a{color:var(--ink);text-decoration:none;line-height:24px;overflow-wrap:anywhere}.farm-recent-list a:hover{text-decoration:underline;text-underline-offset:4px}
+.farm-recent{margin-top:28px}.farm-recent-heading{display:flex;align-items:baseline;justify-content:space-between;gap:12px;margin-bottom:8px}.farm-recent-heading h3{margin:0;font-size:12px;line-height:24px;font-weight:normal}.farm-recent-heading a{color:var(--ink-2);text-underline-offset:4px;white-space:nowrap}
+/* 最近三条按时刻表行排：类型与日期像素 12，标题阅读 14 */
+.farm-recent-list{list-style:none;padding:0;margin:0}.farm-recent-list li{display:grid;grid-template-columns:76px minmax(0,1fr) auto;align-items:start;gap:12px;padding:12px 0;border-bottom:1px solid var(--line)}
+.farm-recent-list a{color:var(--ink);text-decoration:none;font-family:var(--read);font-size:14px;line-height:22px;overflow-wrap:anywhere}.farm-recent-list a:hover{text-decoration:underline;text-underline-offset:4px}
 .farm-recent-kind{display:flex;align-items:center;gap:8px;color:var(--ink-2)}.farm-recent-kind .ic{width:24px;height:24px;flex:none}.farm-recent-list time{color:var(--ink-2);white-space:nowrap;font-variant-numeric:tabular-nums}
-.farm-recent-empty{margin:0;padding:16px 0;color:var(--ink-2)}.farm-harvest [hidden]{display:none!important}
+.farm-recent-empty{margin:0;padding:16px 0;font-family:var(--read);font-size:14px;line-height:22px;color:var(--ink-2)}.farm-harvest [hidden]{display:none!important}
 .farm-option{display:flex;align-items:center;gap:8px;font-size:12px;line-height:24px;min-height:36px}.farm-option input{width:16px;height:16px;accent-color:var(--wood-c)}
-.farm-edge-area{height:110px;position:relative;margin:24px 0 0}.edge-plot{position:absolute;bottom:0;display:flex;align-items:flex-end;gap:8px;pointer-events:none}.edge-plot.left{left:6px}.edge-plot.right{right:6px}
-.edge-plot .ic{width:32px;height:32px}.edge-lantern{display:block;align-self:flex-start;margin-bottom:28px;opacity:.65}
-html[data-time="night"] .edge-lantern{opacity:1;filter:drop-shadow(0 0 9px #ffbc47)}
+/* 页脚站台两侧（V20 第 6.13 节）：花箱 = 灯笼 + 当季两株作物，夜里灯笼发光；小鸡的回应在它头顶，空着时占位不显示（不让站台跳动）。 */
+.planter{display:flex;align-items:flex-end;gap:8px;pointer-events:none}.planter .ic{width:32px;height:32px}
+html[data-time="night"] .planter-lantern{filter:drop-shadow(0 0 8px var(--lamp))}
 .season-plants{display:none;position:relative;align-items:flex-end;gap:4px}
 html[data-season="spring"] .season-plants.spring,html[data-season="summer"] .season-plants.summer,html[data-season="autumn"] .season-plants.autumn,html[data-season="winter"] .season-plants.winter{display:flex}
 .season-plants.winter{min-width:74px}
 .snow-cap{display:block;position:absolute;bottom:-5px;left:-4px;width:74px;height:10px;background:#eefaff;box-shadow:4px -4px 0 #eefaff,-4px 2px 0 #bad7e4}
-.farm-pet{position:absolute;bottom:0;left:calc(50% - 30px);width:60px;text-align:center}.farm-pet button{width:60px;height:60px;padding:8px;border:0;background:transparent}.farm-pet .ic{width:44px;height:44px}.pet-reply{display:block;min-height:24px;font-size:12px;line-height:24px;color:var(--ink);background:var(--cream);white-space:normal}.pet-reply:empty{visibility:hidden}
-.farm-pet button:active{transform:translateY(3px)}.farm-pet button:focus-visible{outline:2px solid var(--wood-c);outline-offset:2px}
+.pet{display:flex;flex-direction:column;align-items:center;width:60px}.pet button{width:60px;height:60px;padding:8px;border:0;background:transparent}.pet .ic{width:44px;height:44px;filter:drop-shadow(1px 0 0 var(--edge)) drop-shadow(-1px 0 0 var(--edge)) drop-shadow(0 1px 0 var(--edge)) drop-shadow(0 -1px 0 var(--edge))}
+.pet-reply{min-height:24px;font-size:12px;line-height:24px;color:var(--ink);white-space:nowrap}.pet-reply:empty{visibility:hidden}
+.pet button:active{transform:translateY(2px)}.pet button:focus-visible{outline:2px solid var(--edge);outline-offset:2px}
 html[data-farm-pet="off"] .farm-pet,html[data-farm-scenery="off"] .season-scenery{display:none}
-@media(min-width:1400px){.farm-edge-area{height:0;margin:0}.edge-plot{position:fixed;bottom:30px;z-index:3;width:70px;flex-wrap:wrap;gap:0}.edge-plot.left{left:10px}.edge-plot.right{right:10px}.edge-lantern{margin-bottom:8px}.farm-pet{position:fixed;left:15px;bottom:140px;z-index:3}}
-@media(max-width:600px){.edge-plot .ic{width:24px;height:24px}.edge-plot{gap:0}.edge-plot.right .edge-lantern{display:none}.harvest-heading{flex-wrap:wrap}.farm-harvest .harvest-counts{grid-template-columns:repeat(2,minmax(0,1fr))}.farm-recent-list li{grid-template-columns:minmax(0,1fr) auto;gap:4px 12px}.farm-recent-kind{grid-column:1}.farm-recent-list a{grid-column:1;grid-row:2}.farm-recent-list time{grid-column:2;grid-row:2}}
-@media(prefers-reduced-motion:reduce){.farm-pet button,.farm-harvest .farm-plot{transition:none;animation:none}}
+@media(max-width:760px){.harvest-heading{flex-wrap:wrap}.farm-harvest .harvest-counts{grid-template-columns:repeat(2,minmax(0,1fr))}.farm-recent-list li{grid-template-columns:minmax(0,1fr) auto;gap:4px 12px}.farm-recent-kind{grid-column:1}.farm-recent-list a{grid-column:1;grid-row:2}.farm-recent-list time{grid-column:2;grid-row:2}}
+@media(prefers-reduced-motion:reduce){.pet button,.farm-harvest .farm-plot{transition:none;animation:none}}
 `;
 const homeScript=`(function(){
  var root=document.documentElement,years=JSON.parse(document.getElementById('harvest-summary').textContent),select=document.getElementById('harvest-year');
@@ -111,10 +136,10 @@ function build(){
  const data=load(),folder=path.join(__dirname,'../harvest');fs.mkdirSync(folder,{recursive:true});
  // sprite 白名单从 KIND_ICON 推导 —— 以前是手写 ['mailbox','wheat','flower','book','film']，
  // KIND_ICON 加上 wateringcan 后两边漂移，收获簿里那一列图标全变空白（构建不报错）。
- const sprite='<svg style="display:none" aria-hidden="true">'+['mailbox','wheat','flower','share'].concat(Object.values(KIND_ICON)).concat(DECOR_ICONS).filter(n=>ICONS[n]).map(n=>toSymbol(n,ICONS[n])).join('')+'</svg>';
- // 每条记录标题前挂类型图标（KIND_ICON），列表扫过去能直接分出文章/照片/影/书
- const rows=data.items.map(x=>`<li data-year="${x.year}" data-kind="${x.kind}"><a href="${esc(/^https:\/\//.test(x.url)?x.url:'../'+x.url)}"${/^https:\/\//.test(x.url)?' target="_blank" rel="noopener"':''}>${icon(KIND_ICON[x.kind]||'book')}${esc(x.title)}</a><small>${labels[x.kind]} · ${x.date}</small></li>`).join('');
- const html=`<!DOCTYPE html><html lang="zh-CN"><head><meta charset="utf-8">${skinHead()}<meta name="viewport" content="width=device-width,initial-scale=1"><title>收获簿 · ${esc(SITE.name)}</title><link rel="stylesheet" href="../assets-layers.css"><link rel="stylesheet" href="../font.css"><link rel="stylesheet" href="${themeHref()}"></head><body class="is-article">${decorate()}${sprite}<div class="wrap"><nav class="abarnav"><a class="abtn" href="../${esc(SITE.home)}#ledger">回到农场</a>${shareBtn('sm')}</nav><section class="panel artpage harvest-page"><h2 class="pt">收获簿</h2><h1 class="arttitle">一年里的收获</h1><div class="harvest-filters"><label>年份 <select id="year"><option value="all">所有年份</option>${Object.keys(data.years).sort().reverse().map(y=>`<option value="${y}">${y}</option>`).join('')}</select></label><label>内容 <select id="kind"><option value="all">全部内容</option>${Object.entries(labels).map(([k,v])=>`<option value="${k}">${v}</option>`).join('')}</select></label></div><p class="harvest-status" role="status"></p><ul class="harvest-list">${rows}</ul><p class="harvest-empty" hidden>这一年还没有这类记录。</p><p class="artmeta">文章包含本站文章和豆瓣影评；照片不含生成插画。书影音按豆瓣标记日期归档。${data.undated?'另有 '+data.undated+' 条记录缺少有效日期，暂不计入年度汇总。':''}${data.updatedAt?'书影音最近同步 '+esc(data.updatedAt.slice(0,10))+'。':''}</p>${dcShelf()}</section>${bottomBlock('','../')}</div><script>(function(){var q=new URLSearchParams(location.search),year=document.getElementById('year'),kind=document.getElementById('kind'),wanted=q.get('year');if(/^\\d{4}$/.test(wanted)&&![...year.options].some(o=>o.value===wanted)){var o=document.createElement('option');o.value=wanted;o.textContent=wanted;year.appendChild(o)}year.value=[...year.options].some(o=>o.value===wanted)?wanted:'all';kind.value=[...kind.options].some(o=>o.value===q.get('kind'))?q.get('kind'):'all';function render(){var count=0;document.querySelectorAll('.harvest-list li').forEach(function(li){li.hidden=!(year.value==='all'||li.dataset.year===year.value)||!(kind.value==='all'||li.dataset.kind===kind.value);if(!li.hidden)count++});document.querySelector('.harvest-status').textContent=(year.value==='all'?'全部年份':year.value+' 年')+' · '+kind.options[kind.selectedIndex].text+' · '+count+' 条';document.querySelector('.harvest-empty').hidden=count!==0;var next=new URLSearchParams({year:year.value,kind:kind.value});history.replaceState(null,'','?'+next.toString())}year.onchange=kind.onchange=render;render()})();</script>${seasonScript()}${shareScript()}</body></html>`;
+ const sprite='<svg style="display:none" aria-hidden="true">'+[...new Set(Object.values(KIND_ICON).concat(CHROME_ICONS))].filter(n=>ICONS[n]).map(n=>toSymbol(n,ICONS[n])).join('')+'</svg>';
+ // 记录按时刻表行排（V20 第 7.2 节）：日期 ｜ 类型图标 + 标题 ｜ 类型芯片；列表扫过去能直接分出文章/照片/影/书
+ const rows=data.items.map(x=>`<li data-year="${x.year}" data-kind="${x.kind}"><time datetime="${x.date}">${x.date.replace(/-/g,'.')}</time><a href="${esc(/^https:\/\//.test(x.url)?x.url:'../'+x.url)}"${/^https:\/\//.test(x.url)?' target="_blank" rel="noopener"':''}>${icon(KIND_ICON[x.kind]||'book')}${esc(x.title)}</a><small>${labels[x.kind]}</small></li>`).join('');
+ const html=`<!DOCTYPE html><html lang="zh-CN"><head><meta charset="utf-8">${skinHead()}<meta name="viewport" content="width=device-width,initial-scale=1"><title>收获簿 · ${esc(SITE.name)}</title><link rel="stylesheet" href="../font.css"><link rel="stylesheet" href="${themeHref()}"></head><body class="is-article">${sprite}<div class="wrap">${sitebar({prefix:'../',back:'#ledger'})}<section class="panel artpage harvest-page"><h2 class="pt"><svg class="ic sm" viewBox="0 0 16 16" aria-hidden="true"><use href="#px-keg"></use></svg>收获簿</h2><h1 class="arttitle">一年里的收获</h1><div class="harvest-filters"><label>年份 <select id="year"><option value="all">所有年份</option>${Object.keys(data.years).sort().reverse().map(y=>`<option value="${y}">${y}</option>`).join('')}</select></label><label>内容 <select id="kind"><option value="all">全部内容</option>${Object.entries(labels).map(([k,v])=>`<option value="${k}">${v}</option>`).join('')}</select></label></div><p class="harvest-status" role="status"></p><ul class="harvest-list">${rows}</ul><p class="harvest-empty" hidden>这一年还没有这类记录。</p><p class="page-note">文章包含本站文章和豆瓣影评；照片不含生成插画。书影音按豆瓣标记日期归档。${data.undated?'另有 '+data.undated+' 条记录缺少有效日期，暂不计入年度汇总。':''}${data.updatedAt?'书影音最近同步 '+esc(data.updatedAt.slice(0,10))+'。':''}</p></section>${bottomBlock('','../',{current:6})}</div><script>(function(){var q=new URLSearchParams(location.search),year=document.getElementById('year'),kind=document.getElementById('kind'),wanted=q.get('year');if(/^\\d{4}$/.test(wanted)&&![...year.options].some(o=>o.value===wanted)){var o=document.createElement('option');o.value=wanted;o.textContent=wanted;year.appendChild(o)}year.value=[...year.options].some(o=>o.value===wanted)?wanted:'all';kind.value=[...kind.options].some(o=>o.value===q.get('kind'))?q.get('kind'):'all';function render(){var count=0;document.querySelectorAll('.harvest-list li').forEach(function(li){li.hidden=!(year.value==='all'||li.dataset.year===year.value)||!(kind.value==='all'||li.dataset.kind===kind.value);if(!li.hidden)count++});document.querySelector('.harvest-status').textContent=(year.value==='all'?'全部年份':year.value+' 年')+' · '+kind.options[kind.selectedIndex].text+' · '+count+' 条';document.querySelector('.harvest-empty').hidden=count!==0;var next=new URLSearchParams({year:year.value,kind:kind.value});history.replaceState(null,'','?'+next.toString())}year.onchange=kind.onchange=render;render()})();</script>${seasonScript()}${shareScript()}</body></html>`;
  fs.writeFileSync(path.join(folder,'index.html'),html);console.log('已生成收获簿：'+data.items.length+' 条有日期记录');return data;
 }
-module.exports={collect,validDate,load,calendar,harvest,scenery,settings,css,homeScript,build};
+module.exports={collect,validDate,load,calendar,harvest,planter,pet,settings,css,homeScript,build};

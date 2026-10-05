@@ -110,7 +110,7 @@ function featuredHtml(prefix = '') {
           <span class="pjtag">${esc(f.tagline)}</span>
           <span class="pjstack">${f.stack.map((s) => `<i>${esc(s)}</i>`).join('')}</span>
           <span class="pjfacts">${f.facts.map((s) => `<i>${esc(s)}</i>`).join('')}</span>
-          <span class="pjgo">${esc(f.urlLabel)}${icon('arrow', 'sm')}</span>
+          <span class="pjgo">${esc(f.urlLabel)}${icon('play', 'sm')}</span>
         </span>
       </a>`).join('');
 
@@ -125,7 +125,7 @@ function contribHtml() {
       <div class="pjcbox">
         <p class="pjcname"><b>${esc(c.name)}</b><i>${esc(c.what)} · ${esc(c.by)}</i></p>
         <span class="pjfacts">${c.items.map((s) => `<i>${esc(s)}</i>`).join('')}</span>
-        <a class="pjgo" href="${esc(c.url)}" target="_blank" rel="noopener">查看仓库${icon('arrow', 'sm')}</a>
+        <a class="pjgo" href="${esc(c.url)}" target="_blank" rel="noopener">查看仓库${icon('play', 'sm')}</a>
       </div>`).join('');
 
   return `<div class="pjblock pjcontrib" id="open-source">
