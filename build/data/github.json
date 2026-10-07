@@ -1,13 +1,13 @@
 {
  "user": "Alakazamc",
- "updatedAt": "2026-10-06T02:21:15.695Z",
+ "updatedAt": "2026-10-07T01:39:57.614Z",
  "repos": [
   {
    "name": "szudesktop",
    "description": "深大校园桌面应用：像素庭院陪你专注和记笔记，附校园网认证与断线诊断（Windows / macOS 桌面版；Windows / macOS / Linux 命令行）",
    "url": "https://github.com/SzuDesktopTeam/szudesktop",
    "stars": 6,
-   "pushedAt": "2026-10-04",
+   "pushedAt": "2026-10-06",
    "language": "JavaScript",
    "color": "#f1e05a",
    "topics": [
@@ -64,7 +64,7 @@
    "description": "Music Space：演唱会散场后，同场观众交换彼此没有的视角（腾讯音乐高校 AI Hackathon）",
    "url": "https://github.com/musicMapTeam/musicSpace",
    "stars": 0,
-   "pushedAt": "2026-10-04",
+   "pushedAt": "2026-10-06",
    "language": "JavaScript",
    "color": "#f1e05a",
    "topics": [],
@@ -72,27 +72,27 @@
     {
      "name": "JavaScript",
      "color": "#f1e05a",
-     "size": 2264051
+     "size": 3517049
     },
     {
      "name": "HTML",
      "color": "#e34c26",
-     "size": 1555477
+     "size": 1557843
     },
     {
      "name": "CSS",
      "color": "#663399",
-     "size": 583531
+     "size": 840849
     },
     {
      "name": "TypeScript",
      "color": "#3178c6",
-     "size": 29429
+     "size": 30629
     },
     {
      "name": "Python",
      "color": "#3572A5",
-     "size": 4210
+     "size": 22032
     },
     {
      "name": "Swift",
@@ -481,116 +481,116 @@
   {
    "name": "JavaScript",
    "color": "#f1e05a",
-   "size": 5615434,
-   "percent": 0.34200853304722556
+   "size": 6868432,
+   "percent": 0.3826277003694342
   },
   {
    "name": "Python",
    "color": "#3572A5",
-   "size": 3250233,
-   "percent": 0.19795574489731035
+   "size": 3268055,
+   "percent": 0.1820573268150331
   },
   {
    "name": "HTML",
    "color": "#e34c26",
-   "size": 3223211,
-   "percent": 0.19630996745962662
+   "size": 3225577,
+   "percent": 0.17969095564672383
   },
   {
    "name": "CSS",
    "color": "#663399",
-   "size": 1198412,
-   "percent": 0.07298939496149215
+   "size": 1455730,
+   "percent": 0.08109603796889836
   },
   {
    "name": "Go",
    "color": "#00ADD8",
    "size": 1150876,
-   "percent": 0.07009421043489404
+   "percent": 0.0641131829346746
   },
   {
    "name": "Vue",
    "color": "#41b883",
    "size": 980151,
-   "percent": 0.05969618833998783
+   "percent": 0.05460240752835601
   },
   {
    "name": "Java",
    "color": "#b07219",
    "size": 737013,
-   "percent": 0.04488784570644671
+   "percent": 0.04105763722089377
   },
   {
    "name": "TypeScript",
    "color": "#3178c6",
-   "size": 187821,
-   "percent": 0.011439255574095065
+   "size": 189021,
+   "percent": 0.010530011879207777
   },
   {
    "name": "Shell",
    "color": "#89e051",
    "size": 25991,
-   "percent": 0.0015829842862422458
+   "percent": 0.001447910754638317
   },
   {
    "name": "SCSS",
    "color": "#c6538c",
    "size": 20888,
-   "percent": 0.0012721855938989661
+   "percent": 0.0011636320204257307
   },
   {
    "name": "Dockerfile",
    "color": "#384d54",
    "size": 12790,
-   "percent": 0.0007789761463983042
+   "percent": 0.0007125073506915499
   },
   {
    "name": "PowerShell",
    "color": "#012456",
    "size": 5372,
-   "percent": 0.0003271821625059961
+   "percent": 0.00029926422892220534
   },
   {
    "name": "Makefile",
    "color": "#427819",
    "size": 2846,
-   "percent": 0.00017333589621966957
+   "percent": 0.0001585454198645935
   },
   {
    "name": "Swift",
    "color": "#F05138",
    "size": 1968,
-   "percent": 0.00011986122409005963
+   "percent": 0.00010963365646293748
   },
   {
    "name": "Lua",
    "color": "#000080",
    "size": 1678,
-   "percent": 0.00010219874696296751
+   "percent": 0.00009347829041911031
   },
   {
    "name": "Kotlin",
    "color": "#A97BFF",
    "size": 1667,
-   "percent": 0.00010152879093400885
+   "percent": 0.0000928655006726203
   },
   {
    "name": "Mako",
    "color": "#7e858d",
    "size": 1173,
-   "percent": 0.00007144167472441055
+   "percent": 0.0000653456702393423
   },
   {
    "name": "NSIS",
    "color": null,
    "size": 934,
-   "percent": 0.000056885357367944964
+   "percent": 0.00005203142029287784
   },
   {
    "name": "Batchfile",
    "color": "#C1F12E",
    "size": 530,
-   "percent": 0.000032279699577099396
+   "percent": 0.000029525324149063446
   }
  ],
  "totals": {
@@ -599,9 +599,9 @@
   "languages": 19
  },
  "contributions": {
-  "total": 799,
-  "streak": 13,
-  "lastActiveAt": "2026-10-06",
+  "total": 807,
+  "streak": 14,
+  "lastActiveAt": "2026-10-07",
   "start": "2025-10-05",
   "weeks": [
    [
@@ -1076,7 +1076,7 @@
     25,
     29,
     2,
-    -1,
+    8,
     -1,
     -1,
     -1

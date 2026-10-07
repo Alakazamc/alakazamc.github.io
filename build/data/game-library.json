@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "uid": "32133355",
-  "updatedAt": "2026-10-06T02:22:23.985Z",
+  "updatedAt": "2026-10-07T01:41:03.151Z",
   "platforms": {
     "steam": {
       "complete": true,
@@ -2306,26 +2306,6 @@
       "reportedTotal": 53,
       "games": [
         {
-          "appid": "900135636",
-          "sourceId": "NPWR35316_00",
-          "name": "最终幻想7 重生",
-          "platform": "psn",
-          "platformLabel": "PSN",
-          "hours": 8.5,
-          "cleared": false,
-          "cover": "psn-900135636.jpg"
-        },
-        {
-          "appid": "900006616",
-          "sourceId": "NPWR33408_00",
-          "name": "最后生还者2",
-          "platform": "psn",
-          "platformLabel": "PSN",
-          "hours": 6.8,
-          "cleared": false,
-          "cover": "psn-900006616.jpg"
-        },
-        {
           "appid": "900032622",
           "sourceId": "NPWR22392_00",
           "name": "战神：诸神黄昏",
@@ -2464,6 +2444,26 @@
           "hours": 8.8,
           "cleared": false,
           "cover": "psn-900021537.jpg"
+        },
+        {
+          "appid": "900135636",
+          "sourceId": "NPWR35316_00",
+          "name": "最终幻想7 重生",
+          "platform": "psn",
+          "platformLabel": "PSN",
+          "hours": 8.5,
+          "cleared": false,
+          "cover": "psn-900135636.jpg"
+        },
+        {
+          "appid": "900006616",
+          "sourceId": "NPWR33408_00",
+          "name": "最后生还者2",
+          "platform": "psn",
+          "platformLabel": "PSN",
+          "hours": 6.8,
+          "cleared": false,
+          "cover": "psn-900006616.jpg"
         },
         {
           "appid": "900152832",
@@ -2847,7 +2847,7 @@
           "name": "Grand Theft Auto V 增强版 (PC)",
           "platform": "xbox_v2",
           "platformLabel": "Xbox",
-          "hours": 19.8,
+          "hours": 20,
           "cleared": false,
           "cover": "xbox_v2-900177776.jpg"
         },
@@ -3238,16 +3238,6 @@
           "cover": "900011199.jpg"
         },
         {
-          "appid": "900168289",
-          "sourceId": "010020101F804000",
-          "name": "Fitness Boxing 3: Your Personal Trainer",
-          "platform": "switchall",
-          "platformLabel": "Switch",
-          "hours": 13,
-          "cleared": false,
-          "cover": "switchall-900168289.jpg"
-        },
-        {
           "appid": "900000069",
           "sourceId": "01007EF00011E000",
           "name": "塞尔达传说：旷野之息",
@@ -3256,6 +3246,16 @@
           "hours": 29,
           "cleared": false,
           "cover": "switchall-900000069.jpg"
+        },
+        {
+          "appid": "900168289",
+          "sourceId": "010020101F804000",
+          "name": "Fitness Boxing 3: Your Personal Trainer",
+          "platform": "switchall",
+          "platformLabel": "Switch",
+          "hours": 13,
+          "cleared": false,
+          "cover": "switchall-900168289.jpg"
         },
         {
           "appid": "900000794",
