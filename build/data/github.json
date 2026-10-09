@@ -1,13 +1,13 @@
 {
  "user": "Alakazamc",
- "updatedAt": "2026-10-08T02:05:15.108Z",
+ "updatedAt": "2026-10-09T02:19:01.526Z",
  "repos": [
   {
    "name": "pskit-2.0",
    "description": "🧪 BioAI Agent 工作台：LangGraph 编排 + 20+ 生信工具 + Qdrant RAG + Vue 3 SPA",
    "url": "https://github.com/Alakazamc/pskit-2.0",
    "stars": 0,
-   "pushedAt": "2026-10-07",
+   "pushedAt": "2026-10-08",
    "language": "Python",
    "color": "#3572A5",
    "topics": [
@@ -1078,7 +1078,7 @@
     2,
     21,
     2,
-    -1,
+    0,
     -1
    ]
   ]
