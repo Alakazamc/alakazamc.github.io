@@ -1,13 +1,13 @@
 {
  "user": "Alakazamc",
- "updatedAt": "2026-10-09T02:19:01.526Z",
+ "updatedAt": "2026-10-10T01:49:11.373Z",
  "repos": [
   {
    "name": "pskit-2.0",
    "description": "🧪 BioAI Agent 工作台：LangGraph 编排 + 20+ 生信工具 + Qdrant RAG + Vue 3 SPA",
    "url": "https://github.com/Alakazamc/pskit-2.0",
    "stars": 0,
-   "pushedAt": "2026-10-08",
+   "pushedAt": "2026-10-09",
    "language": "Python",
    "color": "#3572A5",
    "topics": [
@@ -70,11 +70,68 @@
    ]
   },
   {
+   "name": "szudesktop",
+   "description": "深大校园桌面应用：像素庭院陪你专注和记笔记，附校园网认证与断线诊断（Windows / macOS 桌面版；Windows / macOS / Linux 命令行）",
+   "url": "https://github.com/SzuDesktopTeam/szudesktop",
+   "stars": 8,
+   "pushedAt": "2026-10-09",
+   "language": "JavaScript",
+   "color": "#f1e05a",
+   "topics": [
+    "campus-network",
+    "desktop-app",
+    "desktop-pet",
+    "electron"
+   ],
+   "langs": [
+    {
+     "name": "JavaScript",
+     "color": "#f1e05a",
+     "size": 1724324
+    },
+    {
+     "name": "Go",
+     "color": "#00ADD8",
+     "size": 1150876
+    },
+    {
+     "name": "Python",
+     "color": "#3572A5",
+     "size": 317688
+    },
+    {
+     "name": "CSS",
+     "color": "#663399",
+     "size": 137318
+    },
+    {
+     "name": "HTML",
+     "color": "#e34c26",
+     "size": 24574
+    },
+    {
+     "name": "PowerShell",
+     "color": "#012456",
+     "size": 3539
+    },
+    {
+     "name": "Makefile",
+     "color": "#427819",
+     "size": 2846
+    },
+    {
+     "name": "NSIS",
+     "color": null,
+     "size": 934
+    }
+   ]
+  },
+  {
    "name": "musicSpace",
    "description": "Music Space：演唱会散场后，同场观众交换彼此没有的视角（腾讯音乐高校 AI Hackathon）",
    "url": "https://github.com/musicMapTeam/musicSpace",
    "stars": 0,
-   "pushedAt": "2026-10-07",
+   "pushedAt": "2026-10-09",
    "language": "JavaScript",
    "color": "#f1e05a",
    "topics": [],
@@ -132,68 +189,11 @@
    ]
   },
   {
-   "name": "szudesktop",
-   "description": "深大校园桌面应用：像素庭院陪你专注和记笔记，附校园网认证与断线诊断（Windows / macOS 桌面版；Windows / macOS / Linux 命令行）",
-   "url": "https://github.com/SzuDesktopTeam/szudesktop",
-   "stars": 6,
-   "pushedAt": "2026-10-06",
-   "language": "JavaScript",
-   "color": "#f1e05a",
-   "topics": [
-    "campus-network",
-    "desktop-app",
-    "desktop-pet",
-    "electron"
-   ],
-   "langs": [
-    {
-     "name": "JavaScript",
-     "color": "#f1e05a",
-     "size": 1724324
-    },
-    {
-     "name": "Go",
-     "color": "#00ADD8",
-     "size": 1150876
-    },
-    {
-     "name": "Python",
-     "color": "#3572A5",
-     "size": 317688
-    },
-    {
-     "name": "CSS",
-     "color": "#663399",
-     "size": 137318
-    },
-    {
-     "name": "HTML",
-     "color": "#e34c26",
-     "size": 24574
-    },
-    {
-     "name": "PowerShell",
-     "color": "#012456",
-     "size": 3539
-    },
-    {
-     "name": "Makefile",
-     "color": "#427819",
-     "size": 2846
-    },
-    {
-     "name": "NSIS",
-     "color": null,
-     "size": 934
-    }
-   ]
-  },
-  {
    "name": "musicMap",
    "description": "",
    "url": "https://github.com/musicMapTeam/musicMap",
    "stars": 1,
-   "pushedAt": "2026-09-30",
+   "pushedAt": "2026-10-09",
    "language": "HTML",
    "color": "#e34c26",
    "topics": [],
@@ -595,12 +595,12 @@
  ],
  "totals": {
   "repos": 11,
-  "stars": 7,
+  "stars": 9,
   "languages": 19
  },
  "contributions": {
   "total": 822,
-  "streak": 15,
+  "streak": 0,
   "lastActiveAt": "2026-10-08",
   "start": "2025-10-05",
   "weeks": [
@@ -1079,7 +1079,7 @@
     21,
     2,
     0,
-    -1
+    0
    ]
   ]
  }
