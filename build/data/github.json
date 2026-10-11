@@ -1,13 +1,13 @@
 {
  "user": "Alakazamc",
- "updatedAt": "2026-10-10T01:49:11.373Z",
+ "updatedAt": "2026-10-11T01:03:43.969Z",
  "repos": [
   {
    "name": "pskit-2.0",
    "description": "🧪 BioAI Agent 工作台：LangGraph 编排 + 20+ 生信工具 + Qdrant RAG + Vue 3 SPA",
    "url": "https://github.com/Alakazamc/pskit-2.0",
    "stars": 0,
-   "pushedAt": "2026-10-09",
+   "pushedAt": "2026-10-10",
    "language": "Python",
    "color": "#3572A5",
    "topics": [
@@ -74,7 +74,7 @@
    "description": "深大校园桌面应用：像素庭院陪你专注和记笔记，附校园网认证与断线诊断（Windows / macOS 桌面版；Windows / macOS / Linux 命令行）",
    "url": "https://github.com/SzuDesktopTeam/szudesktop",
    "stars": 8,
-   "pushedAt": "2026-10-09",
+   "pushedAt": "2026-10-10",
    "language": "JavaScript",
    "color": "#f1e05a",
    "topics": [
@@ -87,12 +87,12 @@
     {
      "name": "JavaScript",
      "color": "#f1e05a",
-     "size": 1724324
+     "size": 1729323
     },
     {
      "name": "Go",
      "color": "#00ADD8",
-     "size": 1150876
+     "size": 1206292
     },
     {
      "name": "Python",
@@ -481,116 +481,116 @@
   {
    "name": "JavaScript",
    "color": "#f1e05a",
-   "size": 6975493,
-   "percent": 0.38537630399914435
+   "size": 6980492,
+   "percent": 0.3843695519937985
   },
   {
    "name": "Python",
    "color": "#3572A5",
    "size": 3268055,
-   "percent": 0.18055081657539096
+   "percent": 0.17995018635378326
   },
   {
    "name": "HTML",
    "color": "#e34c26",
    "size": 3225957,
-   "percent": 0.17822502087238387
+   "percent": 0.1776321277699707
   },
   {
    "name": "CSS",
    "color": "#663399",
    "size": 1498069,
-   "percent": 0.08276408482607525
+   "percent": 0.08248875729472906
   },
   {
    "name": "Go",
    "color": "#00ADD8",
-   "size": 1150876,
-   "percent": 0.06358265132533561
+   "size": 1206292,
+   "percent": 0.06642252660897015
   },
   {
    "name": "Vue",
    "color": "#41b883",
    "size": 980151,
-   "percent": 0.054150576846835816
+   "percent": 0.053970436576143005
   },
   {
    "name": "Java",
    "color": "#b07219",
    "size": 737013,
-   "percent": 0.04071788846169316
+   "percent": 0.04058243410688035
   },
   {
    "name": "TypeScript",
    "color": "#3178c6",
    "size": 189021,
-   "percent": 0.010442876848736321
+   "percent": 0.010408137003440416
   },
   {
    "name": "Shell",
    "color": "#89e051",
    "size": 25991,
-   "percent": 0.0014359294055978208
+   "percent": 0.0014311525642993097
   },
   {
    "name": "SCSS",
    "color": "#c6538c",
    "size": 20888,
-   "percent": 0.0011540030558319142
+   "percent": 0.0011501640861484354
   },
   {
    "name": "Dockerfile",
    "color": "#384d54",
    "size": 12790,
-   "percent": 0.0007066114077025174
+   "percent": 0.0007042607555456955
   },
   {
    "name": "PowerShell",
    "color": "#012456",
    "size": 5372,
-   "percent": 0.0002967878406706742
+   "percent": 0.0002958005300071522
   },
   {
    "name": "Makefile",
    "color": "#427819",
    "size": 2846,
-   "percent": 0.00015723346882887915
+   "percent": 0.0001567104073716223
   },
   {
    "name": "Swift",
    "color": "#F05138",
    "size": 1968,
-   "percent": 0.00010872644647056717
+   "percent": 0.00010836475112696863
   },
   {
    "name": "Lua",
    "color": "#000080",
    "size": 1678,
-   "percent": 0.00009270476482602222
+   "percent": 0.00009239636808488484
   },
   {
    "name": "Kotlin",
    "color": "#A97BFF",
    "size": 1667,
-   "percent": 0.0000920970458670912
+   "percent": 0.00009179067079708166
   },
   {
    "name": "Mako",
    "color": "#7e858d",
    "size": 1173,
-   "percent": 0.00006480493989328013
+   "percent": 0.00006458935623573892
   },
   {
    "name": "NSIS",
    "color": null,
    "size": 934,
-   "percent": 0.0000516008643310517
+   "percent": 0.00005142920607346987
   },
   {
    "name": "Batchfile",
    "color": "#C1F12E",
    "size": 530,
-   "percent": 0.00002928100438485803
+   "percent": 0.000029183596594153136
   }
  ],
  "totals": {
@@ -599,20 +599,11 @@
   "languages": 19
  },
  "contributions": {
-  "total": 822,
-  "streak": 0,
-  "lastActiveAt": "2026-10-08",
-  "start": "2025-10-05",
+  "total": 824,
+  "streak": 1,
+  "lastActiveAt": "2026-10-10",
+  "start": "2025-10-12",
   "weeks": [
-   [
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0
-   ],
    [
     0,
     0,
@@ -1079,7 +1070,16 @@
     21,
     2,
     0,
-    0
+    2
+   ],
+   [
+    0,
+    -1,
+    -1,
+    -1,
+    -1,
+    -1,
+    -1
    ]
   ]
  }
