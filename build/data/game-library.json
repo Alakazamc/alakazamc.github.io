@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "uid": "32133355",
-  "updatedAt": "2026-10-11T01:04:52.842Z",
+  "updatedAt": "2026-10-12T01:26:50.928Z",
   "platforms": {
     "steam": {
       "complete": true,
@@ -13,10 +13,10 @@
           "name": "侠盗猎车手 V 增强版",
           "platform": "steam",
           "platformLabel": "Steam",
-          "hours": 24.7,
+          "hours": 25.2,
           "cleared": false,
           "notOwned": false,
-          "recentHours": 2.5,
+          "recentHours": 3,
           "cover": "steam-3240220.jpg"
         },
         {
@@ -2306,6 +2306,26 @@
       "reportedTotal": 53,
       "games": [
         {
+          "appid": "900006616",
+          "sourceId": "NPWR33408_00",
+          "name": "最后生还者2",
+          "platform": "psn",
+          "platformLabel": "PSN",
+          "hours": 7.1,
+          "cleared": false,
+          "cover": "psn-900006616.jpg"
+        },
+        {
+          "appid": "900135636",
+          "sourceId": "NPWR35316_00",
+          "name": "最终幻想7 重生",
+          "platform": "psn",
+          "platformLabel": "PSN",
+          "hours": 8.6,
+          "cleared": false,
+          "cover": "psn-900135636.jpg"
+        },
+        {
           "appid": "900032622",
           "sourceId": "NPWR22392_00",
           "name": "战神：诸神黄昏",
@@ -2444,26 +2464,6 @@
           "hours": 8.8,
           "cleared": false,
           "cover": "psn-900021537.jpg"
-        },
-        {
-          "appid": "900135636",
-          "sourceId": "NPWR35316_00",
-          "name": "最终幻想7 重生",
-          "platform": "psn",
-          "platformLabel": "PSN",
-          "hours": 8.5,
-          "cleared": false,
-          "cover": "psn-900135636.jpg"
-        },
-        {
-          "appid": "900006616",
-          "sourceId": "NPWR33408_00",
-          "name": "最后生还者2",
-          "platform": "psn",
-          "platformLabel": "PSN",
-          "hours": 6.8,
-          "cleared": false,
-          "cover": "psn-900006616.jpg"
         },
         {
           "appid": "900152832",
