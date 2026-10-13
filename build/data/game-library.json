@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "uid": "32133355",
-  "updatedAt": "2026-10-12T01:26:50.928Z",
+  "updatedAt": "2026-10-13T03:06:02.112Z",
   "platforms": {
     "steam": {
       "complete": true,
@@ -2847,7 +2847,7 @@
           "name": "Grand Theft Auto V 增强版 (PC)",
           "platform": "xbox_v2",
           "platformLabel": "Xbox",
-          "hours": 20,
+          "hours": 20.4,
           "cleared": false,
           "cover": "xbox_v2-900177776.jpg"
         },
