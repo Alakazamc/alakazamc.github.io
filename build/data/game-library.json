@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "uid": "32133355",
-  "updatedAt": "2026-10-15T00:38:16.863Z",
+  "updatedAt": "2026-10-16T00:31:25.622Z",
   "platforms": {
     "steam": {
       "complete": true,
@@ -16,8 +16,20 @@
           "hours": 25.2,
           "cleared": false,
           "notOwned": false,
-          "recentHours": 3,
+          "recentHours": 1.6,
           "cover": "steam-3240220.jpg"
+        },
+        {
+          "appid": "2001120",
+          "sourceId": "2001120",
+          "name": "双影奇境",
+          "platform": "steam",
+          "platformLabel": "Steam",
+          "hours": 17.4,
+          "cleared": false,
+          "notOwned": false,
+          "recentHours": 1.5,
+          "cover": "steam-2001120.jpg"
         },
         {
           "appid": "413150",
@@ -438,18 +450,6 @@
           "notOwned": false,
           "recentHours": 0,
           "cover": "steam-1222140.jpg"
-        },
-        {
-          "appid": "2001120",
-          "sourceId": "2001120",
-          "name": "双影奇境",
-          "platform": "steam",
-          "platformLabel": "Steam",
-          "hours": 15.9,
-          "cleared": false,
-          "notOwned": false,
-          "recentHours": 0,
-          "cover": "steam-2001120.jpg"
         },
         {
           "appid": "1794680",
