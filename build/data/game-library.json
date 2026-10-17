@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "uid": "32133355",
-  "updatedAt": "2026-10-16T00:31:25.622Z",
+  "updatedAt": "2026-10-17T00:37:40.283Z",
   "platforms": {
     "steam": {
       "complete": true,
@@ -30,18 +30,6 @@
           "notOwned": false,
           "recentHours": 1.5,
           "cover": "steam-2001120.jpg"
-        },
-        {
-          "appid": "413150",
-          "sourceId": "413150",
-          "name": "星露谷物语",
-          "platform": "steam",
-          "platformLabel": "Steam",
-          "hours": 25.7,
-          "cleared": false,
-          "notOwned": false,
-          "recentHours": 1.3,
-          "cover": "steam-413150.jpg"
         },
         {
           "appid": "1145350",
@@ -90,18 +78,6 @@
           "notOwned": false,
           "recentHours": 0.1,
           "cover": "578080.jpg"
-        },
-        {
-          "appid": "993090",
-          "sourceId": "993090",
-          "name": "无损缩放",
-          "platform": "steam",
-          "platformLabel": "Steam",
-          "hours": 0.1,
-          "cleared": false,
-          "notOwned": false,
-          "recentHours": 0,
-          "cover": "steam-993090.jpg"
         },
         {
           "appid": "1920960",
@@ -342,6 +318,18 @@
           "notOwned": false,
           "recentHours": 0,
           "cover": "steam-1593500.jpg"
+        },
+        {
+          "appid": "413150",
+          "sourceId": "413150",
+          "name": "星露谷物语",
+          "platform": "steam",
+          "platformLabel": "Steam",
+          "hours": 25.7,
+          "cleared": false,
+          "notOwned": false,
+          "recentHours": 0,
+          "cover": "steam-413150.jpg"
         },
         {
           "appid": "1203220",
@@ -1362,6 +1350,18 @@
           "notOwned": false,
           "recentHours": 0,
           "cover": "steam-2338770.jpg"
+        },
+        {
+          "appid": "993090",
+          "sourceId": "993090",
+          "name": "无损缩放",
+          "platform": "steam",
+          "platformLabel": "Steam",
+          "hours": 0.1,
+          "cleared": false,
+          "notOwned": false,
+          "recentHours": 0,
+          "cover": "steam-993090.jpg"
         },
         {
           "appid": "1617400",
