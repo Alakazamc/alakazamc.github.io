@@ -177,8 +177,11 @@ html{scroll-behavior:smooth;scrollbar-width:thin;scrollbar-color:var(--wood-b) v
    ⚠️ 这里千万不能写 font:inherit 简写（注意别在注释里打反引号，
    这段 CSS 活在一个 JS 模板字符串里，一个反引号就能把整段字符串提前收掉）——
    font 简写会连 font-size 一起重置。只能单点写 font-family。 */
-.pt{display:flex;align-items:center;gap:var(--s3);width:fit-content;max-width:100%;margin:0 0 var(--s6);padding:0;
+.pt{display:flex;align-items:center;gap:var(--s3);width:100%;max-width:100%;margin:0 0 var(--s6);padding:0;
   color:var(--ink);font-family:inherit;font-size:24px;line-height:32px;font-weight:normal}
+/* V21：面板头后面拉一条细线，把标题从「浮动文字」变成版面的起点。
+   只加在面板头这一处，子页面板吃同一条；线用 --line，深浅皮肤都跟着走。 */
+.pt::after{content:'';flex:1;height:1px;margin-left:var(--s2);background:var(--line)}
 
 /* ===== 时刻表（V20 第 6.7 节：文章面板、概览「最近写下」、博客列表页共用）=====
    列：日期 ｜ 轴线站点 ｜ 标题块 ｜ 箭头。.tl-line 是贯穿各行的 4px 线路色竖线（与线路图同一条线），
@@ -254,6 +257,15 @@ html{scroll-behavior:smooth;scrollbar-width:thin;scrollbar-color:var(--wood-b) v
   .contact-tip{bottom:22px;max-width:calc(100vw - 24px)}
 }
 .ov-h{display:flex;align-items:center;gap:var(--s2);margin:0 0 var(--s2);font-size:12px;line-height:24px;font-weight:normal;color:var(--ink-2)}
+/* V21 概览的「精选项目」索引：三行文字，不做卡片（概览是目录，工坊才是正片）。
+   名称像素 12、说明阅读字 14，右侧 play 作行末指示；行间 1px 细线与时刻表同一套。 */
+.ovpj{list-style:none;margin:0 0 var(--s4);padding:0;border-top:1px solid var(--line)}
+.ovpj li+li{border-top:1px solid var(--line)}
+.ovpj a{display:flex;align-items:center;gap:var(--s3);padding:var(--s2) 0;color:var(--ink);text-decoration:none}
+.ovpj b{flex:none;width:156px;font-weight:normal;font-size:12px;line-height:24px}
+.ovpj span{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;
+  font-family:var(--read);font-size:14px;line-height:22px;color:var(--ink-2)}
+.ovpj a:hover b{text-decoration:underline;text-underline-offset:4px}
 .more{display:flex;align-items:center;justify-content:center;gap:8px;margin-top:var(--s4)}
 .more a{color:inherit;text-decoration:none;font-size:12px;
   border-bottom:2px solid var(--rail);padding-bottom:1px}
@@ -608,13 +620,16 @@ details.toc summary{padding:8px 16px;cursor:url("data:image/svg+xml,%3Csvg xmlns
 .artorig{color:inherit;text-decoration:none;border-bottom:2px solid var(--wood-c)}
 .artorig.quiet{color:var(--tx-3)}
 .cmtpanel{max-width:820px;margin:0 auto 26px}
-.cmtbox{min-height:20px;font-size:12px}
+.cmtbox{min-height:20px;font-size:12px;max-width:760px;margin:0 auto}
 .cmtnote{font-family:var(--read);font-size:14px;line-height:22px;color:var(--tx-3);margin:0 0 8px}
 .cmtnote code{background:var(--cream-2);border:1px solid var(--cream-3);padding:0 3px}
 
 /* ===== 网站底部：评论区 =====
    评论区在页脚站台（.platform）上方；访客计数改成站台里的车票（第 6.14 节）。 */
-.sitebottom{max-width:820px;margin:var(--s8) auto 0}
+.sitebottom{max-width:none;margin:var(--s8) auto 0}
+/* V21：留言板跟着 12 栏走满宽，评论区内容再收窄到 760（.cmtbox）—— 以前整块 820 居中，
+   跟上面的仪表盘不是一套网格，底部右边会空出一大块。 */
+.sitebottom .cmtpanel{max-width:none;margin-bottom:0}
 /* 上下篇（第 6.15 节）：可点的纸卡，装的是整篇文章标题，所以不做成徽章；标题阅读 14 最多两行，
    截断裁的是 b 自己，不碰 <a> 的焦点框。与文章面板同宽 860。 */
 .apager{display:flex;gap:var(--s4);max-width:860px;margin:0 auto var(--s8)}
@@ -739,36 +754,44 @@ html[data-farm-pet="off"] .farm-pet,html[data-farm-scenery="off"] .season-scener
 /* 容器（V20 第 5.2 节）：1440 屏内容宽 1272，1920 屏封顶 1560 —— 舞台要放大，9／3 分栏也要约 1232 的内容宽。
    ⚠️ 写成 min/max 表达式而不是加 @media —— 断点档位有棘轮预算，能不新增就不新增。 */
 .wrap{max-width:min(1560px,max(1200px,100% - 120px));padding:0 24px 40px}
-/* ===== 舞台与招牌（V20 第 6.2、6.3 节）=====
+/* ===== 舞台与招牌（V20 第 6.2、6.3 节；V21 改海报排法）=====
    .hero 网格里同一格叠两层：舞台在下、招牌在上。用网格叠层而不用绝对定位，
-   舞台变矮（WebGL 出错、矮视口）时容器按招牌撑高，招牌不会探出舞台顶部。 */
-.hero{display:grid}.hero>*{grid-area:1/1}
+   舞台变矮（WebGL 出错、矮视口）时容器按招牌撑高，招牌不会探出舞台顶部。
+   V21：招牌不再是一张白纸卡 —— 白卡压在三维画面上像贴上去的 UI。
+   名字与简介直接落在画面左下，底部一层深色渐变（--code-bg 是本站唯一稳定的深底角色，
+   --on-code 是它上面稳定的浅字）保证 11 套色板、昼夜两态都读得清；
+   ≤1080 退回「场景 + 说明条」上下排列，说明条用一条墨线起头，不再套卡。 */
+.hero{position:relative;display:block}
 .stage{position:relative;width:100%;aspect-ratio:21/9;max-height:max(300px,calc(100vh - 220px));overflow:hidden;
   background:var(--raised);border:1px solid var(--line);box-shadow:var(--lift)}
-.stage-plate{position:absolute;top:var(--s4);left:var(--s4);z-index:2;margin:0;padding:0 8px;
-  background:var(--plate);color:var(--on-plate);border:2px solid var(--plate);font-size:12px;line-height:24px}
+/* 地名牌与控件组：半透明深底 + 细亮边，压在画面上不抢主体（旧版是实心纸卡，像两块贴纸）。 */
+.stage-plate{position:absolute;top:var(--s4);left:var(--s4);z-index:2;margin:0;padding:0 8px;letter-spacing:1px;
+  background:color-mix(in srgb,var(--code-bg) 55%,transparent);color:var(--on-code);
+  border:1px solid color-mix(in srgb,var(--on-code) 30%,transparent);font-size:12px;line-height:24px}
 .stage-plate span{display:none}
 html[data-skin="sakura"] .plate-sakura,html[data-skin="coast"] .plate-coast,
 html[data-skin="observatory"] .plate-observatory,html[data-skin="farm"] .plate-farm{display:inline}
-/* 控件组压在任何场景上都要可读：纸卡底。按钮是 32px 高的小号搪瓷徽章，当前光线那枚是按下态。 */
 .stage-ctrl{position:absolute;top:var(--s4);right:var(--s4);z-index:2;display:flex;gap:var(--s1);padding:var(--s1);
-  background:var(--surface);border:1px solid var(--line)}
-.stage-btn{min-height:32px;padding:0 8px;border:2px solid var(--edge);background:var(--surface);color:var(--ink);
-  box-shadow:0 2px 0 var(--edge);font:inherit;font-size:12px;line-height:24px}
-.stage-btn:hover{background:var(--raised)}
-.stage-btn[aria-pressed="true"]{background:var(--plate);color:var(--on-plate);border-color:var(--plate)}
-/* 招牌：纸卡 + 顶部 6px 线路色带（把招牌和线路图连成一套）；>1080 压在舞台左下（书屋主体在中右，左下是长椅和小径）。 */
-.sign{position:relative;z-index:3;align-self:end;justify-self:start;width:min(456px,42%);margin:var(--s6);padding:var(--s6);
-  background:var(--surface);border:1px solid var(--line);border-top:6px solid var(--rail);box-shadow:var(--lift)}
-.sign h1{margin:0;font:normal 48px/60px var(--pix);color:var(--ink)}
-.sign .motto{margin:var(--s1) 0 var(--s3);font-size:12px;line-height:24px;color:var(--ink-2)}
-.sign .intro{margin:0 0 var(--s4);font-family:var(--read);font-size:16px;line-height:26px;color:var(--ink)}
-.sign .social{justify-content:flex-start;margin:0}
+  background:color-mix(in srgb,var(--code-bg) 38%,transparent);
+  border:1px solid color-mix(in srgb,var(--on-code) 26%,transparent);backdrop-filter:blur(6px)}
+.stage-btn{min-height:32px;padding:0 8px;border:1px solid color-mix(in srgb,var(--on-code) 42%,transparent);
+  background:transparent;color:var(--on-code);box-shadow:none;font:inherit;font-size:12px;line-height:24px}
+.stage-btn:hover{background:color-mix(in srgb,var(--on-code) 16%,transparent)}
+.stage-btn[aria-pressed="true"]{background:var(--on-code);color:var(--code-bg);border-color:var(--on-code)}
+/* 招牌：像美术馆墙签一样接在画面下方，一条墨线起头。
+   左栏姓名与签名，右栏一句说明与四枚联系徽章；不叠在画面上，就没有对比度和遮挡问题。 */
+.sign{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));column-gap:var(--s6);align-items:start;
+  margin:var(--s6) 0 0;padding:var(--s6) 0 0;border-top:2px solid var(--ink);
+  background:none;box-shadow:none;color:var(--ink)}
+.sign h1{grid-column:1/span 6;grid-row:1;margin:0;font:normal 48px/60px var(--pix);color:var(--ink)}
+.sign .motto{grid-column:1/span 6;grid-row:2;margin:var(--s1) 0 0;font-size:12px;line-height:24px;color:var(--ink-2)}
+.sign .intro{grid-column:8/span 5;grid-row:1;max-width:44ch;margin:0 0 var(--s3);font-family:var(--read);font-size:16px;line-height:26px;color:var(--ink);text-wrap:balance}
+.sign .social{grid-column:8/span 5;grid-row:2;justify-content:flex-start;margin:0}
 .sign .soc:hover{background:var(--raised)}
 /* ===== 12 栏网格（V20 第 5.2 节）=====
    线路图跨满 12 栏；主栏 8／站台 4（≥1400 为 9／3）。主栏 .dash-body 是首页唯一一层卡，拉满这一行；
    站台 sticky，比视口高时 dash.js 写负的 --side-top，侧栏任何部分都滚得到（第 6.6 节）。 */
-.dash{position:relative;display:grid;grid-template-columns:repeat(12,minmax(0,1fr));column-gap:var(--s6);margin-top:var(--s6)}
+.dash{position:relative;display:grid;grid-template-columns:repeat(12,minmax(0,1fr));column-gap:var(--s6);margin-top:var(--s8)}
 .dash-head{grid-column:1/-1;position:relative;min-width:0;margin-bottom:var(--s6);scroll-margin-top:var(--s4)}
 .dash-body{grid-column:span 8;align-self:stretch;min-width:0;padding:var(--s6);border:1px solid var(--line);background:var(--surface);box-shadow:var(--lift)}
 .dash-side{grid-column:span 4;min-width:0;position:sticky;top:var(--side-top,16px);align-self:start}
@@ -778,12 +801,12 @@ html[data-skin="observatory"] .plate-observatory,html[data-skin="farm"] .plate-f
    当前站同时靠「站点填满 + 站名变站牌」两种形状变化区分，不只靠颜色。 */
 .dash-tabs{display:grid;grid-auto-flow:column;grid-auto-columns:minmax(0,1fr)}
 .dash-tab{position:relative;display:block;height:92px;color:var(--ink);font-size:12px;line-height:24px;text-decoration:none}
-.dash-tab::before{content:'';position:absolute;left:0;right:0;top:50px;height:4px;background:var(--rail)}
-.dash-tab.is-local::before{background:repeating-linear-gradient(90deg,var(--rail) 0 8px,transparent 8px 16px)}
+.dash-tab::before{content:'';position:absolute;left:0;right:0;top:51px;height:2px;background:var(--rail)}
+.dash-tab.is-local::before{background:repeating-linear-gradient(90deg,var(--rail) 0 6px,transparent 6px 12px)}
 .dash-tab:first-child::before{left:50%}.dash-tab:last-child::before{right:50%}
-.dash-tab::after{content:'';position:absolute;z-index:1;left:calc(50% - 10px);top:42px;width:20px;height:20px;background:var(--surface);border:4px solid var(--rail)}
-.dash-tab.is-local::after{left:calc(50% - 6px);top:46px;width:12px;height:12px;border-width:2px}
-.dash-tab .stn{position:absolute;left:50%;top:68px;transform:translateX(-50%);padding:0 8px;white-space:nowrap}
+.dash-tab::after{content:'';position:absolute;z-index:1;left:calc(50% - 9px);top:43px;width:18px;height:18px;background:var(--surface);border:3px solid var(--rail)}
+.dash-tab.is-local::after{left:calc(50% - 5px);top:47px;width:10px;height:10px;border-width:2px}
+.dash-tab .stn{position:absolute;left:50%;top:68px;transform:translateX(-50%);padding:0 8px;white-space:nowrap;letter-spacing:.5px}
 .dash-tab.is-local .stn{color:var(--ink-2)}
 .dash-tab[aria-selected="true"]::after{background:var(--plate);border-color:var(--plate)}
 .dash-tab[aria-selected="true"] .stn{background:var(--plate);color:var(--on-plate)}
@@ -812,12 +835,16 @@ html[data-skin="observatory"] .plate-observatory,html[data-skin="farm"] .plate-f
 @keyframes hop{0%,100%{transform:translateY(0)}50%{transform:translateY(-2px)}}
 @keyframes px-pane-in{from{opacity:.35;transform:translateY(6px)}to{opacity:1;transform:none}}
 @media(min-width:1400px){.dash-body{grid-column:span 9}.dash-side{grid-column:span 3}}
-/* ≤1080：招牌接在舞台下沿、宽度跟舞台一致；舞台 2:1；站台落到主栏下方、两块面板并排，不再 sticky。 */
+/* ≤1080：招牌接在舞台下沿、宽度跟舞台一致；舞台 2:1；站台落到主栏下方、两块面板并排，不再 sticky。
+   V21：这一段没有画面可以压字，招牌改回「说明条」——纸墨色、两像素墨线起头、不加卡边。 */
 @media(max-width:1080px){
-  .hero{display:block}.sign{width:auto;margin:0;place-self:auto}.sign h1{font-size:36px;line-height:48px}
+  .sign{display:block;margin:0;padding:var(--s6) 0 0;border-top:2px solid var(--ink)}
+  .sign h1{font-size:36px;line-height:48px}
+  .sign .motto{margin:var(--s1) 0 var(--s3)}
+  .sign .intro{max-width:none;margin:0 0 var(--s4)}
+  .sign .social{margin:0}
   .stage{aspect-ratio:2/1}
-  .dash-body,.dash-side{grid-column:1/-1}
-  .dash-side{position:static;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:var(--s6);margin-top:var(--s6)}
+  .dash-body,.dash-side{grid-column:1/-1}  .dash-side{position:static;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:var(--s6);margin-top:var(--s6)}
   .dash-side .panel{margin-bottom:0}
   .wgrid{grid-template-columns:repeat(2,minmax(0,1fr))}
 }
@@ -885,6 +912,8 @@ html[data-skin="observatory"] .plate-observatory,html[data-skin="farm"] .plate-f
 .dash-tab.is-turn-end::before{right:50%}.dash-tab.is-turn-start::before{left:50%}
 .dash-walk,.dash-walk .art{width:32px;height:32px}
 .dash-side{grid-template-columns:minmax(0,1fr)}
+/* 窄屏联系徽章排成 2×2：自然宽度会在 390 屏上留下「微信」单独一行。 */
+.sign .social{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:var(--s2)}
 /* 面板内边距 16（站台纸卡、子页面板）；主栏工坊仓库与精选海报单列，第三张海报回到上图下文。
    时刻表的窄屏规则与基础规则同在 gen.js（第 1 层），不在这里写。 */
 .dash-body{padding:var(--s4)}.panel{padding:var(--s4);margin-bottom:var(--s7)}
@@ -910,6 +939,8 @@ html[data-skin="observatory"] .plate-observatory,html[data-skin="farm"] .plate-f
   /* 书架固定 3 列（第 6.8 节）；海报名「szuDesktop · 荔枝庭院」像素 24 要 264px，320 屏卡内只有约 220（第 6.9 节） */
   .shelf{grid-template-columns:repeat(3,minmax(0,1fr))}
   .pjname{font-size:12px;line-height:24px}
+  /* 概览的精选取自长项目名（szuDesktop · 荔枝庭院）在 320 屏占掉一半，说明列收窄。 */
+  .ovpj b{width:120px}
 }
 @media(max-width:360px){
   /* 320 屏地名牌与右上控件组放不进同一行；≤1080 招牌已接在舞台下沿，舞台左下是空的（第 6.2 节，v5） */
@@ -1057,7 +1088,7 @@ html[data-skin="sakura"] .stage:has(.toon-scene[data-state="error"]){aspect-rati
 /* 换皮肤时压住过渡；昼夜切换不压（第 3.6 节：配色即时切换）。 */
 .skin-changing *,.skin-changing *::before,.skin-changing *::after{transition:none!important}
 /* 页头 .sitebar（V20 第 6.1 节，subpage.js 的 sitebar() 生成）：左站牌，右组分享在前、外观设置固定在最右；不吸顶。 */
-.sitebar{position:relative;display:flex;align-items:center;justify-content:space-between;gap:var(--s2);min-height:48px;margin-bottom:var(--s4)}
+.sitebar{position:relative;display:flex;align-items:center;justify-content:space-between;gap:var(--s2);min-height:40px;margin:var(--s4) 0 var(--s3)}
 .sitebar-l,.sitebar-r{display:flex;align-items:center;gap:var(--s2)}
 .sitebar-r{margin-left:auto}
 /* 子页站牌式返回链接（第 6.1 节）：站牌材质，像素 24「柯西」+ 像素 12「◀ 回到主页」，整块一个链接；悬停给后半句加下划线。
@@ -1194,6 +1225,8 @@ html[data-time="night"] .skin-art .coast-beam{opacity:.12}
     <a href="museum/index.html"><svg class="ic sm" viewBox="0 0 16 16"><use href="#px-star"></use></svg><b>1210</b><span>件馆藏</span></a>
     <a href="gallery/index.html"><svg class="ic sm" viewBox="0 0 16 16"><use href="#px-flower"></use></svg><b>6</b><span>张图像</span></a>
   </nav>
+  <h3 class="ov-h"><svg class="ic" viewBox="0 0 16 16"><use href="#px-crafting"></use></svg>精选项目</h3>
+  <ul class="ovpj"><li><a href="workshop/index.html"><b>Music Space</b><span>主导开发 · 腾讯音乐高校 AI Hackathon</span></a></li><li><a href="workshop/index.html"><b>Music Map</b><span>主导开发 · 腾讯音乐高校 AI Hackathon</span></a></li><li><a href="workshop/index.html"><b>szuDesktop · 荔枝庭院</b><span>主导开发 · 深大学生自制 · 与学校官方无关</span></a></li></ul>
   <h3 class="ov-h"><svg class="ic" viewBox="0 0 16 16"><use href="#px-wateringcan"></use></svg>最近写下</h3>
   <div class="tlwrap tl-mini"><span class="tl-line"></span><ul class="tl">
       <li class="tl-item">
@@ -1216,6 +1249,18 @@ html[data-time="night"] .skin-art .coast-beam{opacity:.12}
             <b class="tl-title">AI 写代码之后，我们还在编什么？</b>
             <p class="tl-exc">AI 能补齐大量实现细节，但一句需求里的空白，仍会变成程序的具体行为。从《代码整洁之道》的一段旧文字出发，聊聊哪些决定可以交给模型，哪些需要通过实际使用来确认。</p>
             <div class="tl-tags"><span class="tl-tag">本站</span><span class="tl-tag"><svg class="ic xs" viewBox="0 0 16 16"><use href="#px-chip"></use></svg>AI</span><span class="tl-tag">编程</span></div>
+          </div>
+          <svg class="ic sm tl-go" viewBox="0 0 16 16"><use href="#px-play"></use></svg>
+        </a>
+      </li>
+      <li class="tl-item">
+        <div class="tl-when"><b>09.26</b><i>2026</i></div>
+        <div class="tl-axis"><span class="tl-dot"><svg class="ic sm" viewBox="0 0 16 16"><use href="#px-wateringcan"></use></svg></span></div>
+        <a class="tl-card" style="--i:2" href="posts/Docker-K8s-Jenkins-到底有什么区别-从-我电脑上能跑-到-别人随时能用.html">
+          <div class="tl-body">
+            <b class="tl-title">Docker、K8s、Jenkins 有什么区别？沿着一次部署看清它们的分工</b>
+            <p class="tl-exc">Docker 交付运行环境，Compose 组织一组服务，K8s 持续管理集群中的应用，Jenkins 执行交付流程。用一个 AI 问答项目，讲清这些工具何时有用、各自管到哪里。</p>
+            <div class="tl-tags"><span class="tl-tag">本站</span><span class="tl-tag">Docker</span><span class="tl-tag">部署</span></div>
           </div>
           <svg class="ic sm tl-go" viewBox="0 0 16 16"><use href="#px-play"></use></svg>
         </a>
