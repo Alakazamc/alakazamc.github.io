@@ -70,7 +70,7 @@ const controlsCss = `
 /* 换皮肤时压住过渡；昼夜切换不压（第 3.6 节：配色即时切换）。 */
 .skin-changing *,.skin-changing *::before,.skin-changing *::after{transition:none!important}
 /* 页头 .sitebar（V20 第 6.1 节，subpage.js 的 sitebar() 生成）：左站牌，右组分享在前、外观设置固定在最右；不吸顶。 */
-.sitebar{position:relative;display:flex;align-items:center;justify-content:space-between;gap:var(--s2);min-height:48px;margin-bottom:var(--s4)}
+.sitebar{position:relative;display:flex;align-items:center;justify-content:space-between;gap:var(--s2);min-height:40px;margin:var(--s4) 0 var(--s3)}
 .sitebar-l,.sitebar-r{display:flex;align-items:center;gap:var(--s2)}
 .sitebar-r{margin-left:auto}
 /* 子页站牌式返回链接（第 6.1 节）：站牌材质，像素 24「柯西」+ 像素 12「◀ 回到主页」，整块一个链接；悬停给后半句加下划线。

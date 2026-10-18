@@ -657,7 +657,7 @@ const statusPanel = () =>
 // 「最近写下」是两行时刻表（不加 .lead）；没有文章时整块不渲染。这条线不在 #timeline 里，
 // check-timeline.js 因此只量 #timeline .tl-line。
 const overview = () => {
-  const recent = ARTICLES.slice(0, 2);
+  const recent = ARTICLES.slice(0, 3);
   return `<section class="panel" id="board">
   <h2 class="pt">${ic('star')}概览</h2>
   <nav class="ticket counts" aria-label="内容概览">
@@ -665,6 +665,8 @@ const overview = () => {
     <a href="museum/index.html">${ic('star', 'sm')}<b>${(DOUBAN.items || []).length + (GAMES.games || []).length + ALBUMS.items.length}</b><span>件馆藏</span></a>
     <a href="gallery/index.html">${ic('flower', 'sm')}<b>${GALLERY.count || 0}</b><span>张图像</span></a>
   </nav>
+  ${FEATURED.length ? `<h3 class="ov-h">${ic('crafting')}精选项目</h3>
+  <ul class="ovpj">${FEATURED.map((p) => `<li><a href="workshop/index.html"><b>${p.name}</b><span>${p.role} · ${p.event}</span></a></li>`).join('')}</ul>` : ''}
   ${recent.length ? `<h3 class="ov-h">${ic('wateringcan')}最近写下</h3>
   <div class="tlwrap tl-mini"><span class="tl-line"></span><ul class="tl">${recent.map((a, i) => TT.row(a, i, { href: 'posts/' + a.slug + '.html', ic })).join('')}</ul></div>` : ''}
 </section>`;
@@ -829,8 +831,11 @@ html{scroll-behavior:smooth;scrollbar-width:thin;scrollbar-color:var(--wood-b) v
    ⚠️ 这里千万不能写 font:inherit 简写（注意别在注释里打反引号，
    这段 CSS 活在一个 JS 模板字符串里，一个反引号就能把整段字符串提前收掉）——
    font 简写会连 font-size 一起重置。只能单点写 font-family。 */
-.pt{display:flex;align-items:center;gap:var(--s3);width:fit-content;max-width:100%;margin:0 0 var(--s6);padding:0;
+.pt{display:flex;align-items:center;gap:var(--s3);width:100%;max-width:100%;margin:0 0 var(--s6);padding:0;
   color:var(--ink);font-family:inherit;font-size:24px;line-height:32px;font-weight:normal}
+/* V21：面板头后面拉一条细线，把标题从「浮动文字」变成版面的起点。
+   只加在面板头这一处，子页面板吃同一条；线用 --line，深浅皮肤都跟着走。 */
+.pt::after{content:'';flex:1;height:1px;margin-left:var(--s2);background:var(--line)}
 
 /* ===== 时刻表（V20 第 6.7 节：文章面板、概览「最近写下」、博客列表页共用）=====
    列：日期 ｜ 轴线站点 ｜ 标题块 ｜ 箭头。.tl-line 是贯穿各行的 4px 线路色竖线（与线路图同一条线），
@@ -906,6 +911,15 @@ html{scroll-behavior:smooth;scrollbar-width:thin;scrollbar-color:var(--wood-b) v
   .contact-tip{bottom:22px;max-width:calc(100vw - 24px)}
 }
 .ov-h{display:flex;align-items:center;gap:var(--s2);margin:0 0 var(--s2);font-size:12px;line-height:24px;font-weight:normal;color:var(--ink-2)}
+/* V21 概览的「精选项目」索引：三行文字，不做卡片（概览是目录，工坊才是正片）。
+   名称像素 12、说明阅读字 14，右侧 play 作行末指示；行间 1px 细线与时刻表同一套。 */
+.ovpj{list-style:none;margin:0 0 var(--s4);padding:0;border-top:1px solid var(--line)}
+.ovpj li+li{border-top:1px solid var(--line)}
+.ovpj a{display:flex;align-items:center;gap:var(--s3);padding:var(--s2) 0;color:var(--ink);text-decoration:none}
+.ovpj b{flex:none;width:156px;font-weight:normal;font-size:12px;line-height:24px}
+.ovpj span{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;
+  font-family:var(--read);font-size:14px;line-height:22px;color:var(--ink-2)}
+.ovpj a:hover b{text-decoration:underline;text-underline-offset:4px}
 .more{display:flex;align-items:center;justify-content:center;gap:8px;margin-top:var(--s4)}
 .more a{color:inherit;text-decoration:none;font-size:12px;
   border-bottom:2px solid var(--rail);padding-bottom:1px}
@@ -1260,13 +1274,16 @@ details.toc summary{padding:8px 16px;cursor:url("${CUR_B}") 0 0, pointer;font-si
 .artorig{color:inherit;text-decoration:none;border-bottom:2px solid var(--wood-c)}
 .artorig.quiet{color:var(--tx-3)}
 .cmtpanel{max-width:820px;margin:0 auto 26px}
-.cmtbox{min-height:20px;font-size:12px}
+.cmtbox{min-height:20px;font-size:12px;max-width:760px;margin:0 auto}
 .cmtnote{font-family:var(--read);font-size:14px;line-height:22px;color:var(--tx-3);margin:0 0 8px}
 .cmtnote code{background:var(--cream-2);border:1px solid var(--cream-3);padding:0 3px}
 
 /* ===== 网站底部：评论区 =====
    评论区在页脚站台（.platform）上方；访客计数改成站台里的车票（第 6.14 节）。 */
-.sitebottom{max-width:820px;margin:var(--s8) auto 0}
+.sitebottom{max-width:none;margin:var(--s8) auto 0}
+/* V21：留言板跟着 12 栏走满宽，评论区内容再收窄到 760（.cmtbox）—— 以前整块 820 居中，
+   跟上面的仪表盘不是一套网格，底部右边会空出一大块。 */
+.sitebottom .cmtpanel{max-width:none;margin-bottom:0}
 /* 上下篇（第 6.15 节）：可点的纸卡，装的是整篇文章标题，所以不做成徽章；标题阅读 14 最多两行，
    截断裁的是 b 自己，不碰 <a> 的焦点框。与文章面板同宽 860。 */
 .apager{display:flex;gap:var(--s4);max-width:860px;margin:0 auto var(--s8)}
