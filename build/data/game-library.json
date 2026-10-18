@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "uid": "32133355",
-  "updatedAt": "2026-10-17T00:37:40.283Z",
+  "updatedAt": "2026-10-18T00:07:44.562Z",
   "platforms": {
     "steam": {
       "complete": true,
@@ -13,10 +13,10 @@
           "name": "侠盗猎车手 V 增强版",
           "platform": "steam",
           "platformLabel": "Steam",
-          "hours": 25.2,
+          "hours": 26,
           "cleared": false,
           "notOwned": false,
-          "recentHours": 1.6,
+          "recentHours": 2.4,
           "cover": "steam-3240220.jpg"
         },
         {
@@ -56,18 +56,6 @@
           "cover": "steam-638970.jpg"
         },
         {
-          "appid": "2868840",
-          "sourceId": "2868840",
-          "name": "杀戮尖塔2",
-          "platform": "steam",
-          "platformLabel": "Steam",
-          "hours": 110.9,
-          "cleared": false,
-          "notOwned": false,
-          "recentHours": 0.1,
-          "cover": "2868840.jpg"
-        },
-        {
           "appid": "578080",
           "sourceId": "578080",
           "name": "绝地求生",
@@ -76,7 +64,7 @@
           "hours": 292.7,
           "cleared": false,
           "notOwned": false,
-          "recentHours": 0.1,
+          "recentHours": 0,
           "cover": "578080.jpg"
         },
         {
@@ -138,6 +126,18 @@
           "notOwned": false,
           "recentHours": 0,
           "cover": "1174180.jpg"
+        },
+        {
+          "appid": "2868840",
+          "sourceId": "2868840",
+          "name": "杀戮尖塔2",
+          "platform": "steam",
+          "platformLabel": "Steam",
+          "hours": 110.9,
+          "cleared": false,
+          "notOwned": false,
+          "recentHours": 0,
+          "cover": "2868840.jpg"
         },
         {
           "appid": "250900",
@@ -2847,7 +2847,7 @@
           "name": "Grand Theft Auto V 增强版 (PC)",
           "platform": "xbox_v2",
           "platformLabel": "Xbox",
-          "hours": 20.4,
+          "hours": 21.1,
           "cleared": false,
           "cover": "xbox_v2-900177776.jpg"
         },
