@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "uid": "32133355",
-  "updatedAt": "2026-10-18T00:07:44.562Z",
+  "updatedAt": "2026-10-19T00:17:10.326Z",
   "platforms": {
     "steam": {
       "complete": true,
@@ -16,7 +16,7 @@
           "hours": 26,
           "cleared": false,
           "notOwned": false,
-          "recentHours": 2.4,
+          "recentHours": 1.5,
           "cover": "steam-3240220.jpg"
         },
         {
@@ -32,18 +32,6 @@
           "cover": "steam-2001120.jpg"
         },
         {
-          "appid": "1145350",
-          "sourceId": "1145350",
-          "name": "哈迪斯2",
-          "platform": "steam",
-          "platformLabel": "Steam",
-          "hours": 19.7,
-          "cleared": false,
-          "notOwned": true,
-          "recentHours": 0.7,
-          "cover": "steam-1145350.jpg"
-        },
-        {
           "appid": "638970",
           "sourceId": "638970",
           "name": "人中之龙 0",
@@ -54,6 +42,18 @@
           "notOwned": false,
           "recentHours": 0.3,
           "cover": "steam-638970.jpg"
+        },
+        {
+          "appid": "1145350",
+          "sourceId": "1145350",
+          "name": "哈迪斯2",
+          "platform": "steam",
+          "platformLabel": "Steam",
+          "hours": 19.7,
+          "cleared": false,
+          "notOwned": true,
+          "recentHours": 0.1,
+          "cover": "steam-1145350.jpg"
         },
         {
           "appid": "578080",
@@ -3233,7 +3233,7 @@
           "name": "塞尔达传说：王国之泪",
           "platform": "switchall",
           "platformLabel": "Switch",
-          "hours": 52,
+          "hours": 53,
           "cleared": false,
           "cover": "900011199.jpg"
         },
@@ -3243,7 +3243,7 @@
           "name": "塞尔达传说：旷野之息",
           "platform": "switchall",
           "platformLabel": "Switch",
-          "hours": 29,
+          "hours": 30,
           "cleared": false,
           "cover": "switchall-900000069.jpg"
         },
