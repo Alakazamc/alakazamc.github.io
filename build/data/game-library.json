@@ -1,24 +1,12 @@
 {
   "schemaVersion": 1,
   "uid": "32133355",
-  "updatedAt": "2026-10-19T00:17:10.326Z",
+  "updatedAt": "2026-10-20T01:08:13.557Z",
   "platforms": {
     "steam": {
       "complete": true,
       "reportedTotal": 191,
       "games": [
-        {
-          "appid": "3240220",
-          "sourceId": "3240220",
-          "name": "侠盗猎车手 V 增强版",
-          "platform": "steam",
-          "platformLabel": "Steam",
-          "hours": 26,
-          "cleared": false,
-          "notOwned": false,
-          "recentHours": 1.5,
-          "cover": "steam-3240220.jpg"
-        },
         {
           "appid": "2001120",
           "sourceId": "2001120",
@@ -32,28 +20,16 @@
           "cover": "steam-2001120.jpg"
         },
         {
-          "appid": "638970",
-          "sourceId": "638970",
-          "name": "人中之龙 0",
+          "appid": "3240220",
+          "sourceId": "3240220",
+          "name": "侠盗猎车手 V 增强版",
           "platform": "steam",
           "platformLabel": "Steam",
-          "hours": 11.2,
+          "hours": 26,
           "cleared": false,
           "notOwned": false,
-          "recentHours": 0.3,
-          "cover": "steam-638970.jpg"
-        },
-        {
-          "appid": "1145350",
-          "sourceId": "1145350",
-          "name": "哈迪斯2",
-          "platform": "steam",
-          "platformLabel": "Steam",
-          "hours": 19.7,
-          "cleared": false,
-          "notOwned": true,
-          "recentHours": 0.1,
-          "cover": "steam-1145350.jpg"
+          "recentHours": 1.3,
+          "cover": "steam-3240220.jpg"
         },
         {
           "appid": "578080",
@@ -392,6 +368,18 @@
           "cover": "steam-1905180.jpg"
         },
         {
+          "appid": "1145350",
+          "sourceId": "1145350",
+          "name": "哈迪斯2",
+          "platform": "steam",
+          "platformLabel": "Steam",
+          "hours": 19.7,
+          "cleared": false,
+          "notOwned": true,
+          "recentHours": 0,
+          "cover": "steam-1145350.jpg"
+        },
+        {
           "appid": "271590",
           "sourceId": "271590",
           "name": "侠盗猎车手V",
@@ -462,6 +450,18 @@
           "notOwned": true,
           "recentHours": 0,
           "cover": "steam-3117820.jpg"
+        },
+        {
+          "appid": "638970",
+          "sourceId": "638970",
+          "name": "人中之龙 0",
+          "platform": "steam",
+          "platformLabel": "Steam",
+          "hours": 11.2,
+          "cleared": false,
+          "notOwned": false,
+          "recentHours": 0,
+          "cover": "steam-638970.jpg"
         },
         {
           "appid": "2062430",
