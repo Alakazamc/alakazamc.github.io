@@ -1,13 +1,13 @@
 {
  "user": "Alakazamc",
- "updatedAt": "2026-10-20T01:07:10.165Z",
+ "updatedAt": "2026-10-21T00:41:30.689Z",
  "repos": [
   {
    "name": "szudesktop",
    "description": "深大校园桌面应用：像素庭院陪你专注和记笔记，附校园网认证与断线诊断（Windows / macOS 桌面版；Windows / macOS / Linux 命令行）",
    "url": "https://github.com/SzuDesktopTeam/szudesktop",
    "stars": 8,
-   "pushedAt": "2026-10-19",
+   "pushedAt": "2026-10-20",
    "language": "JavaScript",
    "color": "#f1e05a",
    "topics": [
@@ -20,12 +20,12 @@
     {
      "name": "JavaScript",
      "color": "#f1e05a",
-     "size": 1737158
+     "size": 1744098
     },
     {
      "name": "Go",
      "color": "#00ADD8",
-     "size": 1218368
+     "size": 1232247
     },
     {
      "name": "Python",
@@ -481,116 +481,116 @@
   {
    "name": "JavaScript",
    "color": "#f1e05a",
-   "size": 6988327,
-   "percent": 0.3842914948855549
+   "size": 6995267,
+   "percent": 0.3842332406137105
   },
   {
    "name": "Python",
    "color": "#3572A5",
    "size": 3268055,
-   "percent": 0.17971193124165658
+   "percent": 0.1795064238654278
   },
   {
    "name": "HTML",
    "color": "#e34c26",
    "size": 3225957,
-   "percent": 0.17739694178113302
+   "percent": 0.17719408168272685
   },
   {
    "name": "CSS",
    "color": "#663399",
    "size": 1502235,
-   "percent": 0.08260863205448193
+   "percent": 0.08251416596583624
   },
   {
    "name": "Go",
    "color": "#00ADD8",
-   "size": 1218368,
-   "percent": 0.06699864789394139
+   "size": 1232247,
+   "percent": 0.06768437259743236
   },
   {
    "name": "Vue",
    "color": "#41b883",
    "size": 980151,
-   "percent": 0.05389897939858446
+   "percent": 0.05383734388133705
   },
   {
    "name": "Java",
    "color": "#b07219",
    "size": 737013,
-   "percent": 0.04052870272385472
+   "percent": 0.04048235662261821
   },
   {
    "name": "TypeScript",
    "color": "#3178c6",
    "size": 189021,
-   "percent": 0.01039435656842653
+   "percent": 0.010382470229377116
   },
   {
    "name": "Shell",
    "color": "#89e051",
    "size": 25991,
-   "percent": 0.001429257709831045
+   "percent": 0.0014276232996954868
   },
   {
    "name": "SCSS",
    "color": "#c6538c",
    "size": 20888,
-   "percent": 0.0011486412620888334
+   "percent": 0.001147327747452554
   },
   {
    "name": "Dockerfile",
    "color": "#384d54",
    "size": 12790,
-   "percent": 0.0007033283101357803
+   "percent": 0.0007025240276674724
   },
   {
    "name": "PowerShell",
    "color": "#012456",
    "size": 5372,
-   "percent": 0.000295408888354137
+   "percent": 0.00029507107714070853
   },
   {
    "name": "Makefile",
    "color": "#427819",
    "size": 2846,
-   "percent": 0.00015650292186445902
+   "percent": 0.00015632395486642897
   },
   {
    "name": "Swift",
    "color": "#F05138",
    "size": 1968,
-   "percent": 0.00010822127555490349
+   "percent": 0.00010809752044171898
   },
   {
    "name": "Lua",
    "color": "#000080",
    "size": 1678,
-   "percent": 0.00009227403474650817
+   "percent": 0.00009216851590508356
   },
   {
    "name": "Kotlin",
    "color": "#A97BFF",
    "size": 1667,
-   "percent": 0.00009166913940550006
+   "percent": 0.00009156431228472842
   },
   {
    "name": "Mako",
    "color": "#7e858d",
    "size": 1173,
-   "percent": 0.00006450383954568181
+   "percent": 0.00006443007697059775
   },
   {
    "name": "NSIS",
    "color": null,
    "size": 934,
-   "percent": 0.000051361113500142205
+   "percent": 0.00005130238012833615
   },
   {
    "name": "Batchfile",
    "color": "#C1F12E",
    "size": 530,
-   "percent": 0.000029144957339481124
+   "percent": 0.00002911162898074749
   }
  ],
  "totals": {
@@ -599,9 +599,9 @@
   "languages": 19
  },
  "contributions": {
-  "total": 841,
-  "streak": 2,
-  "lastActiveAt": "2026-10-19",
+  "total": 847,
+  "streak": 3,
+  "lastActiveAt": "2026-10-20",
   "start": "2025-10-19",
   "weeks": [
    [
@@ -1075,8 +1075,8 @@
    [
     11,
     4,
+    6,
     0,
-    -1,
     -1,
     -1,
     -1
