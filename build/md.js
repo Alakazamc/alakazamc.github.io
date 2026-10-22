@@ -16,6 +16,7 @@
 //   引用      > x
 //   分割线    ---
 //   代码块    ``` 围栏
+//   表格      | 表头 | 表头 | + | --- | --- |（带首尾管道符）
 //   段落      连续两行会合成一段（软换行），空行分段
 //
 // ⚠️ 两个必须注意的地方（都处理了，改代码时别弄反）：
@@ -62,6 +63,20 @@ const UL = /^\s*[-*+]\s+(.*)$/;
 const OL = /^\s*\d+[.)]\s+(.*)$/;
 const FENCE = /^\s*```/;
 
+function tableCells(line) {
+  const row = String(line || '').trim();
+  if (!row.startsWith('|') || !row.endsWith('|')) return null;
+  return row.slice(1, -1).split('|').map((cell) => cell.trim());
+}
+
+function tableHeader(lines, index) {
+  const header = tableCells(lines[index]);
+  const separator = tableCells(lines[index + 1]);
+  return header && header.length >= 2 && separator &&
+    separator.length === header.length && separator.every((cell) => /^-{3,}$/.test(cell))
+    ? header : null;
+}
+
 function render(src) {
   const lines = String(src || '').replace(/\r\n?/g, '\n').split('\n');
   const out = [];
@@ -83,6 +98,22 @@ function render(src) {
     }
 
     if (!ln.trim()) { closeList(); i++; continue; }
+
+    const header = tableHeader(lines, i);
+    if (header) {
+      closeList();
+      out.push('<div class="arttable"><table><thead><tr>' +
+        header.map((cell) => '<th scope="col">' + inline(esc(cell)) + '</th>').join('') +
+        '</tr></thead><tbody>');
+      i += 2;
+      let row;
+      while (i < lines.length && (row = tableCells(lines[i])) && row.length === header.length) {
+        out.push('<tr>' + row.map((cell) => '<td>' + inline(esc(cell)) + '</td>').join('') + '</tr>');
+        i++;
+      }
+      out.push('</tbody></table></div>');
+      continue;
+    }
 
     if (HR.test(ln)) { closeList(); out.push('<hr>'); i++; continue; }
 
@@ -124,7 +155,7 @@ function render(src) {
       i < lines.length && lines[i].trim() &&
       !HEAD.test(lines[i]) && !QUOTE.test(lines[i]) &&
       !UL.test(lines[i]) && !OL.test(lines[i]) &&
-      !FENCE.test(lines[i]) && !HR.test(lines[i])
+      !FENCE.test(lines[i]) && !HR.test(lines[i]) && !tableHeader(lines, i)
     ) { buf.push(lines[i]); i++; }
     out.push('<p>' + inline(esc(buf.join(' '))) + '</p>');
   }
