@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "uid": "32133355",
-  "updatedAt": "2026-10-21T00:42:37.985Z",
+  "updatedAt": "2026-10-22T00:46:10.752Z",
   "platforms": {
     "steam": {
       "complete": true,
@@ -2311,7 +2311,7 @@
           "name": "最后生还者2",
           "platform": "psn",
           "platformLabel": "PSN",
-          "hours": 7.1,
+          "hours": 7.3,
           "cleared": false,
           "cover": "psn-900006616.jpg"
         },
