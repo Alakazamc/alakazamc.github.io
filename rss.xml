@@ -7,6 +7,83 @@
     <language>zh-CN</language>
     <atom:link href="https://alakazamc.github.io/rss.xml" rel="self" type="application/rss+xml" />
     <item>
+      <title>utopia ontology本体论学习笔记系列</title>
+      <link>https://alakazamc.github.io/posts/utopia-ontology-study-notes.html</link>
+      <pubDate>Thu, 22 Oct 2026 00:00:00 GMT</pubDate>
+      <guid>https://alakazamc.github.io/posts/utopia-ontology-study-notes.html</guid>
+      <description>1.文档如何变成结构化的知识；2.结构化知识如何查询、推理与维护。</description>
+    </item>
+<item>
+      <title>utopia ontology本体论学习笔记系列（10）｜完整案例与结业自测：把整条流程串起来</title>
+      <link>https://alakazamc.github.io/posts/utopia-10-complete-case.html</link>
+      <pubDate>Thu, 22 Oct 2026 00:00:00 GMT</pubDate>
+      <guid>https://alakazamc.github.io/posts/utopia-10-complete-case.html</guid>
+      <description>结业目标是解释一条答案的来源、关系意义、适用时间与更新路径。</description>
+    </item>
+<item>
+      <title>utopia ontology本体论学习笔记系列（09）｜源码导读与项目边界：从入口到关键模块</title>
+      <link>https://alakazamc.github.io/posts/utopia-09-source-tour.html</link>
+      <pubDate>Thu, 22 Oct 2026 00:00:00 GMT</pubDate>
+      <guid>https://alakazamc.github.io/posts/utopia-09-source-tour.html</guid>
+      <description>读源码先找“谁接请求、谁排任务、谁写结果”。</description>
+    </item>
+<item>
+      <title>utopia ontology本体论学习笔记系列（08）｜企业数据与业务动作：映射、SQL和外部系统</title>
+      <link>https://alakazamc.github.io/posts/utopia-08-data-and-actions.html</link>
+      <pubDate>Thu, 22 Oct 2026 00:00:00 GMT</pubDate>
+      <guid>https://alakazamc.github.io/posts/utopia-08-data-and-actions.html</guid>
+      <description>企业数据有两条路：文档变成有证据的知识，数据库通过schema与映射辅助查询。</description>
+    </item>
+<item>
+      <title>utopia ontology本体论学习笔记系列（07）｜权限与审计：谁能看、改和执行</title>
+      <link>https://alakazamc.github.io/posts/utopia-07-permissions-and-audit.html</link>
+      <pubDate>Thu, 22 Oct 2026 00:00:00 GMT</pubDate>
+      <guid>https://alakazamc.github.io/posts/utopia-07-permissions-and-audit.html</guid>
+      <description>读懂知识还不够，必须知道谁能读、谁能改。</description>
+    </item>
+<item>
+      <title>utopia ontology本体论学习笔记系列（06）｜时间与知识更新：交接、更正和依赖重算</title>
+      <link>https://alakazamc.github.io/posts/utopia-06-time-and-corrections.html</link>
+      <pubDate>Thu, 22 Oct 2026 00:00:00 GMT</pubDate>
+      <guid>https://alakazamc.github.io/posts/utopia-06-time-and-corrections.html</guid>
+      <description>知识更新要回答两件事：事情何时成立，以及系统何时知道。</description>
+    </item>
+<item>
+      <title>utopia ontology本体论学习笔记系列（05）｜冲突与审核：数据错了还是模型错了</title>
+      <link>https://alakazamc.github.io/posts/utopia-05-conflict-and-review.html</link>
+      <pubDate>Thu, 22 Oct 2026 00:00:00 GMT</pubDate>
+      <guid>https://alakazamc.github.io/posts/utopia-05-conflict-and-review.html</guid>
+      <description>发现冲突不等于已经知道谁错了。</description>
+    </item>
+<item>
+      <title>utopia ontology本体论学习笔记系列（04）｜规则推理与约束：从前提到结论</title>
+      <link>https://alakazamc.github.io/posts/utopia-04-rules-and-constraints.html</link>
+      <pubDate>Thu, 22 Oct 2026 00:00:00 GMT</pubDate>
+      <guid>https://alakazamc.github.io/posts/utopia-04-rules-and-constraints.html</guid>
+      <description>推理是按明确规则，从已有前提得到新结论。</description>
+    </item>
+<item>
+      <title>utopia ontology本体论学习笔记系列（03）｜查询与回答：对象、关系、时间和证据</title>
+      <link>https://alakazamc.github.io/posts/utopia-03-query-with-evidence.html</link>
+      <pubDate>Thu, 22 Oct 2026 00:00:00 GMT</pubDate>
+      <guid>https://alakazamc.github.io/posts/utopia-03-query-with-evidence.html</guid>
+      <description>查询要同时说清对象、关系、时间和依据。</description>
+    </item>
+<item>
+      <title>utopia ontology本体论学习笔记系列（02）｜结构化知识如何查询、推理与维护</title>
+      <link>https://alakazamc.github.io/posts/utopia-02-query-reason-maintain.html</link>
+      <pubDate>Thu, 22 Oct 2026 00:00:00 GMT</pubDate>
+      <guid>https://alakazamc.github.io/posts/utopia-02-query-reason-maintain.html</guid>
+      <description>结构化之后，还要让答案查得准、推得有依据、改得可追溯。</description>
+    </item>
+<item>
+      <title>utopia ontology本体论学习笔记系列（01）｜文档如何变成结构化的知识</title>
+      <link>https://alakazamc.github.io/posts/utopia-01-document-to-knowledge.html</link>
+      <pubDate>Thu, 22 Oct 2026 00:00:00 GMT</pubDate>
+      <guid>https://alakazamc.github.io/posts/utopia-01-document-to-knowledge.html</guid>
+      <description>核心思路：先保存“文档说了什么”，再弄清“说的是谁、什么关系、何时成立”。</description>
+    </item>
+<item>
       <title>如何和 AI 处理好关系，是我们人生中最重要的问题</title>
       <link>https://alakazamc.github.io/posts/how-to-live-with-ai.html</link>
       <pubDate>Wed, 30 Sep 2026 00:00:00 GMT</pubDate>

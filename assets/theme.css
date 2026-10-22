@@ -555,6 +555,10 @@ a.wcard-link:hover .wcard-topic{background:var(--surface)}
 .artbody a:hover{background:var(--raised);color:var(--ink)}
 .artbody ul,.artbody ol{margin:0 0 14px;padding-left:22px}
 .artbody li{margin:0 0 6px}
+.artbody .arttable{max-width:100%;overflow-x:auto;margin:0 0 24px}
+.artbody table{width:100%;border-collapse:collapse;font-size:16px;line-height:1.8}
+.artbody th,.artbody td{padding:12px;border:1px solid var(--line);text-align:left;vertical-align:top;overflow-wrap:anywhere}
+.artbody th{background:var(--cream-2);font-weight:700}
 .artbody blockquote{margin:0 0 14px;padding:8px 12px;background:var(--cream-2);
   border-left:5px solid var(--wood-c);color:var(--tx-quote)}
 .artbody blockquote p:last-child{margin:0}
