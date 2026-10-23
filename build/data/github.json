@@ -1,13 +1,30 @@
 {
  "user": "Alakazamc",
- "updatedAt": "2026-10-22T00:45:07.434Z",
+ "updatedAt": "2026-10-23T00:44:40.636Z",
  "repos": [
+  {
+   "name": "astrbot_plugin_dsh_card",
+   "description": "把 Markdown 渲染成带女仆立绘的卡片图 · AstrBot 插件",
+   "url": "https://github.com/Alakazamc/astrbot_plugin_dsh_card",
+   "stars": 1,
+   "pushedAt": "2026-10-22",
+   "language": "Python",
+   "color": "#3572A5",
+   "topics": [],
+   "langs": [
+    {
+     "name": "Python",
+     "color": "#3572A5",
+     "size": 35847
+    }
+   ]
+  },
   {
    "name": "szudesktop",
    "description": "深大校园桌面应用：像素庭院陪你专注和记笔记，附校园网认证与断线诊断（Windows / macOS 桌面版；Windows / macOS / Linux 命令行）",
    "url": "https://github.com/SzuDesktopTeam/szudesktop",
    "stars": 8,
-   "pushedAt": "2026-10-20",
+   "pushedAt": "2026-10-22",
    "language": "JavaScript",
    "color": "#f1e05a",
    "topics": [
@@ -20,12 +37,12 @@
     {
      "name": "JavaScript",
      "color": "#f1e05a",
-     "size": 1744098
+     "size": 1746275
     },
     {
      "name": "Go",
      "color": "#00ADD8",
-     "size": 1232247
+     "size": 1239423
     },
     {
      "name": "Python",
@@ -35,12 +52,12 @@
     {
      "name": "CSS",
      "color": "#663399",
-     "size": 141484
+     "size": 141752
     },
     {
      "name": "HTML",
      "color": "#e34c26",
-     "size": 24574
+     "size": 24325
     },
     {
      "name": "PowerShell",
@@ -481,127 +498,127 @@
   {
    "name": "JavaScript",
    "color": "#f1e05a",
-   "size": 6995267,
-   "percent": 0.3842332406137105
+   "size": 6997444,
+   "percent": 0.3834005387758984
   },
   {
    "name": "Python",
    "color": "#3572A5",
-   "size": 3268055,
-   "percent": 0.1795064238654278
+   "size": 3303902,
+   "percent": 0.18102578696775115
   },
   {
    "name": "HTML",
    "color": "#e34c26",
-   "size": 3225957,
-   "percent": 0.17719408168272685
+   "size": 3225708,
+   "percent": 0.17674141945740843
   },
   {
    "name": "CSS",
    "color": "#663399",
-   "size": 1502235,
-   "percent": 0.08251416596583624
+   "size": 1502503,
+   "percent": 0.08232441155833527
   },
   {
    "name": "Go",
    "color": "#00ADD8",
-   "size": 1232247,
-   "percent": 0.06768437259743236
+   "size": 1239423,
+   "percent": 0.06790986051067223
   },
   {
    "name": "Vue",
    "color": "#41b883",
    "size": 980151,
-   "percent": 0.05383734388133705
+   "percent": 0.05370395554172861
   },
   {
    "name": "Java",
    "color": "#b07219",
    "size": 737013,
-   "percent": 0.04048235662261821
+   "percent": 0.04038205683172902
   },
   {
    "name": "TypeScript",
    "color": "#3178c6",
    "size": 189021,
-   "percent": 0.010382470229377116
+   "percent": 0.010356746440551593
   },
   {
    "name": "Shell",
    "color": "#89e051",
    "size": 25991,
-   "percent": 0.0014276232996954868
+   "percent": 0.0014240861953771086
   },
   {
    "name": "SCSS",
    "color": "#c6538c",
    "size": 20888,
-   "percent": 0.001147327747452554
+   "percent": 0.001144485108269672
   },
   {
    "name": "Dockerfile",
    "color": "#384d54",
    "size": 12790,
-   "percent": 0.0007025240276674724
+   "percent": 0.0007007834419173259
   },
   {
    "name": "PowerShell",
    "color": "#012456",
    "size": 5372,
-   "percent": 0.00029507107714070853
+   "percent": 0.00029434000390773067
   },
   {
    "name": "Makefile",
    "color": "#427819",
    "size": 2846,
-   "percent": 0.00015632395486642897
+   "percent": 0.00015593664391686549
   },
   {
    "name": "Swift",
    "color": "#F05138",
    "size": 1968,
-   "percent": 0.00010809752044171898
+   "percent": 0.00010782969614490207
   },
   {
    "name": "Lua",
    "color": "#000080",
    "size": 1678,
-   "percent": 0.00009216851590508356
+   "percent": 0.00009194015758696426
   },
   {
    "name": "Kotlin",
    "color": "#A97BFF",
    "size": 1667,
-   "percent": 0.00009156431228472842
+   "percent": 0.000091337450952008
   },
   {
    "name": "Mako",
    "color": "#7e858d",
    "size": 1173,
-   "percent": 0.00006443007697059775
+   "percent": 0.00006427044389124499
   },
   {
    "name": "NSIS",
    "color": null,
    "size": 934,
-   "percent": 0.00005130238012833615
+   "percent": 0.000051175272459013484
   },
   {
    "name": "Batchfile",
    "color": "#C1F12E",
    "size": 530,
-   "percent": 0.00002911162898074749
+   "percent": 0.00002903950150243806
   }
  ],
  "totals": {
-  "repos": 11,
-  "stars": 9,
+  "repos": 12,
+  "stars": 10,
   "languages": 19
  },
  "contributions": {
-  "total": 853,
-  "streak": 4,
-  "lastActiveAt": "2026-10-21",
+  "total": 869,
+  "streak": 6,
+  "lastActiveAt": "2026-10-23",
   "start": "2025-10-19",
   "weeks": [
    [
@@ -1077,8 +1094,8 @@
     4,
     6,
     6,
-    0,
-    -1,
+    10,
+    6,
     -1
    ]
   ]
