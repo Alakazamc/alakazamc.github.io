@@ -1,30 +1,13 @@
 {
  "user": "Alakazamc",
- "updatedAt": "2026-10-23T00:44:40.636Z",
+ "updatedAt": "2026-10-24T00:50:14.775Z",
  "repos": [
-  {
-   "name": "astrbot_plugin_dsh_card",
-   "description": "把 Markdown 渲染成带女仆立绘的卡片图 · AstrBot 插件",
-   "url": "https://github.com/Alakazamc/astrbot_plugin_dsh_card",
-   "stars": 1,
-   "pushedAt": "2026-10-22",
-   "language": "Python",
-   "color": "#3572A5",
-   "topics": [],
-   "langs": [
-    {
-     "name": "Python",
-     "color": "#3572A5",
-     "size": 35847
-    }
-   ]
-  },
   {
    "name": "szudesktop",
    "description": "深大校园桌面应用：像素庭院陪你专注和记笔记，附校园网认证与断线诊断（Windows / macOS 桌面版；Windows / macOS / Linux 命令行）",
    "url": "https://github.com/SzuDesktopTeam/szudesktop",
    "stars": 8,
-   "pushedAt": "2026-10-22",
+   "pushedAt": "2026-10-23",
    "language": "JavaScript",
    "color": "#f1e05a",
    "topics": [
@@ -37,22 +20,22 @@
     {
      "name": "JavaScript",
      "color": "#f1e05a",
-     "size": 1746275
+     "size": 1832820
     },
     {
      "name": "Go",
      "color": "#00ADD8",
-     "size": 1239423
+     "size": 1359270
     },
     {
      "name": "Python",
      "color": "#3572A5",
-     "size": 317688
+     "size": 319629
     },
     {
      "name": "CSS",
      "color": "#663399",
-     "size": 141752
+     "size": 145974
     },
     {
      "name": "HTML",
@@ -73,6 +56,23 @@
      "name": "NSIS",
      "color": null,
      "size": 934
+    }
+   ]
+  },
+  {
+   "name": "astrbot_plugin_dsh_card",
+   "description": "把 Markdown 渲染成带女仆立绘的卡片图 · AstrBot 插件",
+   "url": "https://github.com/Alakazamc/astrbot_plugin_dsh_card",
+   "stars": 1,
+   "pushedAt": "2026-10-22",
+   "language": "Python",
+   "color": "#3572A5",
+   "topics": [],
+   "langs": [
+    {
+     "name": "Python",
+     "color": "#3572A5",
+     "size": 35847
     }
    ]
   },
@@ -498,116 +498,116 @@
   {
    "name": "JavaScript",
    "color": "#f1e05a",
-   "size": 6997444,
-   "percent": 0.3834005387758984
+   "size": 7083989,
+   "percent": 0.3836741208641434
   },
   {
    "name": "Python",
    "color": "#3572A5",
-   "size": 3303902,
-   "percent": 0.18102578696775115
+   "size": 3305843,
+   "percent": 0.1790469192907954
   },
   {
    "name": "HTML",
    "color": "#e34c26",
    "size": 3225708,
-   "percent": 0.17674141945740843
+   "percent": 0.17470674800094044
   },
   {
    "name": "CSS",
    "color": "#663399",
-   "size": 1502503,
-   "percent": 0.08232441155833527
+   "size": 1506725,
+   "percent": 0.08160534830856264
   },
   {
    "name": "Go",
    "color": "#00ADD8",
-   "size": 1239423,
-   "percent": 0.06790986051067223
+   "size": 1359270,
+   "percent": 0.07361907567431346
   },
   {
    "name": "Vue",
    "color": "#41b883",
    "size": 980151,
-   "percent": 0.05370395554172861
+   "percent": 0.05308570824137516
   },
   {
    "name": "Java",
    "color": "#b07219",
    "size": 737013,
-   "percent": 0.04038205683172902
+   "percent": 0.03991717305609098
   },
   {
    "name": "TypeScript",
    "color": "#3178c6",
    "size": 189021,
-   "percent": 0.010356746440551593
+   "percent": 0.010237518155358689
   },
   {
    "name": "Shell",
    "color": "#89e051",
    "size": 25991,
-   "percent": 0.0014240861953771086
+   "percent": 0.0014076919198180503
   },
   {
    "name": "SCSS",
    "color": "#c6538c",
    "size": 20888,
-   "percent": 0.001144485108269672
+   "percent": 0.0011313096387657049
   },
   {
    "name": "Dockerfile",
    "color": "#384d54",
    "size": 12790,
-   "percent": 0.0007007834419173259
+   "percent": 0.0006927159268390159
   },
   {
    "name": "PowerShell",
    "color": "#012456",
    "size": 5372,
-   "percent": 0.00029434000390773067
+   "percent": 0.00029095152142135993
   },
   {
    "name": "Makefile",
    "color": "#427819",
    "size": 2846,
-   "percent": 0.00015593664391686549
+   "percent": 0.00015414147988927594
   },
   {
    "name": "Swift",
    "color": "#F05138",
    "size": 1968,
-   "percent": 0.00010782969614490207
+   "percent": 0.00010658834589673052
   },
   {
    "name": "Lua",
    "color": "#000080",
    "size": 1678,
-   "percent": 0.00009194015758696426
+   "percent": 0.00009088172988552531
   },
   {
    "name": "Kotlin",
    "color": "#A97BFF",
    "size": 1667,
-   "percent": 0.000091337450952008
+   "percent": 0.00009028596169199684
   },
   {
    "name": "Mako",
    "color": "#7e858d",
    "size": 1173,
-   "percent": 0.00006427044389124499
+   "percent": 0.00006353055372808176
   },
   {
    "name": "NSIS",
    "color": null,
    "size": 934,
-   "percent": 0.000051175272459013484
+   "percent": 0.00005058613570505401
   },
   {
    "name": "Batchfile",
    "color": "#C1F12E",
    "size": 530,
-   "percent": 0.00002903950150243806
+   "percent": 0.000028705194779099175
   }
  ],
  "totals": {
@@ -616,9 +616,9 @@
   "languages": 19
  },
  "contributions": {
-  "total": 869,
-  "streak": 6,
-  "lastActiveAt": "2026-10-23",
+  "total": 887,
+  "streak": 7,
+  "lastActiveAt": "2026-10-24",
   "start": "2025-10-19",
   "weeks": [
    [
@@ -1095,8 +1095,8 @@
     6,
     6,
     10,
-    6,
-    -1
+    18,
+    6
    ]
   ]
  }
