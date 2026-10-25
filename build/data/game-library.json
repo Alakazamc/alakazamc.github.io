@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "uid": "32133355",
-  "updatedAt": "2026-10-24T00:51:21.324Z",
+  "updatedAt": "2026-10-25T00:24:22.744Z",
   "platforms": {
     "steam": {
       "complete": true,
@@ -30,6 +30,18 @@
           "notOwned": false,
           "recentHours": 1.3,
           "cover": "steam-3240220.jpg"
+        },
+        {
+          "appid": "2050650",
+          "sourceId": "2050650",
+          "name": "生化危机4 重制版",
+          "platform": "steam",
+          "platformLabel": "Steam",
+          "hours": 0.7,
+          "cleared": false,
+          "notOwned": false,
+          "recentHours": 0.7,
+          "cover": "steam-2050650.jpg"
         },
         {
           "appid": "578080",
@@ -2154,18 +2166,6 @@
           "notOwned": false,
           "recentHours": 0,
           "cover": "steam-1422450.jpg"
-        },
-        {
-          "appid": "2050650",
-          "sourceId": "2050650",
-          "name": "生化危机4 重制版",
-          "platform": "steam",
-          "platformLabel": "Steam",
-          "hours": 0,
-          "cleared": false,
-          "notOwned": false,
-          "recentHours": 0,
-          "cover": "steam-2050650.jpg"
         },
         {
           "appid": "220",

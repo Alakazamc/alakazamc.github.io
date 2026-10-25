@@ -1,13 +1,13 @@
 {
  "user": "Alakazamc",
- "updatedAt": "2026-10-24T00:50:14.775Z",
+ "updatedAt": "2026-10-25T00:23:19.488Z",
  "repos": [
   {
    "name": "szudesktop",
-   "description": "深大校园桌面应用：像素庭院陪你专注和记笔记，附校园网认证与断线诊断（Windows / macOS 桌面版；Windows / macOS / Linux 命令行）",
+   "description": "深大学生的校园工具箱：查学院通知和馆藏、记课程笔记、管理待办与专注，和像素桌宠一起建设庭院。Windows / macOS，免费开源。",
    "url": "https://github.com/SzuDesktopTeam/szudesktop",
    "stars": 8,
-   "pushedAt": "2026-10-23",
+   "pushedAt": "2026-10-24",
    "language": "JavaScript",
    "color": "#f1e05a",
    "topics": [
@@ -20,7 +20,7 @@
     {
      "name": "JavaScript",
      "color": "#f1e05a",
-     "size": 1832820
+     "size": 1848473
     },
     {
      "name": "Go",
@@ -30,7 +30,7 @@
     {
      "name": "Python",
      "color": "#3572A5",
-     "size": 319629
+     "size": 319637
     },
     {
      "name": "CSS",
@@ -498,116 +498,116 @@
   {
    "name": "JavaScript",
    "color": "#f1e05a",
-   "size": 7083989,
-   "percent": 0.3836741208641434
+   "size": 7099642,
+   "percent": 0.38419601955017796
   },
   {
    "name": "Python",
    "color": "#3572A5",
-   "size": 3305843,
-   "percent": 0.1790469192907954
+   "size": 3305851,
+   "percent": 0.1788956112753256
   },
   {
    "name": "HTML",
    "color": "#e34c26",
    "size": 3225708,
-   "percent": 0.17470674800094044
+   "percent": 0.17455868532964977
   },
   {
    "name": "CSS",
    "color": "#663399",
    "size": 1506725,
-   "percent": 0.08160534830856264
+   "percent": 0.08153618838199755
   },
   {
    "name": "Go",
    "color": "#00ADD8",
    "size": 1359270,
-   "percent": 0.07361907567431346
+   "percent": 0.07355668405448759
   },
   {
    "name": "Vue",
    "color": "#41b883",
    "size": 980151,
-   "percent": 0.05308570824137516
+   "percent": 0.053040718497936436
   },
   {
    "name": "Java",
    "color": "#b07219",
    "size": 737013,
-   "percent": 0.03991717305609098
+   "percent": 0.03988334354841206
   },
   {
    "name": "TypeScript",
    "color": "#3178c6",
    "size": 189021,
-   "percent": 0.010237518155358689
+   "percent": 0.010228841934761526
   },
   {
    "name": "Shell",
    "color": "#89e051",
    "size": 25991,
-   "percent": 0.0014076919198180503
+   "percent": 0.0014064989113716825
   },
   {
    "name": "SCSS",
    "color": "#c6538c",
    "size": 20888,
-   "percent": 0.0011313096387657049
+   "percent": 0.0011303508622496905
   },
   {
    "name": "Dockerfile",
    "color": "#384d54",
    "size": 12790,
-   "percent": 0.0006927159268390159
+   "percent": 0.0006921288552361902
   },
   {
    "name": "PowerShell",
    "color": "#012456",
    "size": 5372,
-   "percent": 0.00029095152142135993
+   "percent": 0.0002907049421680073
   },
   {
    "name": "Makefile",
    "color": "#427819",
    "size": 2846,
-   "percent": 0.00015414147988927594
+   "percent": 0.0001540108461299607
   },
   {
    "name": "Swift",
    "color": "#F05138",
    "size": 1968,
-   "percent": 0.00010658834589673052
+   "percent": 0.00010649801306527149
   },
   {
    "name": "Lua",
    "color": "#000080",
    "size": 1678,
-   "percent": 0.00009088172988552531
+   "percent": 0.00009080470829447436
   },
   {
    "name": "Kotlin",
    "color": "#A97BFF",
    "size": 1667,
-   "percent": 0.00009028596169199684
+   "percent": 0.00009020944501006483
   },
   {
    "name": "Mako",
    "color": "#7e858d",
    "size": 1173,
-   "percent": 0.00006353055372808176
+   "percent": 0.00006347671205567248
   },
   {
    "name": "NSIS",
    "color": null,
    "size": 934,
-   "percent": 0.00005058613570505401
+   "percent": 0.00005054326433077417
   },
   {
    "name": "Batchfile",
    "color": "#C1F12E",
    "size": 530,
-   "percent": 0.000028705194779099175
+   "percent": 0.000028680867339732665
   }
  ],
  "totals": {
@@ -616,20 +616,11 @@
   "languages": 19
  },
  "contributions": {
-  "total": 887,
+  "total": 893,
   "streak": 7,
   "lastActiveAt": "2026-10-24",
-  "start": "2025-10-19",
+  "start": "2025-10-26",
   "weeks": [
-   [
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0
-   ],
    [
     0,
     0,
@@ -1096,7 +1087,16 @@
     6,
     10,
     18,
-    6
+    12
+   ],
+   [
+    0,
+    -1,
+    -1,
+    -1,
+    -1,
+    -1,
+    -1
    ]
   ]
  }
