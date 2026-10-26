@@ -1,13 +1,13 @@
 {
  "user": "Alakazamc",
- "updatedAt": "2026-10-25T00:23:19.488Z",
+ "updatedAt": "2026-10-26T00:29:06.219Z",
  "repos": [
   {
    "name": "szudesktop",
    "description": "深大学生的校园工具箱：查学院通知和馆藏、记课程笔记、管理待办与专注，和像素桌宠一起建设庭院。Windows / macOS，免费开源。",
    "url": "https://github.com/SzuDesktopTeam/szudesktop",
    "stars": 8,
-   "pushedAt": "2026-10-24",
+   "pushedAt": "2026-10-25",
    "language": "JavaScript",
    "color": "#f1e05a",
    "topics": [
@@ -20,27 +20,27 @@
     {
      "name": "JavaScript",
      "color": "#f1e05a",
-     "size": 1848473
+     "size": 1909931
     },
     {
      "name": "Go",
      "color": "#00ADD8",
-     "size": 1359270
+     "size": 1358318
     },
     {
      "name": "Python",
      "color": "#3572A5",
-     "size": 319637
+     "size": 324825
     },
     {
      "name": "CSS",
      "color": "#663399",
-     "size": 145974
+     "size": 148066
     },
     {
      "name": "HTML",
      "color": "#e34c26",
-     "size": 24325
+     "size": 25461
     },
     {
      "name": "PowerShell",
@@ -498,116 +498,116 @@
   {
    "name": "JavaScript",
    "color": "#f1e05a",
-   "size": 7099642,
-   "percent": 0.38419601955017796
+   "size": 7161100,
+   "percent": 0.38608183893371517
   },
   {
    "name": "Python",
    "color": "#3572A5",
-   "size": 3305851,
-   "percent": 0.1788956112753256
+   "size": 3311039,
+   "percent": 0.17851056763643147
   },
   {
    "name": "HTML",
    "color": "#e34c26",
-   "size": 3225708,
-   "percent": 0.17455868532964977
+   "size": 3226844,
+   "percent": 0.17397129846981962
   },
   {
    "name": "CSS",
    "color": "#663399",
-   "size": 1506725,
-   "percent": 0.08153618838199755
+   "size": 1508817,
+   "percent": 0.08134600019193299
   },
   {
    "name": "Go",
    "color": "#00ADD8",
-   "size": 1359270,
-   "percent": 0.07355668405448759
+   "size": 1358318,
+   "percent": 0.07323203296934355
   },
   {
    "name": "Vue",
    "color": "#41b883",
    "size": 980151,
-   "percent": 0.053040718497936436
+   "percent": 0.052843627447280425
   },
   {
    "name": "Java",
    "color": "#b07219",
    "size": 737013,
-   "percent": 0.03988334354841206
+   "percent": 0.03973514325425622
   },
   {
    "name": "TypeScript",
    "color": "#3178c6",
    "size": 189021,
-   "percent": 0.010228841934761526
+   "percent": 0.010190833150925106
   },
   {
    "name": "Shell",
    "color": "#89e051",
    "size": 25991,
-   "percent": 0.0014064989113716825
+   "percent": 0.0014012725804312454
   },
   {
    "name": "SCSS",
    "color": "#c6538c",
    "size": 20888,
-   "percent": 0.0011303508622496905
+   "percent": 0.0011261506544591533
   },
   {
    "name": "Dockerfile",
    "color": "#384d54",
    "size": 12790,
-   "percent": 0.0006921288552361902
+   "percent": 0.0006895570121855884
   },
   {
    "name": "PowerShell",
    "color": "#012456",
    "size": 5372,
-   "percent": 0.0002907049421680073
+   "percent": 0.0002896247278702878
   },
   {
    "name": "Makefile",
    "color": "#427819",
    "size": 2846,
-   "percent": 0.0001540108461299607
+   "percent": 0.00015343856580767666
   },
   {
    "name": "Swift",
    "color": "#F05138",
    "size": 1968,
-   "percent": 0.00010649801306527149
+   "percent": 0.00010610228303215309
   },
   {
    "name": "Lua",
    "color": "#000080",
    "size": 1678,
-   "percent": 0.00009080470829447436
+   "percent": 0.00009046729213818745
   },
   {
    "name": "Kotlin",
    "color": "#A97BFF",
    "size": 1667,
-   "percent": 0.00009020944501006483
+   "percent": 0.00008987424075945081
   },
   {
    "name": "Mako",
    "color": "#7e858d",
    "size": 1173,
-   "percent": 0.00006347671205567248
+   "percent": 0.00006324084247800588
   },
   {
    "name": "NSIS",
    "color": null,
    "size": 934,
-   "percent": 0.00005054326433077417
+   "percent": 0.000050355453430910056
   },
   {
    "name": "Batchfile",
    "color": "#C1F12E",
    "size": 530,
-   "percent": 0.000028680867339732665
+   "percent": 0.000028574293702764804
   }
  ],
  "totals": {
@@ -616,9 +616,9 @@
   "languages": 19
  },
  "contributions": {
-  "total": 893,
-  "streak": 7,
-  "lastActiveAt": "2026-10-24",
+  "total": 905,
+  "streak": 8,
+  "lastActiveAt": "2026-10-25",
   "start": "2025-10-26",
   "weeks": [
    [
@@ -1090,8 +1090,8 @@
     12
    ],
    [
+    12,
     0,
-    -1,
     -1,
     -1,
     -1,

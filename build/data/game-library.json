@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "uid": "32133355",
-  "updatedAt": "2026-10-25T00:24:22.744Z",
+  "updatedAt": "2026-10-26T00:30:20.963Z",
   "platforms": {
     "steam": {
       "complete": true,
@@ -28,7 +28,7 @@
           "hours": 26,
           "cleared": false,
           "notOwned": false,
-          "recentHours": 1.3,
+          "recentHours": 0.8,
           "cover": "steam-3240220.jpg"
         },
         {
@@ -2316,16 +2316,6 @@
           "cover": "psn-900006616.jpg"
         },
         {
-          "appid": "900135636",
-          "sourceId": "NPWR35316_00",
-          "name": "最终幻想7 重生",
-          "platform": "psn",
-          "platformLabel": "PSN",
-          "hours": 8.6,
-          "cleared": false,
-          "cover": "psn-900135636.jpg"
-        },
-        {
           "appid": "900032622",
           "sourceId": "NPWR22392_00",
           "name": "战神：诸神黄昏",
@@ -2464,6 +2454,16 @@
           "hours": 8.8,
           "cleared": false,
           "cover": "psn-900021537.jpg"
+        },
+        {
+          "appid": "900135636",
+          "sourceId": "NPWR35316_00",
+          "name": "最终幻想7 重生",
+          "platform": "psn",
+          "platformLabel": "PSN",
+          "hours": 8.6,
+          "cleared": false,
+          "cover": "psn-900135636.jpg"
         },
         {
           "appid": "900152832",
@@ -3225,7 +3225,7 @@
     },
     "switchall": {
       "complete": true,
-      "reportedTotal": 12,
+      "reportedTotal": 13,
       "games": [
         {
           "appid": "900011199",
@@ -3246,6 +3246,16 @@
           "hours": 30,
           "cleared": false,
           "cover": "switchall-900000069.jpg"
+        },
+        {
+          "appid": "900186164",
+          "sourceId": "0100E67012924000",
+          "name": "巫师3：狂猎",
+          "platform": "switchall",
+          "platformLabel": "Switch",
+          "hours": 0,
+          "cleared": false,
+          "cover": "switchall-900186164.jpg"
         },
         {
           "appid": "900168289",
