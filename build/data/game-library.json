@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "uid": "32133355",
-  "updatedAt": "2026-10-26T00:30:20.963Z",
+  "updatedAt": "2026-10-27T01:33:09.988Z",
   "platforms": {
     "steam": {
       "complete": true,
@@ -20,6 +20,18 @@
           "cover": "steam-2001120.jpg"
         },
         {
+          "appid": "2050650",
+          "sourceId": "2050650",
+          "name": "生化危机4 重制版",
+          "platform": "steam",
+          "platformLabel": "Steam",
+          "hours": 0.9,
+          "cleared": false,
+          "notOwned": false,
+          "recentHours": 0.9,
+          "cover": "steam-2050650.jpg"
+        },
+        {
           "appid": "3240220",
           "sourceId": "3240220",
           "name": "侠盗猎车手 V 增强版",
@@ -30,18 +42,6 @@
           "notOwned": false,
           "recentHours": 0.8,
           "cover": "steam-3240220.jpg"
-        },
-        {
-          "appid": "2050650",
-          "sourceId": "2050650",
-          "name": "生化危机4 重制版",
-          "platform": "steam",
-          "platformLabel": "Steam",
-          "hours": 0.7,
-          "cleared": false,
-          "notOwned": false,
-          "recentHours": 0.7,
-          "cover": "steam-2050650.jpg"
         },
         {
           "appid": "578080",
