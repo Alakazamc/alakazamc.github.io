@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "uid": "32133355",
-  "updatedAt": "2026-10-27T01:33:09.988Z",
+  "updatedAt": "2026-10-28T01:29:58.954Z",
   "platforms": {
     "steam": {
       "complete": true,
@@ -3225,7 +3225,7 @@
     },
     "switchall": {
       "complete": true,
-      "reportedTotal": 13,
+      "reportedTotal": 14,
       "games": [
         {
           "appid": "900011199",
@@ -3246,6 +3246,16 @@
           "hours": 30,
           "cleared": false,
           "cover": "switchall-900000069.jpg"
+        },
+        {
+          "appid": "900218547",
+          "sourceId": "040012F028BC2000",
+          "name": "巫师3：狂猎 — 重制版",
+          "platform": "switchall",
+          "platformLabel": "Switch",
+          "hours": 0.1,
+          "cleared": false,
+          "cover": "switchall-900218547.jpg"
         },
         {
           "appid": "900186164",
