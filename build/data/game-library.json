@@ -1,24 +1,12 @@
 {
   "schemaVersion": 1,
   "uid": "32133355",
-  "updatedAt": "2026-10-29T01:53:27.263Z",
+  "updatedAt": "2026-10-30T02:02:43.671Z",
   "platforms": {
     "steam": {
       "complete": true,
-      "reportedTotal": 191,
+      "reportedTotal": 199,
       "games": [
-        {
-          "appid": "2001120",
-          "sourceId": "2001120",
-          "name": "双影奇境",
-          "platform": "steam",
-          "platformLabel": "Steam",
-          "hours": 17.4,
-          "cleared": false,
-          "notOwned": false,
-          "recentHours": 1.5,
-          "cover": "steam-2001120.jpg"
-        },
         {
           "appid": "2050650",
           "sourceId": "2050650",
@@ -414,6 +402,18 @@
           "notOwned": false,
           "recentHours": 0,
           "cover": "steam-753640.jpg"
+        },
+        {
+          "appid": "2001120",
+          "sourceId": "2001120",
+          "name": "双影奇境",
+          "platform": "steam",
+          "platformLabel": "Steam",
+          "hours": 17.4,
+          "cleared": false,
+          "notOwned": false,
+          "recentHours": 0,
+          "cover": "steam-2001120.jpg"
         },
         {
           "appid": "292030",
@@ -2298,6 +2298,102 @@
           "notOwned": false,
           "recentHours": 0,
           "cover": "steam-3768760.jpg"
+        },
+        {
+          "appid": "3061810",
+          "sourceId": "3061810",
+          "name": "人中之龙8外传 夏威夷海盗",
+          "platform": "steam",
+          "platformLabel": "Steam",
+          "hours": 0,
+          "cleared": false,
+          "notOwned": false,
+          "recentHours": 0,
+          "cover": "steam-3061810.jpg"
+        },
+        {
+          "appid": "2361460",
+          "sourceId": "2361460",
+          "name": "玩具郡",
+          "platform": "steam",
+          "platformLabel": "Steam",
+          "hours": 0,
+          "cleared": false,
+          "notOwned": false,
+          "recentHours": 0,
+          "cover": "steam-2361460.jpg"
+        },
+        {
+          "appid": "2751000",
+          "sourceId": "2751000",
+          "name": "波斯王子：失落的王冠",
+          "platform": "steam",
+          "platformLabel": "Steam",
+          "hours": 0,
+          "cleared": false,
+          "notOwned": false,
+          "recentHours": 0,
+          "cover": "steam-2751000.jpg"
+        },
+        {
+          "appid": "2400510",
+          "sourceId": "2400510",
+          "name": "再来一张",
+          "platform": "steam",
+          "platformLabel": "Steam",
+          "hours": 0,
+          "cleared": false,
+          "notOwned": false,
+          "recentHours": 0,
+          "cover": "steam-2400510.jpg"
+        },
+        {
+          "appid": "1422440",
+          "sourceId": "1422440",
+          "name": "灾厄堡垒",
+          "platform": "steam",
+          "platformLabel": "Steam",
+          "hours": 0,
+          "cleared": false,
+          "notOwned": false,
+          "recentHours": 0,
+          "cover": "steam-1422440.jpg"
+        },
+        {
+          "appid": "607080",
+          "sourceId": "607080",
+          "name": "意航员2",
+          "platform": "steam",
+          "platformLabel": "Steam",
+          "hours": 0,
+          "cleared": false,
+          "notOwned": false,
+          "recentHours": 0,
+          "cover": "steam-607080.jpg"
+        },
+        {
+          "appid": "2780710",
+          "sourceId": "2780710",
+          "name": "阿斯加德的陨落",
+          "platform": "steam",
+          "platformLabel": "Steam",
+          "hours": 0,
+          "cleared": false,
+          "notOwned": false,
+          "recentHours": 0,
+          "cover": "steam-2780710.jpg"
+        },
+        {
+          "appid": "2321470",
+          "sourceId": "2321470",
+          "name": "深岩银河：幸存者",
+          "platform": "steam",
+          "platformLabel": "Steam",
+          "hours": 0,
+          "cleared": false,
+          "notOwned": false,
+          "recentHours": 0,
+          "cover": "steam-2321470.jpg"
         }
       ]
     },
@@ -3228,16 +3324,6 @@
       "reportedTotal": 14,
       "games": [
         {
-          "appid": "900011199",
-          "sourceId": "0100F2C0115B6000",
-          "name": "塞尔达传说：王国之泪",
-          "platform": "switchall",
-          "platformLabel": "Switch",
-          "hours": 53,
-          "cleared": false,
-          "cover": "900011199.jpg"
-        },
-        {
           "appid": "900000069",
           "sourceId": "01007EF00011E000",
           "name": "塞尔达传说：旷野之息",
@@ -3246,6 +3332,16 @@
           "hours": 30,
           "cleared": false,
           "cover": "switchall-900000069.jpg"
+        },
+        {
+          "appid": "900011199",
+          "sourceId": "0100F2C0115B6000",
+          "name": "塞尔达传说：王国之泪",
+          "platform": "switchall",
+          "platformLabel": "Switch",
+          "hours": 53,
+          "cleared": false,
+          "cover": "900011199.jpg"
         },
         {
           "appid": "900218547",
