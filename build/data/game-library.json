@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "uid": "32133355",
-  "updatedAt": "2026-10-30T02:02:43.671Z",
+  "updatedAt": "2026-10-31T01:41:31.847Z",
   "platforms": {
     "steam": {
       "complete": true,
@@ -13,11 +13,35 @@
           "name": "生化危机4 重制版",
           "platform": "steam",
           "platformLabel": "Steam",
-          "hours": 0.9,
+          "hours": 1.2,
           "cleared": false,
           "notOwned": false,
-          "recentHours": 0.9,
+          "recentHours": 1.2,
           "cover": "steam-2050650.jpg"
+        },
+        {
+          "appid": "1145350",
+          "sourceId": "1145350",
+          "name": "哈迪斯2",
+          "platform": "steam",
+          "platformLabel": "Steam",
+          "hours": 20.6,
+          "cleared": false,
+          "notOwned": true,
+          "recentHours": 0.8,
+          "cover": "steam-1145350.jpg"
+        },
+        {
+          "appid": "753640",
+          "sourceId": "753640",
+          "name": "星际拓荒",
+          "platform": "steam",
+          "platformLabel": "Steam",
+          "hours": 18.5,
+          "cleared": false,
+          "notOwned": false,
+          "recentHours": 0.3,
+          "cover": "steam-753640.jpg"
         },
         {
           "appid": "3240220",
@@ -25,10 +49,10 @@
           "name": "侠盗猎车手 V 增强版",
           "platform": "steam",
           "platformLabel": "Steam",
-          "hours": 26,
+          "hours": 26.1,
           "cleared": false,
           "notOwned": false,
-          "recentHours": 0.8,
+          "recentHours": 0.1,
           "cover": "steam-3240220.jpg"
         },
         {
@@ -368,18 +392,6 @@
           "cover": "steam-1905180.jpg"
         },
         {
-          "appid": "1145350",
-          "sourceId": "1145350",
-          "name": "哈迪斯2",
-          "platform": "steam",
-          "platformLabel": "Steam",
-          "hours": 19.7,
-          "cleared": false,
-          "notOwned": true,
-          "recentHours": 0,
-          "cover": "steam-1145350.jpg"
-        },
-        {
           "appid": "271590",
           "sourceId": "271590",
           "name": "侠盗猎车手V",
@@ -390,18 +402,6 @@
           "notOwned": false,
           "recentHours": 0,
           "cover": "steam-271590.jpg"
-        },
-        {
-          "appid": "753640",
-          "sourceId": "753640",
-          "name": "星际拓荒",
-          "platform": "steam",
-          "platformLabel": "Steam",
-          "hours": 18.2,
-          "cleared": false,
-          "notOwned": false,
-          "recentHours": 0,
-          "cover": "steam-753640.jpg"
         },
         {
           "appid": "2001120",
