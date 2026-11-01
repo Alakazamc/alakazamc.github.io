@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "uid": "32133355",
-  "updatedAt": "2026-10-31T01:41:31.847Z",
+  "updatedAt": "2026-11-01T01:19:03.249Z",
   "platforms": {
     "steam": {
       "complete": true,
@@ -13,10 +13,10 @@
           "name": "生化危机4 重制版",
           "platform": "steam",
           "platformLabel": "Steam",
-          "hours": 1.2,
+          "hours": 2.5,
           "cleared": false,
           "notOwned": false,
-          "recentHours": 1.2,
+          "recentHours": 2.5,
           "cover": "steam-2050650.jpg"
         },
         {
@@ -25,10 +25,10 @@
           "name": "哈迪斯2",
           "platform": "steam",
           "platformLabel": "Steam",
-          "hours": 20.6,
+          "hours": 21.9,
           "cleared": false,
           "notOwned": true,
-          "recentHours": 0.8,
+          "recentHours": 2.2,
           "cover": "steam-1145350.jpg"
         },
         {
