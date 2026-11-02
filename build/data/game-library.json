@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "uid": "32133355",
-  "updatedAt": "2026-11-01T01:19:03.249Z",
+  "updatedAt": "2026-11-02T01:37:05.763Z",
   "platforms": {
     "steam": {
       "complete": true,
@@ -13,10 +13,10 @@
           "name": "生化危机4 重制版",
           "platform": "steam",
           "platformLabel": "Steam",
-          "hours": 2.5,
+          "hours": 2.9,
           "cleared": false,
           "notOwned": false,
-          "recentHours": 2.5,
+          "recentHours": 2.9,
           "cover": "steam-2050650.jpg"
         },
         {
@@ -3334,16 +3334,6 @@
           "cover": "switchall-900000069.jpg"
         },
         {
-          "appid": "900011199",
-          "sourceId": "0100F2C0115B6000",
-          "name": "塞尔达传说：王国之泪",
-          "platform": "switchall",
-          "platformLabel": "Switch",
-          "hours": 53,
-          "cleared": false,
-          "cover": "900011199.jpg"
-        },
-        {
           "appid": "900218547",
           "sourceId": "040012F028BC2000",
           "name": "巫师3：狂猎 — 重制版",
@@ -3362,6 +3352,16 @@
           "hours": 0,
           "cleared": false,
           "cover": "switchall-900186164.jpg"
+        },
+        {
+          "appid": "900011199",
+          "sourceId": "0100F2C0115B6000",
+          "name": "塞尔达传说：王国之泪",
+          "platform": "switchall",
+          "platformLabel": "Switch",
+          "hours": 53,
+          "cleared": false,
+          "cover": "900011199.jpg"
         },
         {
           "appid": "900168289",
