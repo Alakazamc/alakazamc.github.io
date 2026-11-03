@@ -1,12 +1,24 @@
 {
   "schemaVersion": 1,
   "uid": "32133355",
-  "updatedAt": "2026-11-02T01:37:05.763Z",
+  "updatedAt": "2026-11-03T03:31:58.414Z",
   "platforms": {
     "steam": {
       "complete": true,
       "reportedTotal": 199,
       "games": [
+        {
+          "appid": "1145350",
+          "sourceId": "1145350",
+          "name": "哈迪斯2",
+          "platform": "steam",
+          "platformLabel": "Steam",
+          "hours": 23,
+          "cleared": false,
+          "notOwned": true,
+          "recentHours": 3.2,
+          "cover": "steam-1145350.jpg"
+        },
         {
           "appid": "2050650",
           "sourceId": "2050650",
@@ -18,18 +30,6 @@
           "notOwned": false,
           "recentHours": 2.9,
           "cover": "steam-2050650.jpg"
-        },
-        {
-          "appid": "1145350",
-          "sourceId": "1145350",
-          "name": "哈迪斯2",
-          "platform": "steam",
-          "platformLabel": "Steam",
-          "hours": 21.9,
-          "cleared": false,
-          "notOwned": true,
-          "recentHours": 2.2,
-          "cover": "steam-1145350.jpg"
         },
         {
           "appid": "753640",
@@ -3321,8 +3321,28 @@
     },
     "switchall": {
       "complete": true,
-      "reportedTotal": 14,
+      "reportedTotal": 15,
       "games": [
+        {
+          "appid": "900218547",
+          "sourceId": "040012F028BC2000",
+          "name": "巫师3：狂猎 — 重制版",
+          "platform": "switchall",
+          "platformLabel": "Switch",
+          "hours": 0.8,
+          "cleared": false,
+          "cover": "switchall-900218547.jpg"
+        },
+        {
+          "appid": "900220198",
+          "sourceId": "04008A90274EC000",
+          "name": "Minecraft",
+          "platform": "switchall",
+          "platformLabel": "Switch",
+          "hours": 0.5,
+          "cleared": false,
+          "cover": "switchall-900220198.jpg"
+        },
         {
           "appid": "900000069",
           "sourceId": "01007EF00011E000",
@@ -3334,14 +3354,34 @@
           "cover": "switchall-900000069.jpg"
         },
         {
-          "appid": "900218547",
-          "sourceId": "040012F028BC2000",
-          "name": "巫师3：狂猎 — 重制版",
+          "appid": "900000794",
+          "sourceId": "0100D71004694000",
+          "name": "我的世界",
           "platform": "switchall",
           "platformLabel": "Switch",
-          "hours": 0.1,
+          "hours": 5.8,
           "cleared": false,
-          "cover": "switchall-900218547.jpg"
+          "cover": "switchall-900000794.jpg"
+        },
+        {
+          "appid": "900202553",
+          "sourceId": "0400A3A01EE4C000",
+          "name": "Pokémon Pokopia",
+          "platform": "switchall",
+          "platformLabel": "Switch",
+          "hours": 1.9,
+          "cleared": false,
+          "cover": "switchall-900202553.jpg"
+        },
+        {
+          "appid": "900211415",
+          "sourceId": "010051F0207B2000",
+          "name": "Tomodachi Life 朋友收集 梦想生活",
+          "platform": "switchall",
+          "platformLabel": "Switch",
+          "hours": 2.3,
+          "cleared": false,
+          "cover": "switchall-900211415.jpg"
         },
         {
           "appid": "900186164",
@@ -3372,16 +3412,6 @@
           "hours": 13,
           "cleared": false,
           "cover": "switchall-900168289.jpg"
-        },
-        {
-          "appid": "900000794",
-          "sourceId": "0100D71004694000",
-          "name": "我的世界",
-          "platform": "switchall",
-          "platformLabel": "Switch",
-          "hours": 5.6,
-          "cleared": false,
-          "cover": "switchall-900000794.jpg"
         },
         {
           "appid": "900199221",
@@ -3422,26 +3452,6 @@
           "hours": 2.5,
           "cleared": false,
           "cover": "switchall-900000070.jpg"
-        },
-        {
-          "appid": "900211415",
-          "sourceId": "010051F0207B2000",
-          "name": "Tomodachi Life 朋友收集 梦想生活",
-          "platform": "switchall",
-          "platformLabel": "Switch",
-          "hours": 2.2,
-          "cleared": false,
-          "cover": "switchall-900211415.jpg"
-        },
-        {
-          "appid": "900202553",
-          "sourceId": "0400A3A01EE4C000",
-          "name": "Pokémon Pokopia",
-          "platform": "switchall",
-          "platformLabel": "Switch",
-          "hours": 1.8,
-          "cleared": false,
-          "cover": "switchall-900202553.jpg"
         },
         {
           "appid": "900004546",
