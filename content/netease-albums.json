@@ -1,55 +1,111 @@
 {
   "uid": 98752754,
-  "updatedAt": "2026-10-01T19:07:19.730Z",
-  "count": 539,
+  "updatedAt": "2026-11-03T11:29:09.786Z",
+  "count": 547,
   "items": [
+    {
+      "id": 406521987,
+      "title": "年轻人的一生",
+      "artist": "法老",
+      "cover": "https://p4.music.126.net/FEc7v3I3YXHMDu31NJwuLg==/109951174185039781.jpg",
+      "url": "https://music.163.com/#/album?id=406521987"
+    },
+    {
+      "id": 405623633,
+      "title": "我们的情绪乐",
+      "artist": "哥布林王子 / INDEcompany",
+      "cover": "https://p4.music.126.net/Hl5rVYH40NIywcXzLb0yYg==/109951174156040987.jpg",
+      "url": "https://music.163.com/#/album?id=405623633"
+    },
+    {
+      "id": 404948082,
+      "title": "地下少女樂隊Mixtape1",
+      "artist": "地下少女樂隊",
+      "cover": "https://p3.music.126.net/2wourpiXK8ue00VcyhQL3g==/109951174139307379.jpg",
+      "url": "https://music.163.com/#/album?id=404948082"
+    },
+    {
+      "id": 23747,
+      "title": "住在高架桥畔的男孩",
+      "artist": "葛洛力",
+      "cover": "https://p3.music.126.net/UKa9WC-LUf_y_XhbSIQ3gg==/111050674421857.jpg",
+      "url": "https://music.163.com/#/album?id=23747"
+    },
+    {
+      "id": 2621318,
+      "title": "小闹剧。选集",
+      "artist": "葛洛力",
+      "cover": "https://p4.music.126.net/ZHGrGmBjbCq6033muAnb2A==/109951173109191034.jpg",
+      "url": "https://music.163.com/#/album?id=2621318"
+    },
+    {
+      "id": 402953538,
+      "title": "有得吃就不错了",
+      "artist": "想想XiangXiang",
+      "cover": "https://p4.music.126.net/GnlHuku7llaf_T12Ka8c7g==/109951174082013271.jpg",
+      "url": "https://music.163.com/#/album?id=402953538"
+    },
+    {
+      "id": 380102711,
+      "title": "夏日麽麽茶",
+      "artist": "夏日麼麼茶 Summertime Sadness",
+      "cover": "https://p4.music.126.net/ljACi9Q7IXTIK4Z5-5tccA==/109951173332029589.jpg",
+      "url": "https://music.163.com/#/album?id=380102711"
+    },
+    {
+      "id": 403493929,
+      "title": "国摇",
+      "artist": "夏日麼麼茶 Summertime Sadness",
+      "cover": "https://p4.music.126.net/YQ8PDbYxCcaVa-sCjRnJJQ==/109951174098770731.jpg",
+      "url": "https://music.163.com/#/album?id=403493929"
+    },
     {
       "id": 399972836,
       "title": "神谕",
       "artist": "Cry4real_",
-      "cover": "https://p3.music.126.net/yaIA1ey0W1gIG73innOgmQ==/109951173983623165.jpg",
+      "cover": "https://p4.music.126.net/yaIA1ey0W1gIG73innOgmQ==/109951173983623165.jpg",
       "url": "https://music.163.com/#/album?id=399972836"
     },
     {
       "id": 284337587,
       "title": "最安全距离的朋友（街声大登陆合辑Vol.6）",
       "artist": "街声大登陆 / 奥莉Oleander / 小缪 / v是兔子wishtoday / 十八扯 / 理性悲观 / 布皮树 / 奶盖儿MilkGuard / OverJaM / 回环 RingAgain / 踽 踽 / Autumn Shape / 悲伤喜剧乐队 / 时光胶囊",
-      "cover": "https://p4.music.126.net/iFkW1BhNy-TrQfdi4Wtz_Q==/109951171990191329.jpg",
+      "cover": "https://p3.music.126.net/iFkW1BhNy-TrQfdi4Wtz_Q==/109951171990191329.jpg",
       "url": "https://music.163.com/#/album?id=284337587"
     },
     {
       "id": 245253346,
       "title": "你从什么时候开始听不进去新歌了？（街声大登陆合辑Vol.5）",
       "artist": "街声大登陆 / 退化立场 / 支力少女 / Hazel Shang 竹子 / 悟子 / 夜晚做决定 / 浅灰 / 姜贰拾 / 虾知道 / 奶盖儿MilkGuard / 卫星电报 / 利俊Lijun / Ghostnote+ / 桑泉 / 圭也 / 照片送到店里那天 / 张永久 / 后声乐队 / 布吉岛乐队 / Kittenap绑架小猫咪",
-      "cover": "https://p4.music.126.net/9oHJL07rDV5aIo5SrHgHcQ==/109951169878210146.jpg",
+      "cover": "https://p3.music.126.net/9oHJL07rDV5aIo5SrHgHcQ==/109951169878210146.jpg",
       "url": "https://music.163.com/#/album?id=245253346"
     },
     {
       "id": 122527851,
       "title": "没有海的时候我们怎么游泳",
       "artist": "电气樱桃",
-      "cover": "https://p3.music.126.net/s0uiN6TMlWef-v3HfnMKLw==/109951165690897676.jpg",
+      "cover": "https://p4.music.126.net/s0uiN6TMlWef-v3HfnMKLw==/109951165690897676.jpg",
       "url": "https://music.163.com/#/album?id=122527851"
     },
     {
       "id": 370773188,
       "title": "******",
       "artist": "南部犯罪份子",
-      "cover": "https://p3.music.126.net/xCpVt8UHXBZmWaBtT-U4Iw==/109951173042986915.jpg",
+      "cover": "https://p4.music.126.net/xCpVt8UHXBZmWaBtT-U4Iw==/109951173042986915.jpg",
       "url": "https://music.163.com/#/album?id=370773188"
     },
     {
       "id": 399901830,
       "title": "我不能回家",
       "artist": "小艾斯 / LusciousBB / INDEcompany",
-      "cover": "https://p3.music.126.net/EeGb7Mk0-DAiVljrn1b1eg==/109951173981795190.jpg",
+      "cover": "https://p4.music.126.net/EeGb7Mk0-DAiVljrn1b1eg==/109951173981795190.jpg",
       "url": "https://music.163.com/#/album?id=399901830"
     },
     {
       "id": 400112541,
       "title": "商业与玩法",
       "artist": "卡力老虎 / 周乘羽",
-      "cover": "https://p3.music.126.net/rt6_mInoqx0iqImk9qng2w==/109951173986994634.jpg",
+      "cover": "https://p4.music.126.net/rt6_mInoqx0iqImk9qng2w==/109951173986994634.jpg",
       "url": "https://music.163.com/#/album?id=400112541"
     },
     {
@@ -63,21 +119,21 @@
       "id": 391311271,
       "title": "2022wasted",
       "artist": "core",
-      "cover": "https://p4.music.126.net/oEQs4eSHy2F7rsqNLgEFIA==/109951173711148168.jpg",
+      "cover": "https://p3.music.126.net/oEQs4eSHy2F7rsqNLgEFIA==/109951173711148168.jpg",
       "url": "https://music.163.com/#/album?id=391311271"
     },
     {
       "id": 397430271,
       "title": "蛋专",
       "artist": "张方钊",
-      "cover": "https://p4.music.126.net/zHRzldNmi5I8_2O9m1wBPw==/109951173951926165.jpg",
+      "cover": "https://p3.music.126.net/zHRzldNmi5I8_2O9m1wBPw==/109951173951926165.jpg",
       "url": "https://music.163.com/#/album?id=397430271"
     },
     {
       "id": 397199509,
       "title": "Candytape2",
       "artist": "Candyshop / KITO / 李文 / Monovisa / Vansdaddy / 叶轩池 / COOZI",
-      "cover": "https://p4.music.126.net/viXsa1c1QBS7-IRyjUJEOw==/109951173904657350.jpg",
+      "cover": "https://p3.music.126.net/viXsa1c1QBS7-IRyjUJEOw==/109951173904657350.jpg",
       "url": "https://music.163.com/#/album?id=397199509"
     },
     {
@@ -91,14 +147,14 @@
       "id": 397063161,
       "title": "这对我是种折磨，我们不在一起",
       "artist": "柯西Alakazam",
-      "cover": "https://p4.music.126.net/qQjJ9nUakEh8bC8KZHLkTA==/109951173899875437.jpg",
+      "cover": "https://p3.music.126.net/qQjJ9nUakEh8bC8KZHLkTA==/109951173899875437.jpg",
       "url": "https://music.163.com/#/album?id=397063161"
     },
     {
       "id": 392468494,
       "title": "《邱氏正骨》",
       "artist": "秋之丰",
-      "cover": "https://p4.music.126.net/g869Fcsjwo_5_C_PNq7WSw==/109951173752990581.jpg",
+      "cover": "https://p3.music.126.net/g869Fcsjwo_5_C_PNq7WSw==/109951173752990581.jpg",
       "url": "https://music.163.com/#/album?id=392468494"
     },
     {
@@ -119,7 +175,7 @@
       "id": 394639312,
       "title": "佛哦佛404",
       "artist": "LSGCsikoriot",
-      "cover": "https://p3.music.126.net/_OJ35GGy3OfvnHnvcmBwGw==/109951173826342124.jpg",
+      "cover": "https://p4.music.126.net/_OJ35GGy3OfvnHnvcmBwGw==/109951173826342124.jpg",
       "url": "https://music.163.com/#/album?id=394639312"
     },
     {
@@ -140,14 +196,14 @@
       "id": 34829067,
       "title": "丙申歌合战",
       "artist": "永动机",
-      "cover": "https://p3.music.126.net/XcgQX2dCc7gYyUOpRQa5hg==/16578436324297995.jpg",
+      "cover": "https://p4.music.126.net/XcgQX2dCc7gYyUOpRQa5hg==/16578436324297995.jpg",
       "url": "https://music.163.com/#/album?id=34829067"
     },
     {
       "id": 38990,
       "title": "天启",
       "artist": "永动机",
-      "cover": "https://p4.music.126.net/acBj4tGTncSYRdQZnh4agg==/5981343255293644.jpg",
+      "cover": "https://p3.music.126.net/acBj4tGTncSYRdQZnh4agg==/5981343255293644.jpg",
       "url": "https://music.163.com/#/album?id=38990"
     },
     {
@@ -182,56 +238,56 @@
       "id": 38202,
       "title": "二十八天失眠日记",
       "artist": "惘闻",
-      "cover": "https://p4.music.126.net/k7F7psZA3OZ9AkMLmDxwug==/109951170118045764.jpg",
+      "cover": "https://p3.music.126.net/k7F7psZA3OZ9AkMLmDxwug==/109951170118045764.jpg",
       "url": "https://music.163.com/#/album?id=38202"
     },
     {
       "id": 38206,
       "title": "凌水河",
       "artist": "惘闻",
-      "cover": "https://p3.music.126.net/PbRYdHmqE731F7i8Duo2Lg==/36283883730940.jpg",
+      "cover": "https://p4.music.126.net/PbRYdHmqE731F7i8Duo2Lg==/36283883730940.jpg",
       "url": "https://music.163.com/#/album?id=38206"
     },
     {
       "id": 2519181,
       "title": "Split",
       "artist": "惘闻",
-      "cover": "https://p3.music.126.net/v7CHTTWPyfhJMJ5LZOr8tw==/2316670999787142.jpg",
+      "cover": "https://p4.music.126.net/v7CHTTWPyfhJMJ5LZOr8tw==/2316670999787142.jpg",
       "url": "https://music.163.com/#/album?id=2519181"
     },
     {
       "id": 2857065,
       "title": "八匹马",
       "artist": "惘闻",
-      "cover": "https://p3.music.126.net/6s71mrCfxNHQg6_JgxbT0g==/109951170026887539.jpg",
+      "cover": "https://p4.music.126.net/6s71mrCfxNHQg6_JgxbT0g==/109951170026887539.jpg",
       "url": "https://music.163.com/#/album?id=2857065"
     },
     {
       "id": 34611473,
       "title": "岁月鸿沟",
       "artist": "惘闻",
-      "cover": "https://p3.music.126.net/MKhdoZYzgTAbwFz1C3n3iA==/1368891983077821.jpg",
+      "cover": "https://p4.music.126.net/MKhdoZYzgTAbwFz1C3n3iA==/1368891983077821.jpg",
       "url": "https://music.163.com/#/album?id=34611473"
     },
     {
       "id": 36082328,
       "title": "奇迹寻踪",
       "artist": "惘闻",
-      "cover": "https://p4.music.126.net/2kMl2i1GM7ag6vPCpkJipg==/109951163015533790.jpg",
+      "cover": "https://p3.music.126.net/2kMl2i1GM7ag6vPCpkJipg==/109951163015533790.jpg",
       "url": "https://music.163.com/#/album?id=36082328"
     },
     {
       "id": 152929741,
       "title": "辛丑｜壬寅",
       "artist": "惘闻",
-      "cover": "https://p3.music.126.net/RepDL-zK5S6P9B93Zp_3mQ==/109951167951402494.jpg",
+      "cover": "https://p4.music.126.net/RepDL-zK5S6P9B93Zp_3mQ==/109951167951402494.jpg",
       "url": "https://music.163.com/#/album?id=152929741"
     },
     {
       "id": 95839945,
       "title": "十万个为什么",
       "artist": "惘闻",
-      "cover": "https://p3.music.126.net/gWD7B96u2Ydlc3e_hxwl-A==/109951165338873784.jpg",
+      "cover": "https://p4.music.126.net/gWD7B96u2Ydlc3e_hxwl-A==/109951165338873784.jpg",
       "url": "https://music.163.com/#/album?id=95839945"
     },
     {
@@ -252,21 +308,21 @@
       "id": 390737389,
       "title": "Trap Boi Mixtape",
       "artist": "陷阱歌手克劳德",
-      "cover": "https://p4.music.126.net/9WK6dYMLSvau9vLUd0i7zg==/109951173693880657.jpg",
+      "cover": "https://p4.music.126.net/BLvOGCnP4NMo0CdUyFCVtA==/109951174097816102.jpg",
       "url": "https://music.163.com/#/album?id=390737389"
     },
     {
       "id": 160346694,
       "title": "无限",
       "artist": "TOYOKI",
-      "cover": "https://p3.music.126.net/HYI1lrng-LoQZMdgG1BeIw==/109951168320820503.jpg",
+      "cover": "https://p4.music.126.net/HYI1lrng-LoQZMdgG1BeIw==/109951168320820503.jpg",
       "url": "https://music.163.com/#/album?id=160346694"
     },
     {
       "id": 253645196,
       "title": "my demos",
       "artist": "key vs. locket",
-      "cover": "https://p3.music.126.net/z64A57Ip35WtHWVI7QZbGw==/109951170147204997.jpg",
+      "cover": "https://p4.music.126.net/z64A57Ip35WtHWVI7QZbGw==/109951170147204997.jpg",
       "url": "https://music.163.com/#/album?id=253645196"
     },
     {
@@ -280,28 +336,28 @@
       "id": 352031956,
       "title": "M.C.S.A.",
       "artist": "亚当魔星",
-      "cover": "https://p4.music.126.net/d7xyxo0Sm8-60SBJBXLSnQ==/109951172346326577.jpg",
+      "cover": "https://p3.music.126.net/d7xyxo0Sm8-60SBJBXLSnQ==/109951172346326577.jpg",
       "url": "https://music.163.com/#/album?id=352031956"
     },
     {
       "id": 121309558,
       "title": "2020 wasted",
       "artist": "张方钊",
-      "cover": "https://p4.music.126.net/mRFT5VjXFeR-oVBb_GmeeQ==/109951174016729383.jpg",
+      "cover": "https://p3.music.126.net/mRFT5VjXFeR-oVBb_GmeeQ==/109951174016729383.jpg",
       "url": "https://music.163.com/#/album?id=121309558"
     },
     {
       "id": 390942349,
       "title": "BALDNESS",
       "artist": "Chalky Wong",
-      "cover": "https://p3.music.126.net/Ta8-Unle3sQKOj0YyOn62g==/109951173699155483.jpg",
+      "cover": "https://p4.music.126.net/Ta8-Unle3sQKOj0YyOn62g==/109951173699155483.jpg",
       "url": "https://music.163.com/#/album?id=390942349"
     },
     {
       "id": 98912120,
       "title": "7 7 7 WAR BABII",
-      "artist": "MULA SAKEE",
-      "cover": "https://p3.music.126.net/D6iWL6fKCvBEtT3_jW0iGQ==/109951165512089391.jpg",
+      "artist": "皇昶枢（MULA SAKEE）",
+      "cover": "https://p4.music.126.net/D6iWL6fKCvBEtT3_jW0iGQ==/109951165512089391.jpg",
       "url": "https://music.163.com/#/album?id=98912120"
     },
     {
@@ -322,14 +378,14 @@
       "id": 353789448,
       "title": "MP3",
       "artist": "TOYOKI / tomoya / estar / 云 / chained2",
-      "cover": "https://p4.music.126.net/GldBmlrlyK-wwEVaHcjXww==/109951172405848025.jpg",
+      "cover": "https://p3.music.126.net/GldBmlrlyK-wwEVaHcjXww==/109951172405848025.jpg",
       "url": "https://music.163.com/#/album?id=353789448"
     },
     {
       "id": 274962468,
       "title": "配合尺寸",
       "artist": "李欣颖ShinLi / LusciousBB / 孙次郎",
-      "cover": "https://p3.music.126.net/hp3AtNv4h3APewoueC3Wmw==/109951171296761936.jpg",
+      "cover": "https://p4.music.126.net/hp3AtNv4h3APewoueC3Wmw==/109951171296761936.jpg",
       "url": "https://music.163.com/#/album?id=274962468"
     },
     {
@@ -343,42 +399,42 @@
       "id": 386821556,
       "title": "地下偶像",
       "artist": "NIAN424 / 口 / LusciousBB",
-      "cover": "https://p4.music.126.net/VQp6TEEmDMF8H5KDthXtgw==/109951173552877979.jpg",
+      "cover": "https://p3.music.126.net/VQp6TEEmDMF8H5KDthXtgw==/109951173552877979.jpg",
       "url": "https://music.163.com/#/album?id=386821556"
     },
     {
       "id": 198697889,
       "title": "NOW I SEE THE LIGHT",
       "artist": "toe",
-      "cover": "https://p4.music.126.net/2fCLtJeu__eF7M8UO3KYcg==/109951169664827426.jpg",
+      "cover": "https://p3.music.126.net/2fCLtJeu__eF7M8UO3KYcg==/109951169664827426.jpg",
       "url": "https://music.163.com/#/album?id=198697889"
     },
     {
       "id": 2078523,
       "title": "For Long Tomorrow",
       "artist": "toe",
-      "cover": "https://p3.music.126.net/G6udTJ1aX9PbBbBrtAMBgg==/109951168766177272.jpg",
+      "cover": "https://p4.music.126.net/G6udTJ1aX9PbBbBrtAMBgg==/109951168766177272.jpg",
       "url": "https://music.163.com/#/album?id=2078523"
     },
     {
       "id": 2078525,
       "title": "the book about my idle plot on a vague anxiety",
       "artist": "toe",
-      "cover": "https://p4.music.126.net/OCGkWiz6uCfzKa6qktmOBw==/109951170480170749.jpg",
+      "cover": "https://p3.music.126.net/OCGkWiz6uCfzKa6qktmOBw==/109951170480170749.jpg",
       "url": "https://music.163.com/#/album?id=2078525"
     },
     {
       "id": 181713230,
       "title": "2727",
       "artist": "Buzzy / DANNY K / EINK / FEEEleven / JYnostop / 鼠尾草 / 周夏影 / 2727厂牌",
-      "cover": "https://p4.music.126.net/B4BYcZRspbnXGbEEGqsgvw==/109951169200961924.jpg",
+      "cover": "https://p3.music.126.net/B4BYcZRspbnXGbEEGqsgvw==/109951169200961924.jpg",
       "url": "https://music.163.com/#/album?id=181713230"
     },
     {
       "id": 388196110,
       "title": "赫鬼",
       "artist": "SASIOVERLXRD",
-      "cover": "https://p3.music.126.net/MEx8J6j2mntRha2stE7xlA==/109951173603999384.jpg",
+      "cover": "https://p4.music.126.net/MEx8J6j2mntRha2stE7xlA==/109951173603999384.jpg",
       "url": "https://music.163.com/#/album?id=388196110"
     },
     {
@@ -392,21 +448,21 @@
       "id": 387360366,
       "title": "北上南下",
       "artist": "BrAnTB白景屹",
-      "cover": "https://p4.music.126.net/JuvANwrvk67_NmcP4NKc-w==/109951173568935801.jpg",
+      "cover": "https://p3.music.126.net/JuvANwrvk67_NmcP4NKc-w==/109951173568935801.jpg",
       "url": "https://music.163.com/#/album?id=387360366"
     },
     {
       "id": 386145067,
       "title": "太热爱",
       "artist": "王以太 / 艾热 AIR",
-      "cover": "https://p4.music.126.net/rDv1qod6MDsYcEHKtxCdAA==/109951173532089932.jpg",
+      "cover": "https://p3.music.126.net/rDv1qod6MDsYcEHKtxCdAA==/109951173532089932.jpg",
       "url": "https://music.163.com/#/album?id=386145067"
     },
     {
       "id": 386844698,
       "title": "也",
       "artist": "李佳隆",
-      "cover": "https://p3.music.126.net/suJ7HmI2lMJG7m75SDyfJw==/109951173553754501.jpg",
+      "cover": "https://p4.music.126.net/suJ7HmI2lMJG7m75SDyfJw==/109951173553754501.jpg",
       "url": "https://music.163.com/#/album?id=386844698"
     },
     {
@@ -420,14 +476,14 @@
       "id": 512030,
       "title": "情绪中国 II - North",
       "artist": "群星",
-      "cover": "https://p3.music.126.net/3ouTyKzCGFXtrTSX_a4C3A==/2410129488107311.jpg",
+      "cover": "https://p4.music.126.net/3ouTyKzCGFXtrTSX_a4C3A==/2410129488107311.jpg",
       "url": "https://music.163.com/#/album?id=512030"
     },
     {
       "id": 387200053,
       "title": "情绪中国 III",
       "artist": "情绪中国King-Size China / Flip Side / What You Don't See / 闪星TwinkleStar / Diels-Alder / v是兔子wishtoday / SoFarSoGood恰好乐队 / 遗失愿望清单MissingWishes / Phantom Heartache / Aurora Sky / Shanghai Qiutian / The Will On Kill / 郁云Emo Cloud / The Lovesong / 游手好脚 / Life Awaits / Aaron Gillespie / 中西部情绪麻将 / i eat crickets / 無高潮 Nein Or Gas Mus / TOOKOO",
-      "cover": "https://p3.music.126.net/ZeTb7iQZtQVlZJe90TMabw==/109951173564370206.jpg",
+      "cover": "https://p4.music.126.net/ZeTb7iQZtQVlZJe90TMabw==/109951173564370206.jpg",
       "url": "https://music.163.com/#/album?id=387200053"
     },
     {
@@ -448,21 +504,21 @@
       "id": 164395759,
       "title": "纳萨力克",
       "artist": "SASIOVERLXRD",
-      "cover": "https://p3.music.126.net/JxibpM2HRpFEoRF6L_XEeg==/109951168569985385.jpg",
+      "cover": "https://p4.music.126.net/JxibpM2HRpFEoRF6L_XEeg==/109951168569985385.jpg",
       "url": "https://music.163.com/#/album?id=164395759"
     },
     {
       "id": 75017719,
       "title": "KEY to L",
       "artist": "KEY.L刘聪",
-      "cover": "https://p4.music.126.net/athuOAfuOasWvz4Xrvcitg==/109951163787349721.jpg",
+      "cover": "https://p3.music.126.net/athuOAfuOasWvz4Xrvcitg==/109951163787349721.jpg",
       "url": "https://music.163.com/#/album?id=75017719"
     },
     {
       "id": 172054725,
       "title": "回到2000",
       "artist": "KEY.L刘聪",
-      "cover": "https://p4.music.126.net/Z-p5v52fbVIG0BE7ZsYC8g==/109951168834821680.jpg",
+      "cover": "https://p3.music.126.net/Z-p5v52fbVIG0BE7ZsYC8g==/109951168834821680.jpg",
       "url": "https://music.163.com/#/album?id=172054725"
     },
     {
@@ -476,14 +532,14 @@
       "id": 78321108,
       "title": "Nesa Tape",
       "artist": "艾志恒Asen",
-      "cover": "https://p4.music.126.net/SgHPwXYcZoRSLN4fu1J0ZQ==/109951163977971986.jpg",
+      "cover": "https://p3.music.126.net/SgHPwXYcZoRSLN4fu1J0ZQ==/109951163977971986.jpg",
       "url": "https://music.163.com/#/album?id=78321108"
     },
     {
       "id": 90382727,
       "title": "NEW WAVE",
       "artist": "张方钊",
-      "cover": "https://p3.music.126.net/x_pu-D0N88GIy0aVQqDwQw==/109951173999055643.jpg",
+      "cover": "https://p4.music.126.net/x_pu-D0N88GIy0aVQqDwQw==/109951173999055643.jpg",
       "url": "https://music.163.com/#/album?id=90382727"
     },
     {
@@ -518,7 +574,7 @@
       "id": 198470550,
       "title": "Life After Small Town",
       "artist": "艾志恒Asen",
-      "cover": "https://p4.music.126.net/VmFpmDv5TJwfKeKgHBdiZA==/109951169700047695.jpg",
+      "cover": "https://p3.music.126.net/VmFpmDv5TJwfKeKgHBdiZA==/109951169700047695.jpg",
       "url": "https://music.163.com/#/album?id=198470550"
     },
     {
@@ -532,49 +588,49 @@
       "id": 250418440,
       "title": "蒙特卡洛在哪",
       "artist": "陈一豪Clear / INDEcompany",
-      "cover": "https://p3.music.126.net/mV0j-GNCPPpUYjMJj2npOA==/109951170035152173.jpg",
+      "cover": "https://p4.music.126.net/mV0j-GNCPPpUYjMJj2npOA==/109951170035152173.jpg",
       "url": "https://music.163.com/#/album?id=250418440"
     },
     {
       "id": 125195422,
       "title": "Small Town Legend",
       "artist": "艾志恒Asen",
-      "cover": "https://p3.music.126.net/aMGWoFsoUuu5z_M9CMk8fw==/109951165835462615.jpg",
+      "cover": "https://p4.music.126.net/aMGWoFsoUuu5z_M9CMk8fw==/109951165835462615.jpg",
       "url": "https://music.163.com/#/album?id=125195422"
     },
     {
       "id": 380804426,
       "title": "Vamos A Casa",
       "artist": "泰格西",
-      "cover": "https://p4.music.126.net/mvIOA2pI_yjIzKnQc-ZIWg==/109951173356351525.jpg",
+      "cover": "https://p3.music.126.net/mvIOA2pI_yjIzKnQc-ZIWg==/109951173356351525.jpg",
       "url": "https://music.163.com/#/album?id=380804426"
     },
     {
       "id": 351092344,
       "title": "野凤凰",
       "artist": "CVN源仔",
-      "cover": "https://p3.music.126.net/DU5hNCiAK7DXrl6ThOZuxw==/109951172313426843.jpg",
+      "cover": "https://p4.music.126.net/DU5hNCiAK7DXrl6ThOZuxw==/109951172313426843.jpg",
       "url": "https://music.163.com/#/album?id=351092344"
     },
     {
       "id": 84600899,
       "title": "Small Town Kid",
       "artist": "艾志恒Asen",
-      "cover": "https://p4.music.126.net/Vm34iFy0wr9ZCdTLc83pag==/109951164865285593.jpg",
+      "cover": "https://p3.music.126.net/Vm34iFy0wr9ZCdTLc83pag==/109951164865285593.jpg",
       "url": "https://music.163.com/#/album?id=84600899"
     },
     {
       "id": 253944377,
       "title": "顶级湖南别",
       "artist": "泰格西",
-      "cover": "https://p4.music.126.net/O_fyMkWoXlXIqy-hwPKTSw==/109951170155708821.jpg",
+      "cover": "https://p3.music.126.net/O_fyMkWoXlXIqy-hwPKTSw==/109951170155708821.jpg",
       "url": "https://music.163.com/#/album?id=253944377"
     },
     {
       "id": 142302499,
       "title": "VEN10",
       "artist": "Vansdaddy",
-      "cover": "https://p4.music.126.net/E4Eer0JkYZtzHFNmeZfOGA==/109951168440171994.jpg",
+      "cover": "https://p3.music.126.net/E4Eer0JkYZtzHFNmeZfOGA==/109951168440171994.jpg",
       "url": "https://music.163.com/#/album?id=142302499"
     },
     {
@@ -588,7 +644,7 @@
       "id": 380102627,
       "title": "where is my mice?",
       "artist": "鼠鼠鼠",
-      "cover": "https://p3.music.126.net/voeT-ZUnfQ2s_iEtYOLAog==/109951173332462517.jpg",
+      "cover": "https://p4.music.126.net/voeT-ZUnfQ2s_iEtYOLAog==/109951173332462517.jpg",
       "url": "https://music.163.com/#/album?id=380102627"
     },
     {
@@ -602,14 +658,14 @@
       "id": 280668813,
       "title": "家.生活.悬崖鹰",
       "artist": "春",
-      "cover": "https://p4.music.126.net/5H2UwDsRblhQfISQP7VLXg==/109951171791816663.jpg",
+      "cover": "https://p3.music.126.net/5H2UwDsRblhQfISQP7VLXg==/109951171791816663.jpg",
       "url": "https://music.163.com/#/album?id=280668813"
     },
     {
       "id": 376905443,
       "title": "垃圾场",
       "artist": "劣",
-      "cover": "https://p3.music.126.net/wdUpqFxXO1Dl2g3ej0Q5pg==/109951173238659255.jpg",
+      "cover": "https://p4.music.126.net/wdUpqFxXO1Dl2g3ej0Q5pg==/109951173238659255.jpg",
       "url": "https://music.163.com/#/album?id=376905443"
     },
     {
@@ -623,7 +679,7 @@
       "id": 364682946,
       "title": "American Football (LP4)",
       "artist": "American Football",
-      "cover": "https://p4.music.126.net/feVMbu7dAtH8k84t-t-EAA==/109951172839091215.jpg",
+      "cover": "https://p3.music.126.net/feVMbu7dAtH8k84t-t-EAA==/109951172839091215.jpg",
       "url": "https://music.163.com/#/album?id=364682946"
     },
     {
@@ -637,7 +693,7 @@
       "id": 378701386,
       "title": "娘子",
       "artist": "春",
-      "cover": "https://p4.music.126.net/o9dT5xC6a-TmMALv5hZ_Fw==/109951173291012506.jpg",
+      "cover": "https://p3.music.126.net/o9dT5xC6a-TmMALv5hZ_Fw==/109951173291012506.jpg",
       "url": "https://music.163.com/#/album?id=378701386"
     },
     {
@@ -658,7 +714,7 @@
       "id": 88062380,
       "title": "Change of Rules",
       "artist": "Luca Stricagnoli",
-      "cover": "https://p3.music.126.net/q_rc94BGNYXGhClaw0Svyg==/109951164908614325.jpg",
+      "cover": "https://p4.music.126.net/q_rc94BGNYXGhClaw0Svyg==/109951164908614325.jpg",
       "url": "https://music.163.com/#/album?id=88062380"
     },
     {
@@ -672,14 +728,14 @@
       "id": 3426756,
       "title": "Luca Stricagnoli",
       "artist": "Luca Stricagnoli",
-      "cover": "https://p4.music.126.net/1PRrKJ5UaplW-Fx7dNl3bA==/3391993373900287.jpg",
+      "cover": "https://p3.music.126.net/1PRrKJ5UaplW-Fx7dNl3bA==/3391993373900287.jpg",
       "url": "https://music.163.com/#/album?id=3426756"
     },
     {
       "id": 358943912,
       "title": "Summer",
       "artist": "delphia!",
-      "cover": "https://p3.music.126.net/d2KSAiKSeTqN7p4FrXktXw==/109951172617399990.jpg",
+      "cover": "https://p4.music.126.net/d2KSAiKSeTqN7p4FrXktXw==/109951172617399990.jpg",
       "url": "https://music.163.com/#/album?id=358943912"
     },
     {
@@ -693,7 +749,7 @@
       "id": 286344704,
       "title": "更好",
       "artist": "Gummy B",
-      "cover": "https://p4.music.126.net/hBfYXsGBIf0JoCn8c61cQQ==/109951172092165022.jpg",
+      "cover": "https://p3.music.126.net/hBfYXsGBIf0JoCn8c61cQQ==/109951172092165022.jpg",
       "url": "https://music.163.com/#/album?id=286344704"
     },
     {
@@ -735,14 +791,14 @@
       "id": 376435094,
       "title": "MAID OF HONOUR",
       "artist": "Drake",
-      "cover": "https://p3.music.126.net/wNeW5gccNFoZRXZsBM7bfA==/109951173222898034.jpg",
+      "cover": "https://p4.music.126.net/wNeW5gccNFoZRXZsBM7bfA==/109951173222898034.jpg",
       "url": "https://music.163.com/#/album?id=376435094"
     },
     {
       "id": 376265117,
       "title": "面子",
       "artist": "九莲",
-      "cover": "https://p4.music.126.net/QnwEHiJEk_Rbhd2hQN6jXw==/109951173217649799.jpg",
+      "cover": "https://p3.music.126.net/QnwEHiJEk_Rbhd2hQN6jXw==/109951173217649799.jpg",
       "url": "https://music.163.com/#/album?id=376265117"
     },
     {
@@ -756,28 +812,28 @@
       "id": 10853,
       "title": "未来的主人翁",
       "artist": "罗大佑",
-      "cover": "https://p3.music.126.net/DkHXf1ByhGjrslUlvhRKoQ==/109951167387409027.jpg",
+      "cover": "https://p4.music.126.net/DkHXf1ByhGjrslUlvhRKoQ==/109951167387409027.jpg",
       "url": "https://music.163.com/#/album?id=10853"
     },
     {
       "id": 372704382,
       "title": "RACER",
       "artist": "CashTrippy",
-      "cover": "https://p3.music.126.net/9rnnPM2dM1OpNSbRS3XWlw==/109951173110827551.jpg",
+      "cover": "https://p3.music.126.net/Vw_iEU-Ps90-xpxNgkuqWA==/109951174189300090.jpg",
       "url": "https://music.163.com/#/album?id=372704382"
     },
     {
       "id": 34776010,
       "title": "HIGHER BROTHERS",
       "artist": "Higher Brothers",
-      "cover": "https://p3.music.126.net/lBcbk8ZWm6OvkE7EW8lfeg==/17961621951520845.jpg",
+      "cover": "https://p4.music.126.net/lBcbk8ZWm6OvkE7EW8lfeg==/17961621951520845.jpg",
       "url": "https://music.163.com/#/album?id=34776010"
     },
     {
       "id": 75641178,
       "title": "Five Stars",
       "artist": "Higher Brothers",
-      "cover": "https://p4.music.126.net/rPLzWjfhlnq6Vqc0fpkwPg==/109951170289902337.jpg",
+      "cover": "https://p3.music.126.net/rPLzWjfhlnq6Vqc0fpkwPg==/109951170289902337.jpg",
       "url": "https://music.163.com/#/album?id=75641178"
     },
     {
@@ -791,7 +847,7 @@
       "id": 88140688,
       "title": "Old Master",
       "artist": "Melo / Higher Brothers",
-      "cover": "https://p3.music.126.net/G8133F9fVOsaroUXZysnbg==/109951170289924010.jpg",
+      "cover": "https://p4.music.126.net/G8133F9fVOsaroUXZysnbg==/109951170289924010.jpg",
       "url": "https://music.163.com/#/album?id=88140688"
     },
     {
@@ -805,35 +861,35 @@
       "id": 1958229,
       "title": "Off the Wall",
       "artist": "Michael Jackson",
-      "cover": "https://p4.music.126.net/ZEOlAhBRTsAHVM0z6BRL_A==/109951165958560057.jpg",
+      "cover": "https://p3.music.126.net/ZEOlAhBRTsAHVM0z6BRL_A==/109951165958560057.jpg",
       "url": "https://music.163.com/#/album?id=1958229"
     },
     {
       "id": 127253808,
       "title": "一个魂儿",
       "artist": "九重临",
-      "cover": "https://p4.music.126.net/mm6zKZ2xXTH-YdHdRTFB6Q==/109951166138149330.jpg",
+      "cover": "https://p3.music.126.net/mm6zKZ2xXTH-YdHdRTFB6Q==/109951166138149330.jpg",
       "url": "https://music.163.com/#/album?id=127253808"
     },
     {
       "id": 368723423,
       "title": "校园里有长颈龙的日子",
       "artist": "WaytheDinoScream",
-      "cover": "https://p3.music.126.net/C1oCgW0gkAcjcjH58Ht8lg==/109951172974182337.jpg",
+      "cover": "https://p4.music.126.net/C1oCgW0gkAcjcjH58Ht8lg==/109951172974182337.jpg",
       "url": "https://music.163.com/#/album?id=368723423"
     },
     {
       "id": 266596790,
       "title": "万古",
       "artist": "CashTrippy",
-      "cover": "https://p4.music.126.net/bnlU1kCImWOvUkRH-ijDHA==/109951170644659962.jpg",
+      "cover": "https://p3.music.126.net/bnlU1kCImWOvUkRH-ijDHA==/109951170644659962.jpg",
       "url": "https://music.163.com/#/album?id=266596790"
     },
     {
       "id": 278718437,
       "title": "STELLAR BLADE ORIGINAL SOUNDTRACK PLUS",
       "artist": "SHIFT UP / MONACA",
-      "cover": "https://p4.music.126.net/23DGrq80hHrhcUEbx81nxg==/109951171478564728.jpg",
+      "cover": "https://p3.music.126.net/23DGrq80hHrhcUEbx81nxg==/109951171478564728.jpg",
       "url": "https://music.163.com/#/album?id=278718437"
     },
     {
@@ -847,21 +903,21 @@
       "id": 249123494,
       "title": "STELLAR BLADE ORIGINAL SOUNDTRACK",
       "artist": "SHIFT UP / MONACA",
-      "cover": "https://p3.music.126.net/lfZkiE1-J6Q6t_b0py-iOg==/109951169994624371.jpg",
+      "cover": "https://p4.music.126.net/lfZkiE1-J6Q6t_b0py-iOg==/109951169994624371.jpg",
       "url": "https://music.163.com/#/album?id=249123494"
     },
     {
       "id": 369806485,
       "title": "77%",
       "artist": "布瑞吉Bridge",
-      "cover": "https://p3.music.126.net/pTvvZU0m6YeUyMyiR1nkYA==/109951173013221241.jpg",
+      "cover": "https://p4.music.126.net/pTvvZU0m6YeUyMyiR1nkYA==/109951173013221241.jpg",
       "url": "https://music.163.com/#/album?id=369806485"
     },
     {
       "id": 367794221,
       "title": "伍條柒",
       "artist": "揽佬SKAI ISYOURGOD / 瘦恒SoulHan / Player J / 步步高先生 / 阿牛",
-      "cover": "https://p3.music.126.net/Z2cI_SJuvqn2oJbqKEqUFw==/109951172939608626.jpg",
+      "cover": "https://p4.music.126.net/Z2cI_SJuvqn2oJbqKEqUFw==/109951172939608626.jpg",
       "url": "https://music.163.com/#/album?id=367794221"
     },
     {
@@ -889,7 +945,7 @@
       "id": 366639373,
       "title": "气质流氓",
       "artist": "河北吴孟达",
-      "cover": "https://p4.music.126.net/7Zz98Jhd4pISE-gzJmetgA==/109951172899880970.jpg",
+      "cover": "https://p3.music.126.net/7Zz98Jhd4pISE-gzJmetgA==/109951172899880970.jpg",
       "url": "https://music.163.com/#/album?id=366639373"
     },
     {
@@ -903,7 +959,7 @@
       "id": 98890831,
       "title": "神隱 Spirited Away",
       "artist": "YoungQueenz",
-      "cover": "https://p4.music.126.net/UWcUG6iCUiP_mJ7qWWGuAQ==/109951168963514694.jpg",
+      "cover": "https://p3.music.126.net/UWcUG6iCUiP_mJ7qWWGuAQ==/109951168963514694.jpg",
       "url": "https://music.163.com/#/album?id=98890831"
     },
     {
@@ -938,7 +994,7 @@
       "id": 363421958,
       "title": "最高",
       "artist": "Higher Brothers / 马思唯 / KnowKnow / PSY.P / Melo",
-      "cover": "https://p3.music.126.net/MSZasNthUQYRZ968wSj2VQ==/109951172792352706.jpg",
+      "cover": "https://p4.music.126.net/MSZasNthUQYRZ968wSj2VQ==/109951172792352706.jpg",
       "url": "https://music.163.com/#/album?id=363421958"
     },
     {
@@ -952,7 +1008,7 @@
       "id": 148433987,
       "title": "the now now and never",
       "artist": "what is your name?",
-      "cover": "https://p3.music.126.net/x1mdt22eyrmeG_5EYkH5cQ==/109951167699234798.jpg",
+      "cover": "https://p4.music.126.net/x1mdt22eyrmeG_5EYkH5cQ==/109951167699234798.jpg",
       "url": "https://music.163.com/#/album?id=148433987"
     },
     {
@@ -980,14 +1036,14 @@
       "id": 361135031,
       "title": "The Fall-Off",
       "artist": "J. Cole",
-      "cover": "https://p4.music.126.net/S2KMzNhqqhM6mfpP9-3sEA==/109951172701910766.jpg",
+      "cover": "https://p3.music.126.net/S2KMzNhqqhM6mfpP9-3sEA==/109951172701910766.jpg",
       "url": "https://music.163.com/#/album?id=361135031"
     },
     {
       "id": 360832657,
       "title": "for someone",
       "artist": "哥布林王子",
-      "cover": "https://p3.music.126.net/sfNIOGb4Lw6RqKeDfigoaw==/109951172690510086.jpg",
+      "cover": "https://p4.music.126.net/sfNIOGb4Lw6RqKeDfigoaw==/109951172690510086.jpg",
       "url": "https://music.163.com/#/album?id=360832657"
     },
     {
@@ -1036,14 +1092,14 @@
       "id": 254305364,
       "title": "东方底特律",
       "artist": "说唱东百人",
-      "cover": "https://p3.music.126.net/jSyEmZzt_2e29neLVnvsDg==/109951170169435229.jpg",
+      "cover": "https://p4.music.126.net/jSyEmZzt_2e29neLVnvsDg==/109951170169435229.jpg",
       "url": "https://music.163.com/#/album?id=254305364"
     },
     {
       "id": 274604050,
       "title": "穷不过三代",
       "artist": "说唱东百人",
-      "cover": "https://p3.music.126.net/RotgmL4ySueb1wYMMujo5g==/109951171283750776.jpg",
+      "cover": "https://p4.music.126.net/RotgmL4ySueb1wYMMujo5g==/109951171283750776.jpg",
       "url": "https://music.163.com/#/album?id=274604050"
     },
     {
@@ -1057,28 +1113,28 @@
       "id": 274315506,
       "title": "DONDA 2",
       "artist": "DONDA / Kanye West / Ye",
-      "cover": "https://p3.music.126.net/P0Qkxih99pPGo1J6ULP97Q==/109951171267478417.jpg",
+      "cover": "https://p4.music.126.net/P0Qkxih99pPGo1J6ULP97Q==/109951171267478417.jpg",
       "url": "https://music.163.com/#/album?id=274315506"
     },
     {
       "id": 185643091,
       "title": "VULTURES 1",
       "artist": "¥$ / Kanye West / Ty Dolla $ign",
-      "cover": "https://p3.music.126.net/q3au9JHdCa3jqJFqXoWvMg==/109951169868466587.jpg",
+      "cover": "https://p4.music.126.net/9eanJ-uSqBV8GXTUCo8ogg==/109951174082742721.jpg",
       "url": "https://music.163.com/#/album?id=185643091"
     },
     {
       "id": 356574739,
       "title": "HUSH",
       "artist": "SABER徐天知",
-      "cover": "https://p3.music.126.net/KVxOjgWnI4HxMKiPNo94KA==/109951172516211467.jpg",
+      "cover": "https://p4.music.126.net/KVxOjgWnI4HxMKiPNo94KA==/109951172516211467.jpg",
       "url": "https://music.163.com/#/album?id=356574739"
     },
     {
       "id": 356803156,
       "title": "城乡",
       "artist": "翁杰Winjay",
-      "cover": "https://p4.music.126.net/IxJOeieiGAcgbXotKdEk7w==/109951172521778392.jpg",
+      "cover": "https://p3.music.126.net/IxJOeieiGAcgbXotKdEk7w==/109951172521778392.jpg",
       "url": "https://music.163.com/#/album?id=356803156"
     },
     {
@@ -1106,14 +1162,14 @@
       "id": 2919953,
       "title": "雨が明けたら",
       "artist": "華風月",
-      "cover": "https://p4.music.126.net/JNipjENcNl3c4HvLIiwQdg==/14468473509925136.jpg",
+      "cover": "https://p3.music.126.net/JNipjENcNl3c4HvLIiwQdg==/14468473509925136.jpg",
       "url": "https://music.163.com/#/album?id=2919953"
     },
     {
       "id": 358529631,
       "title": "Don't Be Dumb",
       "artist": "A$AP Rocky",
-      "cover": "https://p4.music.126.net/ZSJ0pcSbUzlTEvUnEYttmA==/109951172596656128.jpg",
+      "cover": "https://p3.music.126.net/ZSJ0pcSbUzlTEvUnEYttmA==/109951172596656128.jpg",
       "url": "https://music.163.com/#/album?id=358529631"
     },
     {
@@ -1127,21 +1183,21 @@
       "id": 284863885,
       "title": "UDG FRESHMAN 2025 CYPHER",
       "artist": "UDG Records",
-      "cover": "https://p3.music.126.net/1hZhMCW3My0D3aY_co0xmA==/109951172006702433.jpg",
+      "cover": "https://p4.music.126.net/1hZhMCW3My0D3aY_co0xmA==/109951172006702433.jpg",
       "url": "https://music.163.com/#/album?id=284863885"
     },
     {
       "id": 286248593,
       "title": "超级孙先生",
       "artist": "SASIOVERLXRD",
-      "cover": "https://p4.music.126.net/YbN2afAB9qu3BkzgKrnvnw==/109951172060884093.jpg",
+      "cover": "https://p3.music.126.net/YbN2afAB9qu3BkzgKrnvnw==/109951172060884093.jpg",
       "url": "https://music.163.com/#/album?id=286248593"
     },
     {
       "id": 154372290,
       "title": "NESA",
       "artist": "艾志恒Asen",
-      "cover": "https://p4.music.126.net/GUP8z0TeN4r7OJuQFYVI9g==/109951168028888869.jpg",
+      "cover": "https://p3.music.126.net/GUP8z0TeN4r7OJuQFYVI9g==/109951168028888869.jpg",
       "url": "https://music.163.com/#/album?id=154372290"
     },
     {
@@ -1155,42 +1211,42 @@
       "id": 88186995,
       "title": "Born 2 Be",
       "artist": "mac ova seas",
-      "cover": "https://p4.music.126.net/6MR8pawUv3JLVLV_kJ8FEQ==/109951164917272861.jpg",
+      "cover": "https://p3.music.126.net/6MR8pawUv3JLVLV_kJ8FEQ==/109951164917272861.jpg",
       "url": "https://music.163.com/#/album?id=88186995"
     },
     {
       "id": 79855700,
       "title": "新时代，共享未来",
       "artist": "Shanghai Qiutian",
-      "cover": "https://p3.music.126.net/g5edWrCCrhoJYBGrZX7Icw==/109951164157858205.jpg",
+      "cover": "https://p4.music.126.net/g5edWrCCrhoJYBGrZX7Icw==/109951164157858205.jpg",
       "url": "https://music.163.com/#/album?id=79855700"
     },
     {
       "id": 272642508,
       "title": "不器用な天使",
       "artist": "PostmodernHippie",
-      "cover": "https://p4.music.126.net/3b3bKcuelz2WXkpP7Divdg==/109951171009441444.jpg",
+      "cover": "https://p3.music.126.net/3b3bKcuelz2WXkpP7Divdg==/109951171009441444.jpg",
       "url": "https://music.163.com/#/album?id=272642508"
     },
     {
       "id": 94509999,
       "title": "梦中八百里",
       "artist": "王喂马",
-      "cover": "https://p4.music.126.net/CyNFmduO5KAOfpNK3EilaA==/109951170629481908.jpg",
+      "cover": "https://p3.music.126.net/CyNFmduO5KAOfpNK3EilaA==/109951170629481908.jpg",
       "url": "https://music.163.com/#/album?id=94509999"
     },
     {
       "id": 72301718,
       "title": "王喂马",
       "artist": "王喂马",
-      "cover": "https://p4.music.126.net/gHfjOrlHhkfx8TsfqvBkhQ==/109951163460162373.jpg",
+      "cover": "https://p3.music.126.net/gHfjOrlHhkfx8TsfqvBkhQ==/109951163460162373.jpg",
       "url": "https://music.163.com/#/album?id=72301718"
     },
     {
       "id": 153339531,
       "title": "面包和马戏",
       "artist": "王喂马",
-      "cover": "https://p3.music.126.net/Sv4jMk1wTgzGLxjXBEca9A==/109951170629273676.jpg",
+      "cover": "https://p4.music.126.net/Sv4jMk1wTgzGLxjXBEca9A==/109951170629273676.jpg",
       "url": "https://music.163.com/#/album?id=153339531"
     },
     {
@@ -1218,7 +1274,7 @@
       "id": 136666838,
       "title": "日のあたる場所にきてよ",
       "artist": "宇宙ネコ子",
-      "cover": "https://p3.music.126.net/rRYSZCFbF-ufLa1xgibRyw==/109951166953048546.jpg",
+      "cover": "https://p4.music.126.net/rRYSZCFbF-ufLa1xgibRyw==/109951166953048546.jpg",
       "url": "https://music.163.com/#/album?id=136666838"
     },
     {
@@ -1232,14 +1288,14 @@
       "id": 2076916,
       "title": "ハイファイ新書",
       "artist": "相対性理論",
-      "cover": "https://p3.music.126.net/vUaua13_JY5IoSlXouMhew==/109951163429392292.jpg",
+      "cover": "https://p4.music.126.net/vUaua13_JY5IoSlXouMhew==/109951163429392292.jpg",
       "url": "https://music.163.com/#/album?id=2076916"
     },
     {
       "id": 265064769,
       "title": "離愁瓦斯",
       "artist": "PostmodernHippie",
-      "cover": "https://p3.music.126.net/KJE4MyYMuOneR3H8DgE-PQ==/109951170566649688.jpg",
+      "cover": "https://p4.music.126.net/KJE4MyYMuOneR3H8DgE-PQ==/109951170566649688.jpg",
       "url": "https://music.163.com/#/album?id=265064769"
     },
     {
@@ -1260,7 +1316,7 @@
       "id": 181094567,
       "title": "飞狗",
       "artist": "崔健",
-      "cover": "https://p3.music.126.net/n6gqC4ruSTwYe47Ooz5Adg==/109951172060022139.jpg",
+      "cover": "https://p4.music.126.net/n6gqC4ruSTwYe47Ooz5Adg==/109951172060022139.jpg",
       "url": "https://music.163.com/#/album?id=181094567"
     },
     {
@@ -1274,14 +1330,14 @@
       "id": 356283676,
       "title": "爱你",
       "artist": "Shanghai Qiutian",
-      "cover": "https://p4.music.126.net/Q_j0cHGAEH-rWoVonLAXTw==/109951172496481876.jpg",
+      "cover": "https://p3.music.126.net/Q_j0cHGAEH-rWoVonLAXTw==/109951172496481876.jpg",
       "url": "https://music.163.com/#/album?id=356283676"
     },
     {
       "id": 35008282,
       "title": "Everyone Loves You When You Were Still A Kid",
       "artist": "Atta Girl",
-      "cover": "https://p3.music.126.net/gwEvSbh3vQLrgG6_nfqx-A==/109951168097363688.jpg",
+      "cover": "https://p4.music.126.net/gwEvSbh3vQLrgG6_nfqx-A==/109951168097363688.jpg",
       "url": "https://music.163.com/#/album?id=35008282"
     },
     {
@@ -1295,14 +1351,14 @@
       "id": 355731687,
       "title": "地球围绕我家转",
       "artist": "福来",
-      "cover": "https://p3.music.126.net/15E9KPgRJx1nKa9DQgPBMw==/109951172476882190.jpg",
+      "cover": "https://p4.music.126.net/15E9KPgRJx1nKa9DQgPBMw==/109951172476882190.jpg",
       "url": "https://music.163.com/#/album?id=355731687"
     },
     {
       "id": 34598813,
       "title": "The Life Of Pablo",
       "artist": "Kanye West",
-      "cover": "https://p3.music.126.net/MyVCeQH4HMftVRFNgCVdMA==/109951167086398533.jpg",
+      "cover": "https://p4.music.126.net/MyVCeQH4HMftVRFNgCVdMA==/109951167086398533.jpg",
       "url": "https://music.163.com/#/album?id=34598813"
     },
     {
@@ -1316,7 +1372,7 @@
       "id": 187554829,
       "title": "Underlight & Aftertime",
       "artist": "downt",
-      "cover": "https://p4.music.126.net/RUncgVNxqcwGwp84Ikf0Xw==/109951169377173678.jpg",
+      "cover": "https://p3.music.126.net/RUncgVNxqcwGwp84Ikf0Xw==/109951169377173678.jpg",
       "url": "https://music.163.com/#/album?id=187554829"
     },
     {
@@ -1330,7 +1386,7 @@
       "id": 258333497,
       "title": "此曲只应天上有",
       "artist": "KenRobb",
-      "cover": "https://p3.music.126.net/0GXPjgK1Ee_Wd1UdCOLo9g==/109951170334197932.jpg",
+      "cover": "https://p4.music.126.net/0GXPjgK1Ee_Wd1UdCOLo9g==/109951170334197932.jpg",
       "url": "https://music.163.com/#/album?id=258333497"
     },
     {
@@ -1343,7 +1399,7 @@
     {
       "id": 353050240,
       "title": "永玄大典",
-      "artist": "MULA SAKEE",
+      "artist": "皇昶枢（MULA SAKEE）",
       "cover": "https://p3.music.126.net/al4K6nbMR_6w0y7_wFCtsQ==/109951172380277828.jpg",
       "url": "https://music.163.com/#/album?id=353050240"
     },
@@ -1351,21 +1407,21 @@
       "id": 270801595,
       "title": "事闹大了",
       "artist": "迪诺哥",
-      "cover": "https://p4.music.126.net/mPz94aplVAwjNqqSn13rXA==/109951170938602322.jpg",
+      "cover": "https://p3.music.126.net/mPz94aplVAwjNqqSn13rXA==/109951170938602322.jpg",
       "url": "https://music.163.com/#/album?id=270801595"
     },
     {
       "id": 351823372,
       "title": "今儿就今儿了",
       "artist": "V.O.B",
-      "cover": "https://p3.music.126.net/ED_EJTgnhaNCigX6ymUEqA==/109951172338239705.jpg",
+      "cover": "https://p4.music.126.net/ED_EJTgnhaNCigX6ymUEqA==/109951172338239705.jpg",
       "url": "https://music.163.com/#/album?id=351823372"
     },
     {
       "id": 350448003,
       "title": "好运之声",
       "artist": "马赫mood",
-      "cover": "https://p3.music.126.net/kFPpDgyeV8piewS20vylaw==/109951172375288883.jpg",
+      "cover": "https://p4.music.126.net/kFPpDgyeV8piewS20vylaw==/109951172375288883.jpg",
       "url": "https://music.163.com/#/album?id=350448003"
     },
     {
@@ -1386,7 +1442,7 @@
       "id": 267732,
       "title": "Introspection",
       "artist": "Greg Howe",
-      "cover": "https://p4.music.126.net/heud24QLyrWOI6ecOJ-gvA==/109951164846844489.jpg",
+      "cover": "https://p3.music.126.net/heud24QLyrWOI6ecOJ-gvA==/109951164846844489.jpg",
       "url": "https://music.163.com/#/album?id=267732"
     },
     {
@@ -1407,20 +1463,20 @@
       "id": 1835018,
       "title": "Erotic Cakes",
       "artist": "Guthrie Govan",
-      "cover": "https://p4.music.126.net/8CyzHTy3ZMIt553xNfA_vg==/109951169977422070.jpg",
+      "cover": "https://p3.music.126.net/8CyzHTy3ZMIt553xNfA_vg==/109951169977422070.jpg",
       "url": "https://music.163.com/#/album?id=1835018"
     },
     {
       "id": 351117737,
       "title": "都市醉漢",
       "artist": "Vansdaddy / LusciousBB",
-      "cover": "https://p4.music.126.net/5an8DUwXGbDb0lWUdTl3ug==/109951172314748758.jpg",
+      "cover": "https://p3.music.126.net/5an8DUwXGbDb0lWUdTl3ug==/109951172314748758.jpg",
       "url": "https://music.163.com/#/album?id=351117737"
     },
     {
       "id": 138339265,
       "title": "DIGI GHETTO",
-      "artist": "DIGI GHETTO / mac ova seas / THOME / KIV / TOYOKI / 艾志恒Asen / MULA SAKEE / 付思遥 / SETI",
+      "artist": "DIGI GHETTO / mac ova seas / THOME / KIV / TOYOKI / 艾志恒Asen / 皇昶枢（MULA SAKEE） / 付思遥 / SETI",
       "cover": "https://p3.music.126.net/12oIz3lftSwVyxvpKWLpPw==/109951167626578292.jpg",
       "url": "https://music.163.com/#/album?id=138339265"
     },
@@ -1435,7 +1491,7 @@
       "id": 270354298,
       "title": "猎人与爱",
       "artist": "南青乐队",
-      "cover": "https://p4.music.126.net/OQXj2eg88viJL_e7rmsVMw==/109951170926700352.jpg",
+      "cover": "https://p3.music.126.net/OQXj2eg88viJL_e7rmsVMw==/109951170926700352.jpg",
       "url": "https://music.163.com/#/album?id=270354298"
     },
     {
@@ -1463,7 +1519,7 @@
       "id": 245079407,
       "title": "有力无能",
       "artist": "蓝猫BLUCAT / muzijie",
-      "cover": "https://p3.music.126.net/F8tPxB0nwrH1JdP4QNF2jg==/109951169873479807.jpg",
+      "cover": "https://p4.music.126.net/F8tPxB0nwrH1JdP4QNF2jg==/109951169873479807.jpg",
       "url": "https://music.163.com/#/album?id=245079407"
     },
     {
@@ -1484,7 +1540,7 @@
       "id": 150127127,
       "title": "署前街少年",
       "artist": "赵雷",
-      "cover": "https://p4.music.126.net/9bVOooAY6U6EJLzpv1Fikw==/109951169682871673.jpg",
+      "cover": "https://p3.music.126.net/9bVOooAY6U6EJLzpv1Fikw==/109951169682871673.jpg",
       "url": "https://music.163.com/#/album?id=150127127"
     },
     {
@@ -1505,7 +1561,7 @@
       "id": 2386289,
       "title": "透明雜誌FOREVER",
       "artist": "透明杂志",
-      "cover": "https://p3.music.126.net/XNSeEep3CBm8yknSsE3BUA==/109951167850573586.jpg",
+      "cover": "https://p4.music.126.net/XNSeEep3CBm8yknSsE3BUA==/109951167850573586.jpg",
       "url": "https://music.163.com/#/album?id=2386289"
     },
     {
@@ -1519,7 +1575,7 @@
       "id": 268868478,
       "title": "叁壹",
       "artist": "盛宇D-SHINE",
-      "cover": "https://p4.music.126.net/rh5oAjHCpAWgpNRLhJWhew==/109951170717990055.jpg",
+      "cover": "https://p3.music.126.net/rh5oAjHCpAWgpNRLhJWhew==/109951170717990055.jpg",
       "url": "https://music.163.com/#/album?id=268868478"
     },
     {
@@ -1540,14 +1596,14 @@
       "id": 289661369,
       "title": "又是在家刷短剧的一天",
       "artist": "李外LilWine",
-      "cover": "https://p4.music.126.net/tQRO2g-Vmb-5c4N2uRw3bQ==/109951172194411422.jpg",
+      "cover": "https://p3.music.126.net/tQRO2g-Vmb-5c4N2uRw3bQ==/109951172194411422.jpg",
       "url": "https://music.163.com/#/album?id=289661369"
     },
     {
       "id": 75208896,
       "title": "HERITAGE",
       "artist": "施鑫文月",
-      "cover": "https://p4.music.126.net/Ff6kI3Qna5mzct1nt0l16w==/109951167316250570.jpg",
+      "cover": "https://p3.music.126.net/Ff6kI3Qna5mzct1nt0l16w==/109951167316250570.jpg",
       "url": "https://music.163.com/#/album?id=75208896"
     },
     {
@@ -1575,7 +1631,7 @@
       "id": 3141051,
       "title": "看风景的人",
       "artist": "文雀",
-      "cover": "https://p4.music.126.net/pmzGdaJ6cz3KDlbkLvx8yw==/2929098977873572.jpg",
+      "cover": "https://p3.music.126.net/pmzGdaJ6cz3KDlbkLvx8yw==/2929098977873572.jpg",
       "url": "https://music.163.com/#/album?id=3141051"
     },
     {
@@ -1596,7 +1652,7 @@
       "id": 198457266,
       "title": "喊你们嫑吵",
       "artist": "建坤YOUNG / 刀脚",
-      "cover": "https://p4.music.126.net/61QyzIr2eTQJIwKzZmcKuA==/109951169657206778.jpg",
+      "cover": "https://p3.music.126.net/61QyzIr2eTQJIwKzZmcKuA==/109951169657206778.jpg",
       "url": "https://music.163.com/#/album?id=198457266"
     },
     {
@@ -1617,21 +1673,21 @@
       "id": 287788505,
       "title": "乐透人生GT：即刻入戏",
       "artist": "马思唯",
-      "cover": "https://p4.music.126.net/3uKds-MLvxluxZ9K01xWkw==/109951172126526200.jpg",
+      "cover": "https://p3.music.126.net/3uKds-MLvxluxZ9K01xWkw==/109951172126526200.jpg",
       "url": "https://music.163.com/#/album?id=287788505"
     },
     {
       "id": 1592283,
       "title": "Voodoo",
       "artist": "D'Angelo",
-      "cover": "https://p3.music.126.net/U-6-nTVmyKUI7Eu5YwtDLA==/109951172344698912.jpg",
+      "cover": "https://p4.music.126.net/U-6-nTVmyKUI7Eu5YwtDLA==/109951172344698912.jpg",
       "url": "https://music.163.com/#/album?id=1592283"
     },
     {
       "id": 283202228,
       "title": "This Temporary Ensemble Vol. 2",
       "artist": "9m88",
-      "cover": "https://p3.music.126.net/Xpm7A-EZawZtSfXTmIFSFw==/109951171942496016.jpg",
+      "cover": "https://p4.music.126.net/Xpm7A-EZawZtSfXTmIFSFw==/109951171942496016.jpg",
       "url": "https://music.163.com/#/album?id=283202228"
     },
     {
@@ -1645,21 +1701,21 @@
       "id": 264726164,
       "title": "如果每天都可以 happy happy 谁想要sad:)) - 一起去度假",
       "artist": "陳嫺靜",
-      "cover": "https://p3.music.126.net/SM9I8flDSW7Eps_Z7uvPZg==/109951170540389548.jpg",
+      "cover": "https://p4.music.126.net/SM9I8flDSW7Eps_Z7uvPZg==/109951170540389548.jpg",
       "url": "https://music.163.com/#/album?id=264726164"
     },
     {
       "id": 1662749,
       "title": "Use Your Illusion I",
       "artist": "Guns N' Roses",
-      "cover": "https://p3.music.126.net/AdHzlPZ7lM595PLweCekWw==/109951165416103681.jpg",
+      "cover": "https://p4.music.126.net/AdHzlPZ7lM595PLweCekWw==/109951165416103681.jpg",
       "url": "https://music.163.com/#/album?id=1662749"
     },
     {
       "id": 118490,
       "title": "Chronicle Vol. 2: Twenty Great CCR Classics",
       "artist": "Creedence Clearwater Revival",
-      "cover": "https://p4.music.126.net/3xsz82y4UtsnxvMw7A0UrQ==/17906646370223237.jpg",
+      "cover": "https://p3.music.126.net/3xsz82y4UtsnxvMw7A0UrQ==/17906646370223237.jpg",
       "url": "https://music.163.com/#/album?id=118490"
     },
     {
@@ -1673,14 +1729,14 @@
       "id": 7542,
       "title": "月光",
       "artist": "蛋堡",
-      "cover": "https://p4.music.126.net/cB5Cs8PPPkYbj4vwaaWcWw==/109951168001993115.jpg",
+      "cover": "https://p3.music.126.net/cB5Cs8PPPkYbj4vwaaWcWw==/109951168001993115.jpg",
       "url": "https://music.163.com/#/album?id=7542"
     },
     {
       "id": 276554774,
       "title": "羞于启齿",
       "artist": "陈一豪Clear / INDEcompany",
-      "cover": "https://p3.music.126.net/POtte5sgkL1WN6S9yap0kQ==/109951171367489486.jpg",
+      "cover": "https://p4.music.126.net/POtte5sgkL1WN6S9yap0kQ==/109951171367489486.jpg",
       "url": "https://music.163.com/#/album?id=276554774"
     },
     {
@@ -1694,7 +1750,7 @@
       "id": 272648328,
       "title": "ADHD",
       "artist": "KAFE.HU胡懿",
-      "cover": "https://p4.music.126.net/cMQXtstv4EA1nwt7EjongQ==/109951173203129549.jpg",
+      "cover": "https://p3.music.126.net/cMQXtstv4EA1nwt7EjongQ==/109951173203129549.jpg",
       "url": "https://music.163.com/#/album?id=272648328"
     },
     {
@@ -1708,14 +1764,14 @@
       "id": 284754823,
       "title": "奇才，旷世奇才！",
       "artist": "亞細亞曠世奇才",
-      "cover": "https://p3.music.126.net/MJ0StKO-qUSx96y0dQZ3fA==/109951172037488017.jpg",
+      "cover": "https://p4.music.126.net/MJ0StKO-qUSx96y0dQZ3fA==/109951172037488017.jpg",
       "url": "https://music.163.com/#/album?id=284754823"
     },
     {
       "id": 184829989,
       "title": "顽石点头",
       "artist": "SouthSideSamurai",
-      "cover": "https://p4.music.126.net/ui-gN2JPTnBkwqdGY_-b3Q==/109951169302992343.jpg",
+      "cover": "https://p3.music.126.net/ui-gN2JPTnBkwqdGY_-b3Q==/109951169302992343.jpg",
       "url": "https://music.163.com/#/album?id=184829989"
     },
     {
@@ -1729,14 +1785,14 @@
       "id": 281159079,
       "title": "SuperFlow Ⅱ",
       "artist": "Melo",
-      "cover": "https://p4.music.126.net/7QwIRDJSfqBukBi93IWIMw==/109951171835920237.jpg",
+      "cover": "https://p3.music.126.net/7QwIRDJSfqBukBi93IWIMw==/109951171835920237.jpg",
       "url": "https://music.163.com/#/album?id=281159079"
     },
     {
       "id": 283713085,
       "title": "人人都爱嘻哈乐",
       "artist": "夏之禹 / 地磁卡",
-      "cover": "https://p4.music.126.net/XNn1BrGbzWw_CBqZ2F-F4A==/109951171967880038.jpg",
+      "cover": "https://p3.music.126.net/XNn1BrGbzWw_CBqZ2F-F4A==/109951171967880038.jpg",
       "url": "https://music.163.com/#/album?id=283713085"
     },
     {
@@ -1785,7 +1841,7 @@
       "id": 140781845,
       "title": "守望先锋：英雄与恶徒",
       "artist": "Various Artists",
-      "cover": "https://p3.music.126.net/CEgv05CduHT1n7wEw1WJ-A==/109951171082644485.jpg",
+      "cover": "https://p4.music.126.net/CEgv05CduHT1n7wEw1WJ-A==/109951171082644485.jpg",
       "url": "https://music.163.com/#/album?id=140781845"
     },
     {
@@ -1813,28 +1869,28 @@
       "id": 267881297,
       "title": "问题的人",
       "artist": "C.S.B.Q乐队",
-      "cover": "https://p3.music.126.net/Sxf58p_vpZuPecn92HGi-A==/109951170682800457.jpg",
+      "cover": "https://p4.music.126.net/Sxf58p_vpZuPecn92HGi-A==/109951170682800457.jpg",
       "url": "https://music.163.com/#/album?id=267881297"
     },
     {
       "id": 159054176,
       "title": "曾经的，伟大的，笑话",
       "artist": "C.S.B.Q乐队",
-      "cover": "https://p3.music.126.net/AzNGC72y8_k0oCv2rHeolg==/109951168431353241.jpg",
+      "cover": "https://p4.music.126.net/AzNGC72y8_k0oCv2rHeolg==/109951168431353241.jpg",
       "url": "https://music.163.com/#/album?id=159054176"
     },
     {
       "id": 138870483,
       "title": "年轻的朋友你要去向哪",
       "artist": "C.S.B.Q乐队",
-      "cover": "https://p4.music.126.net/71Qo7evHtVy13TjuGwOQIw==/109951166930583294.jpg",
+      "cover": "https://p3.music.126.net/71Qo7evHtVy13TjuGwOQIw==/109951166930583294.jpg",
       "url": "https://music.163.com/#/album?id=138870483"
     },
     {
       "id": 123797587,
       "title": "未来的宝藏",
       "artist": "C.S.B.Q乐队",
-      "cover": "https://p3.music.126.net/M-VHMOQez5MjiqE6JDpuVA==/109951166069948250.jpg",
+      "cover": "https://p4.music.126.net/M-VHMOQez5MjiqE6JDpuVA==/109951166069948250.jpg",
       "url": "https://music.163.com/#/album?id=123797587"
     },
     {
@@ -1862,14 +1918,14 @@
       "id": 34898862,
       "title": "余波",
       "artist": "卧轨的火车（Railway Suicide Train)",
-      "cover": "https://p3.music.126.net/ohRQMtZTEUZzamERrHIFpg==/109951166778710733.jpg",
+      "cover": "https://p4.music.126.net/ohRQMtZTEUZzamERrHIFpg==/109951166778710733.jpg",
       "url": "https://music.163.com/#/album?id=34898862"
     },
     {
       "id": 38306,
       "title": "万能青年旅店 同名专辑",
       "artist": "万能青年旅店",
-      "cover": "https://p4.music.126.net/W1kczDCB4-r-uNAznD1ljg==/108851651165850.jpg",
+      "cover": "https://p3.music.126.net/W1kczDCB4-r-uNAznD1ljg==/108851651165850.jpg",
       "url": "https://music.163.com/#/album?id=38306"
     },
     {
@@ -1890,14 +1946,14 @@
       "id": 274706820,
       "title": "G-BLOCK Mixtape",
       "artist": "GAI周延 / 盛宇D-SHINE / 功夫胖KUNGFU-PEN / KEY.L刘聪",
-      "cover": "https://p3.music.126.net/_aAi9WloeOAgOx96pmwIZQ==/109951171415121736.jpg",
+      "cover": "https://p4.music.126.net/_aAi9WloeOAgOx96pmwIZQ==/109951171415121736.jpg",
       "url": "https://music.163.com/#/album?id=274706820"
     },
     {
       "id": 252688157,
       "title": "纯粹负面情绪",
       "artist": "哥布林王子",
-      "cover": "https://p3.music.126.net/CyNFEW1SO-1TR5R4sB6DSw==/109951170113338742.jpg",
+      "cover": "https://p4.music.126.net/CyNFEW1SO-1TR5R4sB6DSw==/109951170113338742.jpg",
       "url": "https://music.163.com/#/album?id=252688157"
     },
     {
@@ -1911,7 +1967,7 @@
       "id": 144733335,
       "title": "梦境",
       "artist": "大象体操",
-      "cover": "https://p3.music.126.net/90P93yJ-haXJg1FukpM4fQ==/109951167398027204.jpg",
+      "cover": "https://p4.music.126.net/90P93yJ-haXJg1FukpM4fQ==/109951167398027204.jpg",
       "url": "https://music.163.com/#/album?id=144733335"
     },
     {
@@ -1939,28 +1995,28 @@
       "id": 193876598,
       "title": "The Poetic Edda",
       "artist": "Synestia / Disembodied Tyrant",
-      "cover": "https://p4.music.126.net/QCRbLqQAU5dMwPSzRz9bag==/109951169539379904.jpg",
+      "cover": "https://p3.music.126.net/QCRbLqQAU5dMwPSzRz9bag==/109951169539379904.jpg",
       "url": "https://music.163.com/#/album?id=193876598"
     },
     {
       "id": 175130356,
       "title": "Cyberpunk 2077: Phantom Liberty (Original Score)",
       "artist": "P.T. Adamczyk / Jacek Paciorkowski",
-      "cover": "https://p3.music.126.net/6fYwiYhX-6tbDt-4A1pGzA==/109951168927845603.jpg",
+      "cover": "https://p4.music.126.net/6fYwiYhX-6tbDt-4A1pGzA==/109951168927845603.jpg",
       "url": "https://music.163.com/#/album?id=175130356"
     },
     {
       "id": 120720938,
       "title": "Cyberpunk 2077: Radio, Vol. 3 (Original Soundtrack)",
       "artist": "Various Artists",
-      "cover": "https://p4.music.126.net/1_Iu8Y85TWAy6I8CW59J_g==/109951170504176288.jpg",
+      "cover": "https://p3.music.126.net/1_Iu8Y85TWAy6I8CW59J_g==/109951170504176288.jpg",
       "url": "https://music.163.com/#/album?id=120720938"
     },
     {
       "id": 98418475,
       "title": "Cyberpunk 2077: Radio, Vol. 2 (Original Soundtrack)",
       "artist": "Various Artists",
-      "cover": "https://p3.music.126.net/ETNtwbJ4s1oCNXAyr_YEYQ==/109951170504647739.jpg",
+      "cover": "https://p4.music.126.net/ETNtwbJ4s1oCNXAyr_YEYQ==/109951170504647739.jpg",
       "url": "https://music.163.com/#/album?id=98418475"
     },
     {
@@ -1981,21 +2037,21 @@
       "id": 15700,
       "title": "勇敢的心",
       "artist": "汪峰",
-      "cover": "https://p4.music.126.net/nQA2BITROw1yIHCW8CgQJg==/109951169277865483.jpg",
+      "cover": "https://p3.music.126.net/nQA2BITROw1yIHCW8CgQJg==/109951169277865483.jpg",
       "url": "https://music.163.com/#/album?id=15700"
     },
     {
       "id": 15699,
       "title": "信仰在空中飘扬",
       "artist": "汪峰",
-      "cover": "https://p3.music.126.net/8PcFZn_ck-WmfXRnfFN3CA==/109951169278078950.jpg",
+      "cover": "https://p4.music.126.net/8PcFZn_ck-WmfXRnfFN3CA==/109951169278078950.jpg",
       "url": "https://music.163.com/#/album?id=15699"
     },
     {
       "id": 272444963,
       "title": "龙年",
       "artist": "华云龙KLE",
-      "cover": "https://p3.music.126.net/eSoVpvVnsS6TCvDUWZWptQ==/109951171005786628.jpg",
+      "cover": "https://p4.music.126.net/eSoVpvVnsS6TCvDUWZWptQ==/109951171005786628.jpg",
       "url": "https://music.163.com/#/album?id=272444963"
     },
     {
@@ -2009,7 +2065,7 @@
       "id": 271405137,
       "title": "吴卫红",
       "artist": "哥布林王子",
-      "cover": "https://p3.music.126.net/QKTGgeLMzIjCwXiLuTg5aA==/109951170962820155.jpg",
+      "cover": "https://p4.music.126.net/QKTGgeLMzIjCwXiLuTg5aA==/109951170962820155.jpg",
       "url": "https://music.163.com/#/album?id=271405137"
     },
     {
@@ -2023,14 +2079,14 @@
       "id": 1613826,
       "title": "In the Aeroplane Over the Sea",
       "artist": "Neutral Milk Hotel",
-      "cover": "https://p4.music.126.net/ufBtWpUrItU6moOeFDyr6Q==/109951163383608536.jpg",
+      "cover": "https://p3.music.126.net/ufBtWpUrItU6moOeFDyr6Q==/109951163383608536.jpg",
       "url": "https://music.163.com/#/album?id=1613826"
     },
     {
       "id": 255953922,
       "title": "你在注視那遙遠的地方",
       "artist": "当代电影大师",
-      "cover": "https://p4.music.126.net/l1-AWw-uMn8SBs3DNrTeew==/109951170223487990.jpg",
+      "cover": "https://p3.music.126.net/l1-AWw-uMn8SBs3DNrTeew==/109951170223487990.jpg",
       "url": "https://music.163.com/#/album?id=255953922"
     },
     {
@@ -2044,7 +2100,7 @@
       "id": 267784482,
       "title": "幽默与笑话",
       "artist": "卡力老虎 / 周乘羽 / Taisheng Music",
-      "cover": "https://p3.music.126.net/A_Wr1zYxHAU9bFt5wL6u6Q==/109951173753553418.jpg",
+      "cover": "https://p4.music.126.net/A_Wr1zYxHAU9bFt5wL6u6Q==/109951173753553418.jpg",
       "url": "https://music.163.com/#/album?id=267784482"
     },
     {
@@ -2058,7 +2114,7 @@
       "id": 260888643,
       "title": "黄沙",
       "artist": "Lil Zed",
-      "cover": "https://p4.music.126.net/l3pD3aieSRvrCuhJhmQgVA==/109951170428319625.jpg",
+      "cover": "https://p3.music.126.net/l3pD3aieSRvrCuhJhmQgVA==/109951170428319625.jpg",
       "url": "https://music.163.com/#/album?id=260888643"
     },
     {
@@ -2086,7 +2142,7 @@
       "id": 86469650,
       "title": "告别事务所",
       "artist": "Cheesemind",
-      "cover": "https://p3.music.126.net/P2MephuGXlI6_tK_YrL5SA==/109951164799292146.jpg",
+      "cover": "https://p4.music.126.net/P2MephuGXlI6_tK_YrL5SA==/109951164799292146.jpg",
       "url": "https://music.163.com/#/album?id=86469650"
     },
     {
@@ -2100,21 +2156,21 @@
       "id": 145525118,
       "title": "少年的人间奇遇 (游戏原声音乐)",
       "artist": "史悲",
-      "cover": "https://p3.music.126.net/6Giz-ySweDYI6YXI7ZAKAw==/109951167475246352.jpg",
+      "cover": "https://p4.music.126.net/6Giz-ySweDYI6YXI7ZAKAw==/109951167475246352.jpg",
       "url": "https://music.163.com/#/album?id=145525118"
     },
     {
       "id": 3079126,
       "title": "我想和你去打保龄球",
       "artist": "史悲",
-      "cover": "https://p3.music.126.net/abjFGsJDgldDOLR0eHJtcA==/3239161257286765.jpg",
+      "cover": "https://p4.music.126.net/abjFGsJDgldDOLR0eHJtcA==/3239161257286765.jpg",
       "url": "https://music.163.com/#/album?id=3079126"
     },
     {
       "id": 3079117,
       "title": "愿你能好好忍耐",
       "artist": "史悲",
-      "cover": "https://p3.music.126.net/3RYhXC7fQTTSB4iNKVdg7g==/3233663699157281.jpg",
+      "cover": "https://p4.music.126.net/3RYhXC7fQTTSB4iNKVdg7g==/3233663699157281.jpg",
       "url": "https://music.163.com/#/album?id=3079117"
     },
     {
@@ -2128,7 +2184,7 @@
       "id": 34767049,
       "title": "第一集",
       "artist": "yourboyfriendsucks!",
-      "cover": "https://p3.music.126.net/S0NDCxJ7__2DuC3q8rHm_A==/109951164419258439.jpg",
+      "cover": "https://p4.music.126.net/S0NDCxJ7__2DuC3q8rHm_A==/109951164419258439.jpg",
       "url": "https://music.163.com/#/album?id=34767049"
     },
     {
@@ -2149,21 +2205,21 @@
       "id": 35021549,
       "title": "东海岸",
       "artist": "法老",
-      "cover": "https://p3.music.126.net/z253qn2_rIiK0NvaD5_btA==/109951162817129061.jpg",
+      "cover": "https://p4.music.126.net/z253qn2_rIiK0NvaD5_btA==/109951162817129061.jpg",
       "url": "https://music.163.com/#/album?id=35021549"
     },
     {
       "id": 164906017,
       "title": "Guardians of the Galaxy Vol. 3: Awesome Mix Vol. 3 (Original Motion Picture Soundtrack)",
       "artist": "Various Artists",
-      "cover": "https://p4.music.126.net/Pk2rRHlct6GMQnzH9DJEFA==/109951168588056314.jpg",
+      "cover": "https://p3.music.126.net/Pk2rRHlct6GMQnzH9DJEFA==/109951168588056314.jpg",
       "url": "https://music.163.com/#/album?id=164906017"
     },
     {
       "id": 132489397,
       "title": "Donda",
       "artist": "Kanye West",
-      "cover": "https://p3.music.126.net/vH5CPDR5HWzphsuXIzIpQw==/109951166462949375.jpg",
+      "cover": "https://p4.music.126.net/vH5CPDR5HWzphsuXIzIpQw==/109951166462949375.jpg",
       "url": "https://music.163.com/#/album?id=132489397"
     },
     {
@@ -2198,7 +2254,7 @@
       "id": 35139431,
       "title": "以下范上",
       "artist": "C-BLOCK",
-      "cover": "https://p4.music.126.net/JmeLbT0Z3dkRGoP-G3Xh1w==/18604836255326600.jpg",
+      "cover": "https://p3.music.126.net/JmeLbT0Z3dkRGoP-G3Xh1w==/18604836255326600.jpg",
       "url": "https://music.163.com/#/album?id=35139431"
     },
     {
@@ -2219,14 +2275,14 @@
       "id": 34702798,
       "title": "三角度 (二)",
       "artist": "陈冠希 / MC仁 / 厨房仔",
-      "cover": "https://p3.music.126.net/8shbmtwBFDkWwKSxVQ0reA==/1407374893367789.jpg",
+      "cover": "https://p4.music.126.net/8shbmtwBFDkWwKSxVQ0reA==/1407374893367789.jpg",
       "url": "https://music.163.com/#/album?id=34702798"
     },
     {
       "id": 6447,
       "title": "三角度",
       "artist": "陈冠希 / MC仁 / 厨房仔",
-      "cover": "https://p4.music.126.net/hDa6w1Bw7LfUPw2VSa0HAw==/18564154325374364.jpg",
+      "cover": "https://p3.music.126.net/hDa6w1Bw7LfUPw2VSa0HAw==/18564154325374364.jpg",
       "url": "https://music.163.com/#/album?id=6447"
     },
     {
@@ -2240,21 +2296,21 @@
       "id": 124015995,
       "title": "狂人农场的往事",
       "artist": "苏紫旭&The Paramecia",
-      "cover": "https://p3.music.126.net/DzdKZhH0Tt4e-E5ta54WNA==/109951165787117500.jpg",
+      "cover": "https://p4.music.126.net/DzdKZhH0Tt4e-E5ta54WNA==/109951165787117500.jpg",
       "url": "https://music.163.com/#/album?id=124015995"
     },
     {
       "id": 260389417,
       "title": "家庭宇宙三部曲",
       "artist": "福来",
-      "cover": "https://p3.music.126.net/6MPoKk5Vco9HD5LKGuO4ng==/109951170410691073.jpg",
+      "cover": "https://p4.music.126.net/6MPoKk5Vco9HD5LKGuO4ng==/109951170410691073.jpg",
       "url": "https://music.163.com/#/album?id=260389417"
     },
     {
       "id": 245049496,
       "title": "GUOXIA",
       "artist": "李佳隆",
-      "cover": "https://p4.music.126.net/pRNSwlB_DpMC1wy6CTEo9A==/109951169872282587.jpg",
+      "cover": "https://p3.music.126.net/pRNSwlB_DpMC1wy6CTEo9A==/109951169872282587.jpg",
       "url": "https://music.163.com/#/album?id=245049496"
     },
     {
@@ -2268,7 +2324,7 @@
       "id": 257212319,
       "title": "纯白小背心",
       "artist": "JinJiBeWater_隼",
-      "cover": "https://p4.music.126.net/tcCyYr4RRQ_sCHoWYanBaA==/109951170277055284.jpg",
+      "cover": "https://p3.music.126.net/tcCyYr4RRQ_sCHoWYanBaA==/109951170277055284.jpg",
       "url": "https://music.163.com/#/album?id=257212319"
     },
     {
@@ -2282,21 +2338,21 @@
       "id": 240512652,
       "title": "你曾有过写诗的想法吗",
       "artist": "斯斯与帆",
-      "cover": "https://p3.music.126.net/r8xb0YMt_x2Dny1rLdNcvg==/109951169727012816.jpg",
+      "cover": "https://p4.music.126.net/r8xb0YMt_x2Dny1rLdNcvg==/109951169727012816.jpg",
       "url": "https://music.163.com/#/album?id=240512652"
     },
     {
       "id": 240526831,
       "title": "宇宙",
       "artist": "萨萨 / 天秤Dav",
-      "cover": "https://p3.music.126.net/oAjSJ2qgfJNzJUSgaTCHhQ==/109951169727394858.jpg",
+      "cover": "https://p4.music.126.net/oAjSJ2qgfJNzJUSgaTCHhQ==/109951169727394858.jpg",
       "url": "https://music.163.com/#/album?id=240526831"
     },
     {
       "id": 1974771,
       "title": "Purple Rain",
       "artist": "Prince / The Revolution",
-      "cover": "https://p4.music.126.net/O7knkhSX5MV8WwYG9eCA6w==/109951173955111304.jpg",
+      "cover": "https://p3.music.126.net/O7knkhSX5MV8WwYG9eCA6w==/109951173955111304.jpg",
       "url": "https://music.163.com/#/album?id=1974771"
     },
     {
@@ -2310,14 +2366,14 @@
       "id": 36827575,
       "title": "Born To Touch Your Feelings - Best of Rock Ballads",
       "artist": "Scorpions",
-      "cover": "https://p3.music.126.net/T3mapGdK3hI59eBzYbt0hA==/109951165982485969.jpg",
+      "cover": "https://p4.music.126.net/T3mapGdK3hI59eBzYbt0hA==/109951165982485969.jpg",
       "url": "https://music.163.com/#/album?id=36827575"
     },
     {
       "id": 2000240,
       "title": "Comeblack",
       "artist": "Scorpions",
-      "cover": "https://p3.music.126.net/1KnS_PEq1Pws1U6k28MB3Q==/109951165965811636.jpg",
+      "cover": "https://p4.music.126.net/1KnS_PEq1Pws1U6k28MB3Q==/109951165965811636.jpg",
       "url": "https://music.163.com/#/album?id=2000240"
     },
     {
@@ -2331,14 +2387,14 @@
       "id": 432573,
       "title": "Moment of Glory",
       "artist": "Scorpions / Berliner Philharmoniker",
-      "cover": "https://p3.music.126.net/dHohPO0dL_OgaBRI9_0vsg==/109951164371934123.jpg",
+      "cover": "https://p4.music.126.net/dHohPO0dL_OgaBRI9_0vsg==/109951164371934123.jpg",
       "url": "https://music.163.com/#/album?id=432573"
     },
     {
       "id": 37797,
       "title": "不要停止我的音乐",
       "artist": "痛仰乐队",
-      "cover": "https://p4.music.126.net/la_yQfJiPmrDvVlaXbdhLA==/109951169200439396.jpg",
+      "cover": "https://p3.music.126.net/la_yQfJiPmrDvVlaXbdhLA==/109951169200439396.jpg",
       "url": "https://music.163.com/#/album?id=37797"
     },
     {
@@ -2352,7 +2408,7 @@
       "id": 242864796,
       "title": "黄沙",
       "artist": "AKA小予",
-      "cover": "https://p4.music.126.net/Bn9chsRTWrwyrcRolJAiHQ==/109951169810264056.jpg",
+      "cover": "https://p3.music.126.net/Bn9chsRTWrwyrcRolJAiHQ==/109951169810264056.jpg",
       "url": "https://music.163.com/#/album?id=242864796"
     },
     {
@@ -2365,22 +2421,22 @@
     {
       "id": 244462268,
       "title": "SAINT JUICE",
-      "artist": "MULA SAKEE",
-      "cover": "https://p3.music.126.net/WHCeMGqvpJ8aPYGPlQaKfA==/109951169873482088.jpg",
+      "artist": "皇昶枢（MULA SAKEE）",
+      "cover": "https://p4.music.126.net/WHCeMGqvpJ8aPYGPlQaKfA==/109951169873482088.jpg",
       "url": "https://music.163.com/#/album?id=244462268"
     },
     {
       "id": 241974845,
       "title": "热土",
       "artist": "马赫mood",
-      "cover": "https://p4.music.126.net/4-R0CsYoQdmU42D3jKJizQ==/109951169775031945.jpg",
+      "cover": "https://p3.music.126.net/4-R0CsYoQdmU42D3jKJizQ==/109951169775031945.jpg",
       "url": "https://music.163.com/#/album?id=241974845"
     },
     {
       "id": 257047763,
       "title": "牛窝坑秋冬随笔2024",
       "artist": "Vansdaddy / LusciousBB",
-      "cover": "https://p3.music.126.net/tPR1t9VPOSUZY5opMrFR9A==/109951170280947462.jpg",
+      "cover": "https://p4.music.126.net/tPR1t9VPOSUZY5opMrFR9A==/109951170280947462.jpg",
       "url": "https://music.163.com/#/album?id=257047763"
     },
     {
@@ -2429,7 +2485,7 @@
       "id": 2700855,
       "title": "Minecraft - Volume Beta",
       "artist": "C418",
-      "cover": "https://p3.music.126.net/gK1cJ0NH4k4923gyAmOhmg==/109951172942786070.jpg",
+      "cover": "https://p4.music.126.net/gK1cJ0NH4k4923gyAmOhmg==/109951172942786070.jpg",
       "url": "https://music.163.com/#/album?id=2700855"
     },
     {
@@ -2450,14 +2506,14 @@
       "id": 3233153,
       "title": "SUPertape",
       "artist": "西奥Sio",
-      "cover": "https://p3.music.126.net/RkWaCiSjAOR3Bblkr2ygdg==/3262250999769698.jpg",
+      "cover": "https://p4.music.126.net/RkWaCiSjAOR3Bblkr2ygdg==/3262250999769698.jpg",
       "url": "https://music.163.com/#/album?id=3233153"
     },
     {
       "id": 428503,
       "title": "The Dark Side of the Moon",
       "artist": "Pink Floyd",
-      "cover": "https://p3.music.126.net/VedZWmCq-USwDJknsWVlbw==/109951172026965929.jpg",
+      "cover": "https://p4.music.126.net/VedZWmCq-USwDJknsWVlbw==/109951172026965929.jpg",
       "url": "https://music.163.com/#/album?id=428503"
     },
     {
@@ -2471,21 +2527,21 @@
       "id": 1738265,
       "title": "The College Dropout",
       "artist": "Kanye West",
-      "cover": "https://p4.music.126.net/WOH764j6Yr2z0kTjvsomsQ==/109951170517260769.jpg",
+      "cover": "https://p3.music.126.net/WOH764j6Yr2z0kTjvsomsQ==/109951170517260769.jpg",
       "url": "https://music.163.com/#/album?id=1738265"
     },
     {
       "id": 79190754,
       "title": "IGOR",
       "artist": "Tyler, The Creator",
-      "cover": "https://p3.music.126.net/GlAoswYyczXw_I6n6L1sdg==/109951165986564278.jpg",
+      "cover": "https://p4.music.126.net/GlAoswYyczXw_I6n6L1sdg==/109951165986564278.jpg",
       "url": "https://music.163.com/#/album?id=79190754"
     },
     {
       "id": 35745181,
       "title": "Flower Boy",
       "artist": "Tyler, The Creator",
-      "cover": "https://p3.music.126.net/oNpudpqK5cC2_g5pu3aYIA==/109951165982246534.jpg",
+      "cover": "https://p4.music.126.net/oNpudpqK5cC2_g5pu3aYIA==/109951165982246534.jpg",
       "url": "https://music.163.com/#/album?id=35745181"
     },
     {
@@ -2506,7 +2562,7 @@
       "id": 254719035,
       "title": "GNX",
       "artist": "Kendrick Lamar",
-      "cover": "https://p4.music.126.net/EMv55rDoGWJ3IzG-aphT3w==/109951170180620807.jpg",
+      "cover": "https://p3.music.126.net/EMv55rDoGWJ3IzG-aphT3w==/109951170180620807.jpg",
       "url": "https://music.163.com/#/album?id=254719035"
     },
     {
@@ -2534,7 +2590,7 @@
       "id": 88561267,
       "title": "American Football",
       "artist": "American Football",
-      "cover": "https://p4.music.126.net/9FMA2wFLblrP5LjOKvtRxw==/109951167999489222.jpg",
+      "cover": "https://p3.music.126.net/9FMA2wFLblrP5LjOKvtRxw==/109951167999489222.jpg",
       "url": "https://music.163.com/#/album?id=88561267"
     },
     {
@@ -2555,49 +2611,49 @@
       "id": 169512732,
       "title": "山歌寥哉",
       "artist": "刀郎",
-      "cover": "https://p3.music.126.net/hsIpIgKpGlUlaHPF-qIKcQ==/109951168735465189.jpg",
+      "cover": "https://p4.music.126.net/hsIpIgKpGlUlaHPF-qIKcQ==/109951168735465189.jpg",
       "url": "https://music.163.com/#/album?id=169512732"
     },
     {
       "id": 132927287,
       "title": "No Mercy",
       "artist": "无妄合作社",
-      "cover": "https://p4.music.126.net/J8GfcLMUWyvtdrMT3yXrLw==/109951166366300262.jpg",
+      "cover": "https://p3.music.126.net/J8GfcLMUWyvtdrMT3yXrLw==/109951166366300262.jpg",
       "url": "https://music.163.com/#/album?id=132927287"
     },
     {
       "id": 250434079,
       "title": "开往天堂的海盗船",
       "artist": "无妄合作社",
-      "cover": "https://p4.music.126.net/d6Ae-EjwtGxQ6i0zfyaZTA==/109951170035466222.jpg",
+      "cover": "https://p3.music.126.net/d6Ae-EjwtGxQ6i0zfyaZTA==/109951170035466222.jpg",
       "url": "https://music.163.com/#/album?id=250434079"
     },
     {
       "id": 253303374,
       "title": "I wish you do,too",
       "artist": "南青乐队",
-      "cover": "https://p3.music.126.net/ohFXExRJS3F4FGkaMjlfOw==/109951170133525547.jpg",
+      "cover": "https://p4.music.126.net/ohFXExRJS3F4FGkaMjlfOw==/109951170133525547.jpg",
       "url": "https://music.163.com/#/album?id=253303374"
     },
     {
       "id": 403157,
       "title": "Viva La Vida or Death and All His Friends",
       "artist": "Coldplay",
-      "cover": "https://p4.music.126.net/Wr13D68yaaknFmxTD5xnoQ==/18569651881855121.jpg",
+      "cover": "https://p3.music.126.net/Wr13D68yaaknFmxTD5xnoQ==/18569651881855121.jpg",
       "url": "https://music.163.com/#/album?id=403157"
     },
     {
       "id": 1582613,
       "title": "Yellow",
       "artist": "Coldplay",
-      "cover": "https://p3.music.126.net/n6BatGZdnRaEnIC0h7kVOg==/109951167815599264.jpg",
+      "cover": "https://p4.music.126.net/n6BatGZdnRaEnIC0h7kVOg==/109951167815599264.jpg",
       "url": "https://music.163.com/#/album?id=1582613"
     },
     {
       "id": 2767188,
       "title": "Ghost Stories",
       "artist": "Coldplay",
-      "cover": "https://p3.music.126.net/z8bRRuF8Gx5RvHJHwpKKkQ==/109951163620484193.jpg",
+      "cover": "https://p4.music.126.net/z8bRRuF8Gx5RvHJHwpKKkQ==/109951163620484193.jpg",
       "url": "https://music.163.com/#/album?id=2767188"
     },
     {
@@ -2611,7 +2667,7 @@
       "id": 34615,
       "title": "火车日记",
       "artist": "丢火车",
-      "cover": "https://p4.music.126.net/liFgngA9wh45cej2FZxmIw==/109951165250089594.jpg",
+      "cover": "https://p3.music.126.net/liFgngA9wh45cej2FZxmIw==/109951165250089594.jpg",
       "url": "https://music.163.com/#/album?id=34615"
     },
     {
@@ -2625,21 +2681,21 @@
       "id": 35069014,
       "title": "无法长大",
       "artist": "赵雷",
-      "cover": "https://p3.music.126.net/-noYXenVuiTrlcxrCqNPjQ==/109951169213362679.jpg",
+      "cover": "https://p3.music.126.net/8_-DmVqzz-Gsqts8X5VNWg==/109951174184971804.jpg",
       "url": "https://music.163.com/#/album?id=35069014"
     },
     {
       "id": 3048030,
       "title": "吉姆餐厅",
       "artist": "赵雷",
-      "cover": "https://p3.music.126.net/pwcUlwh9MFZ_V3hGBOPaCQ==/109951169213425474.jpg",
+      "cover": "https://p4.music.126.net/2hP2mimsDNZo3psqb3SK9Q==/109951174184423364.jpg",
       "url": "https://music.163.com/#/album?id=3048030"
     },
     {
       "id": 20339,
       "title": "赵小雷",
       "artist": "赵雷",
-      "cover": "https://p3.music.126.net/btBocL7KKvl0sRZY62_BIA==/109951169213244790.jpg",
+      "cover": "https://p3.music.126.net/44C9adoo__2BAcbQxL28iA==/109951174184418317.jpg",
       "url": "https://music.163.com/#/album?id=20339"
     },
     {
@@ -2653,14 +2709,14 @@
       "id": 153023757,
       "title": "健将mixtape",
       "artist": "法老 / 小精灵",
-      "cover": "https://p4.music.126.net/WEOaWIg8WAG_kBhmAx7zbA==/109951168688783089.jpg",
+      "cover": "https://p3.music.126.net/WEOaWIg8WAG_kBhmAx7zbA==/109951168688783089.jpg",
       "url": "https://music.163.com/#/album?id=153023757"
     },
     {
       "id": 149257265,
       "title": "退潮",
       "artist": "法老",
-      "cover": "https://p3.music.126.net/cK3Rm-WaJwNw9pOWg7DX-A==/109951167750223899.jpg",
+      "cover": "https://p4.music.126.net/cK3Rm-WaJwNw9pOWg7DX-A==/109951167750223899.jpg",
       "url": "https://music.163.com/#/album?id=149257265"
     },
     {
@@ -2688,28 +2744,28 @@
       "id": 190000663,
       "title": "那小子真帅",
       "artist": "SASIOVERLXRD",
-      "cover": "https://p4.music.126.net/IpI87KX-Fpg7JyWqSRoevg==/109951169442858072.jpg",
+      "cover": "https://p3.music.126.net/IpI87KX-Fpg7JyWqSRoevg==/109951169442858072.jpg",
       "url": "https://music.163.com/#/album?id=190000663"
     },
     {
       "id": 156493852,
       "title": "Hello!",
       "artist": "达达乐队",
-      "cover": "https://p4.music.126.net/Tcm8nZCW7PAirqDd2yStTA==/109951172952615146.jpg",
+      "cover": "https://p3.music.126.net/Tcm8nZCW7PAirqDd2yStTA==/109951172952615146.jpg",
       "url": "https://music.163.com/#/album?id=156493852"
     },
     {
       "id": 34567,
       "title": "黄金时代",
       "artist": "达达乐队",
-      "cover": "https://p3.music.126.net/6an4-6vygglR9H-ImuChuQ==/109951172495801706.jpg",
+      "cover": "https://p4.music.126.net/6an4-6vygglR9H-ImuChuQ==/109951172495801706.jpg",
       "url": "https://music.163.com/#/album?id=34567"
     },
     {
       "id": 34569,
       "title": "天使 Angel",
       "artist": "达达乐队",
-      "cover": "https://p4.music.126.net/x6YOozJSJQBJGetIkYcsQA==/109951170074007835.jpg",
+      "cover": "https://p3.music.126.net/x6YOozJSJQBJGetIkYcsQA==/109951170074007835.jpg",
       "url": "https://music.163.com/#/album?id=34569"
     },
     {
@@ -2730,7 +2786,7 @@
       "id": 178287401,
       "title": "The Marshall Mathers LP2 (Expanded Edition)",
       "artist": "Eminem",
-      "cover": "https://p3.music.126.net/b1kU6pUq1aDwIUF5WyKp2Q==/109951169028594782.jpg",
+      "cover": "https://p4.music.126.net/b1kU6pUq1aDwIUF5WyKp2Q==/109951169028594782.jpg",
       "url": "https://music.163.com/#/album?id=178287401"
     },
     {
@@ -2765,35 +2821,35 @@
       "id": 145576392,
       "title": "The Eminem Show (Expanded Edition)",
       "artist": "Eminem",
-      "cover": "https://p3.music.126.net/gwPB5jhlNsbfsI2B3Hnl3Q==/109951171932988431.jpg",
+      "cover": "https://p4.music.126.net/gwPB5jhlNsbfsI2B3Hnl3Q==/109951171932988431.jpg",
       "url": "https://music.163.com/#/album?id=145576392"
     },
     {
       "id": 149108046,
       "title": "Recovery",
       "artist": "Eminem",
-      "cover": "https://p3.music.126.net/b3zZIMrhsrEmKcBiIgRiXg==/109951171941411426.jpg",
+      "cover": "https://p4.music.126.net/b3zZIMrhsrEmKcBiIgRiXg==/109951171941411426.jpg",
       "url": "https://music.163.com/#/album?id=149108046"
     },
     {
       "id": 146625952,
       "title": "社区生活",
       "artist": "谢帝",
-      "cover": "https://p3.music.126.net/Cn5FTrMPhJTWd3bUTpBf3A==/109951171504303014.jpg",
+      "cover": "https://p4.music.126.net/Cn5FTrMPhJTWd3bUTpBf3A==/109951171504303014.jpg",
       "url": "https://music.163.com/#/album?id=146625952"
     },
     {
       "id": 165080233,
       "title": "RUN MY CITY",
       "artist": "王齐铭WatchMe",
-      "cover": "https://p4.music.126.net/WcO_AzhAx6xDAJz0E6ndTA==/109951168593168903.jpg",
+      "cover": "https://p3.music.126.net/WcO_AzhAx6xDAJz0E6ndTA==/109951168593168903.jpg",
       "url": "https://music.163.com/#/album?id=165080233"
     },
     {
       "id": 251138654,
       "title": "闪耀 Stellar Moments",
       "artist": "谢帝",
-      "cover": "https://p3.music.126.net/JayqdUfa60m8m1GyhXY18g==/109951170087915291.jpg",
+      "cover": "https://p4.music.126.net/JayqdUfa60m8m1GyhXY18g==/109951170087915291.jpg",
       "url": "https://music.163.com/#/album?id=251138654"
     },
     {
@@ -2806,71 +2862,71 @@
     {
       "id": 128015189,
       "title": "Goodkidstape 1",
-      "artist": "A Few Good Kids Records / 马思唯 / YOUNG13DBABY / FENDIGHEE RICCH / CashTrippy / YTH Chopie / ATM Hanson / Lil Ken",
-      "cover": "https://p3.music.126.net/pSGVT1Z5TU-9Xltw-FMfCw==/109951166035295659.jpg",
+      "artist": "A Few Good Kids Records / 马思唯 / YOUNG13DBABY / FENDIGHEE RICCH / CashTrippy / Chopie / ATM Hanson / Lil Ken",
+      "cover": "https://p4.music.126.net/pSGVT1Z5TU-9Xltw-FMfCw==/109951166035295659.jpg",
       "url": "https://music.163.com/#/album?id=128015189"
     },
     {
       "id": 122743105,
       "title": "黑马",
       "artist": "马思唯",
-      "cover": "https://p3.music.126.net/xdD-UKop8gEN4_c2dfAUBA==/109951170289920716.jpg",
+      "cover": "https://p4.music.126.net/xdD-UKop8gEN4_c2dfAUBA==/109951170289920716.jpg",
       "url": "https://music.163.com/#/album?id=122743105"
     },
     {
       "id": 85991061,
       "title": "黑马王子",
       "artist": "马思唯 / Higher Brothers",
-      "cover": "https://p3.music.126.net/G3CaguyN68IKKDrFuNeCQA==/109951170289918247.jpg",
+      "cover": "https://p4.music.126.net/G3CaguyN68IKKDrFuNeCQA==/109951170289918247.jpg",
       "url": "https://music.163.com/#/album?id=85991061"
     },
     {
       "id": 147487646,
       "title": "Humble Swag GT Mixtape",
       "artist": "马思唯 / A Few Good Kids Records",
-      "cover": "https://p4.music.126.net/Z2qKcAdS0eAYrJuJMwa3VA==/109951167611690026.jpg",
+      "cover": "https://p3.music.126.net/Z2qKcAdS0eAYrJuJMwa3VA==/109951167611690026.jpg",
       "url": "https://music.163.com/#/album?id=147487646"
     },
     {
       "id": 75653689,
       "title": "故事会",
       "artist": "五条人",
-      "cover": "https://p3.music.126.net/-0LonzrElOmqGYB-zgohrg==/109951172952763459.jpg",
+      "cover": "https://p4.music.126.net/-0LonzrElOmqGYB-zgohrg==/109951172952763459.jpg",
       "url": "https://music.163.com/#/album?id=75653689"
     },
     {
       "id": 2848191,
       "title": "县城记",
       "artist": "五条人",
-      "cover": "https://p4.music.126.net/rugOtIwwDy-A-uRr2DupNg==/109951170145094292.jpg",
+      "cover": "https://p3.music.126.net/rugOtIwwDy-A-uRr2DupNg==/109951170145094292.jpg",
       "url": "https://music.163.com/#/album?id=2848191"
     },
     {
       "id": 35044242,
       "title": "梦幻丽莎发廊",
       "artist": "五条人",
-      "cover": "https://p3.music.126.net/W_FsxCoPeGfBj0CwzHHHJw==/109951172945824052.jpg",
+      "cover": "https://p4.music.126.net/W_FsxCoPeGfBj0CwzHHHJw==/109951172945824052.jpg",
       "url": "https://music.163.com/#/album?id=35044242"
     },
     {
       "id": 134025528,
       "title": "一半真情流露，一半靠表演",
       "artist": "五条人",
-      "cover": "https://p4.music.126.net/q1qGVi2ybQaIBevTlVSvgw==/109951172945881843.jpg",
+      "cover": "https://p3.music.126.net/q1qGVi2ybQaIBevTlVSvgw==/109951172945881843.jpg",
       "url": "https://music.163.com/#/album?id=134025528"
     },
     {
       "id": 134024266,
       "title": "活鱼逆流而上，死鱼随波逐流",
       "artist": "五条人",
-      "cover": "https://p4.music.126.net/rm_GqHA5nflBUjmlfdft7w==/109951172945917912.jpg",
+      "cover": "https://p3.music.126.net/rm_GqHA5nflBUjmlfdft7w==/109951172945917912.jpg",
       "url": "https://music.163.com/#/album?id=134024266"
     },
     {
       "id": 158410314,
       "title": "趣味小常识",
       "artist": "九维",
-      "cover": "https://p4.music.126.net/iOIABUI6SzfzVvNt3qvujg==/109951168242885125.jpg",
+      "cover": "https://p3.music.126.net/iOIABUI6SzfzVvNt3qvujg==/109951168242885125.jpg",
       "url": "https://music.163.com/#/album?id=158410314"
     },
     {
@@ -2884,7 +2940,7 @@
       "id": 91701756,
       "title": "四季歌",
       "artist": "南青乐队",
-      "cover": "https://p4.music.126.net/6i6rtBTmkb-XzYAkPtIPqg==/109951165738690326.jpg",
+      "cover": "https://p3.music.126.net/6i6rtBTmkb-XzYAkPtIPqg==/109951165738690326.jpg",
       "url": "https://music.163.com/#/album?id=91701756"
     },
     {
@@ -2898,14 +2954,14 @@
       "id": 159683642,
       "title": "散财童子",
       "artist": "南青乐队",
-      "cover": "https://p4.music.126.net/60WgWFwe3W7BuFVWtfHVUw==/109951168295590884.jpg",
+      "cover": "https://p3.music.126.net/60WgWFwe3W7BuFVWtfHVUw==/109951168295590884.jpg",
       "url": "https://music.163.com/#/album?id=159683642"
     },
     {
       "id": 252094934,
       "title": "CHROMAKOPIA",
       "artist": "Tyler, The Creator",
-      "cover": "https://p3.music.126.net/YpiLrVMuHdCex4aHyLW3wg==/109951170088274719.jpg",
+      "cover": "https://p4.music.126.net/YpiLrVMuHdCex4aHyLW3wg==/109951170088274719.jpg",
       "url": "https://music.163.com/#/album?id=252094934"
     },
     {
@@ -2919,42 +2975,42 @@
       "id": 437952,
       "title": "Let It Be (Remastered)",
       "artist": "The Beatles",
-      "cover": "https://p4.music.126.net/btODnq7H8s3-yfB39deA8w==/109951163122960176.jpg",
+      "cover": "https://p3.music.126.net/btODnq7H8s3-yfB39deA8w==/109951163122960176.jpg",
       "url": "https://music.163.com/#/album?id=437952"
     },
     {
       "id": 438028,
       "title": "Rubber Soul (Remastered)",
       "artist": "The Beatles",
-      "cover": "https://p3.music.126.net/tox_mlsg502eBgpenLZkLQ==/109951163180940290.jpg",
+      "cover": "https://p4.music.126.net/tox_mlsg502eBgpenLZkLQ==/109951163180940290.jpg",
       "url": "https://music.163.com/#/album?id=438028"
     },
     {
       "id": 438005,
       "title": "Sgt. Pepper's Lonely Hearts Club Band (Remastered)",
       "artist": "The Beatles",
-      "cover": "https://p3.music.126.net/59qJKgXM5EVHyP3ybxa7lQ==/109951170118073015.jpg",
+      "cover": "https://p4.music.126.net/59qJKgXM5EVHyP3ybxa7lQ==/109951170118073015.jpg",
       "url": "https://music.163.com/#/album?id=438005"
     },
     {
       "id": 73496346,
       "title": "Sgt. Pepper's Lonely Hearts Club Band (Super Deluxe Edition)",
       "artist": "The Beatles",
-      "cover": "https://p3.music.126.net/0Qb7r3dQtwQinadnvaYLtQ==/109951163865468627.jpg",
+      "cover": "https://p4.music.126.net/0Qb7r3dQtwQinadnvaYLtQ==/109951163865468627.jpg",
       "url": "https://music.163.com/#/album?id=73496346"
     },
     {
       "id": 438023,
       "title": "Revolver (Remastered)",
       "artist": "The Beatles",
-      "cover": "https://p4.music.126.net/-QyI-MgGKSnjzfBZxpaEWQ==/109951170145106367.jpg",
+      "cover": "https://p3.music.126.net/-QyI-MgGKSnjzfBZxpaEWQ==/109951170145106367.jpg",
       "url": "https://music.163.com/#/album?id=438023"
     },
     {
       "id": 437661,
       "title": "Love",
       "artist": "The Beatles",
-      "cover": "https://p3.music.126.net/5tuyB-sufsI9pCtbLcFMCA==/109951166302571359.jpg",
+      "cover": "https://p4.music.126.net/5tuyB-sufsI9pCtbLcFMCA==/109951166302571359.jpg",
       "url": "https://music.163.com/#/album?id=437661"
     },
     {
@@ -2968,7 +3024,7 @@
       "id": 438031,
       "title": "Help! (Remastered)",
       "artist": "The Beatles",
-      "cover": "https://p4.music.126.net/eMmK_STvo_YIMsRoPU8Hdw==/109951163192715016.jpg",
+      "cover": "https://p3.music.126.net/eMmK_STvo_YIMsRoPU8Hdw==/109951163192715016.jpg",
       "url": "https://music.163.com/#/album?id=438031"
     },
     {
@@ -2982,14 +3038,14 @@
       "id": 164129,
       "title": "LV's & Autotune Vol 2 (Mixtape)",
       "artist": "Kanye West",
-      "cover": "https://p4.music.126.net/PMl4Bw3sKhhXuSPdqnNm0w==/945579999932414.jpg",
+      "cover": "https://p3.music.126.net/PMl4Bw3sKhhXuSPdqnNm0w==/945579999932414.jpg",
       "url": "https://music.163.com/#/album?id=164129"
     },
     {
       "id": 35340388,
       "title": "808s & Heartbreak",
       "artist": "Kanye West",
-      "cover": "https://p3.music.126.net/4ma-CzDJiGfydEaMrK9sfQ==/18425615858516741.jpg",
+      "cover": "https://p4.music.126.net/4ma-CzDJiGfydEaMrK9sfQ==/18425615858516741.jpg",
       "url": "https://music.163.com/#/album?id=35340388"
     },
     {
@@ -3045,7 +3101,7 @@
       "id": 36416456,
       "title": "Here Comes a New Challenger!",
       "artist": "Chinese Football",
-      "cover": "https://p3.music.126.net/tb4t3FbKTgukVpdr1ZvjeA==/109951163032117088.jpg",
+      "cover": "https://p4.music.126.net/tb4t3FbKTgukVpdr1ZvjeA==/109951163032117088.jpg",
       "url": "https://music.163.com/#/album?id=36416456"
     },
     {
@@ -3059,7 +3115,7 @@
       "id": 37015138,
       "title": "Come Together!",
       "artist": "Chinese Football",
-      "cover": "https://p4.music.126.net/jTMdz9gTqASxjTTjkOdvkw==/109951163088035548.jpg",
+      "cover": "https://p3.music.126.net/jTMdz9gTqASxjTTjkOdvkw==/109951163088035548.jpg",
       "url": "https://music.163.com/#/album?id=37015138"
     },
     {
@@ -3073,14 +3129,14 @@
       "id": 243904669,
       "title": "惶然与想象",
       "artist": "鱼翅Fin",
-      "cover": "https://p4.music.126.net/7c67FicgnH0dqbnJr2eC4g==/109951169894818345.jpg",
+      "cover": "https://p3.music.126.net/7c67FicgnH0dqbnJr2eC4g==/109951169894818345.jpg",
       "url": "https://music.163.com/#/album?id=243904669"
     },
     {
       "id": 249011200,
       "title": "顺流逆流",
       "artist": "白天不亮 / 14? / Cee / 菲亚Fayya / Alienkey（赵鑫） / 功夫胖KUNGFU-PEN / 愚月FoolMoon / 五石散 / 参劈 / 拖特巴士 / %m / 派克特（PACT） / 小老虎 / Luvea / chill boy / Badwine / 鱼翅Fin / 叶晓粤",
-      "cover": "https://p4.music.126.net/jdj5lETWeUEcnmB4ZR-fPg==/109951169992047993.jpg",
+      "cover": "https://p3.music.126.net/jdj5lETWeUEcnmB4ZR-fPg==/109951169992047993.jpg",
       "url": "https://music.163.com/#/album?id=249011200"
     },
     {
@@ -3108,7 +3164,7 @@
       "id": 162870766,
       "title": "瓦合",
       "artist": "草东没有派对",
-      "cover": "https://p3.music.126.net/m2uGF_-L70GUIB1MOpeaug==/109951168605260513.jpg",
+      "cover": "https://p4.music.126.net/m2uGF_-L70GUIB1MOpeaug==/109951168605260513.jpg",
       "url": "https://music.163.com/#/album?id=162870766"
     },
     {
@@ -3129,21 +3185,21 @@
       "id": 148817435,
       "title": "答应我会幸福",
       "artist": "张方钊",
-      "cover": "https://p4.music.126.net/oX5o-Jww_qAj2IjnCi_aSQ==/109951173999073878.jpg",
+      "cover": "https://p3.music.126.net/oX5o-Jww_qAj2IjnCi_aSQ==/109951173999073878.jpg",
       "url": "https://music.163.com/#/album?id=148817435"
     },
     {
       "id": 38402011,
       "title": "淘金日记",
       "artist": "C-BLOCK",
-      "cover": "https://p3.music.126.net/J42kK3VK1hNOLhj5_z7sBg==/109951163253190079.jpg",
+      "cover": "https://p4.music.126.net/J42kK3VK1hNOLhj5_z7sBg==/109951163253190079.jpg",
       "url": "https://music.163.com/#/album?id=38402011"
     },
     {
       "id": 2901116,
       "title": "爆出口",
       "artist": "C-BLOCK",
-      "cover": "https://p4.music.126.net/jWgWkIejEUKtwrXxz7UxzA==/5971447650923214.jpg",
+      "cover": "https://p3.music.126.net/jWgWkIejEUKtwrXxz7UxzA==/5971447650923214.jpg",
       "url": "https://music.163.com/#/album?id=2901116"
     },
     {
@@ -3171,7 +3227,7 @@
       "id": 156434952,
       "title": "真假美猴王",
       "artist": "连麻Swimming / JinJiBeWater_隼",
-      "cover": "https://p4.music.126.net/ZNxEPHvOXusFZeFQhQ8DPg==/109951168141966141.jpg",
+      "cover": "https://p3.music.126.net/ZNxEPHvOXusFZeFQhQ8DPg==/109951168141966141.jpg",
       "url": "https://music.163.com/#/album?id=156434952"
     },
     {
@@ -3199,7 +3255,7 @@
       "id": 240274929,
       "title": "023%",
       "artist": "布瑞吉Bridge",
-      "cover": "https://p3.music.126.net/Xf7g6Q9FUJ0IowHLduGWvg==/109951169721286296.jpg",
+      "cover": "https://p4.music.126.net/Xf7g6Q9FUJ0IowHLduGWvg==/109951169721286296.jpg",
       "url": "https://music.163.com/#/album?id=240274929"
     },
     {
@@ -3234,14 +3290,14 @@
       "id": 3109151,
       "title": "To Pimp a Butterfly",
       "artist": "Kendrick Lamar",
-      "cover": "https://p4.music.126.net/f59gwayE8deSjfi9i1G2vQ==/7848313999540641.jpg",
+      "cover": "https://p3.music.126.net/f59gwayE8deSjfi9i1G2vQ==/7848313999540641.jpg",
       "url": "https://music.163.com/#/album?id=3109151"
     },
     {
       "id": 133408310,
       "title": "Outer Wilds: Echoes of the Eye (Original Game Soundtrack)",
       "artist": "Andrew Prahlow",
-      "cover": "https://p4.music.126.net/uQhyI1ltAXY2wgdyd5MbwA==/109951166426723051.jpg",
+      "cover": "https://p3.music.126.net/uQhyI1ltAXY2wgdyd5MbwA==/109951166426723051.jpg",
       "url": "https://music.163.com/#/album?id=133408310"
     },
     {
@@ -3262,7 +3318,7 @@
       "id": 82441843,
       "title": "状态",
       "artist": "当代电影大师",
-      "cover": "https://p4.music.126.net/F8J_csCfb_p9Qv10ERn-oA==/109951164429414303.jpg",
+      "cover": "https://p3.music.126.net/F8J_csCfb_p9Qv10ERn-oA==/109951164429414303.jpg",
       "url": "https://music.163.com/#/album?id=82441843"
     },
     {
@@ -3276,21 +3332,21 @@
       "id": 163927040,
       "title": "巴蜀文艺复兴：第二章",
       "artist": "施鑫文月",
-      "cover": "https://p3.music.126.net/t30p5s1LHDFfqKpsIeyXYg==/109951172815569724.jpg",
+      "cover": "https://p4.music.126.net/t30p5s1LHDFfqKpsIeyXYg==/109951172815569724.jpg",
       "url": "https://music.163.com/#/album?id=163927040"
     },
     {
       "id": 125696307,
       "title": "巴蜀文艺复兴：第一章",
       "artist": "施鑫文月",
-      "cover": "https://p4.music.126.net/9OmHNQPmyzSN4GQ_8_3m1A==/109951169834376967.jpg",
+      "cover": "https://p3.music.126.net/9OmHNQPmyzSN4GQ_8_3m1A==/109951169834376967.jpg",
       "url": "https://music.163.com/#/album?id=125696307"
     },
     {
       "id": 39217147,
       "title": "台风",
       "artist": "野外合作社",
-      "cover": "https://p3.music.126.net/MrMS-I2o7JmBgk1-1uQmwA==/109951167105019244.jpg",
+      "cover": "https://p4.music.126.net/MrMS-I2o7JmBgk1-1uQmwA==/109951167105019244.jpg",
       "url": "https://music.163.com/#/album?id=39217147"
     },
     {
@@ -3304,14 +3360,14 @@
       "id": 81983659,
       "title": "二十一世纪的破青年",
       "artist": "无妄合作社",
-      "cover": "https://p4.music.126.net/4NPX1gTZ9wAKHjcZwes_CA==/109951164389715149.jpg",
+      "cover": "https://p3.music.126.net/4NPX1gTZ9wAKHjcZwes_CA==/109951164389715149.jpg",
       "url": "https://music.163.com/#/album?id=81983659"
     },
     {
       "id": 241493561,
       "title": "社区生活2",
       "artist": "谢帝",
-      "cover": "https://p4.music.126.net/T40I5mBXk_XCMOjmdmVeOw==/109951169764083071.jpg",
+      "cover": "https://p3.music.126.net/T40I5mBXk_XCMOjmdmVeOw==/109951169764083071.jpg",
       "url": "https://music.163.com/#/album?id=241493561"
     },
     {
@@ -3325,7 +3381,7 @@
       "id": 73471599,
       "title": "生于未来",
       "artist": "法老",
-      "cover": "https://p4.music.126.net/wTO7xsKa9YbeZGtgMzDZGw==/109951163807651102.jpg",
+      "cover": "https://p3.music.126.net/wTO7xsKa9YbeZGtgMzDZGw==/109951163807651102.jpg",
       "url": "https://music.163.com/#/album?id=73471599"
     },
     {
@@ -3339,7 +3395,7 @@
       "id": 7547,
       "title": "收敛水",
       "artist": "蛋堡",
-      "cover": "https://p3.music.126.net/YuS3GrLcE7PIi_3s-62ZQA==/109951168001997012.jpg",
+      "cover": "https://p4.music.126.net/YuS3GrLcE7PIi_3s-62ZQA==/109951168001997012.jpg",
       "url": "https://music.163.com/#/album?id=7547"
     },
     {
@@ -3353,21 +3409,21 @@
       "id": 165321801,
       "title": "Young Fresh Chin II",
       "artist": "夏之禹",
-      "cover": "https://p4.music.126.net/4kLHoyHAwarws5l7KskELg==/109951168602883583.jpg",
+      "cover": "https://p3.music.126.net/4kLHoyHAwarws5l7KskELg==/109951168602883583.jpg",
       "url": "https://music.163.com/#/album?id=165321801"
     },
     {
       "id": 199357827,
       "title": "林童",
       "artist": "功夫胖KUNGFU-PEN",
-      "cover": "https://p4.music.126.net/L7S3SK84VoiXyQAkJPdR5A==/109951169696456799.jpg",
+      "cover": "https://p3.music.126.net/L7S3SK84VoiXyQAkJPdR5A==/109951169696456799.jpg",
       "url": "https://music.163.com/#/album?id=199357827"
     },
     {
       "id": 160196365,
       "title": "永乐宫/Ever Happy Palace",
       "artist": "Quark夸克乐队",
-      "cover": "https://p4.music.126.net/gfKEpMY3If10bZsZyzweJw==/109951168314035694.jpg",
+      "cover": "https://p3.music.126.net/gfKEpMY3If10bZsZyzweJw==/109951168314035694.jpg",
       "url": "https://music.163.com/#/album?id=160196365"
     },
     {
@@ -3381,7 +3437,7 @@
       "id": 129644752,
       "title": "A-SOUL & AU FOREVER !",
       "artist": "普信主义",
-      "cover": "https://p4.music.126.net/ceDUPg6zgTZy-HqU2ZoFCQ==/109951170277321304.jpg",
+      "cover": "https://p3.music.126.net/ceDUPg6zgTZy-HqU2ZoFCQ==/109951170277321304.jpg",
       "url": "https://music.163.com/#/album?id=129644752"
     },
     {
@@ -3409,14 +3465,14 @@
       "id": 153778832,
       "title": "すずめの戸締まり",
       "artist": "RADWIMPS / 陣内一真",
-      "cover": "https://p4.music.126.net/D1SFObel_sAw_KMojvJZqw==/109951167999320860.jpg",
+      "cover": "https://p3.music.126.net/D1SFObel_sAw_KMojvJZqw==/109951167999320860.jpg",
       "url": "https://music.163.com/#/album?id=153778832"
     },
     {
       "id": 161572421,
       "title": "Hi-Fi Rush: Original Game Soundtrack",
       "artist": "Various Artists",
-      "cover": "https://p4.music.126.net/8o8_LSPvCnz5itr3XAr-zw==/109951168457673953.jpg",
+      "cover": "https://p3.music.126.net/8o8_LSPvCnz5itr3XAr-zw==/109951168457673953.jpg",
       "url": "https://music.163.com/#/album?id=161572421"
     },
     {
@@ -3430,21 +3486,21 @@
       "id": 134177452,
       "title": "向晚Ava 翻唱",
       "artist": "Kurumi大魔王",
-      "cover": "https://p4.music.126.net/_MkPFHHQaXJ5Igd_w3svHQ==/109951166482343922.jpg",
+      "cover": "https://p3.music.126.net/_MkPFHHQaXJ5Igd_w3svHQ==/109951166482343922.jpg",
       "url": "https://music.163.com/#/album?id=134177452"
     },
     {
       "id": 79369276,
       "title": "「プロメア」オリジナルサウンドトラック",
       "artist": "澤野弘之",
-      "cover": "https://p3.music.126.net/0yuAOPXP8VXMFMhXFBoU5g==/109951165561004824.jpg",
+      "cover": "https://p4.music.126.net/0yuAOPXP8VXMFMhXFBoU5g==/109951165561004824.jpg",
       "url": "https://music.163.com/#/album?id=79369276"
     },
     {
       "id": 89750459,
       "title": "「プロメア オリジナルサウンドトラック」リミックス&リアレンジCD",
       "artist": "澤野弘之",
-      "cover": "https://p4.music.126.net/NvRJsXIdNXxr708jBcgthw==/109951165005210863.jpg",
+      "cover": "https://p3.music.126.net/NvRJsXIdNXxr708jBcgthw==/109951165005210863.jpg",
       "url": "https://music.163.com/#/album?id=89750459"
     },
     {
@@ -3479,7 +3535,7 @@
       "id": 82266485,
       "title": "演.说.家",
       "artist": "王以太",
-      "cover": "https://p4.music.126.net/oiKUza9l47MBECzyrOYbBg==/109951169775167207.jpg",
+      "cover": "https://p3.music.126.net/oiKUza9l47MBECzyrOYbBg==/109951169775167207.jpg",
       "url": "https://music.163.com/#/album?id=82266485"
     },
     {
@@ -3500,14 +3556,14 @@
       "id": 96777500,
       "title": "辩护人",
       "artist": "杨和苏KeyNG",
-      "cover": "https://p3.music.126.net/wcv6LZGSC7igCo2E0ER7fg==/109951165391735573.jpg",
+      "cover": "https://p4.music.126.net/wcv6LZGSC7igCo2E0ER7fg==/109951165391735573.jpg",
       "url": "https://music.163.com/#/album?id=96777500"
     },
     {
       "id": 97168319,
       "title": "科幻小说",
       "artist": "法老",
-      "cover": "https://p4.music.126.net/JGRQzMNOTl0wlBEEF97eoA==/109951165406384286.jpg",
+      "cover": "https://p3.music.126.net/JGRQzMNOTl0wlBEEF97eoA==/109951165406384286.jpg",
       "url": "https://music.163.com/#/album?id=97168319"
     },
     {
@@ -3521,14 +3577,14 @@
       "id": 79830259,
       "title": "The Music of Red Dead Redemption 2 (Original Soundtrack)",
       "artist": "Various Artists",
-      "cover": "https://p3.music.126.net/XWgs0VFskWYRLR7qS9G1mQ==/109951170503885043.jpg",
+      "cover": "https://p4.music.126.net/XWgs0VFskWYRLR7qS9G1mQ==/109951170503885043.jpg",
       "url": "https://music.163.com/#/album?id=79830259"
     },
     {
       "id": 75016895,
       "title": "Red Dead: Redemption 2 OST",
       "artist": "Various Artists",
-      "cover": "https://p4.music.126.net/_TZv2QQGvisSuWXPSgUNiw==/109951163807703601.jpg",
+      "cover": "https://p3.music.126.net/_TZv2QQGvisSuWXPSgUNiw==/109951163807703601.jpg",
       "url": "https://music.163.com/#/album?id=75016895"
     },
     {
@@ -3549,14 +3605,14 @@
       "id": 200922,
       "title": "Tom And Jerry & Tex Avery Too! Vol. 1: The 1950s",
       "artist": "Scott Bradley",
-      "cover": "https://p4.music.126.net/_aSaMhblKXz1dSLZ8Ft4sg==/807041534840383.jpg",
+      "cover": "https://p3.music.126.net/_aSaMhblKXz1dSLZ8Ft4sg==/807041534840383.jpg",
       "url": "https://music.163.com/#/album?id=200922"
     },
     {
       "id": 2779592,
       "title": "World of Warcraft: Mists of Pandaria OST Vol. 2",
       "artist": "Russell Brower / Edo Guidotti / Glenn Stafford / Jason Hayes",
-      "cover": "https://p4.music.126.net/NKxpjc-9wD01tMAEB2Zhpw==/6008831045972654.jpg",
+      "cover": "https://p3.music.126.net/NKxpjc-9wD01tMAEB2Zhpw==/6008831045972654.jpg",
       "url": "https://music.163.com/#/album?id=2779592"
     },
     {
@@ -3570,14 +3626,14 @@
       "id": 127486,
       "title": "《魔兽世界》：艾泽拉斯的旅店原声专辑",
       "artist": "David Arkenstone / 魔兽世界 / Blizzard Entertainment",
-      "cover": "https://p3.music.126.net/p645StM-eMwDtOPrwG-leg==/109951172002966247.jpg",
+      "cover": "https://p4.music.126.net/p645StM-eMwDtOPrwG-leg==/109951172002966247.jpg",
       "url": "https://music.163.com/#/album?id=127486"
     },
     {
       "id": 2419988,
       "title": "Save Rock And Roll",
       "artist": "Fall Out Boy",
-      "cover": "https://p4.music.126.net/cTErOls6u3mqluRZXodo1g==/109951167370628655.jpg",
+      "cover": "https://p3.music.126.net/cTErOls6u3mqluRZXodo1g==/109951167370628655.jpg",
       "url": "https://music.163.com/#/album?id=2419988"
     },
     {
@@ -3612,28 +3668,28 @@
       "id": 109521,
       "title": "The 100 Most Beautiful Melodies (6 CD Box Set)",
       "artist": "André Rieu",
-      "cover": "https://p3.music.126.net/i6vnBizaroPLhXWmfP5K8g==/936783906911490.jpg",
+      "cover": "https://p4.music.126.net/i6vnBizaroPLhXWmfP5K8g==/936783906911490.jpg",
       "url": "https://music.163.com/#/album?id=109521"
     },
     {
       "id": 85023223,
       "title": "Music To Be Murdered By",
       "artist": "Eminem",
-      "cover": "https://p3.music.126.net/zLaWWQli3d2QHPZv_WmXXQ==/109951164631011649.jpg",
+      "cover": "https://p4.music.126.net/zLaWWQli3d2QHPZv_WmXXQ==/109951164631011649.jpg",
       "url": "https://music.163.com/#/album?id=85023223"
     },
     {
       "id": 83527072,
       "title": "Everyday Life",
       "artist": "Coldplay",
-      "cover": "https://p4.music.126.net/eyl1AukDQ3UApi4O0oUgRw==/109951164499218128.jpg",
+      "cover": "https://p3.music.126.net/eyl1AukDQ3UApi4O0oUgRw==/109951164499218128.jpg",
       "url": "https://music.163.com/#/album?id=83527072"
     },
     {
       "id": 79638731,
       "title": "TIM",
       "artist": "Avicii",
-      "cover": "https://p3.music.126.net/mOm1dXvOC36qn9jY0HJHCQ==/109951170289898277.jpg",
+      "cover": "https://p4.music.126.net/mOm1dXvOC36qn9jY0HJHCQ==/109951170289898277.jpg",
       "url": "https://music.163.com/#/album?id=79638731"
     },
     {
@@ -3654,7 +3710,7 @@
       "id": 75245038,
       "title": "THE LANGOLIERS",
       "artist": "永动机",
-      "cover": "https://p4.music.126.net/kqUtKUS-fspVZ4atEALUBA==/109951163804075261.jpg",
+      "cover": "https://p3.music.126.net/kqUtKUS-fspVZ4atEALUBA==/109951163804075261.jpg",
       "url": "https://music.163.com/#/album?id=75245038"
     },
     {
@@ -3668,7 +3724,7 @@
       "id": 72792274,
       "title": "八月的新娘",
       "artist": "永动机",
-      "cover": "https://p4.music.126.net/7LqvzFHI7N-O5PmWozOCjA==/109951163531643187.jpg",
+      "cover": "https://p3.music.126.net/7LqvzFHI7N-O5PmWozOCjA==/109951163531643187.jpg",
       "url": "https://music.163.com/#/album?id=72792274"
     },
     {
@@ -3682,7 +3738,7 @@
       "id": 2893090,
       "title": "不如吃茶去",
       "artist": "许嵩",
-      "cover": "https://p4.music.126.net/NBjIuSJ7LRugXdATt3j8AA==/109951172321467418.jpg",
+      "cover": "https://p3.music.126.net/NBjIuSJ7LRugXdATt3j8AA==/109951172321467418.jpg",
       "url": "https://music.163.com/#/album?id=2893090"
     },
     {
@@ -3696,7 +3752,7 @@
       "id": 72786608,
       "title": "Kamikaze",
       "artist": "Eminem",
-      "cover": "https://p3.music.126.net/M8r1_BKIIwqfXXkonUvogg==/109951163909392239.jpg",
+      "cover": "https://p4.music.126.net/M8r1_BKIIwqfXXkonUvogg==/109951163909392239.jpg",
       "url": "https://music.163.com/#/album?id=72786608"
     },
     {
@@ -3731,7 +3787,7 @@
       "id": 35745298,
       "title": "Kaleidoscope EP",
       "artist": "Coldplay",
-      "cover": "https://p4.music.126.net/_NEUWwkV_3acPr67PRwrHw==/109951165307170557.jpg",
+      "cover": "https://p3.music.126.net/_NEUWwkV_3acPr67PRwrHw==/109951165307170557.jpg",
       "url": "https://music.163.com/#/album?id=35745298"
     },
     {
@@ -3745,7 +3801,7 @@
       "id": 3419156,
       "title": "A Head Full of Dreams",
       "artist": "Coldplay",
-      "cover": "https://p3.music.126.net/BtsEBmnJ05DLBxMdWdhNpA==/109951163780293240.jpg",
+      "cover": "https://p4.music.126.net/BtsEBmnJ05DLBxMdWdhNpA==/109951163780293240.jpg",
       "url": "https://music.163.com/#/album?id=3419156"
     },
     {
@@ -3766,7 +3822,7 @@
       "id": 35645352,
       "title": "Evolve",
       "artist": "Imagine Dragons",
-      "cover": "https://p4.music.126.net/GsSmyY1r1CT7DEG3umRYWw==/109951169413830172.jpg",
+      "cover": "https://p3.music.126.net/GsSmyY1r1CT7DEG3umRYWw==/109951169413830172.jpg",
       "url": "https://music.163.com/#/album?id=35645352"
     },
     {
