@@ -7,6 +7,13 @@
     <language>zh-CN</language>
     <atom:link href="https://alakazamc.github.io/rss.xml" rel="self" type="application/rss+xml" />
     <item>
+      <title>React is all u need：这个时代不需要 agent 框架</title>
+      <link>https://alakazamc.github.io/posts/react-is-all-u-need.html</link>
+      <pubDate>Tue, 03 Nov 2026 00:00:00 GMT</pubDate>
+      <guid>https://alakazamc.github.io/posts/react-is-all-u-need.html</guid>
+      <description>从 MIT 的 Astra 直接改 Qwen 权重说起：agent 框架已经没有核心，ReAct 是被低估的那一半，产品侧的重量落在模型外面那一圈。</description>
+    </item>
+<item>
       <title>utopia ontology本体论学习笔记系列</title>
       <link>https://alakazamc.github.io/posts/utopia-ontology-study-notes.html</link>
       <pubDate>Thu, 22 Oct 2026 00:00:00 GMT</pubDate>
