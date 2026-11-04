@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "uid": "32133355",
-  "updatedAt": "2026-11-03T03:31:58.414Z",
+  "updatedAt": "2026-11-04T02:29:28.442Z",
   "platforms": {
     "steam": {
       "complete": true,
@@ -13,10 +13,10 @@
           "name": "哈迪斯2",
           "platform": "steam",
           "platformLabel": "Steam",
-          "hours": 23,
+          "hours": 23.2,
           "cleared": false,
           "notOwned": true,
-          "recentHours": 3.2,
+          "recentHours": 3.5,
           "cover": "steam-1145350.jpg"
         },
         {
@@ -25,11 +25,23 @@
           "name": "生化危机4 重制版",
           "platform": "steam",
           "platformLabel": "Steam",
-          "hours": 2.9,
+          "hours": 3.1,
           "cleared": false,
           "notOwned": false,
-          "recentHours": 2.9,
+          "recentHours": 3.1,
           "cover": "steam-2050650.jpg"
+        },
+        {
+          "appid": "2321470",
+          "sourceId": "2321470",
+          "name": "深岩银河：幸存者",
+          "platform": "steam",
+          "platformLabel": "Steam",
+          "hours": 0.6,
+          "cleared": false,
+          "notOwned": false,
+          "recentHours": 0.6,
+          "cover": "steam-2321470.jpg"
         },
         {
           "appid": "753640",
@@ -2382,18 +2394,6 @@
           "notOwned": false,
           "recentHours": 0,
           "cover": "steam-2780710.jpg"
-        },
-        {
-          "appid": "2321470",
-          "sourceId": "2321470",
-          "name": "深岩银河：幸存者",
-          "platform": "steam",
-          "platformLabel": "Steam",
-          "hours": 0,
-          "cleared": false,
-          "notOwned": false,
-          "recentHours": 0,
-          "cover": "steam-2321470.jpg"
         }
       ]
     },
