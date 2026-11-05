@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "uid": "32133355",
-  "updatedAt": "2026-11-04T02:29:28.442Z",
+  "updatedAt": "2026-11-05T02:37:03.966Z",
   "platforms": {
     "steam": {
       "complete": true,
@@ -13,10 +13,10 @@
           "name": "哈迪斯2",
           "platform": "steam",
           "platformLabel": "Steam",
-          "hours": 23.2,
+          "hours": 23.3,
           "cleared": false,
           "notOwned": true,
-          "recentHours": 3.5,
+          "recentHours": 3.6,
           "cover": "steam-1145350.jpg"
         },
         {
@@ -25,11 +25,23 @@
           "name": "生化危机4 重制版",
           "platform": "steam",
           "platformLabel": "Steam",
-          "hours": 3.1,
+          "hours": 3.3,
           "cleared": false,
           "notOwned": false,
-          "recentHours": 3.1,
+          "recentHours": 3.3,
           "cover": "steam-2050650.jpg"
+        },
+        {
+          "appid": "552520",
+          "sourceId": "552520",
+          "name": "孤岛惊魂5",
+          "platform": "steam",
+          "platformLabel": "Steam",
+          "hours": 7.4,
+          "cleared": false,
+          "notOwned": false,
+          "recentHours": 0.7,
+          "cover": "steam-552520.jpg"
         },
         {
           "appid": "2321470",
@@ -582,18 +594,6 @@
           "notOwned": false,
           "recentHours": 0,
           "cover": "steam-1288310.jpg"
-        },
-        {
-          "appid": "552520",
-          "sourceId": "552520",
-          "name": "孤岛惊魂5",
-          "platform": "steam",
-          "platformLabel": "Steam",
-          "hours": 6.7,
-          "cleared": false,
-          "notOwned": false,
-          "recentHours": 0,
-          "cover": "steam-552520.jpg"
         },
         {
           "appid": "2593370",
@@ -2402,16 +2402,6 @@
       "reportedTotal": 53,
       "games": [
         {
-          "appid": "900006616",
-          "sourceId": "NPWR33408_00",
-          "name": "最后生还者2",
-          "platform": "psn",
-          "platformLabel": "PSN",
-          "hours": 7.3,
-          "cleared": false,
-          "cover": "psn-900006616.jpg"
-        },
-        {
           "appid": "900032622",
           "sourceId": "NPWR22392_00",
           "name": "战神：诸神黄昏",
@@ -2560,6 +2550,16 @@
           "hours": 8.6,
           "cleared": false,
           "cover": "psn-900135636.jpg"
+        },
+        {
+          "appid": "900006616",
+          "sourceId": "NPWR33408_00",
+          "name": "最后生还者2",
+          "platform": "psn",
+          "platformLabel": "PSN",
+          "hours": 7.3,
+          "cleared": false,
+          "cover": "psn-900006616.jpg"
         },
         {
           "appid": "900152832",

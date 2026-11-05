@@ -1,51 +1,51 @@
 {
   "uid": 98752754,
-  "updatedAt": "2026-11-04T02:28:17.066Z",
+  "updatedAt": "2026-11-05T02:35:50.616Z",
   "week": [
     {
       "rank": 1,
-      "id": 3319818016,
-      "title": "哽咽现实一落千丈",
-      "artist": "Vansdaddy",
-      "album": "都市醉漢",
-      "cover": "https://p2.music.126.net/5an8DUwXGbDb0lWUdTl3ug==/109951172314748758.jpg",
-      "url": "https://music.163.com/#/song?id=3319818016"
-    },
-    {
-      "rank": 2,
       "id": 3421395853,
       "title": "给我一点时间",
       "artist": "提米FM",
       "album": "给我一点时间",
-      "cover": "https://p2.music.126.net/cP5GBAZ8yrIMYe6xbaNZZw==/109951173753553648.jpg",
+      "cover": "https://p1.music.126.net/cP5GBAZ8yrIMYe6xbaNZZw==/109951173753553648.jpg",
       "url": "https://music.163.com/#/song?id=3421395853"
     },
     {
-      "rank": 3,
+      "rank": 2,
       "id": 3454765936,
       "title": "年轻人的一生（Intro）",
       "artist": "法老",
       "album": "年轻人的一生",
-      "cover": "https://p2.music.126.net/FEc7v3I3YXHMDu31NJwuLg==/109951174185039781.jpg",
+      "cover": "https://p1.music.126.net/FEc7v3I3YXHMDu31NJwuLg==/109951174185039781.jpg",
       "url": "https://music.163.com/#/song?id=3454765936"
     },
     {
-      "rank": 4,
+      "rank": 3,
       "id": 30841846,
       "title": "晚上好 春天小姐",
       "artist": "五条人",
       "album": "广东姑娘",
-      "cover": "https://p2.music.126.net/lX6IQz44m93Oe11tLNOMsA==/109951172945823646.jpg",
+      "cover": "https://p1.music.126.net/lX6IQz44m93Oe11tLNOMsA==/109951172945823646.jpg",
       "url": "https://music.163.com/#/song?id=30841846"
     },
     {
-      "rank": 5,
+      "rank": 4,
       "id": 3436814155,
       "title": "如鲠在喉",
       "artist": "张方钊",
       "album": "蛋专",
-      "cover": "https://p2.music.126.net/zHRzldNmi5I8_2O9m1wBPw==/109951173951926165.jpg",
+      "cover": "https://p1.music.126.net/zHRzldNmi5I8_2O9m1wBPw==/109951173951926165.jpg",
       "url": "https://music.163.com/#/song?id=3436814155"
+    },
+    {
+      "rank": 5,
+      "id": 3319818016,
+      "title": "哽咽现实一落千丈",
+      "artist": "Vansdaddy",
+      "album": "都市醉漢",
+      "cover": "https://p1.music.126.net/5an8DUwXGbDb0lWUdTl3ug==/109951172314748758.jpg",
+      "url": "https://music.163.com/#/song?id=3319818016"
     },
     {
       "rank": 6,
@@ -53,7 +53,7 @@
       "title": "时速156公里的话筒",
       "artist": "哥布林王子",
       "album": "我们的情绪乐",
-      "cover": "https://p2.music.126.net/Hl5rVYH40NIywcXzLb0yYg==/109951174156040987.jpg",
+      "cover": "https://p1.music.126.net/Hl5rVYH40NIywcXzLb0yYg==/109951174156040987.jpg",
       "url": "https://music.163.com/#/song?id=3452893399"
     },
     {
@@ -62,7 +62,7 @@
       "title": "现在 你才不幸福",
       "artist": "张方钊 / KenRobb",
       "album": "哥们废了",
-      "cover": "https://p2.music.126.net/NNM3fa9IYdVEUX-eCjxZHw==/109951169927701708.jpg",
+      "cover": "https://p1.music.126.net/NNM3fa9IYdVEUX-eCjxZHw==/109951169927701708.jpg",
       "url": "https://music.163.com/#/song?id=2036226011"
     },
     {
@@ -71,7 +71,7 @@
       "title": "如果死亡将要来临",
       "artist": "法老 / 喉结蜥蜴",
       "album": "生于未来",
-      "cover": "https://p2.music.126.net/wTO7xsKa9YbeZGtgMzDZGw==/109951163807651102.jpg",
+      "cover": "https://p1.music.126.net/wTO7xsKa9YbeZGtgMzDZGw==/109951163807651102.jpg",
       "url": "https://music.163.com/#/song?id=1336871435"
     },
     {
@@ -80,7 +80,7 @@
       "title": "Pharaoh Is Like",
       "artist": "法老",
       "album": "年轻人的一生",
-      "cover": "https://p2.music.126.net/FEc7v3I3YXHMDu31NJwuLg==/109951174185039781.jpg",
+      "cover": "https://p1.music.126.net/FEc7v3I3YXHMDu31NJwuLg==/109951174185039781.jpg",
       "url": "https://music.163.com/#/song?id=3455143359"
     },
     {
@@ -89,7 +89,7 @@
       "title": "其实我们谁都不是医生",
       "artist": "张方钊 / Louis 1520",
       "album": "蛋专",
-      "cover": "https://p2.music.126.net/zHRzldNmi5I8_2O9m1wBPw==/109951173951926165.jpg",
+      "cover": "https://p1.music.126.net/zHRzldNmi5I8_2O9m1wBPw==/109951173951926165.jpg",
       "url": "https://music.163.com/#/song?id=3436810753"
     },
     {
@@ -98,7 +98,7 @@
       "title": "穷惯了",
       "artist": "张方钊",
       "album": "钱专",
-      "cover": "https://p2.music.126.net/qHTjyT3VTl0tZyWnq9VaSA==/109951173955320630.jpg",
+      "cover": "https://p1.music.126.net/qHTjyT3VTl0tZyWnq9VaSA==/109951173955320630.jpg",
       "url": "https://music.163.com/#/song?id=2740498678"
     },
     {
@@ -107,7 +107,7 @@
       "title": "我不理解世界的规则",
       "artist": "张方钊 / 陆政廷Lil Jet",
       "album": "我不理解世界的规则",
-      "cover": "https://p2.music.126.net/tNjLO7F44_yEhVs2lXs_wQ==/109951167793712655.jpg",
+      "cover": "https://p1.music.126.net/tNjLO7F44_yEhVs2lXs_wQ==/109951167793712655.jpg",
       "url": "https://music.163.com/#/song?id=1973405972"
     },
     {
@@ -116,7 +116,7 @@
       "title": "恭喜恭喜1945",
       "artist": "法老 / 魏允熙 / 董飞 / 野艾合唱团",
       "album": "年轻人的一生",
-      "cover": "https://p2.music.126.net/FEc7v3I3YXHMDu31NJwuLg==/109951174185039781.jpg",
+      "cover": "https://p1.music.126.net/FEc7v3I3YXHMDu31NJwuLg==/109951174185039781.jpg",
       "url": "https://music.163.com/#/song?id=3455164519"
     },
     {
@@ -125,7 +125,7 @@
       "title": "地下之王",
       "artist": "法老",
       "album": "年轻人的一生",
-      "cover": "https://p2.music.126.net/FEc7v3I3YXHMDu31NJwuLg==/109951174185039781.jpg",
+      "cover": "https://p1.music.126.net/FEc7v3I3YXHMDu31NJwuLg==/109951174185039781.jpg",
       "url": "https://music.163.com/#/song?id=3455153289"
     },
     {
@@ -134,7 +134,7 @@
       "title": "樱花妹",
       "artist": "法老 / GENIUSAID",
       "album": "年轻人的一生",
-      "cover": "https://p2.music.126.net/FEc7v3I3YXHMDu31NJwuLg==/109951174185039781.jpg",
+      "cover": "https://p1.music.126.net/FEc7v3I3YXHMDu31NJwuLg==/109951174185039781.jpg",
       "url": "https://music.163.com/#/song?id=3455150751"
     },
     {
@@ -143,7 +143,7 @@
       "title": "黑山羊",
       "artist": "法老 / 帕特龙",
       "album": "年轻人的一生",
-      "cover": "https://p2.music.126.net/FEc7v3I3YXHMDu31NJwuLg==/109951174185039781.jpg",
+      "cover": "https://p1.music.126.net/FEc7v3I3YXHMDu31NJwuLg==/109951174185039781.jpg",
       "url": "https://music.163.com/#/song?id=3455146338"
     },
     {
@@ -152,7 +152,7 @@
       "title": "天黑了",
       "artist": "法老 / 泠风",
       "album": "年轻人的一生",
-      "cover": "https://p2.music.126.net/FEc7v3I3YXHMDu31NJwuLg==/109951174185039781.jpg",
+      "cover": "https://p1.music.126.net/FEc7v3I3YXHMDu31NJwuLg==/109951174185039781.jpg",
       "url": "https://music.163.com/#/song?id=3455146033"
     },
     {
@@ -161,7 +161,7 @@
       "title": "现在我看不到光",
       "artist": "哥布林王子",
       "album": "我们的情绪乐",
-      "cover": "https://p2.music.126.net/Hl5rVYH40NIywcXzLb0yYg==/109951174156040987.jpg",
+      "cover": "https://p1.music.126.net/Hl5rVYH40NIywcXzLb0yYg==/109951174156040987.jpg",
       "url": "https://music.163.com/#/song?id=3452893832"
     },
     {
@@ -170,7 +170,7 @@
       "title": "你根本不懂",
       "artist": "哥布林王子",
       "album": "我们的情绪乐",
-      "cover": "https://p2.music.126.net/Hl5rVYH40NIywcXzLb0yYg==/109951174156040987.jpg",
+      "cover": "https://p1.music.126.net/Hl5rVYH40NIywcXzLb0yYg==/109951174156040987.jpg",
       "url": "https://music.163.com/#/song?id=3452893829"
     },
     {
@@ -179,7 +179,7 @@
       "title": "剖蛇病",
       "artist": "哥布林王子",
       "album": "我们的情绪乐",
-      "cover": "https://p2.music.126.net/Hl5rVYH40NIywcXzLb0yYg==/109951174156040987.jpg",
+      "cover": "https://p1.music.126.net/Hl5rVYH40NIywcXzLb0yYg==/109951174156040987.jpg",
       "url": "https://music.163.com/#/song?id=3452893828"
     },
     {
@@ -188,7 +188,7 @@
       "title": "今年一首另类曲",
       "artist": "哥布林王子 / 达达",
       "album": "我们的情绪乐",
-      "cover": "https://p2.music.126.net/Hl5rVYH40NIywcXzLb0yYg==/109951174156040987.jpg",
+      "cover": "https://p1.music.126.net/Hl5rVYH40NIywcXzLb0yYg==/109951174156040987.jpg",
       "url": "https://music.163.com/#/song?id=3452893405"
     },
     {
@@ -197,7 +197,7 @@
       "title": "自己的歌",
       "artist": "哥布林王子 / 李汶骏",
       "album": "我们的情绪乐",
-      "cover": "https://p2.music.126.net/Hl5rVYH40NIywcXzLb0yYg==/109951174156040987.jpg",
+      "cover": "https://p1.music.126.net/Hl5rVYH40NIywcXzLb0yYg==/109951174156040987.jpg",
       "url": "https://music.163.com/#/song?id=3452893400"
     },
     {
@@ -206,7 +206,7 @@
       "title": "比天高",
       "artist": "张方钊 / 王豆",
       "album": "蛋专",
-      "cover": "https://p2.music.126.net/zHRzldNmi5I8_2O9m1wBPw==/109951173951926165.jpg",
+      "cover": "https://p1.music.126.net/zHRzldNmi5I8_2O9m1wBPw==/109951173951926165.jpg",
       "url": "https://music.163.com/#/song?id=3436814096"
     },
     {
@@ -215,7 +215,7 @@
       "title": "卑鄙忠诚",
       "artist": "张方钊 / 卡力鲨鱼",
       "album": "蛋专",
-      "cover": "https://p2.music.126.net/zHRzldNmi5I8_2O9m1wBPw==/109951173951926165.jpg",
+      "cover": "https://p1.music.126.net/zHRzldNmi5I8_2O9m1wBPw==/109951173951926165.jpg",
       "url": "https://music.163.com/#/song?id=3436813871"
     },
     {
@@ -224,7 +224,7 @@
       "title": "目无尊长",
       "artist": "张方钊",
       "album": "蛋专",
-      "cover": "https://p2.music.126.net/zHRzldNmi5I8_2O9m1wBPw==/109951173951926165.jpg",
+      "cover": "https://p1.music.126.net/zHRzldNmi5I8_2O9m1wBPw==/109951173951926165.jpg",
       "url": "https://music.163.com/#/song?id=3436810579"
     },
     {
@@ -233,7 +233,7 @@
       "title": "今非昔比",
       "artist": "张方钊",
       "album": "蛋专",
-      "cover": "https://p2.music.126.net/zHRzldNmi5I8_2O9m1wBPw==/109951173951926165.jpg",
+      "cover": "https://p1.music.126.net/zHRzldNmi5I8_2O9m1wBPw==/109951173951926165.jpg",
       "url": "https://music.163.com/#/song?id=3436809273"
     },
     {
@@ -242,7 +242,7 @@
       "title": "才发现最喜欢是过万圣节",
       "artist": "张方钊",
       "album": "才发现最喜欢是过万圣节",
-      "cover": "https://p2.music.126.net/SfztIBnikEarVU1ZWym2gA==/109951172214177649.jpg",
+      "cover": "https://p1.music.126.net/SfztIBnikEarVU1ZWym2gA==/109951172214177649.jpg",
       "url": "https://music.163.com/#/song?id=2758227085"
     },
     {
@@ -251,7 +251,7 @@
       "title": "BLAME ON ME",
       "artist": "Gummy B",
       "album": "更好",
-      "cover": "https://p2.music.126.net/hBfYXsGBIf0JoCn8c61cQQ==/109951172092165022.jpg",
+      "cover": "https://p1.music.126.net/hBfYXsGBIf0JoCn8c61cQQ==/109951172092165022.jpg",
       "url": "https://music.163.com/#/song?id=2749783753"
     },
     {
@@ -260,7 +260,7 @@
       "title": "Skit",
       "artist": "张方钊",
       "album": "钱专",
-      "cover": "https://p2.music.126.net/qHTjyT3VTl0tZyWnq9VaSA==/109951173955320630.jpg",
+      "cover": "https://p1.music.126.net/qHTjyT3VTl0tZyWnq9VaSA==/109951173955320630.jpg",
       "url": "https://music.163.com/#/song?id=2740498679"
     },
     {
@@ -269,215 +269,215 @@
       "title": "恨",
       "artist": "Yee / 张方钊",
       "album": "幸福城市里总有人不幸福",
-      "cover": "https://p2.music.126.net/xby3wVonBkxk4XXqRqxZtw==/109951170362729020.jpg",
+      "cover": "https://p1.music.126.net/xby3wVonBkxk4XXqRqxZtw==/109951170362729020.jpg",
       "url": "https://music.163.com/#/song?id=2664388261"
     },
     {
       "rank": 31,
+      "id": 2141886401,
+      "title": "安慰自己安慰你",
+      "artist": "张方钊 / A1 TRIP",
+      "album": "安慰自己安慰你",
+      "cover": "https://p1.music.126.net/Z69hOuGInKoLzu80KBGAvw==/109951169475978025.jpg",
+      "url": "https://music.163.com/#/song?id=2141886401"
+    },
+    {
+      "rank": 32,
       "id": 2036225987,
       "title": "我没有你想的 活的明白",
       "artist": "张方钊",
       "album": "哥们废了",
-      "cover": "https://p2.music.126.net/NNM3fa9IYdVEUX-eCjxZHw==/109951169927701708.jpg",
+      "cover": "https://p1.music.126.net/NNM3fa9IYdVEUX-eCjxZHw==/109951169927701708.jpg",
       "url": "https://music.163.com/#/song?id=2036225987"
     },
     {
-      "rank": 32,
+      "rank": 33,
       "id": 1967752637,
       "title": "总比好过没有感情",
       "artist": "张方钊",
       "album": "答应我会幸福",
-      "cover": "https://p2.music.126.net/oX5o-Jww_qAj2IjnCi_aSQ==/109951173999073878.jpg",
+      "cover": "https://p1.music.126.net/oX5o-Jww_qAj2IjnCi_aSQ==/109951173999073878.jpg",
       "url": "https://music.163.com/#/song?id=1967752637"
     },
     {
-      "rank": 33,
+      "rank": 34,
       "id": 1967744519,
       "title": "倒带一辈子",
       "artist": "张方钊",
       "album": "答应我会幸福",
-      "cover": "https://p2.music.126.net/oX5o-Jww_qAj2IjnCi_aSQ==/109951173999073878.jpg",
+      "cover": "https://p1.music.126.net/oX5o-Jww_qAj2IjnCi_aSQ==/109951173999073878.jpg",
       "url": "https://music.163.com/#/song?id=1967744519"
     },
     {
-      "rank": 34,
+      "rank": 35,
       "id": 1462707541,
       "title": "唉",
       "artist": "张方钊",
       "album": "唉",
-      "cover": "https://p2.music.126.net/NYyqYZbI8s1SWpiRGtZ3ow==/109951173999051648.jpg",
+      "cover": "https://p1.music.126.net/NYyqYZbI8s1SWpiRGtZ3ow==/109951173999051648.jpg",
       "url": "https://music.163.com/#/song?id=1462707541"
     },
     {
-      "rank": 35,
+      "rank": 36,
       "id": 1453243794,
       "title": "流星[prod by.sad koshi]",
       "artist": "张方钊",
       "album": "NEW WAVE",
-      "cover": "https://p2.music.126.net/x_pu-D0N88GIy0aVQqDwQw==/109951173999055643.jpg",
+      "cover": "https://p1.music.126.net/x_pu-D0N88GIy0aVQqDwQw==/109951173999055643.jpg",
       "url": "https://music.163.com/#/song?id=1453243794"
     },
     {
-      "rank": 36,
+      "rank": 37,
       "id": 1389751073,
       "title": "我裂开了",
       "artist": "张方钊 / 荨麻疹 / 侯土鳖",
       "album": "分裂帮派",
-      "cover": "https://p2.music.126.net/xfXTtnk7fyHHe4wjTv61pg==/109951164352066688.jpg",
+      "cover": "https://p1.music.126.net/xfXTtnk7fyHHe4wjTv61pg==/109951164352066688.jpg",
       "url": "https://music.163.com/#/song?id=1389751073"
     },
     {
-      "rank": 37,
+      "rank": 38,
       "id": 3455635247,
       "title": "Skit",
       "artist": "法老",
       "album": "年轻人的一生",
-      "cover": "https://p2.music.126.net/FEc7v3I3YXHMDu31NJwuLg==/109951174185039781.jpg",
+      "cover": "https://p1.music.126.net/FEc7v3I3YXHMDu31NJwuLg==/109951174185039781.jpg",
       "url": "https://music.163.com/#/song?id=3455635247"
     },
     {
-      "rank": 38,
+      "rank": 39,
       "id": 3455165859,
       "title": "天亮了",
       "artist": "法老 / 张尕怂",
       "album": "年轻人的一生",
-      "cover": "https://p2.music.126.net/FEc7v3I3YXHMDu31NJwuLg==/109951174185039781.jpg",
+      "cover": "https://p1.music.126.net/FEc7v3I3YXHMDu31NJwuLg==/109951174185039781.jpg",
       "url": "https://music.163.com/#/song?id=3455165859"
     },
     {
-      "rank": 39,
+      "rank": 40,
       "id": 3455163559,
       "title": "战士与苍蝇",
       "artist": "法老",
       "album": "年轻人的一生",
-      "cover": "https://p2.music.126.net/FEc7v3I3YXHMDu31NJwuLg==/109951174185039781.jpg",
+      "cover": "https://p1.music.126.net/FEc7v3I3YXHMDu31NJwuLg==/109951174185039781.jpg",
       "url": "https://music.163.com/#/song?id=3455163559"
     },
     {
-      "rank": 40,
+      "rank": 41,
       "id": 3455158399,
       "title": "World Wide (Deluxe)",
       "artist": "法老 / 江映蓉",
       "album": "年轻人的一生",
-      "cover": "https://p2.music.126.net/FEc7v3I3YXHMDu31NJwuLg==/109951174185039781.jpg",
+      "cover": "https://p1.music.126.net/FEc7v3I3YXHMDu31NJwuLg==/109951174185039781.jpg",
       "url": "https://music.163.com/#/song?id=3455158399"
     },
     {
-      "rank": 41,
+      "rank": 42,
       "id": 3455158065,
       "title": "十月",
       "artist": "法老",
       "album": "年轻人的一生",
-      "cover": "https://p2.music.126.net/FEc7v3I3YXHMDu31NJwuLg==/109951174185039781.jpg",
+      "cover": "https://p1.music.126.net/FEc7v3I3YXHMDu31NJwuLg==/109951174185039781.jpg",
       "url": "https://music.163.com/#/song?id=3455158065"
     },
     {
-      "rank": 42,
+      "rank": 43,
       "id": 3455157839,
       "title": "Outro（Skit）",
       "artist": "法老 / 喉结蜥蜴",
       "album": "年轻人的一生",
-      "cover": "https://p2.music.126.net/FEc7v3I3YXHMDu31NJwuLg==/109951174185039781.jpg",
+      "cover": "https://p1.music.126.net/FEc7v3I3YXHMDu31NJwuLg==/109951174185039781.jpg",
       "url": "https://music.163.com/#/song?id=3455157839"
     },
     {
-      "rank": 43,
+      "rank": 44,
       "id": 3455153430,
       "title": "再见黑怕",
       "artist": "法老 / 泠风",
       "album": "年轻人的一生",
-      "cover": "https://p2.music.126.net/FEc7v3I3YXHMDu31NJwuLg==/109951174185039781.jpg",
+      "cover": "https://p1.music.126.net/FEc7v3I3YXHMDu31NJwuLg==/109951174185039781.jpg",
       "url": "https://music.163.com/#/song?id=3455153430"
     },
     {
-      "rank": 44,
+      "rank": 45,
       "id": 3455152541,
       "title": "你的故乡是月球",
       "artist": "法老 / KnowKnow",
       "album": "年轻人的一生",
-      "cover": "https://p2.music.126.net/FEc7v3I3YXHMDu31NJwuLg==/109951174185039781.jpg",
+      "cover": "https://p1.music.126.net/FEc7v3I3YXHMDu31NJwuLg==/109951174185039781.jpg",
       "url": "https://music.163.com/#/song?id=3455152541"
     },
     {
-      "rank": 45,
+      "rank": 46,
       "id": 3455149415,
       "title": "最重要的听众",
       "artist": "法老 / 泠风",
       "album": "年轻人的一生",
-      "cover": "https://p2.music.126.net/FEc7v3I3YXHMDu31NJwuLg==/109951174185039781.jpg",
+      "cover": "https://p1.music.126.net/FEc7v3I3YXHMDu31NJwuLg==/109951174185039781.jpg",
       "url": "https://music.163.com/#/song?id=3455149415"
     },
     {
-      "rank": 46,
+      "rank": 47,
       "id": 3455149158,
       "title": "黑白电视机",
       "artist": "法老 / 石琳 / 吴畏子",
       "album": "年轻人的一生",
-      "cover": "https://p2.music.126.net/FEc7v3I3YXHMDu31NJwuLg==/109951174185039781.jpg",
+      "cover": "https://p1.music.126.net/FEc7v3I3YXHMDu31NJwuLg==/109951174185039781.jpg",
       "url": "https://music.163.com/#/song?id=3455149158"
     },
     {
-      "rank": 47,
+      "rank": 48,
       "id": 3452893838,
       "title": "我们的情绪乐",
       "artist": "哥布林王子",
       "album": "我们的情绪乐",
-      "cover": "https://p2.music.126.net/Hl5rVYH40NIywcXzLb0yYg==/109951174156040987.jpg",
+      "cover": "https://p1.music.126.net/Hl5rVYH40NIywcXzLb0yYg==/109951174156040987.jpg",
       "url": "https://music.163.com/#/song?id=3452893838"
     },
     {
-      "rank": 48,
+      "rank": 49,
       "id": 3452893836,
       "title": "你怎么到这的",
       "artist": "哥布林王子",
       "album": "我们的情绪乐",
-      "cover": "https://p2.music.126.net/Hl5rVYH40NIywcXzLb0yYg==/109951174156040987.jpg",
+      "cover": "https://p1.music.126.net/Hl5rVYH40NIywcXzLb0yYg==/109951174156040987.jpg",
       "url": "https://music.163.com/#/song?id=3452893836"
     },
     {
-      "rank": 49,
+      "rank": 50,
       "id": 3452893834,
       "title": "暑期假日",
       "artist": "哥布林王子",
       "album": "我们的情绪乐",
-      "cover": "https://p2.music.126.net/Hl5rVYH40NIywcXzLb0yYg==/109951174156040987.jpg",
+      "cover": "https://p1.music.126.net/Hl5rVYH40NIywcXzLb0yYg==/109951174156040987.jpg",
       "url": "https://music.163.com/#/song?id=3452893834"
     },
     {
-      "rank": 50,
+      "rank": 51,
       "id": 3452893412,
       "title": "当我还能见到你时",
       "artist": "哥布林王子",
       "album": "我们的情绪乐",
-      "cover": "https://p2.music.126.net/Hl5rVYH40NIywcXzLb0yYg==/109951174156040987.jpg",
+      "cover": "https://p1.music.126.net/Hl5rVYH40NIywcXzLb0yYg==/109951174156040987.jpg",
       "url": "https://music.163.com/#/song?id=3452893412"
     },
     {
-      "rank": 51,
+      "rank": 52,
       "id": 3452893411,
       "title": "内部整修",
       "artist": "哥布林王子",
       "album": "我们的情绪乐",
-      "cover": "https://p2.music.126.net/Hl5rVYH40NIywcXzLb0yYg==/109951174156040987.jpg",
+      "cover": "https://p1.music.126.net/Hl5rVYH40NIywcXzLb0yYg==/109951174156040987.jpg",
       "url": "https://music.163.com/#/song?id=3452893411"
     },
     {
-      "rank": 52,
+      "rank": 53,
       "id": 3452893410,
       "title": "我们在地铁上听tBLA",
       "artist": "哥布林王子",
       "album": "我们的情绪乐",
       "cover": "https://p1.music.126.net/Hl5rVYH40NIywcXzLb0yYg==/109951174156040987.jpg",
       "url": "https://music.163.com/#/song?id=3452893410"
-    },
-    {
-      "rank": 53,
-      "id": 3445886597,
-      "title": "别跟我计较吧",
-      "artist": "想想XiangXiang",
-      "album": "有得吃就不错了",
-      "cover": "https://p1.music.126.net/GnlHuku7llaf_T12Ka8c7g==/109951174082013271.jpg",
-      "url": "https://music.163.com/#/song?id=3445886597"
     },
     {
       "rank": 54,
@@ -553,6 +553,15 @@
     },
     {
       "rank": 62,
+      "id": 2744338702,
+      "title": "大门",
+      "artist": "v是兔子wishtoday",
+      "album": "最安全距离的朋友（街声大登陆合辑Vol.6）",
+      "cover": "https://p1.music.126.net/iFkW1BhNy-TrQfdi4Wtz_Q==/109951171990191329.jpg",
+      "url": "https://music.163.com/#/song?id=2744338702"
+    },
+    {
+      "rank": 63,
       "id": 2740498685,
       "title": "尴尬的",
       "artist": "张方钊 / 连麻Swimming",
@@ -561,7 +570,7 @@
       "url": "https://music.163.com/#/song?id=2740498685"
     },
     {
-      "rank": 63,
+      "rank": 64,
       "id": 2740498682,
       "title": "起舞吧用我这会赚钱的身体",
       "artist": "张方钊",
@@ -570,7 +579,7 @@
       "url": "https://music.163.com/#/song?id=2740498682"
     },
     {
-      "rank": 64,
+      "rank": 65,
       "id": 2740498016,
       "title": "年轻有为的恶魔",
       "artist": "张方钊 / 卡力鲨鱼 / 河北吴孟达",
@@ -579,7 +588,7 @@
       "url": "https://music.163.com/#/song?id=2740498016"
     },
     {
-      "rank": 65,
+      "rank": 66,
       "id": 2740498010,
       "title": "钱",
       "artist": "张方钊 / LSGCsikoriot / 吕富贵",
@@ -588,7 +597,7 @@
       "url": "https://music.163.com/#/song?id=2740498010"
     },
     {
-      "rank": 66,
+      "rank": 67,
       "id": 2738036501,
       "title": "时间列车",
       "artist": "张方钊 / 功夫胖KUNGFU-PEN / Newyounggo",
@@ -597,7 +606,16 @@
       "url": "https://music.163.com/#/song?id=2738036501"
     },
     {
-      "rank": 67,
+      "rank": 68,
+      "id": 2730699971,
+      "title": "柔河里",
+      "artist": "五条人",
+      "album": "地球恋曲",
+      "cover": "https://p1.music.126.net/HxVyWSaaOIIGsDPtO3NnHw==/109951171531152660.jpg",
+      "url": "https://music.163.com/#/song?id=2730699971"
+    },
+    {
+      "rank": 69,
       "id": 2163930603,
       "title": "生活他欺骗了我！",
       "artist": "Vansdaddy / 张方钊",
@@ -606,7 +624,7 @@
       "url": "https://music.163.com/#/song?id=2163930603"
     },
     {
-      "rank": 68,
+      "rank": 70,
       "id": 2072637507,
       "title": "花瓣儿",
       "artist": "张方钊 / 河北吴孟达 / 卡力老虎 / WASTED CLUB",
@@ -615,7 +633,7 @@
       "url": "https://music.163.com/#/song?id=2072637507"
     },
     {
-      "rank": 69,
+      "rank": 71,
       "id": 2036231794,
       "title": "不想得到",
       "artist": "张方钊",
@@ -624,7 +642,7 @@
       "url": "https://music.163.com/#/song?id=2036231794"
     },
     {
-      "rank": 70,
+      "rank": 72,
       "id": 2012443570,
       "title": "我们溜达",
       "artist": "周乘羽 / 张方钊",
@@ -633,7 +651,7 @@
       "url": "https://music.163.com/#/song?id=2012443570"
     },
     {
-      "rank": 71,
+      "rank": 73,
       "id": 1967752654,
       "title": "这日子没盼头",
       "artist": "张方钊",
@@ -642,7 +660,7 @@
       "url": "https://music.163.com/#/song?id=1967752654"
     },
     {
-      "rank": 72,
+      "rank": 74,
       "id": 1967752647,
       "title": "点燃了 就什么都不用想",
       "artist": "张方钊",
@@ -651,7 +669,7 @@
       "url": "https://music.163.com/#/song?id=1967752647"
     },
     {
-      "rank": 73,
+      "rank": 75,
       "id": 1967750074,
       "title": "因为我在emo",
       "artist": "张方钊",
@@ -660,7 +678,7 @@
       "url": "https://music.163.com/#/song?id=1967750074"
     },
     {
-      "rank": 74,
+      "rank": 76,
       "id": 1967744611,
       "title": "麻",
       "artist": "张方钊",
@@ -669,7 +687,7 @@
       "url": "https://music.163.com/#/song?id=1967744611"
     },
     {
-      "rank": 75,
+      "rank": 77,
       "id": 1967744521,
       "title": "冷漠女人",
       "artist": "张方钊",
@@ -678,7 +696,7 @@
       "url": "https://music.163.com/#/song?id=1967744521"
     },
     {
-      "rank": 76,
+      "rank": 78,
       "id": 1965929258,
       "title": "反派英雄",
       "artist": "张方钊 / Louis 1520",
@@ -687,7 +705,7 @@
       "url": "https://music.163.com/#/song?id=1965929258"
     },
     {
-      "rank": 77,
+      "rank": 79,
       "id": 1879123636,
       "title": "转",
       "artist": "张方钊",
@@ -696,7 +714,7 @@
       "url": "https://music.163.com/#/song?id=1879123636"
     },
     {
-      "rank": 78,
+      "rank": 80,
       "id": 1839449600,
       "title": "唉 (pt.4)",
       "artist": "张方钊 / 大D(DLyn) / 百川 / 网上邻居official",
@@ -705,7 +723,7 @@
       "url": "https://music.163.com/#/song?id=1839449600"
     },
     {
-      "rank": 79,
+      "rank": 81,
       "id": 1836462679,
       "title": "夜晚打灯我找不到爱",
       "artist": "张方钊",
@@ -714,7 +732,7 @@
       "url": "https://music.163.com/#/song?id=1836462679"
     },
     {
-      "rank": 80,
+      "rank": 82,
       "id": 150524,
       "title": "寂寞的季节",
       "artist": "陶喆",
@@ -723,7 +741,7 @@
       "url": "https://music.163.com/#/song?id=150524"
     },
     {
-      "rank": 81,
+      "rank": 83,
       "id": 1499345080,
       "title": "贵族街区",
       "artist": "河北吴孟达 / Louis 1520 / SASIOVERLXRD / XTONE / 张方钊",
@@ -732,7 +750,7 @@
       "url": "https://music.163.com/#/song?id=1499345080"
     },
     {
-      "rank": 82,
+      "rank": 84,
       "id": 1476554602,
       "title": "唉 (pt.2)",
       "artist": "张方钊",
@@ -741,7 +759,7 @@
       "url": "https://music.163.com/#/song?id=1476554602"
     },
     {
-      "rank": 83,
+      "rank": 85,
       "id": 1398426756,
       "title": "不是你的错，也不是我的错，在一起就是错，Yeah！",
       "artist": "张方钊 / 明星",
@@ -750,7 +768,7 @@
       "url": "https://music.163.com/#/song?id=1398426756"
     },
     {
-      "rank": 84,
+      "rank": 86,
       "id": 1394997085,
       "title": "我像一个傻瓜（Frowned blueface）",
       "artist": "河北吴孟达 / 张方钊",
@@ -759,7 +777,7 @@
       "url": "https://music.163.com/#/song?id=1394997085"
     },
     {
-      "rank": 85,
+      "rank": 87,
       "id": 76881,
       "title": "关于小熊",
       "artist": "蛋堡",
@@ -768,16 +786,16 @@
       "url": "https://music.163.com/#/song?id=76881"
     },
     {
-      "rank": 86,
-      "id": 63708,
-      "title": "不再掩饰",
-      "artist": "崔健",
-      "album": "新长征路上的摇滚",
-      "cover": "https://p1.music.126.net/lMEmMiiyItFKrPg610JvOA==/109951167411733685.jpg",
-      "url": "https://music.163.com/#/song?id=63708"
+      "rank": 88,
+      "id": 76821,
+      "title": "踩.脚.踏.车",
+      "artist": "蛋堡",
+      "album": "踩.脚.踏.车",
+      "cover": "https://p1.music.126.net/7_AJN7ZAJrpaPmAAU968hg==/109951168001991680.jpg",
+      "url": "https://music.163.com/#/song?id=76821"
     },
     {
-      "rank": 87,
+      "rank": 89,
       "id": 63576,
       "title": "你是我的宝贝",
       "artist": "曹格",
@@ -786,52 +804,43 @@
       "url": "https://music.163.com/#/song?id=63576"
     },
     {
-      "rank": 88,
-      "id": 540968,
-      "title": "One more time, One more chance",
-      "artist": "山崎まさよし",
-      "album": "One more time, One more chance",
-      "cover": "https://p1.music.126.net/d58aiv9HsLOenWrvK8jdsQ==/853221023154280.jpg",
-      "url": "https://music.163.com/#/song?id=540968"
-    },
-    {
-      "rank": 89,
-      "id": 516657215,
-      "title": "极美",
-      "artist": "孙燕姿",
-      "album": "孙燕姿No. 13作品：跳舞的梵谷",
-      "cover": "https://p1.music.126.net/_VjuIgInJqwxdyoy4FF3IA==/18357446138140955.jpg",
-      "url": "https://music.163.com/#/song?id=516657215"
-    },
-    {
       "rank": 90,
-      "id": 5103312,
-      "title": "Empire State Of Mind",
-      "artist": "JAŸ-Z / Alicia Keys",
-      "album": "NRJ Hit Music Only!2010",
-      "cover": "https://p1.music.126.net/u8iDmaVi29R_M5_8scK77Q==/783951790649305.jpg",
-      "url": "https://music.163.com/#/song?id=5103312"
+      "id": 63574,
+      "title": "背叛",
+      "artist": "曹格",
+      "album": "Superman",
+      "cover": "https://p1.music.126.net/zNUZcJc0L6bpnT5iMbsbgA==/109951174101463856.jpg",
+      "url": "https://music.163.com/#/song?id=63574"
     },
     {
       "rank": 91,
-      "id": 5052332,
-      "title": "Rabbit Run",
-      "artist": "Eminem",
-      "album": "8 Mile",
-      "cover": "https://p1.music.126.net/e97RIgPdyoJdQQS6Waw0VQ==/109951173366641451.jpg",
-      "url": "https://music.163.com/#/song?id=5052332"
+      "id": 488393439,
+      "title": "Knocking On Heaven's Door",
+      "artist": "Bob Dylan / Billy Moore",
+      "album": "Knockin' on heaven's door",
+      "cover": "https://p1.music.126.net/KFebWPne5PlH4gjfBCMgnA==/17817585928531424.jpg",
+      "url": "https://music.163.com/#/song?id=488393439"
     },
     {
       "rank": 92,
-      "id": 463014554,
-      "title": "Hypnotised",
-      "artist": "Coldplay",
-      "album": "Hypnotised",
-      "cover": "https://p1.music.126.net/o0YlO6-dBcgxySt2ceKYjQ==/109951165307165752.jpg",
-      "url": "https://music.163.com/#/song?id=463014554"
+      "id": 4873339,
+      "title": "99次我爱他",
+      "artist": "元若蓝",
+      "album": "命中注定我爱你 电视原声带",
+      "cover": "https://p1.music.126.net/zY_aWTXkX4jriUK0Eh5BUw==/29686813965788.jpg",
+      "url": "https://music.163.com/#/song?id=4873339"
     },
     {
       "rank": 93,
+      "id": 473194652,
+      "title": "无条件",
+      "artist": "陈奕迅",
+      "album": "无条件",
+      "cover": "https://p1.music.126.net/zEs-MEu4UhVOut8RlBEWbw==/18263987649532320.jpg",
+      "url": "https://music.163.com/#/song?id=473194652"
+    },
+    {
+      "rank": 94,
       "id": 451703096,
       "title": "Shape of You",
       "artist": "Ed Sheeran",
@@ -840,22 +849,13 @@
       "url": "https://music.163.com/#/song?id=451703096"
     },
     {
-      "rank": 94,
-      "id": 451017216,
-      "title": "水原希子 KIKO MIZUHARA",
-      "artist": "YoungQueenz",
-      "album": "御宅MOBB : 御宅​-​OTAKU MOBBIN’",
-      "cover": "https://p1.music.126.net/hR39mqj-Pj_mRdSMyjrx6g==/109951162835961987.jpg",
-      "url": "https://music.163.com/#/song?id=451017216"
-    },
-    {
       "rank": 95,
-      "id": 4337279,
-      "title": "Norwegian Wood (This Bird Has Flown) (Remastered)",
+      "id": 4336316,
+      "title": "Oh! Darling (Remastered)",
       "artist": "The Beatles",
-      "album": "Rubber Soul (Remastered)",
-      "cover": "https://p1.music.126.net/tox_mlsg502eBgpenLZkLQ==/109951163180940290.jpg",
-      "url": "https://music.163.com/#/song?id=4337279"
+      "album": "Abbey Road (Remastered)",
+      "cover": "https://p1.music.126.net/A_V9_72alwfoLwEKftkRsg==/109951163180920481.jpg",
+      "url": "https://music.163.com/#/song?id=4336316"
     },
     {
       "rank": 96,
@@ -877,30 +877,30 @@
     },
     {
       "rank": 98,
-      "id": 402856,
-      "title": "Long Way",
-      "artist": "目黒将司",
-      "album": "PERSONA4 オリジナル・サウンドトラック",
-      "cover": "https://p1.music.126.net/d-ImmQwluWPKaifOZlN43g==/109951163895937765.jpg",
-      "url": "https://music.163.com/#/song?id=402856"
+      "id": 419596181,
+      "title": "波兰首都是上海",
+      "artist": "yourboyfriendsucks!",
+      "album": "第一集",
+      "cover": "https://p1.music.126.net/S0NDCxJ7__2DuC3q8rHm_A==/109951164419258439.jpg",
+      "url": "https://music.163.com/#/song?id=419596181"
     },
     {
       "rank": 99,
+      "id": 419596179,
+      "title": "Intro (Just Like Honey) (Jesus And Mary Chain Cover)",
+      "artist": "yourboyfriendsucks!",
+      "album": "第一集",
+      "cover": "https://p1.music.126.net/S0NDCxJ7__2DuC3q8rHm_A==/109951164419258439.jpg",
+      "url": "https://music.163.com/#/song?id=419596179"
+    },
+    {
+      "rank": 100,
       "id": 40249668,
       "title": "未知艺术家",
       "artist": "Quark夸克乐队",
       "album": "Design/设计",
       "cover": "https://p1.music.126.net/lRjugsb8Yh08kxky6LG8Gw==/16566341695936825.jpg",
       "url": "https://music.163.com/#/song?id=40249668"
-    },
-    {
-      "rank": 100,
-      "id": 393600,
-      "title": "贪婪",
-      "artist": "永动机",
-      "album": "天启",
-      "cover": "https://p1.music.126.net/acBj4tGTncSYRdQZnh4agg==/5981343255293644.jpg",
-      "url": "https://music.163.com/#/song?id=393600"
     }
   ],
   "all": [
@@ -910,7 +910,7 @@
       "title": "工厂",
       "artist": "张方钊",
       "album": "钱专",
-      "cover": "https://p2.music.126.net/qHTjyT3VTl0tZyWnq9VaSA==/109951173955320630.jpg",
+      "cover": "https://p1.music.126.net/qHTjyT3VTl0tZyWnq9VaSA==/109951173955320630.jpg",
       "url": "https://music.163.com/#/song?id=2153825358"
     },
     {
@@ -919,7 +919,7 @@
       "title": "Viva La Vida",
       "artist": "Coldplay",
       "album": "Viva La Vida or Death and All His Friends",
-      "cover": "https://p2.music.126.net/Wr13D68yaaknFmxTD5xnoQ==/18569651881855121.jpg",
+      "cover": "https://p1.music.126.net/Wr13D68yaaknFmxTD5xnoQ==/18569651881855121.jpg",
       "url": "https://music.163.com/#/song?id=3986017"
     },
     {
@@ -928,7 +928,7 @@
       "title": "CAN'T STOP THE FEELING! (Original Song from DreamWorks Animation's \"TROLLS\")",
       "artist": "Justin Timberlake",
       "album": "CAN'T STOP THE FEELING! (Original Song from DreamWorks Animation's \"TROLLS\")",
-      "cover": "https://p2.music.126.net/nz44PCN92kHen79NfpD4Qw==/109951166429005442.jpg",
+      "cover": "https://p1.music.126.net/nz44PCN92kHen79NfpD4Qw==/109951166429005442.jpg",
       "url": "https://music.163.com/#/song?id=411921855"
     },
     {
@@ -937,7 +937,7 @@
       "title": "Hey KONG",
       "artist": "KEY.L刘聪 / c0de731",
       "album": "街区故事",
-      "cover": "https://p2.music.126.net/4pb6Z041lTpUjTs3tE8bOA==/109951167893582411.jpg",
+      "cover": "https://p1.music.126.net/4pb6Z041lTpUjTs3tE8bOA==/109951167893582411.jpg",
       "url": "https://music.163.com/#/song?id=1383954630"
     },
     {
@@ -946,7 +946,7 @@
       "title": "枝江",
       "artist": "九重临 / 小心台階",
       "album": "枝江",
-      "cover": "https://p2.music.126.net/J2B077AzrBLDlgqEfzUtsw==/109951165941396112.jpg",
+      "cover": "https://p1.music.126.net/J2B077AzrBLDlgqEfzUtsw==/109951165941396112.jpg",
       "url": "https://music.163.com/#/song?id=1841788961"
     },
     {
@@ -955,7 +955,7 @@
       "title": "江湖流",
       "artist": "C-BLOCK / GAI周延",
       "album": "以下范上",
-      "cover": "https://p2.music.126.net/JmeLbT0Z3dkRGoP-G3Xh1w==/18604836255326600.jpg",
+      "cover": "https://p1.music.126.net/JmeLbT0Z3dkRGoP-G3Xh1w==/18604836255326600.jpg",
       "url": "https://music.163.com/#/song?id=454966913"
     },
     {
@@ -964,7 +964,7 @@
       "title": "Lighters",
       "artist": "Eminem / Royce Da 5'9\" / Bruno Mars",
       "album": "Marshall Carter",
-      "cover": "https://p2.music.126.net/-sQSXSdVBY8hzdMZIYy_GA==/923589767375089.jpg",
+      "cover": "https://p1.music.126.net/-sQSXSdVBY8hzdMZIYy_GA==/923589767375089.jpg",
       "url": "https://music.163.com/#/song?id=1297483"
     },
     {
@@ -973,7 +973,7 @@
       "title": "Godzilla",
       "artist": "Eminem / Juice WRLD",
       "album": "Music To Be Murdered By",
-      "cover": "https://p2.music.126.net/zLaWWQli3d2QHPZv_WmXXQ==/109951164631011649.jpg",
+      "cover": "https://p1.music.126.net/zLaWWQli3d2QHPZv_WmXXQ==/109951164631011649.jpg",
       "url": "https://music.163.com/#/song?id=1417093533"
     },
     {
@@ -982,7 +982,7 @@
       "title": "篝火旁",
       "artist": "吕大叶 / 马子林 / 陈觅Lynne",
       "album": "313",
-      "cover": "https://p2.music.126.net/sN5dTpmeJO1DhxIj1ogMLg==/109951163416453597.jpg",
+      "cover": "https://p1.music.126.net/sN5dTpmeJO1DhxIj1ogMLg==/109951163416453597.jpg",
       "url": "https://music.163.com/#/song?id=518725853"
     },
     {
@@ -991,7 +991,7 @@
       "title": "阿司匹林",
       "artist": "王以太",
       "album": "演.说.家",
-      "cover": "https://p2.music.126.net/oiKUza9l47MBECzyrOYbBg==/109951169775167207.jpg",
+      "cover": "https://p1.music.126.net/oiKUza9l47MBECzyrOYbBg==/109951169775167207.jpg",
       "url": "https://music.163.com/#/song?id=1396141677"
     },
     {
@@ -1000,7 +1000,7 @@
       "title": "I saw you smile today. I almost forgot you faded away",
       "artist": "Xeuphoria",
       "album": "Xeuphoria",
-      "cover": "https://p2.music.126.net/B9hgOviIbyKYRmHp-nDkxw==/109951168879539982.jpg",
+      "cover": "https://p1.music.126.net/B9hgOviIbyKYRmHp-nDkxw==/109951168879539982.jpg",
       "url": "https://music.163.com/#/song?id=405377983"
     },
     {
@@ -1009,7 +1009,7 @@
       "title": "我想part2",
       "artist": "法老 / 杨秋儒",
       "album": "生于未来",
-      "cover": "https://p2.music.126.net/wTO7xsKa9YbeZGtgMzDZGw==/109951163807651102.jpg",
+      "cover": "https://p1.music.126.net/wTO7xsKa9YbeZGtgMzDZGw==/109951163807651102.jpg",
       "url": "https://music.163.com/#/song?id=1336856498"
     },
     {
@@ -1018,7 +1018,7 @@
       "title": "DAY1",
       "artist": "艾志恒Asen",
       "album": "DAY1",
-      "cover": "https://p2.music.126.net/3aBXGrdY0P4dJMbzpCbICg==/109951165439123871.jpg",
+      "cover": "https://p1.music.126.net/3aBXGrdY0P4dJMbzpCbICg==/109951165439123871.jpg",
       "url": "https://music.163.com/#/song?id=1492864083"
     },
     {
@@ -1027,7 +1027,7 @@
       "title": "长河",
       "artist": "盛宇D-SHINE / GAI周延 / 布瑞吉Bridge",
       "album": "长河",
-      "cover": "https://p2.music.126.net/7OCSKa9v31WR2BUdnl6SFA==/109951163171551262.jpg",
+      "cover": "https://p1.music.126.net/7OCSKa9v31WR2BUdnl6SFA==/109951163171551262.jpg",
       "url": "https://music.163.com/#/song?id=542906780"
     },
     {
@@ -1036,7 +1036,7 @@
       "title": "Five Hundred Miles",
       "artist": "Justin Timberlake / Carey Mulligan / Stark Sands",
       "album": "Inside Llewyn Davis: Original Soundtrack Recording",
-      "cover": "https://p2.music.126.net/4BTe96FPQ_kW1pmNnlNvHg==/2536573326765583.jpg",
+      "cover": "https://p1.music.126.net/4BTe96FPQ_kW1pmNnlNvHg==/2536573326765583.jpg",
       "url": "https://music.163.com/#/song?id=27759600"
     },
     {
@@ -1045,7 +1045,7 @@
       "title": "阿姆斯特丹",
       "artist": "马思唯 / KnowKnow / Higher Brothers",
       "album": "黑马王子",
-      "cover": "https://p2.music.126.net/G3CaguyN68IKKDrFuNeCQA==/109951170289918247.jpg",
+      "cover": "https://p1.music.126.net/G3CaguyN68IKKDrFuNeCQA==/109951170289918247.jpg",
       "url": "https://music.163.com/#/song?id=1426022019"
     },
     {
@@ -1054,7 +1054,7 @@
       "title": "Why Not ft.卡力老虎&JesseMargiela",
       "artist": "SABER徐天知 / 卡力老虎 / 周乘羽",
       "album": "HUSH",
-      "cover": "https://p2.music.126.net/KVxOjgWnI4HxMKiPNo94KA==/109951172516211467.jpg",
+      "cover": "https://p1.music.126.net/KVxOjgWnI4HxMKiPNo94KA==/109951172516211467.jpg",
       "url": "https://music.163.com/#/song?id=3334255093"
     },
     {
@@ -1063,7 +1063,7 @@
       "title": "威远故事",
       "artist": "GAI周延",
       "album": "杜康",
-      "cover": "https://p2.music.126.net/hHP5K6ZpjT4xqUE696QVzQ==/109951167516129418.jpg",
+      "cover": "https://p1.music.126.net/hHP5K6ZpjT4xqUE696QVzQ==/109951167516129418.jpg",
       "url": "https://music.163.com/#/song?id=1928162447"
     },
     {
@@ -1072,7 +1072,7 @@
       "title": "在雨后醒来",
       "artist": "艾志恒Asen",
       "album": "在雨后醒来",
-      "cover": "https://p2.music.126.net/niUkuo5bIZ3AbJ-BAYF3CQ==/109951172135987504.jpg",
+      "cover": "https://p1.music.126.net/niUkuo5bIZ3AbJ-BAYF3CQ==/109951172135987504.jpg",
       "url": "https://music.163.com/#/song?id=2754175477"
     },
     {
@@ -1081,7 +1081,7 @@
       "title": "Butterflies",
       "artist": "艾志恒Asen / Maikon Flocka Flame",
       "album": "Small Town Kid",
-      "cover": "https://p2.music.126.net/Vm34iFy0wr9ZCdTLc83pag==/109951164865285593.jpg",
+      "cover": "https://p1.music.126.net/Vm34iFy0wr9ZCdTLc83pag==/109951164865285593.jpg",
       "url": "https://music.163.com/#/song?id=1437030961"
     },
     {
@@ -1090,7 +1090,7 @@
       "title": "空城计",
       "artist": "GAI周延 / Gosh Music",
       "album": "空城计",
-      "cover": "https://p2.music.126.net/FsYpwni1WWfDHOv-PRDW1w==/109951162910489580.jpg",
+      "cover": "https://p1.music.126.net/FsYpwni1WWfDHOv-PRDW1w==/109951162910489580.jpg",
       "url": "https://music.163.com/#/song?id=474099732"
     },
     {
@@ -1099,7 +1099,7 @@
       "title": "Love The Way You Lie",
       "artist": "Eminem / Rihanna",
       "album": "Life After Recovery",
-      "cover": "https://p2.music.126.net/SZ9qKspzceo1XrvxUi5mSw==/831230790642200.jpg",
+      "cover": "https://p1.music.126.net/SZ9qKspzceo1XrvxUi5mSw==/831230790642200.jpg",
       "url": "https://music.163.com/#/song?id=1297841"
     },
     {
@@ -1108,7 +1108,7 @@
       "title": "Lose Yourself",
       "artist": "Eminem",
       "album": "8 Mile",
-      "cover": "https://p2.music.126.net/e97RIgPdyoJdQQS6Waw0VQ==/109951173366641451.jpg",
+      "cover": "https://p1.music.126.net/e97RIgPdyoJdQQS6Waw0VQ==/109951173366641451.jpg",
       "url": "https://music.163.com/#/song?id=5052317"
     },
     {
@@ -1117,7 +1117,7 @@
       "title": "投名状 The Oath",
       "artist": "GAI周延 / 盛宇D-SHINE / RANZER叶润泽",
       "album": "投名状 The Oath",
-      "cover": "https://p2.music.126.net/CNIzQmPn8Bt51Y6yINnxtw==/109951164239221668.jpg",
+      "cover": "https://p1.music.126.net/CNIzQmPn8Bt51Y6yINnxtw==/109951164239221668.jpg",
       "url": "https://music.163.com/#/song?id=1380123262"
     },
     {
@@ -1126,7 +1126,7 @@
       "title": "贝贝",
       "artist": "白金",
       "album": "战•歌",
-      "cover": "https://p2.music.126.net/CD8WzNw_aWcYvOvBfK2hkg==/6005532511230717.jpg",
+      "cover": "https://p1.music.126.net/CD8WzNw_aWcYvOvBfK2hkg==/6005532511230717.jpg",
       "url": "https://music.163.com/#/song?id=28469048"
     },
     {
@@ -1135,7 +1135,7 @@
       "title": "Beneath the Mask",
       "artist": "Lyn / アトラスサウンドチーム",
       "album": "『ペルソナ5』オリジナル・サウンドトラック",
-      "cover": "https://p2.music.126.net/8wU04SbAiWWT1pnHqY1P6g==/109951172761320416.jpg",
+      "cover": "https://p1.music.126.net/8wU04SbAiWWT1pnHqY1P6g==/109951172761320416.jpg",
       "url": "https://music.163.com/#/song?id=454224842"
     },
     {
@@ -1144,7 +1144,7 @@
       "title": "豆瓣酱",
       "artist": "马思唯",
       "album": "豆瓣酱",
-      "cover": "https://p2.music.126.net/4YD5Un6HNEnjmikFY_UOnw==/109951170289905837.jpg",
+      "cover": "https://p1.music.126.net/4YD5Un6HNEnjmikFY_UOnw==/109951170289905837.jpg",
       "url": "https://music.163.com/#/song?id=1814769698"
     },
     {
@@ -1153,7 +1153,7 @@
       "title": "Where Is the Love",
       "artist": "Josh Vietti",
       "album": "Best of Both Worlds",
-      "cover": "https://p2.music.126.net/bb7eS7joI4OkapXgN1_tfw==/109951171401582571.jpg",
+      "cover": "https://p1.music.126.net/bb7eS7joI4OkapXgN1_tfw==/109951171401582571.jpg",
       "url": "https://music.163.com/#/song?id=28828076"
     },
     {
@@ -1162,7 +1162,7 @@
       "title": "孤独症",
       "artist": "C-BLOCK",
       "album": "孤独症",
-      "cover": "https://p2.music.126.net/7NlpbGhJUs17b6KDV6yYZg==/18350849068112247.jpg",
+      "cover": "https://p1.music.126.net/7NlpbGhJUs17b6KDV6yYZg==/18350849068112247.jpg",
       "url": "https://music.163.com/#/song?id=410161452"
     },
     {
@@ -1171,7 +1171,7 @@
       "title": "时间列车",
       "artist": "张方钊 / 功夫胖KUNGFU-PEN / Newyounggo",
       "album": "钱专",
-      "cover": "https://p2.music.126.net/qHTjyT3VTl0tZyWnq9VaSA==/109951173955320630.jpg",
+      "cover": "https://p1.music.126.net/qHTjyT3VTl0tZyWnq9VaSA==/109951173955320630.jpg",
       "url": "https://music.163.com/#/song?id=2738036501"
     },
     {
@@ -1180,7 +1180,7 @@
       "title": "杀死那个石家庄人",
       "artist": "万能青年旅店",
       "album": "万能青年旅店 同名专辑",
-      "cover": "https://p2.music.126.net/W1kczDCB4-r-uNAznD1ljg==/108851651165850.jpg",
+      "cover": "https://p1.music.126.net/W1kczDCB4-r-uNAznD1ljg==/108851651165850.jpg",
       "url": "https://music.163.com/#/song?id=386844"
     },
     {
@@ -1189,7 +1189,7 @@
       "title": "Yellow",
       "artist": "Coldplay",
       "album": "Yellow",
-      "cover": "https://p2.music.126.net/n6BatGZdnRaEnIC0h7kVOg==/109951167815599264.jpg",
+      "cover": "https://p1.music.126.net/n6BatGZdnRaEnIC0h7kVOg==/109951167815599264.jpg",
       "url": "https://music.163.com/#/song?id=17177324"
     },
     {
@@ -1198,7 +1198,7 @@
       "title": "我不是管人痴",
       "artist": "普信主义 / 屠山椒",
       "album": "爱，死亡和皮套人",
-      "cover": "https://p2.music.126.net/5l3ksT-HgAGiF4cGKLi88A==/109951170697483189.jpg",
+      "cover": "https://p1.music.126.net/5l3ksT-HgAGiF4cGKLi88A==/109951170697483189.jpg",
       "url": "https://music.163.com/#/song?id=1934706913"
     },
     {
@@ -1207,7 +1207,7 @@
       "title": "我爱你就像拖拉机下山叮铃哐当叮铃 (Remix)",
       "artist": "普信主义",
       "album": "A-SOUL & AU FOREVER !",
-      "cover": "https://p2.music.126.net/ceDUPg6zgTZy-HqU2ZoFCQ==/109951170277321304.jpg",
+      "cover": "https://p1.music.126.net/ceDUPg6zgTZy-HqU2ZoFCQ==/109951170277321304.jpg",
       "url": "https://music.163.com/#/song?id=1879183417"
     },
     {
@@ -1216,7 +1216,7 @@
       "title": "成都集团2020cypher (Prod. by HARIKIRI)",
       "artist": "成都集团 / 马思唯 / KnowKnow / Melo / PSY.P / Ty. / 李尔新 / AnsrJ / Mengzi / 邓典果DDG / 王以太 / Sleepy Cat / HARIKIRI",
       "album": "成都集团2020cypher",
-      "cover": "https://p2.music.126.net/5lSX3EsgHBJblb5WEDcewQ==/109951164948465284.jpg",
+      "cover": "https://p1.music.126.net/5lSX3EsgHBJblb5WEDcewQ==/109951164948465284.jpg",
       "url": "https://music.163.com/#/song?id=1444140174"
     },
     {
@@ -1225,7 +1225,7 @@
       "title": "很高兴认识你",
       "artist": "C-BLOCK",
       "album": "很高兴认识你",
-      "cover": "https://p2.music.126.net/UU09arK_fRlyWVdh2znikA==/109951163610766464.jpg",
+      "cover": "https://p1.music.126.net/UU09arK_fRlyWVdh2znikA==/109951163610766464.jpg",
       "url": "https://music.163.com/#/song?id=1318571230"
     },
     {
@@ -1234,7 +1234,7 @@
       "title": "Stay Alive (From \"The Secret Life of Walter Mitty\" Soundtrack)",
       "artist": "José González",
       "album": "The Secret Life Of Walter Mitty (Music From And Inspired By The Motion Picture)",
-      "cover": "https://p2.music.126.net/bCiQ0OHoBiZ2qmB3GWggAw==/109951165737331544.jpg",
+      "cover": "https://p1.music.126.net/bCiQ0OHoBiZ2qmB3GWggAw==/109951165737331544.jpg",
       "url": "https://music.163.com/#/song?id=28143753"
     },
     {
@@ -1243,7 +1243,7 @@
       "title": "上学威龙",
       "artist": "法老",
       "album": "上学嗨mixtape",
-      "cover": "https://p2.music.126.net/HUY7ew7uTJvFIlT4JEJAyw==/109951163960467036.jpg",
+      "cover": "https://p1.music.126.net/HUY7ew7uTJvFIlT4JEJAyw==/109951163960467036.jpg",
       "url": "https://music.163.com/#/song?id=1355292203"
     },
     {
@@ -1252,7 +1252,7 @@
       "title": "莫名我就喜欢你",
       "artist": "C-BLOCK",
       "album": "老时光",
-      "cover": "https://p2.music.126.net/4yI-ClgZGIGaHisOWwJFXg==/5931865232257374.jpg",
+      "cover": "https://p1.music.126.net/4yI-ClgZGIGaHisOWwJFXg==/5931865232257374.jpg",
       "url": "https://music.163.com/#/song?id=28830157"
     },
     {
@@ -1261,7 +1261,7 @@
       "title": "台北一夜",
       "artist": "Vansdaddy / 华云龙KLE",
       "album": "都市醉漢春日随笔2026",
-      "cover": "https://p2.music.126.net/zkPRRZP_q4ZtK9lBikCvXQ==/109951173331982132.jpg",
+      "cover": "https://p1.music.126.net/zkPRRZP_q4ZtK9lBikCvXQ==/109951173331982132.jpg",
       "url": "https://music.163.com/#/song?id=3390198712"
     },
     {
@@ -1270,7 +1270,7 @@
       "title": "Life Will Change",
       "artist": "Lyn / アトラスサウンドチーム",
       "album": "『ペルソナ5』オリジナル・サウンドトラック",
-      "cover": "https://p2.music.126.net/8wU04SbAiWWT1pnHqY1P6g==/109951172761320416.jpg",
+      "cover": "https://p1.music.126.net/8wU04SbAiWWT1pnHqY1P6g==/109951172761320416.jpg",
       "url": "https://music.163.com/#/song?id=454231736"
     },
     {
@@ -1279,7 +1279,7 @@
       "title": "散半个三台",
       "artist": "Vansdaddy",
       "album": "都市醉漢春日随笔2026",
-      "cover": "https://p2.music.126.net/zkPRRZP_q4ZtK9lBikCvXQ==/109951173331982132.jpg",
+      "cover": "https://p1.music.126.net/zkPRRZP_q4ZtK9lBikCvXQ==/109951173331982132.jpg",
       "url": "https://music.163.com/#/song?id=3390199028"
     },
     {
@@ -1288,7 +1288,7 @@
       "title": "口吐莲花",
       "artist": "西游乐队",
       "album": "变",
-      "cover": "https://p2.music.126.net/-aRePMepAO2acGQKtgR_xg==/109951163597154147.jpg",
+      "cover": "https://p1.music.126.net/-aRePMepAO2acGQKtgR_xg==/109951163597154147.jpg",
       "url": "https://music.163.com/#/song?id=389899"
     },
     {
@@ -1297,7 +1297,7 @@
       "title": "花花公子",
       "artist": "马思唯 / step.jad依加 / Higher Brothers",
       "album": "黑马王子",
-      "cover": "https://p2.music.126.net/G3CaguyN68IKKDrFuNeCQA==/109951170289918247.jpg",
+      "cover": "https://p1.music.126.net/G3CaguyN68IKKDrFuNeCQA==/109951170289918247.jpg",
       "url": "https://music.163.com/#/song?id=1426022018"
     },
     {
@@ -1306,7 +1306,7 @@
       "title": "地下偶像",
       "artist": "NIAN424 / 口 / LusciousBB",
       "album": "地下偶像",
-      "cover": "https://p2.music.126.net/VQp6TEEmDMF8H5KDthXtgw==/109951173552877979.jpg",
+      "cover": "https://p1.music.126.net/VQp6TEEmDMF8H5KDthXtgw==/109951173552877979.jpg",
       "url": "https://music.163.com/#/song?id=3406161636"
     },
     {
@@ -1315,7 +1315,7 @@
       "title": "妙法莲华经",
       "artist": "贊詩",
       "album": "神农尝百草·卷一",
-      "cover": "https://p2.music.126.net/u6NvvBqgTQUzgZV3eyAQtw==/109951170536289030.jpg",
+      "cover": "https://p1.music.126.net/u6NvvBqgTQUzgZV3eyAQtw==/109951170536289030.jpg",
       "url": "https://music.163.com/#/song?id=1996320292"
     },
     {
@@ -1324,7 +1324,7 @@
       "title": "那些事情是真的有意思吗",
       "artist": "当代电影大师",
       "album": "状态",
-      "cover": "https://p2.music.126.net/F8J_csCfb_p9Qv10ERn-oA==/109951164429414303.jpg",
+      "cover": "https://p1.music.126.net/F8J_csCfb_p9Qv10ERn-oA==/109951164429414303.jpg",
       "url": "https://music.163.com/#/song?id=1397159290"
     },
     {
