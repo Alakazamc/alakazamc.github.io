@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "uid": "32133355",
-  "updatedAt": "2026-11-05T02:37:03.966Z",
+  "updatedAt": "2026-11-06T02:36:59.095Z",
   "platforms": {
     "steam": {
       "complete": true,
@@ -13,10 +13,10 @@
           "name": "哈迪斯2",
           "platform": "steam",
           "platformLabel": "Steam",
-          "hours": 23.3,
+          "hours": 23.7,
           "cleared": false,
           "notOwned": true,
-          "recentHours": 3.6,
+          "recentHours": 4,
           "cover": "steam-1145350.jpg"
         },
         {
@@ -25,23 +25,11 @@
           "name": "生化危机4 重制版",
           "platform": "steam",
           "platformLabel": "Steam",
-          "hours": 3.3,
+          "hours": 3.7,
           "cleared": false,
           "notOwned": false,
-          "recentHours": 3.3,
+          "recentHours": 3.7,
           "cover": "steam-2050650.jpg"
-        },
-        {
-          "appid": "552520",
-          "sourceId": "552520",
-          "name": "孤岛惊魂5",
-          "platform": "steam",
-          "platformLabel": "Steam",
-          "hours": 7.4,
-          "cleared": false,
-          "notOwned": false,
-          "recentHours": 0.7,
-          "cover": "steam-552520.jpg"
         },
         {
           "appid": "2321470",
@@ -49,11 +37,35 @@
           "name": "深岩银河：幸存者",
           "platform": "steam",
           "platformLabel": "Steam",
-          "hours": 0.6,
+          "hours": 1.8,
           "cleared": false,
           "notOwned": false,
-          "recentHours": 0.6,
+          "recentHours": 1.8,
           "cover": "steam-2321470.jpg"
+        },
+        {
+          "appid": "3240220",
+          "sourceId": "3240220",
+          "name": "侠盗猎车手 V 增强版",
+          "platform": "steam",
+          "platformLabel": "Steam",
+          "hours": 27.1,
+          "cleared": false,
+          "notOwned": false,
+          "recentHours": 1.1,
+          "cover": "steam-3240220.jpg"
+        },
+        {
+          "appid": "552520",
+          "sourceId": "552520",
+          "name": "孤岛惊魂5",
+          "platform": "steam",
+          "platformLabel": "Steam",
+          "hours": 7.6,
+          "cleared": false,
+          "notOwned": false,
+          "recentHours": 0.9,
+          "cover": "steam-552520.jpg"
         },
         {
           "appid": "753640",
@@ -68,16 +80,16 @@
           "cover": "steam-753640.jpg"
         },
         {
-          "appid": "3240220",
-          "sourceId": "3240220",
-          "name": "侠盗猎车手 V 增强版",
+          "appid": "3117820",
+          "sourceId": "3117820",
+          "name": "苏丹的游戏",
           "platform": "steam",
           "platformLabel": "Steam",
-          "hours": 26.1,
+          "hours": 11.9,
           "cleared": false,
-          "notOwned": false,
-          "recentHours": 0.1,
-          "cover": "steam-3240220.jpg"
+          "notOwned": true,
+          "recentHours": 0,
+          "cover": "steam-3117820.jpg"
         },
         {
           "appid": "578080",
@@ -474,18 +486,6 @@
           "notOwned": false,
           "recentHours": 0,
           "cover": "steam-1794680.jpg"
-        },
-        {
-          "appid": "3117820",
-          "sourceId": "3117820",
-          "name": "苏丹的游戏",
-          "platform": "steam",
-          "platformLabel": "Steam",
-          "hours": 11.9,
-          "cleared": false,
-          "notOwned": true,
-          "recentHours": 0,
-          "cover": "steam-3117820.jpg"
         },
         {
           "appid": "638970",
@@ -3354,6 +3354,16 @@
           "cover": "switchall-900000069.jpg"
         },
         {
+          "appid": "900211415",
+          "sourceId": "010051F0207B2000",
+          "name": "Tomodachi Life 朋友收集 梦想生活",
+          "platform": "switchall",
+          "platformLabel": "Switch",
+          "hours": 2.5,
+          "cleared": false,
+          "cover": "switchall-900211415.jpg"
+        },
+        {
           "appid": "900000794",
           "sourceId": "0100D71004694000",
           "name": "我的世界",
@@ -3372,16 +3382,6 @@
           "hours": 1.9,
           "cleared": false,
           "cover": "switchall-900202553.jpg"
-        },
-        {
-          "appid": "900211415",
-          "sourceId": "010051F0207B2000",
-          "name": "Tomodachi Life 朋友收集 梦想生活",
-          "platform": "switchall",
-          "platformLabel": "Switch",
-          "hours": 2.3,
-          "cleared": false,
-          "cover": "switchall-900211415.jpg"
         },
         {
           "appid": "900186164",
