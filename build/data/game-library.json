@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "uid": "32133355",
-  "updatedAt": "2026-11-06T02:36:59.095Z",
+  "updatedAt": "2026-11-07T02:04:47.442Z",
   "platforms": {
     "steam": {
       "complete": true,
@@ -13,10 +13,10 @@
           "name": "哈迪斯2",
           "platform": "steam",
           "platformLabel": "Steam",
-          "hours": 23.7,
+          "hours": 24.4,
           "cleared": false,
           "notOwned": true,
-          "recentHours": 4,
+          "recentHours": 4.7,
           "cover": "steam-1145350.jpg"
         },
         {
@@ -28,20 +28,8 @@
           "hours": 3.7,
           "cleared": false,
           "notOwned": false,
-          "recentHours": 3.7,
+          "recentHours": 3,
           "cover": "steam-2050650.jpg"
-        },
-        {
-          "appid": "2321470",
-          "sourceId": "2321470",
-          "name": "深岩银河：幸存者",
-          "platform": "steam",
-          "platformLabel": "Steam",
-          "hours": 1.8,
-          "cleared": false,
-          "notOwned": false,
-          "recentHours": 1.8,
-          "cover": "steam-2321470.jpg"
         },
         {
           "appid": "3240220",
@@ -49,11 +37,23 @@
           "name": "侠盗猎车手 V 增强版",
           "platform": "steam",
           "platformLabel": "Steam",
-          "hours": 27.1,
+          "hours": 28.9,
           "cleared": false,
           "notOwned": false,
-          "recentHours": 1.1,
+          "recentHours": 2.9,
           "cover": "steam-3240220.jpg"
+        },
+        {
+          "appid": "2321470",
+          "sourceId": "2321470",
+          "name": "深岩银河：幸存者",
+          "platform": "steam",
+          "platformLabel": "Steam",
+          "hours": 2.4,
+          "cleared": false,
+          "notOwned": false,
+          "recentHours": 2.4,
+          "cover": "steam-2321470.jpg"
         },
         {
           "appid": "552520",
@@ -2943,7 +2943,7 @@
           "name": "Grand Theft Auto V 增强版 (PC)",
           "platform": "xbox_v2",
           "platformLabel": "Xbox",
-          "hours": 21.1,
+          "hours": 21.8,
           "cleared": false,
           "cover": "xbox_v2-900177776.jpg"
         },
@@ -3321,25 +3321,15 @@
     },
     "switchall": {
       "complete": true,
-      "reportedTotal": 15,
+      "reportedTotal": 16,
       "games": [
-        {
-          "appid": "900218547",
-          "sourceId": "040012F028BC2000",
-          "name": "巫师3：狂猎 — 重制版",
-          "platform": "switchall",
-          "platformLabel": "Switch",
-          "hours": 0.8,
-          "cleared": false,
-          "cover": "switchall-900218547.jpg"
-        },
         {
           "appid": "900220198",
           "sourceId": "04008A90274EC000",
           "name": "Minecraft",
           "platform": "switchall",
           "platformLabel": "Switch",
-          "hours": 0.5,
+          "hours": 1.2,
           "cleared": false,
           "cover": "switchall-900220198.jpg"
         },
@@ -3349,9 +3339,29 @@
           "name": "塞尔达传说：旷野之息",
           "platform": "switchall",
           "platformLabel": "Switch",
-          "hours": 30,
+          "hours": 31,
           "cleared": false,
           "cover": "switchall-900000069.jpg"
+        },
+        {
+          "appid": "900218547",
+          "sourceId": "040012F028BC2000",
+          "name": "巫师3：狂猎 — 重制版",
+          "platform": "switchall",
+          "platformLabel": "Switch",
+          "hours": 0.9,
+          "cleared": false,
+          "cover": "switchall-900218547.jpg"
+        },
+        {
+          "appid": "900214549",
+          "sourceId": "0400380020056000",
+          "name": "Splatoon Raiders",
+          "platform": "switchall",
+          "platformLabel": "Switch",
+          "hours": 0.7,
+          "cleared": false,
+          "cover": "switchall-900214549.jpg"
         },
         {
           "appid": "900211415",
