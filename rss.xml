@@ -7,6 +7,13 @@
     <language>zh-CN</language>
     <atom:link href="https://alakazamc.github.io/rss.xml" rel="self" type="application/rss+xml" />
     <item>
+      <title>公司决策的回应</title>
+      <link>https://alakazamc.github.io/posts/%E5%85%AC%E5%8F%B8%E5%86%B3%E7%AD%96%E7%9A%84%E5%9B%9E%E5%BA%94.html</link>
+      <pubDate>Tue, 10 Nov 2026 00:00:00 GMT</pubDate>
+      <guid>https://alakazamc.github.io/posts/%E5%85%AC%E5%8F%B8%E5%86%B3%E7%AD%96%E7%9A%84%E5%9B%9E%E5%BA%94.html</guid>
+      <description>我收到说我只能降薪拿一千这个决策我也是震惊错愕难受失望了很久。 我能理解公司现在的经营有困境，但是我不认可我能力只能拿一千。 我现在负责了整个公司的ontology系统的研发，而且这部分代码都</description>
+    </item>
+<item>
       <title>React is all u need：这个时代不需要 agent 框架</title>
       <link>https://alakazamc.github.io/posts/react-is-all-u-need.html</link>
       <pubDate>Tue, 03 Nov 2026 00:00:00 GMT</pubDate>
