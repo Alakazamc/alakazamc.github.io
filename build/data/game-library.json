@@ -1,12 +1,24 @@
 {
   "schemaVersion": 1,
   "uid": "32133355",
-  "updatedAt": "2026-11-08T01:34:37.715Z",
+  "updatedAt": "2026-11-09T01:47:47.922Z",
   "platforms": {
     "steam": {
       "complete": true,
       "reportedTotal": 199,
       "games": [
+        {
+          "appid": "3240220",
+          "sourceId": "3240220",
+          "name": "侠盗猎车手 V 增强版",
+          "platform": "steam",
+          "platformLabel": "Steam",
+          "hours": 32.8,
+          "cleared": false,
+          "notOwned": false,
+          "recentHours": 6.8,
+          "cover": "steam-3240220.jpg"
+        },
         {
           "appid": "1145350",
           "sourceId": "1145350",
@@ -18,18 +30,6 @@
           "notOwned": true,
           "recentHours": 5.7,
           "cover": "steam-1145350.jpg"
-        },
-        {
-          "appid": "3240220",
-          "sourceId": "3240220",
-          "name": "侠盗猎车手 V 增强版",
-          "platform": "steam",
-          "platformLabel": "Steam",
-          "hours": 31.1,
-          "cleared": false,
-          "notOwned": false,
-          "recentHours": 5.1,
-          "cover": "steam-3240220.jpg"
         },
         {
           "appid": "2050650",
@@ -2943,7 +2943,7 @@
           "name": "Grand Theft Auto V 增强版 (PC)",
           "platform": "xbox_v2",
           "platformLabel": "Xbox",
-          "hours": 21.8,
+          "hours": 24.5,
           "cleared": false,
           "cover": "xbox_v2-900177776.jpg"
         },
@@ -3329,7 +3329,7 @@
           "name": "Minecraft",
           "platform": "switchall",
           "platformLabel": "Switch",
-          "hours": 1.6,
+          "hours": 2.9,
           "cleared": false,
           "cover": "switchall-900220198.jpg"
         },
@@ -3392,16 +3392,6 @@
           "hours": 1.9,
           "cleared": false,
           "cover": "switchall-900202553.jpg"
-        },
-        {
-          "appid": "900186164",
-          "sourceId": "0100E67012924000",
-          "name": "巫师3：狂猎",
-          "platform": "switchall",
-          "platformLabel": "Switch",
-          "hours": 0,
-          "cleared": false,
-          "cover": "switchall-900186164.jpg"
         },
         {
           "appid": "900011199",
@@ -3482,6 +3472,16 @@
           "hours": 0.4,
           "cleared": false,
           "cover": "switchall-900008687.jpg"
+        },
+        {
+          "appid": "900186164",
+          "sourceId": "0100E67012924000",
+          "name": "巫师3：狂猎",
+          "platform": "switchall",
+          "platformLabel": "Switch",
+          "hours": 0,
+          "cleared": false,
+          "cover": "switchall-900186164.jpg"
         }
       ]
     }
