@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "uid": "32133355",
-  "updatedAt": "2026-11-09T01:47:47.922Z",
+  "updatedAt": "2026-11-10T04:13:04.710Z",
   "platforms": {
     "steam": {
       "complete": true,
@@ -13,10 +13,10 @@
           "name": "侠盗猎车手 V 增强版",
           "platform": "steam",
           "platformLabel": "Steam",
-          "hours": 32.8,
+          "hours": 32.9,
           "cleared": false,
           "notOwned": false,
-          "recentHours": 6.8,
+          "recentHours": 6.9,
           "cover": "steam-3240220.jpg"
         },
         {
@@ -32,6 +32,18 @@
           "cover": "steam-1145350.jpg"
         },
         {
+          "appid": "2321470",
+          "sourceId": "2321470",
+          "name": "深岩银河：幸存者",
+          "platform": "steam",
+          "platformLabel": "Steam",
+          "hours": 4.5,
+          "cleared": false,
+          "notOwned": false,
+          "recentHours": 4.5,
+          "cover": "steam-2321470.jpg"
+        },
+        {
           "appid": "2050650",
           "sourceId": "2050650",
           "name": "生化危机4 重制版",
@@ -40,20 +52,8 @@
           "hours": 4,
           "cleared": false,
           "notOwned": false,
-          "recentHours": 3.3,
+          "recentHours": 3.2,
           "cover": "steam-2050650.jpg"
-        },
-        {
-          "appid": "2321470",
-          "sourceId": "2321470",
-          "name": "深岩银河：幸存者",
-          "platform": "steam",
-          "platformLabel": "Steam",
-          "hours": 3,
-          "cleared": false,
-          "notOwned": false,
-          "recentHours": 3,
-          "cover": "steam-2321470.jpg"
         },
         {
           "appid": "552520",
@@ -2943,7 +2943,7 @@
           "name": "Grand Theft Auto V 增强版 (PC)",
           "platform": "xbox_v2",
           "platformLabel": "Xbox",
-          "hours": 24.5,
+          "hours": 25.3,
           "cleared": false,
           "cover": "xbox_v2-900177776.jpg"
         },
