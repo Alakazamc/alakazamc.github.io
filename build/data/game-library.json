@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "uid": "32133355",
-  "updatedAt": "2026-11-10T04:13:04.710Z",
+  "updatedAt": "2026-11-11T02:00:49.496Z",
   "platforms": {
     "steam": {
       "complete": true,
@@ -13,10 +13,10 @@
           "name": "侠盗猎车手 V 增强版",
           "platform": "steam",
           "platformLabel": "Steam",
-          "hours": 32.9,
+          "hours": 34,
           "cleared": false,
           "notOwned": false,
-          "recentHours": 6.9,
+          "recentHours": 8,
           "cover": "steam-3240220.jpg"
         },
         {
@@ -2402,6 +2402,16 @@
       "reportedTotal": 53,
       "games": [
         {
+          "appid": "900006616",
+          "sourceId": "NPWR33408_00",
+          "name": "最后生还者2",
+          "platform": "psn",
+          "platformLabel": "PSN",
+          "hours": 7.3,
+          "cleared": false,
+          "cover": "psn-900006616.jpg"
+        },
+        {
           "appid": "900032622",
           "sourceId": "NPWR22392_00",
           "name": "战神：诸神黄昏",
@@ -2550,16 +2560,6 @@
           "hours": 8.6,
           "cleared": false,
           "cover": "psn-900135636.jpg"
-        },
-        {
-          "appid": "900006616",
-          "sourceId": "NPWR33408_00",
-          "name": "最后生还者2",
-          "platform": "psn",
-          "platformLabel": "PSN",
-          "hours": 7.3,
-          "cleared": false,
-          "cover": "psn-900006616.jpg"
         },
         {
           "appid": "900152832",
