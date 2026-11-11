@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-season="spring" data-time="day">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex,nofollow,noarchive">
+<title>私密文章 · 柯西 Alakazam</title>
+<script>(function boot() {
+  var root = document.documentElement, chosen = 'sakura';
+  try { chosen = localStorage.getItem('kx-skin') || chosen; } catch (_) {}
+  root.dataset.skin = ['sakura', 'coast', 'observatory', 'farm'].includes(chosen) ? chosen : 'sakura';
+  var now = new Date(), month = now.getMonth() + 1, hour = now.getHours();
+  root.dataset.season = month >= 3 && month <= 5 ? 'spring' : month >= 6 && month <= 8 ? 'summer' : month >= 9 && month <= 11 ? 'autumn' : 'winter';
+  root.dataset.time = hour < 6 || hour >= 18 ? 'night' : 'day';
+})();</script>
+<link rel="stylesheet" href="../font.css">
+<link rel="stylesheet" href="../assets/theme.css?v=3feda9745a">
+<style>
+.lockbox{max-width:520px;margin:0 0 var(--s6)}
+.lockrow{display:flex;gap:var(--s2);align-items:stretch;flex-wrap:wrap}
+.lockpass{flex:1 1 240px;min-width:0;min-height:40px;padding:0 var(--s3);
+  font:inherit;font-size:12px;color:var(--ink);background:var(--surface);
+  border:2px solid var(--edge);box-shadow:0 2px 0 var(--edge)}
+.lockpass:focus{outline:2px solid var(--rail);outline-offset:2px}
+.lockbtn{min-height:40px;padding:0 var(--s5)}
+.lockerr{margin:var(--s2) 0 0;font-size:12px;line-height:24px;color:var(--ink)}
+.lockhint{margin:0 0 var(--s4);font-family:var(--read);font-size:14px;line-height:24px;color:var(--ink-2)}
+.lockback{display:inline-block;margin-top:var(--s6);font-size:12px;line-height:24px}
+#locked-body p{margin:0 0 var(--s4);font-family:var(--read);font-size:18px;line-height:32px;color:var(--ink)}
+</style>
+</head>
+<body class="is-article">
+<div class="wrap">
+  <header class="sitebar" style="min-height:40px;margin-bottom:var(--s4)">
+    <div class="sitebar-l"><a class="brand" href="../index.html" aria-label="回到主页"><b>柯西</b><span>回到主页</span></a></div>
+  </header>
+  <article class="panel artpage">
+    <h2 class="pt">私密</h2>
+    <h1 class="arttitle" id="lock-title">需要密码</h1>
+    <p class="lockhint" id="lock-hint">这篇文章不公开。输入密码后，内容只在你自己的浏览器里解开，不会发到任何服务器。</p>
+    <div class="lockbox" id="lock-panel">
+      <form class="lockrow" id="lock-form" autocomplete="off">
+        <label class="lockpass" style="display:flex;align-items:center;gap:var(--s2)">
+          <span style="font-size:12px;color:var(--ink-2)">密码</span>
+          <input id="lock-pass" type="password" autocomplete="new-password" spellcheck="false"
+            style="flex:1;min-width:0;border:0;background:none;color:var(--ink);font:inherit;font-size:12px;outline:none">
+        </label>
+        <button class="abtn lockbtn" type="submit">解锁</button>
+      </form>
+      <p class="lockerr" id="lock-err" role="alert"></p>
+    </div>
+    <div id="locked-body"></div>
+    <a class="lockback" href="../posts/index.html">← 回到博客</a>
+  </article>
+</div>
+<script type="application/json" id="locked-data">{"v":1,"iter":250000,"salt":"cqLYOoOVCISUAp1ZgTvjlA==","iv":"DqbAyoOQ2WoEVgZO","data":"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"}</script>
+<script src="../assets/private-decrypt.js"></script>
+<script>
+(function(){
+  var root = document.documentElement;
+  function seasonOf(m){
+    if (m >= 3 && m <= 5) return 'spring';
+    if (m >= 6 && m <= 8) return 'summer';
+    if (m >= 9 && m <= 11) return 'autumn';
+    return 'winter';
+  }
+  var now = new Date();
+  root.dataset.season = seasonOf(now.getMonth() + 1);
+  var h = now.getHours();
+  root.dataset.time = (h < 6 || h >= 18) ? 'night' : 'day';
+})();
+</script><script>(function runtime(cfg) {
+  var root = document.documentElement;
+  var buttons = document.querySelectorAll('[data-set-skin]');
+  function apply(value) {
+    // Swap both text and surfaces together; the old seasonal background tween
+    // otherwise leaves light text on a light surface during dark-skin changes.
+    root.classList.add('skin-changing');
+    root.dataset.skin = value;
+    buttons.forEach(function (button) { button.setAttribute('aria-pressed', String(button.dataset.setSkin === value)); });
+    document.dispatchEvent(new CustomEvent('kx:skin', {detail: value}));
+    requestAnimationFrame(function () { requestAnimationFrame(function () { root.classList.remove('skin-changing'); }); });
+  }
+  buttons.forEach(function (button) {
+    button.addEventListener('click', function () {
+      var value = button.dataset.setSkin;
+      apply(value);
+      try { localStorage.setItem('kx-skin', value); } catch (_) {}
+    });
+  });
+  apply(root.dataset.skin);
+  function commentsTheme() {
+    // 评论区主题跟皮肤与昼夜（第 6.12 节）：cfg 是 palette.js giscusThemes() 的 8 个地址
+    var theme = cfg[root.dataset.skin + '-' + (root.dataset.time === 'night' ? 'night' : 'day')];
+    var client = document.querySelector('script[src="https://giscus.app/client.js"]');
+    if (client) client.dataset.theme = theme;
+    var frame = document.querySelector('iframe.giscus-frame');
+    if (frame) frame.contentWindow.postMessage({giscus: {setConfig: {theme: theme}}}, 'https://giscus.app');
+  }
+  commentsTheme();
+  new MutationObserver(commentsTheme).observe(root, {attributes:true, attributeFilter:['data-skin','data-time']});
+  // 评论区是懒加载 iframe：它还没启动完时发出的 setConfig 会丢（线上实测换皮肤后评论区停在旧主题）。
+  // giscus 第一次回消息（resizeHeight）时它的监听已经挂好，这时补发一次当前主题；之后的切换直接生效。
+  var commentsReady = false;
+  addEventListener('message', function (event) {
+    if (event.origin !== 'https://giscus.app' || commentsReady) return;
+    commentsReady = true;
+    commentsTheme();
+  });
+})({"sakura-day":"https://alakazamc.github.io/assets/giscus/sakura-day.css?v=79d0088f3b","sakura-night":"https://alakazamc.github.io/assets/giscus/sakura-night.css?v=79d0088f3b","coast-day":"https://alakazamc.github.io/assets/giscus/coast-day.css?v=79d0088f3b","coast-night":"https://alakazamc.github.io/assets/giscus/coast-night.css?v=79d0088f3b","observatory-day":"https://alakazamc.github.io/assets/giscus/observatory-day.css?v=79d0088f3b","observatory-night":"https://alakazamc.github.io/assets/giscus/observatory-night.css?v=79d0088f3b","farm-day":"https://alakazamc.github.io/assets/giscus/farm-day.css?v=79d0088f3b","farm-night":"https://alakazamc.github.io/assets/giscus/farm-night.css?v=79d0088f3b"});(function(){
+  var scenes=Array.from(document.querySelectorAll('.skin-diorama'));
+  if(!scenes.length)return;
+  var stage=document.querySelector('[data-stage]'),visible=new Set();
+  function pause(){scenes.forEach(function(scene){scene.dataset.scenePaused=String(document.hidden||!visible.has(scene)||stage.dataset.paused==='true');});}
+  var button=stage.querySelector('[data-stage-pause]'),reduced=matchMedia('(prefers-reduced-motion: reduce)');
+  var setPaused=function(value){stage.dataset.paused=String(value);button.setAttribute('aria-pressed',String(value));button.textContent=value?'继续风景':'暂停风景';pause();};
+  setPaused(reduced.matches);
+  button.addEventListener('click',function(){setPaused(stage.dataset.paused!=='true');});
+  reduced.addEventListener('change',function(event){setPaused(event.matches);});
+  var observer=new IntersectionObserver(function(entries){entries.forEach(function(entry){if(entry.isIntersecting)visible.add(entry.target);else visible.delete(entry.target);});pause();},{threshold:0.05});
+  scenes.forEach(function(scene){observer.observe(scene);});
+  document.addEventListener('visibilitychange',pause);
+})();</script>
+</body>
+</html>
