@@ -1540,6 +1540,8 @@ PALETTE.writeGiscus(path.join(__dirname, '..', 'assets', 'giscus'));
 // 必须放在 theme.css 之后 —— 文章页要 <link> 它。
 try {
   require('./posts.js').build();
+  // 私密文章页：只有密文 + 浏览器解密脚本，不进 articles()，也不进 RSS/sitemap。
+  require('./private.js').build();
   require('./museum.js').build();
   require('./workshop.js').build();
   // 相馆子页：数据已在上方由 gallery-data.js 刷新（本机/云端同一条链），

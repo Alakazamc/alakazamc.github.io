@@ -12,6 +12,7 @@
 const fs = require('fs');
 const path = require('path');
 const { articles, TAG_ICON } = require('./content.js');
+const { CATEGORIES, categoryOf } = require('./categories.js');
 const { ICONS, toSymbol } = require('./icons.js');
 const { seasonScript, bottomBlock, CHROME_ICONS, metaLine, shareScript, sitebar, skinHead, themeHref } = require('./subpage.js');
 const SITE = require('./site.config.js');
@@ -214,7 +215,38 @@ function blogPage(list) {
 
   /* 时刻表行：与首页「最新文章」面板同一个渲染函数（timetable.js），check-timeline.js 两个页面都会量。
      链接是同级的 <slug>.html（本页自己在 posts/ 里）。 */
-  const card = (a, i) => row(a, i, { href: a.slug + '.html', lead: i === 0, ic });
+  // 分类标记挂在 li 上，筛选脚本只按它隐藏行；默认全部显示，时间线守门量到的仍是完整列表。
+  const card = (a, i) => row(a, i, { href: a.slug + '.html', lead: i === 0, ic })
+    .replace(/(<li class="tl-item[^"]*")/, '$1 data-cat="' + categoryOf(a) + '"');
+
+  const catCount = {};
+  list.forEach((a) => { const c = categoryOf(a); catCount[c] = (catCount[c] || 0) + 1; });
+  /* 分类栏只用行内样式 + 现成的 .abtn 类：CSS 预算是精确棘轮（841 条），
+     往 gen.js 的 <style> 里加规则会直接把 check-css-budget 顶红。 */
+  const catbar = `<nav class="catbar" aria-label="文章分类" style="display:flex;flex-wrap:wrap;gap:var(--s2);margin:0 0 var(--s6);padding:0 0 var(--s4);border-bottom:1px solid var(--line)">
+    ${CATEGORIES.map((c) => `<button class="abtn" type="button" data-cat="${c.id}" aria-pressed="${c.id === 'all'}" style="min-height:32px;padding:0 var(--s3);font-size:12px">${c.label} ${c.id === 'all' ? list.length : (catCount[c.id] || 0)}</button>`).join('')}
+    <a class="abtn" href="../private/index.html" style="min-height:32px;padding:0 var(--s3);font-size:12px">🔒 私密 1</a>
+  </nav>`;
+  const catScript = `<script>
+(function(){
+  var bar=document.querySelector('.catbar'); if(!bar) return;
+  var btns=bar.querySelectorAll('button[data-cat]');
+  bar.addEventListener('click',function(e){
+    var b=e.target.closest('button[data-cat]'); if(!b) return;
+    var cat=b.getAttribute('data-cat');
+    for(var i=0;i<btns.length;i++){
+      var on=btns[i]===b;
+      btns[i].setAttribute('aria-pressed',on?'true':'false');
+      btns[i].style.background=on?'var(--plate)':'';
+      btns[i].style.color=on?'var(--on-plate)':'';
+    }
+    var items=document.querySelectorAll('#timeline .tl-item');
+    for(var j=0;j<items.length;j++){
+      items[j].style.display=(cat==='all'||items[j].getAttribute('data-cat')===cat)?'':'none';
+    }
+  });
+})();
+</script>`;
 
   // id="timeline" 让 check-timeline.js 用同一段 EXPR 同时量主页和这一页。
   // 一篇都没有时不画时间线，留一句指向写作台的话（不留空面板）。
@@ -245,6 +277,7 @@ ${spriteFor(['mailbox', 'basket', 'book', 'play']
     <h2 class="pt">${ic('basket', 'sm')}博客</h2>
     <h1 class="arttitle">一共 ${list.length} 篇</h1>
     <p class="artmeta">${metaLine(['本站手写 ' + siteCount + ' 篇', '豆瓣影评 ' + doubanCount + ' 篇', '按时间倒序'])}</p>
+    ${catbar}
     ${timeline}
     <p class="blog-note">想投稿 / 纠错：首页底部「留言板」，或每篇文章底部的评论区。</p>
   </section>
@@ -252,6 +285,7 @@ ${spriteFor(['mailbox', 'basket', 'book', 'play']
 </div>
 ${seasonScript()}
 ${shareScript()}
+${catScript}
 </body>
 </html>
 `;
