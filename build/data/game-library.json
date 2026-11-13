@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "uid": "32133355",
-  "updatedAt": "2026-11-12T03:10:34.460Z",
+  "updatedAt": "2026-11-13T02:44:05.900Z",
   "platforms": {
     "steam": {
       "complete": true,
@@ -13,10 +13,10 @@
           "name": "侠盗猎车手 V 增强版",
           "platform": "steam",
           "platformLabel": "Steam",
-          "hours": 34.8,
+          "hours": 35.8,
           "cleared": false,
           "notOwned": false,
-          "recentHours": 8.7,
+          "recentHours": 9.8,
           "cover": "steam-3240220.jpg"
         },
         {
@@ -37,10 +37,10 @@
           "name": "深岩银河：幸存者",
           "platform": "steam",
           "platformLabel": "Steam",
-          "hours": 4.5,
+          "hours": 4.7,
           "cleared": false,
           "notOwned": false,
-          "recentHours": 4.5,
+          "recentHours": 4.7,
           "cover": "steam-2321470.jpg"
         },
         {
@@ -2943,7 +2943,7 @@
           "name": "Grand Theft Auto V 增强版 (PC)",
           "platform": "xbox_v2",
           "platformLabel": "Xbox",
-          "hours": 26.9,
+          "hours": 27.9,
           "cleared": false,
           "cover": "xbox_v2-900177776.jpg"
         },
@@ -3339,7 +3339,7 @@
           "name": "塞尔达传说：旷野之息",
           "platform": "switchall",
           "platformLabel": "Switch",
-          "hours": 31,
+          "hours": 33,
           "cleared": false,
           "cover": "switchall-900000069.jpg"
         },
