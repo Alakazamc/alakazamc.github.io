@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "uid": "32133355",
-  "updatedAt": "2026-11-13T02:44:05.900Z",
+  "updatedAt": "2026-11-14T02:31:55.158Z",
   "platforms": {
     "steam": {
       "complete": true,
@@ -13,10 +13,10 @@
           "name": "侠盗猎车手 V 增强版",
           "platform": "steam",
           "platformLabel": "Steam",
-          "hours": 35.8,
+          "hours": 40.4,
           "cleared": false,
           "notOwned": false,
-          "recentHours": 9.8,
+          "recentHours": 14.3,
           "cover": "steam-3240220.jpg"
         },
         {
@@ -25,7 +25,7 @@
           "name": "哈迪斯2",
           "platform": "steam",
           "platformLabel": "Steam",
-          "hours": 26.4,
+          "hours": 27.3,
           "cleared": false,
           "notOwned": true,
           "recentHours": 6.7,
@@ -37,10 +37,10 @@
           "name": "深岩银河：幸存者",
           "platform": "steam",
           "platformLabel": "Steam",
-          "hours": 4.7,
+          "hours": 5.1,
           "cleared": false,
           "notOwned": false,
-          "recentHours": 4.7,
+          "recentHours": 5.1,
           "cover": "steam-2321470.jpg"
         },
         {
@@ -52,7 +52,7 @@
           "hours": 4,
           "cleared": false,
           "notOwned": false,
-          "recentHours": 3.2,
+          "recentHours": 2.8,
           "cover": "steam-2050650.jpg"
         },
         {
@@ -66,18 +66,6 @@
           "notOwned": false,
           "recentHours": 0.9,
           "cover": "steam-552520.jpg"
-        },
-        {
-          "appid": "753640",
-          "sourceId": "753640",
-          "name": "星际拓荒",
-          "platform": "steam",
-          "platformLabel": "Steam",
-          "hours": 18.5,
-          "cleared": false,
-          "notOwned": false,
-          "recentHours": 0.3,
-          "cover": "steam-753640.jpg"
         },
         {
           "appid": "3117820",
@@ -438,6 +426,18 @@
           "notOwned": false,
           "recentHours": 0,
           "cover": "steam-271590.jpg"
+        },
+        {
+          "appid": "753640",
+          "sourceId": "753640",
+          "name": "星际拓荒",
+          "platform": "steam",
+          "platformLabel": "Steam",
+          "hours": 18.5,
+          "cleared": false,
+          "notOwned": false,
+          "recentHours": 0,
+          "cover": "steam-753640.jpg"
         },
         {
           "appid": "2001120",
@@ -2943,7 +2943,7 @@
           "name": "Grand Theft Auto V 增强版 (PC)",
           "platform": "xbox_v2",
           "platformLabel": "Xbox",
-          "hours": 27.9,
+          "hours": 29.1,
           "cleared": false,
           "cover": "xbox_v2-900177776.jpg"
         },
@@ -3324,6 +3324,16 @@
       "reportedTotal": 16,
       "games": [
         {
+          "appid": "900000069",
+          "sourceId": "01007EF00011E000",
+          "name": "塞尔达传说：旷野之息",
+          "platform": "switchall",
+          "platformLabel": "Switch",
+          "hours": 34,
+          "cleared": false,
+          "cover": "switchall-900000069.jpg"
+        },
+        {
           "appid": "900220198",
           "sourceId": "04008A90274EC000",
           "name": "Minecraft",
@@ -3332,16 +3342,6 @@
           "hours": 3.1,
           "cleared": false,
           "cover": "switchall-900220198.jpg"
-        },
-        {
-          "appid": "900000069",
-          "sourceId": "01007EF00011E000",
-          "name": "塞尔达传说：旷野之息",
-          "platform": "switchall",
-          "platformLabel": "Switch",
-          "hours": 33,
-          "cleared": false,
-          "cover": "switchall-900000069.jpg"
         },
         {
           "appid": "900218547",
