@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "uid": "32133355",
-  "updatedAt": "2026-11-14T02:31:55.158Z",
+  "updatedAt": "2026-11-15T02:00:34.658Z",
   "platforms": {
     "steam": {
       "complete": true,
@@ -13,10 +13,10 @@
           "name": "侠盗猎车手 V 增强版",
           "platform": "steam",
           "platformLabel": "Steam",
-          "hours": 40.4,
+          "hours": 42.5,
           "cleared": false,
           "notOwned": false,
-          "recentHours": 14.3,
+          "recentHours": 16.5,
           "cover": "steam-3240220.jpg"
         },
         {
@@ -28,7 +28,7 @@
           "hours": 27.3,
           "cleared": false,
           "notOwned": true,
-          "recentHours": 6.7,
+          "recentHours": 5.3,
           "cover": "steam-1145350.jpg"
         },
         {
@@ -52,7 +52,7 @@
           "hours": 4,
           "cleared": false,
           "notOwned": false,
-          "recentHours": 2.8,
+          "recentHours": 1.5,
           "cover": "steam-2050650.jpg"
         },
         {
@@ -2943,7 +2943,7 @@
           "name": "Grand Theft Auto V 增强版 (PC)",
           "platform": "xbox_v2",
           "platformLabel": "Xbox",
-          "hours": 29.1,
+          "hours": 33.9,
           "cleared": false,
           "cover": "xbox_v2-900177776.jpg"
         },
@@ -3329,7 +3329,7 @@
           "name": "塞尔达传说：旷野之息",
           "platform": "switchall",
           "platformLabel": "Switch",
-          "hours": 34,
+          "hours": 35,
           "cleared": false,
           "cover": "switchall-900000069.jpg"
         },
