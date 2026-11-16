@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "uid": "32133355",
-  "updatedAt": "2026-11-15T02:00:34.658Z",
+  "updatedAt": "2026-11-16T02:16:00.601Z",
   "platforms": {
     "steam": {
       "complete": true,
@@ -13,10 +13,10 @@
           "name": "侠盗猎车手 V 增强版",
           "platform": "steam",
           "platformLabel": "Steam",
-          "hours": 42.5,
+          "hours": 49.2,
           "cleared": false,
           "notOwned": false,
-          "recentHours": 16.5,
+          "recentHours": 23.1,
           "cover": "steam-3240220.jpg"
         },
         {
@@ -52,7 +52,7 @@
           "hours": 4,
           "cleared": false,
           "notOwned": false,
-          "recentHours": 1.5,
+          "recentHours": 1.1,
           "cover": "steam-2050650.jpg"
         },
         {
