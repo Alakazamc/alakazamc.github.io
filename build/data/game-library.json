@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "uid": "32133355",
-  "updatedAt": "2026-11-16T02:16:00.601Z",
+  "updatedAt": "2026-11-17T04:39:37.961Z",
   "platforms": {
     "steam": {
       "complete": true,
@@ -2943,7 +2943,7 @@
           "name": "Grand Theft Auto V 增强版 (PC)",
           "platform": "xbox_v2",
           "platformLabel": "Xbox",
-          "hours": 33.9,
+          "hours": 40.4,
           "cleared": false,
           "cover": "xbox_v2-900177776.jpg"
         },
@@ -3344,16 +3344,6 @@
           "cover": "switchall-900220198.jpg"
         },
         {
-          "appid": "900218547",
-          "sourceId": "040012F028BC2000",
-          "name": "巫师3：狂猎 — 重制版",
-          "platform": "switchall",
-          "platformLabel": "Switch",
-          "hours": 0.9,
-          "cleared": false,
-          "cover": "switchall-900218547.jpg"
-        },
-        {
           "appid": "900214549",
           "sourceId": "0400380020056000",
           "name": "Splatoon Raiders",
@@ -3364,6 +3354,16 @@
           "cover": "switchall-900214549.jpg"
         },
         {
+          "appid": "900218547",
+          "sourceId": "040012F028BC2000",
+          "name": "巫师3：狂猎 — 重制版",
+          "platform": "switchall",
+          "platformLabel": "Switch",
+          "hours": 0.9,
+          "cleared": false,
+          "cover": "switchall-900218547.jpg"
+        },
+        {
           "appid": "900211415",
           "sourceId": "010051F0207B2000",
           "name": "Tomodachi Life 朋友收集 梦想生活",
@@ -3372,26 +3372,6 @@
           "hours": 2.5,
           "cleared": false,
           "cover": "switchall-900211415.jpg"
-        },
-        {
-          "appid": "900000794",
-          "sourceId": "0100D71004694000",
-          "name": "我的世界",
-          "platform": "switchall",
-          "platformLabel": "Switch",
-          "hours": 5.8,
-          "cleared": false,
-          "cover": "switchall-900000794.jpg"
-        },
-        {
-          "appid": "900202553",
-          "sourceId": "0400A3A01EE4C000",
-          "name": "Pokémon Pokopia",
-          "platform": "switchall",
-          "platformLabel": "Switch",
-          "hours": 1.9,
-          "cleared": false,
-          "cover": "switchall-900202553.jpg"
         },
         {
           "appid": "900011199",
@@ -3412,6 +3392,16 @@
           "hours": 13,
           "cleared": false,
           "cover": "switchall-900168289.jpg"
+        },
+        {
+          "appid": "900000794",
+          "sourceId": "0100D71004694000",
+          "name": "我的世界",
+          "platform": "switchall",
+          "platformLabel": "Switch",
+          "hours": 5.8,
+          "cleared": false,
+          "cover": "switchall-900000794.jpg"
         },
         {
           "appid": "900199221",
@@ -3452,6 +3442,16 @@
           "hours": 2.5,
           "cleared": false,
           "cover": "switchall-900000070.jpg"
+        },
+        {
+          "appid": "900202553",
+          "sourceId": "0400A3A01EE4C000",
+          "name": "Pokémon Pokopia",
+          "platform": "switchall",
+          "platformLabel": "Switch",
+          "hours": 1.9,
+          "cleared": false,
+          "cover": "switchall-900202553.jpg"
         },
         {
           "appid": "900004546",
