@@ -1,11 +1,11 @@
 {
   "schemaVersion": 1,
   "uid": "32133355",
-  "updatedAt": "2026-11-17T04:39:37.961Z",
+  "updatedAt": "2026-11-18T03:45:38.922Z",
   "platforms": {
     "steam": {
       "complete": true,
-      "reportedTotal": 199,
+      "reportedTotal": 200,
       "games": [
         {
           "appid": "3240220",
@@ -20,6 +20,18 @@
           "cover": "steam-3240220.jpg"
         },
         {
+          "appid": "2321470",
+          "sourceId": "2321470",
+          "name": "深岩银河：幸存者",
+          "platform": "steam",
+          "platformLabel": "Steam",
+          "hours": 5.5,
+          "cleared": false,
+          "notOwned": false,
+          "recentHours": 4.9,
+          "cover": "steam-2321470.jpg"
+        },
+        {
           "appid": "1145350",
           "sourceId": "1145350",
           "name": "哈迪斯2",
@@ -28,20 +40,20 @@
           "hours": 27.3,
           "cleared": false,
           "notOwned": true,
-          "recentHours": 5.3,
+          "recentHours": 4.1,
           "cover": "steam-1145350.jpg"
         },
         {
-          "appid": "2321470",
-          "sourceId": "2321470",
-          "name": "深岩银河：幸存者",
+          "appid": "2868840",
+          "sourceId": "2868840",
+          "name": "杀戮尖塔2",
           "platform": "steam",
           "platformLabel": "Steam",
-          "hours": 5.1,
+          "hours": 112.7,
           "cleared": false,
           "notOwned": false,
-          "recentHours": 5.1,
-          "cover": "steam-2321470.jpg"
+          "recentHours": 1.8,
+          "cover": "2868840.jpg"
         },
         {
           "appid": "2050650",
@@ -49,11 +61,23 @@
           "name": "生化危机4 重制版",
           "platform": "steam",
           "platformLabel": "Steam",
-          "hours": 4,
+          "hours": 4.2,
           "cleared": false,
           "notOwned": false,
           "recentHours": 1.1,
           "cover": "steam-2050650.jpg"
+        },
+        {
+          "appid": "4115450",
+          "sourceId": "4115450",
+          "name": "影之刃零",
+          "platform": "steam",
+          "platformLabel": "Steam",
+          "hours": 0.9,
+          "cleared": false,
+          "notOwned": true,
+          "recentHours": 0.9,
+          "cover": "steam-4115450.jpg"
         },
         {
           "appid": "552520",
@@ -64,7 +88,7 @@
           "hours": 7.6,
           "cleared": false,
           "notOwned": false,
-          "recentHours": 0.9,
+          "recentHours": 0.2,
           "cover": "steam-552520.jpg"
         },
         {
@@ -150,18 +174,6 @@
           "notOwned": false,
           "recentHours": 0,
           "cover": "1174180.jpg"
-        },
-        {
-          "appid": "2868840",
-          "sourceId": "2868840",
-          "name": "杀戮尖塔2",
-          "platform": "steam",
-          "platformLabel": "Steam",
-          "hours": 110.9,
-          "cleared": false,
-          "notOwned": false,
-          "recentHours": 0,
-          "cover": "2868840.jpg"
         },
         {
           "appid": "250900",
@@ -2402,6 +2414,16 @@
       "reportedTotal": 53,
       "games": [
         {
+          "appid": "900135636",
+          "sourceId": "NPWR35316_00",
+          "name": "最终幻想7 重生",
+          "platform": "psn",
+          "platformLabel": "PSN",
+          "hours": 8.7,
+          "cleared": false,
+          "cover": "psn-900135636.jpg"
+        },
+        {
           "appid": "900006616",
           "sourceId": "NPWR33408_00",
           "name": "最后生还者2",
@@ -2550,16 +2572,6 @@
           "hours": 8.8,
           "cleared": false,
           "cover": "psn-900021537.jpg"
-        },
-        {
-          "appid": "900135636",
-          "sourceId": "NPWR35316_00",
-          "name": "最终幻想7 重生",
-          "platform": "psn",
-          "platformLabel": "PSN",
-          "hours": 8.6,
-          "cleared": false,
-          "cover": "psn-900135636.jpg"
         },
         {
           "appid": "900152832",
@@ -2902,14 +2914,14 @@
           "cover": "psn-900169079.jpg"
         },
         {
-          "appid": "900002244",
+          "appid": "900000764",
           "sourceId": "NPWR17130_00",
           "name": "往日不再",
           "platform": "psn",
           "platformLabel": "PSN",
           "hours": 0,
           "cleared": false,
-          "cover": "psn-900002244.jpg"
+          "cover": "psn-900000764.jpg"
         },
         {
           "appid": "900002467",
@@ -3329,7 +3341,7 @@
           "name": "塞尔达传说：旷野之息",
           "platform": "switchall",
           "platformLabel": "Switch",
-          "hours": 35,
+          "hours": 36,
           "cleared": false,
           "cover": "switchall-900000069.jpg"
         },
@@ -3339,7 +3351,7 @@
           "name": "Minecraft",
           "platform": "switchall",
           "platformLabel": "Switch",
-          "hours": 3.1,
+          "hours": 3.8,
           "cleared": false,
           "cover": "switchall-900220198.jpg"
         },

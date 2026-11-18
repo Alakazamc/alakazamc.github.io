@@ -2,21 +2,21 @@
   "sources": {
     "douban": {
       "status": "success",
-      "lastSuccess": "2026-11-17T04:38:22.909Z",
+      "lastSuccess": "2026-11-18T03:44:30.323Z",
       "count": 378
     },
     "games": {
       "status": "success",
-      "lastSuccess": "2026-11-17T04:38:22.909Z",
-      "count": 306
+      "lastSuccess": "2026-11-18T03:44:30.323Z",
+      "count": 307
     },
     "netease": {
       "status": "success",
-      "lastSuccess": "2026-11-17T04:38:21.342Z",
+      "lastSuccess": "2026-11-18T03:44:28.616Z",
       "weekCount": 100,
       "allCount": 100
     }
   },
-  "attemptedAt": "2026-11-17T04:38:22.909Z",
+  "attemptedAt": "2026-11-18T03:44:30.323Z",
   "handledRequest": "initial-6e878a24-cbc7-431b-914f-7cb1157cb059"
 }
